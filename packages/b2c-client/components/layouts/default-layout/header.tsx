@@ -1,8 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps, Skeleton } from 'antd';
-
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { getImageUrl } from 'common/utils/getImageUrl';
@@ -13,6 +12,8 @@ import Search from './search';
 import CartIcon from './cart-icon';
 import Avatar from './avatar';
 import { useUserQueryStore } from '~/hooks/useUserStore';
+import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
+import EditProfilePopup from '~/components/my-page/EditProfilePopup';
 
 const Header = () => {
     const auth = useAuth();
@@ -20,6 +21,8 @@ const Header = () => {
     const { onOpen: openLoginModal } = useLoginModal();
     const { onOpen: openRegisterModal } = useRegisterModal();
     const { user, isFetching } = useUserQueryStore();
+    const [isChangePasswordVisible, setChangePasswordVisible] = useState(false);
+    const [isProfileModalVisible, setProfileModalVisible] = useState(false);
 
     const logOut = () => {
         Cookies.remove('accessTokenClient');
@@ -48,6 +51,28 @@ const Header = () => {
                     role="presentation"
                 >
                     Đơn mua
+                </div>
+            ),
+        },
+        {
+            key: 'changePassword',
+            label: (
+                <div
+                    onClick={() => setChangePasswordVisible(true)}
+                    role="presentation"
+                >
+                    Đổi mật khẩu
+                </div>
+            ),
+        },
+        {
+            key: 'profile',
+            label: (
+                <div
+                    onClick={() => setProfileModalVisible(true)}
+                    role="presentation"
+                >
+                    Hồ sơ
                 </div>
             ),
         },
@@ -85,14 +110,12 @@ const Header = () => {
                         <div>
                             <Dropdown
                                 menu={{ items }}
-                                overlayStyle={{
-                                    width: 250,
-                                }}
+                                overlayStyle={{ width: 250 }}
                                 placement="bottomRight"
                             >
                                 <div className="flex cursor-pointer space-x-4 rounded-full border px-3 py-2">
                                     {isFetching ? (
-                                        <Skeleton.Avatar active className="" />
+                                        <Skeleton.Avatar active />
                                     ) : (
                                         <Avatar
                                             height={40}
@@ -102,7 +125,6 @@ const Header = () => {
                                             width={40}
                                         />
                                     )}
-
                                     <MenuOutlined />
                                 </div>
                             </Dropdown>
@@ -119,6 +141,23 @@ const Header = () => {
                     )}
                 </div>
             </div>
+            <ChangePasswordPopup
+                onClose={() => setChangePasswordVisible(false)}
+                visible={isChangePasswordVisible}
+            />
+            <EditProfilePopup
+                avatarUrl={getImageUrl(user?.data?.image || '')}
+                initialValues={{
+                    name: user?.data?.name || '',
+                    email: user?.data?.email || '',
+                    phone: user?.data?.phone || '',
+                    gender: user?.data?.gender || '',
+                    dob: user?.data?.dob || null,
+                    address: user?.data?.address || '',
+                }}
+                onClose={() => setProfileModalVisible(false)}
+                visible={isProfileModalVisible}
+            />
         </div>
     );
 };
