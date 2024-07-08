@@ -1,10 +1,11 @@
 import { MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps, Skeleton } from 'antd';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { getImageUrl } from 'common/utils/getImageUrl';
+import { get } from 'common/utils/http-request';
 import { useAuth } from '~/hooks/useAuth';
 import useLoginModal from '~/hooks/useLoginModal';
 import useRegisterModal from '~/hooks/useRegisterModal';
@@ -15,15 +16,53 @@ import { useUserQueryStore } from '~/hooks/useUserStore';
 import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
 import EditProfilePopup from '~/components/my-page/EditProfilePopup';
 
+interface UserProfile {
+    name: string;
+    email: string;
+    phone: string;
+    gender: string;
+    dob: string | null;
+    address: string;
+}
 const Header = () => {
     const auth = useAuth();
     const router = useRouter();
     const { onOpen: openLoginModal } = useLoginModal();
     const { onOpen: openRegisterModal } = useRegisterModal();
     const { user, isFetching } = useUserQueryStore();
-    const [isChangePasswordVisible, setChangePasswordVisible] = useState(false);
-    const [isProfileModalVisible, setProfileModalVisible] = useState(false);
+    const [, setUserImage] = useState<string | null>(null);
+    const [isProfilePopupVisible, setIsProfilePopupVisible] = useState(false);
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+    const [isChangePasswordPopupVisible, setIsChangePasswordPopupVisible] =
+        useState(false);
+    const fetchUserImage = async () => {
+        try {
+            const response = await get('/user-image');
+            const imageUrl = getImageUrl(response.data.data.image);
+            setUserImage(imageUrl);
+        } catch (error) {
+            //
+        }
+    };
 
+    const fetchUserProfile = async () => {
+        try {
+            const response = await get('/user-profile');
+            setUserProfile(response.data.data);
+        } catch (error) {
+            //
+        }
+    };
+
+    useEffect(() => {
+        if (auth) {
+            fetchUserImage();
+            fetchUserProfile();
+        } else {
+            setUserImage(null);
+            setUserProfile(null);
+        }
+    }, [auth]);
     const logOut = () => {
         Cookies.remove('accessTokenClient');
         setTimeout(() => {
@@ -36,10 +75,21 @@ const Header = () => {
             key: '1',
             label: (
                 <div
-                    onClick={() => router.push('/my-page')}
+                    onClick={() => setIsProfilePopupVisible(true)}
                     role="presentation"
                 >
                     Thông tin
+                </div>
+            ),
+        },
+        {
+            key: '5',
+            label: (
+                <div
+                    onClick={() => setIsChangePasswordPopupVisible(true)}
+                    role="presentation"
+                >
+                    Đổi mật khẩu
                 </div>
             ),
         },
@@ -51,28 +101,6 @@ const Header = () => {
                     role="presentation"
                 >
                     Đơn mua
-                </div>
-            ),
-        },
-        {
-            key: 'changePassword',
-            label: (
-                <div
-                    onClick={() => setChangePasswordVisible(true)}
-                    role="presentation"
-                >
-                    Đổi mật khẩu
-                </div>
-            ),
-        },
-        {
-            key: 'profile',
-            label: (
-                <div
-                    onClick={() => setProfileModalVisible(true)}
-                    role="presentation"
-                >
-                    Hồ sơ
                 </div>
             ),
         },
@@ -113,7 +141,11 @@ const Header = () => {
                                 overlayStyle={{ width: 250 }}
                                 placement="bottomRight"
                             >
-                                <div className="flex cursor-pointer space-x-4 rounded-full border px-3 py-2">
+                                <div
+                                    className="flex cursor-pointer space-x-4 rounded-full border px-3 py-2"
+                                    onClick={() => router.push('/my-page')}
+                                    role="presentation"
+                                >
                                     {isFetching ? (
                                         <Skeleton.Avatar active />
                                     ) : (
@@ -128,6 +160,22 @@ const Header = () => {
                                     <MenuOutlined />
                                 </div>
                             </Dropdown>
+                            {userProfile && (
+                                <EditProfilePopup
+                                    onClose={() =>
+                                        setIsProfilePopupVisible(false)
+                                    }
+                                    visible={isProfilePopupVisible}
+                                />
+                            )}
+                            {userProfile && (
+                                <ChangePasswordPopup
+                                    onClose={() =>
+                                        setIsChangePasswordPopupVisible(false)
+                                    }
+                                    visible={isChangePasswordPopupVisible}
+                                />
+                            )}
                         </div>
                     ) : (
                         <div className="flex space-x-3">
@@ -141,23 +189,6 @@ const Header = () => {
                     )}
                 </div>
             </div>
-            <ChangePasswordPopup
-                onClose={() => setChangePasswordVisible(false)}
-                visible={isChangePasswordVisible}
-            />
-            <EditProfilePopup
-                avatarUrl={getImageUrl(user?.data?.image || '')}
-                initialValues={{
-                    name: user?.data?.name || '',
-                    email: user?.data?.email || '',
-                    phone: user?.data?.phone || '',
-                    gender: user?.data?.gender || '',
-                    dob: user?.data?.dob || null,
-                    address: user?.data?.address || '',
-                }}
-                onClose={() => setProfileModalVisible(false)}
-                visible={isProfileModalVisible}
-            />
         </div>
     );
 };
