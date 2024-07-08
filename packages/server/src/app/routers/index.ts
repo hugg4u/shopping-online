@@ -10,6 +10,7 @@ import slider from './slider';
 import cart from './cart';
 import order from './order';
 import feedback from './feedback';
+import payment from './payment';
 import customer from './customer';
 
 const router = Router();
@@ -26,6 +27,7 @@ export default (): Router => {
     cart(router);
     order(router);
     feedback(router);
+    payment(router);
     customer(router);
     return router;
 };
