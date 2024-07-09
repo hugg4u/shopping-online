@@ -9,18 +9,19 @@ import {
     Upload,
     UploadFile,
 } from 'antd';
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import request, { get } from 'common/utils/http-request';
-
 import { useMutation } from '@tanstack/react-query';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import moment from 'moment';
 import { RcFile } from 'antd/es/upload';
 import { toast } from 'react-toastify';
+import { useUserQueryStore } from 'common/store/useUserStore';
+import Avatar from 'common/components/avatar';
 import EditProfilePopup from './EditProfilePopup';
 import styles from '~/styles/my-page/ProfileForm.module.css';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const ProfileForm = () => {
     const [form] = Form.useForm();
@@ -31,6 +32,7 @@ const ProfileForm = () => {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
     const [checkUpdateImg, setCheckUpdateImg] = useState(false);
     const [checkHideImg, setCheckHideImg] = useState(false);
+    const { reload } = useUserQueryStore();
 
     const mapGender = (gender: string) => {
         if (gender === 'MALE') return 'Nam';
@@ -91,11 +93,14 @@ const ProfileForm = () => {
             return request.put('/user-profile/update-image', { image });
         },
         onSuccess: () => {
-            message.success('Profile updated successfully');
+            message.success('Thông tin người dùng được cập nhật thành công');
             setFileList([]);
             setUploadedImageName('');
             setCheckUpdateImg(true);
             setCheckHideImg(false);
+            setTimeout(() => {
+                reload();
+            }, 200);
         },
         onError: (err) => {
             const error = err as Error;
@@ -161,6 +166,11 @@ const ProfileForm = () => {
         setCheckHideImg(true);
     };
 
+    const openModal = () => {
+        setFileList([]); // Clear file list before opening modal
+        setIsModalVisible(true);
+    };
+
     const formItemLayout = {
         labelCol: {
             xs: { span: 24 },
@@ -176,7 +186,7 @@ const ProfileForm = () => {
         <Spin spinning={loading}>
             <div className={styles.profileFormContainer}>
                 <Title level={3}>Hồ Sơ Của Tôi</Title>
-                <Text>Quản lý thông tin hồ sơ để bảo mật tài khoản</Text>
+
                 <Form
                     form={form}
                     initialValues={{
@@ -241,7 +251,9 @@ const ProfileForm = () => {
                         </div>
                         <div className={styles.verticalDivider} />
                         <div className={styles.formRight}>
-                            {avatarUrl ? (
+                            <Avatar height={150} src={avatarUrl} width={150} />
+
+                            {/* {avatarUrl ? (
                                 <img
                                     alt="Avatar"
                                     className={styles.avatarImage}
@@ -249,12 +261,11 @@ const ProfileForm = () => {
                                 />
                             ) : (
                                 <UserOutlined className={styles.profileIcon} />
-                            )}
+                            )} */}
                             <div>Avatar</div>
                             <Form.Item
                                 getValueFromEvent={normFile}
                                 name="avatar"
-                                valuePropName="fileList"
                             >
                                 <Upload
                                     beforeUpload={beforeUpload}
@@ -290,7 +301,7 @@ const ProfileForm = () => {
                     <Form.Item>
                         <Button
                             htmlType="submit"
-                            onClick={() => setIsModalVisible(true)}
+                            onClick={openModal}
                             type="primary"
                         >
                             Sửa hồ sơ
@@ -298,8 +309,6 @@ const ProfileForm = () => {
                     </Form.Item>
                 </Form>
                 <EditProfilePopup
-                    avatarUrl={avatarUrl}
-                    initialValues={form.getFieldsValue()}
                     onClose={handlePopupClose}
                     visible={isModalVisible}
                 />
