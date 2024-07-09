@@ -295,8 +295,12 @@ const CartContact = () => {
                                                 }
                                             >
                                                 <div className="max-h-[75vh] overflow-auto px-5">
-                                                    <Form form={form}>
+                                                    <Form
+                                                        form={form}
+                                                        layout="vertical"
+                                                    >
                                                         <Form.Item
+                                                            label="Họ và tên"
                                                             name="name"
                                                             rules={[
                                                                 {
@@ -307,10 +311,11 @@ const CartContact = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input placeholder="Họ và tên" />
+                                                            <Input />
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Email"
                                                             name="email"
                                                             rules={[
                                                                 {
@@ -321,10 +326,11 @@ const CartContact = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input placeholder="Email" />
+                                                            <Input />
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Giới tính"
                                                             name="gender"
                                                             rules={[
                                                                 {
@@ -335,10 +341,7 @@ const CartContact = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Select
-                                                                placeholder="Giới tính"
-                                                                size="large"
-                                                            >
+                                                            <Select size="large">
                                                                 {Object.values(
                                                                     genderOptions
                                                                 ).map(
@@ -363,6 +366,7 @@ const CartContact = () => {
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Số điện thoại"
                                                             name="phone"
                                                             rules={[
                                                                 {
@@ -379,13 +383,11 @@ const CartContact = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input
-                                                                placeholder="Số điện thoại"
-                                                                size="large"
-                                                            />
+                                                            <Input size="large" />
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Địa chỉ"
                                                             name="address"
                                                             rules={[
                                                                 {
@@ -396,10 +398,11 @@ const CartContact = () => {
                                                                 },
                                                             ]}
                                                         >
-                                                            <Input placeholder="Địa chỉ" />
+                                                            <Input />
                                                         </Form.Item>
 
                                                         <Form.Item
+                                                            label="Ghi chú"
                                                             name="note"
                                                             rules={[
                                                                 {
@@ -410,7 +413,6 @@ const CartContact = () => {
                                                             ]}
                                                         >
                                                             <Input.TextArea
-                                                                placeholder="Ghi chú"
                                                                 rows={5}
                                                             />
                                                         </Form.Item>
@@ -539,8 +541,12 @@ const CartContact = () => {
                                             }
                                         >
                                             <div className="max-h-[75vh] overflow-auto px-5">
-                                                <Form form={form}>
+                                                <Form
+                                                    form={form}
+                                                    layout="vertical"
+                                                >
                                                     <Form.Item
+                                                        label="Họ và tên"
                                                         name="name"
                                                         rules={[
                                                             {
@@ -550,10 +556,11 @@ const CartContact = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input placeholder="Họ và tên" />
+                                                        <Input />
                                                     </Form.Item>
 
                                                     <Form.Item
+                                                        label="Email"
                                                         name="email"
                                                         rules={[
                                                             {
@@ -563,10 +570,11 @@ const CartContact = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input placeholder="Email" />
+                                                        <Input />
                                                     </Form.Item>
 
                                                     <Form.Item
+                                                        label="Giới tính"
                                                         name="gender"
                                                         rules={[
                                                             {
@@ -576,10 +584,7 @@ const CartContact = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Select
-                                                            placeholder="Giới tính"
-                                                            size="large"
-                                                        >
+                                                        <Select size="large">
                                                             {Object.values(
                                                                 genderOptions
                                                             ).map(
@@ -602,6 +607,7 @@ const CartContact = () => {
                                                     </Form.Item>
 
                                                     <Form.Item
+                                                        label="Số điện thoại"
                                                         name="phone"
                                                         rules={[
                                                             {
@@ -617,13 +623,11 @@ const CartContact = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input
-                                                            placeholder="Số điện thoại"
-                                                            size="large"
-                                                        />
+                                                        <Input size="large" />
                                                     </Form.Item>
 
                                                     <Form.Item
+                                                        label="Địa chỉ"
                                                         name="address"
                                                         rules={[
                                                             {
@@ -633,12 +637,14 @@ const CartContact = () => {
                                                             },
                                                         ]}
                                                     >
-                                                        <Input placeholder="Địa chỉ" />
+                                                        <Input />
                                                     </Form.Item>
 
-                                                    <Form.Item name="note">
+                                                    <Form.Item
+                                                        label="Ghi chú"
+                                                        name="note"
+                                                    >
                                                         <Input.TextArea
-                                                            placeholder="Ghi chú"
                                                             rows={5}
                                                         />
                                                     </Form.Item>

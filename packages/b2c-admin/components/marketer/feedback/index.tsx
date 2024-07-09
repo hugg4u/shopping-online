@@ -130,12 +130,7 @@ const FeedbackList = () => {
             dataIndex: 'description',
             key: 'description',
             ellipsis: true,
-            sorter: true,
             width: 150,
-            sortOrder:
-                sortedInfo.columnKey === 'description'
-                    ? sortedInfo.order
-                    : null,
         },
         {
             title: 'Rating',
