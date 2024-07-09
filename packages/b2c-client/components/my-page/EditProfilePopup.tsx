@@ -9,7 +9,7 @@ import {
     Radio,
     Upload,
 } from 'antd';
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
@@ -19,6 +19,8 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import request, { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
+import { useUserQueryStore } from 'common/store/useUserStore';
+import Avatar from 'common/components/avatar';
 import styles from '~/styles/my-page/EditProfilePopup.module.css';
 
 dayjs.extend(weekday);
@@ -53,6 +55,8 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         null
     );
 
+    const { reload } = useUserQueryStore();
+
     const { mutateAsync: uploadFileTrigger } = useMutation({
         mutationFn: (files: RcFile[]) => {
             const formData = new FormData();
@@ -69,15 +73,18 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             return request.put('/user-profile/update', data);
         },
         onSuccess: () => {
-            message.success('Profile updated successfully');
+            message.success('Thông tin người dùng được cập nhật thành công');
             form.resetFields();
             setFileList([]);
             setUploadedImageName('');
             onClose();
+            setTimeout(() => reload());
         },
         onError: (err) => {
             const error = err as Error;
-            message.error(error.message || 'Failed to update profile');
+            message.error(
+                error.message || 'Không thể cập nhật thông tin người dùng'
+            );
         },
     });
 
@@ -95,8 +102,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     });
                     setUploadedImageName(getImageUrl(userData.image));
                     setFileList([]);
+                    setTimeout(() => reload());
                 } catch (error) {
-                    message.error('Failed to load user profile');
+                    message.error('Không tải được thông tin người dùng');
                 }
             };
 
@@ -148,7 +156,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
             if (!profileChanged()) {
                 message.warning(
-                    'Không phát hiện thấy thay đổi nào, không cần cập nhật.'
+                    'Cập nhật không thành công. Vui lòng thay đổi hoặc không có dấu cách cuối ô thông tin.'
                 );
                 setIsConfirmationModalVisible(false);
                 return;
@@ -192,7 +200,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             setIsConfirmationModalVisible(false);
         } catch (err) {
             const error = err as Error;
-            message.error(error.message || 'Failed to update profile');
+            message.error(
+                error.message || 'Không thể cập nhật thông tin người dùng'
+            );
         }
     };
 
@@ -205,7 +215,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const beforeUpload = (file: UploadFile) => {
         const isImage = file.type && file.type.startsWith('image/');
         if (!isImage) {
-            message.error('You can only upload image files!');
+            message.error('Bạn chỉ có thể tải lên các tập tin hình ảnh!');
             return Upload.LIST_IGNORE;
         }
         return isImage;
@@ -239,39 +249,30 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     <div className={styles.formContent}>
                         <div className={styles.formLeft}>
                             <Form.Item
+                                label="Email"
+                                name="email"
+                                {...formItemLayout}
+                                help="Không được thay đổi Email"
+                            >
+                                <Input disabled />
+                            </Form.Item>
+                            <Form.Item
                                 label="Name"
                                 name="name"
                                 {...formItemLayout}
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input your name!',
+                                        message: 'Vui lòng nhập tên của bạn!',
                                     },
                                 ]}
                             >
                                 <Input />
                             </Form.Item>
-                            <p className={styles.emailNote}>
-                                Không được thay đổi Email
-                            </p>
-                            <Form.Item
-                                label="Email"
-                                name="email"
-                                {...formItemLayout}
-                            >
-                                <Input disabled />
-                            </Form.Item>
                             <Form.Item
                                 label="Số điện thoại"
                                 name="phone"
                                 {...formItemLayout}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message:
-                                            'Please input your phone number!',
-                                    },
-                                ]}
                             >
                                 <Input />
                             </Form.Item>
@@ -314,19 +315,16 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         </div>
                         <div className={styles.verticalDivider} />
                         <div className={styles.formRight}>
-                            {uploadedImageName ? (
-                                <img
-                                    alt="Avatar"
-                                    className={styles.avatarImage}
-                                    src={
-                                        uploadedImageName.startsWith('http')
-                                            ? uploadedImageName
-                                            : `/images/${uploadedImageName}`
-                                    }
-                                />
-                            ) : (
-                                <UserOutlined className={styles.profileIcon} />
-                            )}
+                            <Avatar
+                                height={150}
+                                src={
+                                    uploadedImageName.startsWith('http')
+                                        ? uploadedImageName
+                                        : `/images/${uploadedImageName}`
+                                }
+                                width={150}
+                            />
+
                             <Form.Item
                                 getValueFromEvent={normFile}
                                 name="avatar"

@@ -116,9 +116,12 @@ model Category {
   updatedAt DateTime @updatedAt
 
   product Product[]
-  post    Post[]
+  
 }
-
+enum PostCategory {
+ NEWS
+ REVIEW
+}
 model ProductImage {
   id        String @id @default(uuid())
   url       String @db.Text
@@ -155,16 +158,14 @@ model Post {
   thumbnail   String? @db.Text
   isShow      Boolean @default(true)
   userId      String
-  categoryId  String
+  
   isFeatured  Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  category PostCategory 
 
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  @@index([categoryId])
 }
 
 enum SLIDER_STATUS {

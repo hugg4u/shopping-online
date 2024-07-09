@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { create } from 'zustand';
 import * as request from 'common/utils/http-request';
 import { QueryResponseGetOneType } from 'common/types';
-import { useEffect } from 'react';
-import { useAuth } from './useAuth';
+import { useEffect, useMemo } from 'react';
+import Cookies from 'js-cookie';
+import { useAuth } from 'b2c-client/hooks/useAuth';
 
 type User = {
     name: string | null;
@@ -33,6 +34,18 @@ export const useUserQueryStore = () => {
     const auth = useAuth();
     const { data, setData } = useUserStore();
 
+    const isAuth = useMemo(() => {
+        if (process.env.NEXT_PUBLIC_SITE === 'CLIENT') {
+            return !!auth;
+        }
+        if (process.env.NEXT_PUBLIC_SITE === 'CMS') {
+            const userString = Cookies.get('cmsUser');
+            const user = userString ? JSON.parse(userString) : null;
+            return !!user;
+        }
+        return false;
+    }, [auth]);
+
     const {
         data: userResponse,
         refetch,
@@ -40,7 +53,7 @@ export const useUserQueryStore = () => {
     } = useQuery<QueryResponseGetOneType<User>>({
         queryKey: ['user-info'],
         queryFn: () => request.get('user').then((res) => res.data),
-        enabled: !!auth,
+        enabled: isAuth,
     });
 
     useEffect(() => {

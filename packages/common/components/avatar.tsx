@@ -21,6 +21,10 @@ const Avatar: React.FC<Props> = ({ width, height, src, className }) => {
                 setFallback('/images/placeholder.jpg');
             }}
             src={fallback ?? src}
+            style={{
+                width,
+                height,
+            }}
             width={width}
         />
     );

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import type { MenuProps } from 'antd';
-import { Dropdown } from 'antd';
-import Image from 'next/image';
+import { Dropdown, Skeleton } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
+import { useUserQueryStore } from 'common/store/useUserStore';
+import Avatar from 'common/components/avatar';
 import EditProfilePopup from '../my-page/EditProfilePopup';
 import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
 
@@ -14,47 +14,13 @@ type Props = {
     title: string;
 };
 
-interface UserProfile {
-    name: string;
-    email: string;
-    phone: string;
-    gender: string;
-    dob: string | null;
-    address: string;
-}
-
 const Header: React.FC<Props> = ({ title }) => {
     const router = useRouter();
-    const [userImage, setUserImage] = useState<string | null>(null);
+
+    const { user, isFetching } = useUserQueryStore();
     const [isProfilePopupVisible, setIsProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setIsChangePasswordPopupVisible] =
         useState(false);
-    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-
-    const fetchUserImage = async () => {
-        try {
-            const response = await get('/user-image');
-            const imageUrl = getImageUrl(response.data.data.image);
-            setUserImage(imageUrl);
-        } catch (error) {
-            //
-        }
-    };
-
-    const fetchUserProfile = async () => {
-        try {
-            const response = await get('/user-profile');
-            setUserProfile(response.data.data);
-        } catch (error) {
-            //
-        }
-    };
-
-    useEffect(() => {
-        fetchUserImage();
-        fetchUserProfile();
-    }, []);
-
     const logOut = () => {
         Cookies.remove('cmsUser');
         setTimeout(() => {
@@ -122,37 +88,29 @@ const Header: React.FC<Props> = ({ title }) => {
                     placement="bottomLeft"
                 >
                     <div
-                        className="flex cursor-pointer space-x-3 rounded-full border px-3 py-1"
+                        className="flex cursor-pointer space-x-3 rounded-full border px-3 py-1.5"
                         onClick={() => router.push('/my-page')}
                         role="presentation"
                     >
-                        {userImage ? (
-                            <Image
-                                alt="avatar"
-                                className="rounded-full"
-                                height={40}
-                                src={userImage}
-                                width={40}
-                            />
+                        {isFetching ? (
+                            <Skeleton.Avatar active className="" />
                         ) : (
-                            <Image
-                                alt="avatar"
-                                className="rounded-full"
+                            <Avatar
                                 height={40}
-                                src="/images/placeholder.jpg"
+                                src={getImageUrl(user?.data?.image ?? '')}
                                 width={40}
                             />
                         )}
                         <MenuOutlined />
                     </div>
                 </Dropdown>
-                {userProfile && (
+                {user && (
                     <EditProfilePopup
                         onClose={() => setIsProfilePopupVisible(false)}
                         visible={isProfilePopupVisible}
                     />
                 )}
-                {userProfile && (
+                {user && (
                     <ChangePasswordPopup
                         onClose={() => setIsChangePasswordPopupVisible(false)}
                         visible={isChangePasswordPopupVisible}

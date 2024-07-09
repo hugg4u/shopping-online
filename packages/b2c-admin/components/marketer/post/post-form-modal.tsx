@@ -19,7 +19,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import * as request from 'common/utils/http-request';
 import { toast } from 'react-toastify';
 import { RcFile } from 'antd/es/upload';
-import { Category, ResponsePostById } from '~/types/post';
+import { POST_CATEGORY } from 'common/constant';
+import { ResponsePostById } from '~/types/post';
 
 type Props = {
     type: 'CREATE' | 'UPDATE' | 'UPDATE_BUTTON';
@@ -53,12 +54,6 @@ const PostFormModal: React.FC<Props> = ({ type, title, reload, postId }) => {
     const [form] = Form.useForm();
 
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-
-    const { data: listCategory, isLoading: getListCategoryLoading } = useQuery({
-        queryKey: ['category'],
-        queryFn: () => request.get('category').then((res) => res.data),
-        enabled: isOpenModal,
-    });
 
     const { mutateAsync: uploadFileTrigger, isPending: uploadFileIsPending } =
         useMutation({
@@ -288,7 +283,7 @@ const PostFormModal: React.FC<Props> = ({ type, title, reload, postId }) => {
                 title={title}
                 width={800}
             >
-                <Spin spinning={getListCategoryLoading || getPostInfoLoading}>
+                <Spin spinning={getPostInfoLoading}>
                     <div className="max-h-[75vh] overflow-auto px-5">
                         <Form
                             disabled={
@@ -341,12 +336,10 @@ const PostFormModal: React.FC<Props> = ({ type, title, reload, postId }) => {
                                     <Select
                                         allowClear
                                         filterOption={filterOption}
-                                        options={listCategory?.data?.map(
-                                            (item: Category) => ({
-                                                value: item.id,
-                                                label: item.name,
-                                            })
-                                        )}
+                                        options={POST_CATEGORY?.map((item) => ({
+                                            value: item.id,
+                                            label: item.value,
+                                        }))}
                                         showSearch
                                     />
                                 </Form.Item>

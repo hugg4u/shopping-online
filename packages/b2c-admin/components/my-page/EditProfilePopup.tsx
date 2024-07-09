@@ -9,7 +9,8 @@ import {
     Radio,
     Upload,
 } from 'antd';
-import { UploadOutlined, UserOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
+import Avatar from 'common/components/avatar';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
@@ -19,6 +20,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import request, { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
+import { useUserQueryStore } from 'common/store/useUserStore';
 import styles from '~/styles/my-page/EditProfilePopup.module.css';
 
 dayjs.extend(weekday);
@@ -52,6 +54,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const [initialValues, setInitialValues] = useState<UserProfile | null>(
         null
     );
+    const { reload } = useUserQueryStore();
 
     const { mutateAsync: uploadFileTrigger } = useMutation({
         mutationFn: (files: RcFile[]) => {
@@ -69,11 +72,12 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             return request.put('/user-profile/update', data);
         },
         onSuccess: () => {
-            message.success('Thông tin người dùng được cập nhật thành công');
+            message.success('User Profile updated successfully');
             form.resetFields();
             setFileList([]);
             setUploadedImageName('');
             onClose();
+            setTimeout(() => reload());
         },
         onError: (err) => {
             const error = err as Error;
@@ -97,6 +101,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     });
                     setUploadedImageName(getImageUrl(userData.image));
                     setFileList([]);
+                    setTimeout(() => reload());
                 } catch (error) {
                     message.error('Failed to load user profile');
                 }
@@ -243,6 +248,14 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     <div className={styles.formContent}>
                         <div className={styles.formLeft}>
                             <Form.Item
+                                label="Email"
+                                name="email"
+                                {...formItemLayout}
+                                help="Không được thay đổi Email"
+                            >
+                                <Input disabled />
+                            </Form.Item>
+                            <Form.Item
                                 label="Name"
                                 name="name"
                                 {...formItemLayout}
@@ -255,27 +268,10 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             >
                                 <Input />
                             </Form.Item>
-                            <p className={styles.emailNote}>
-                                Không được thay đổi Email
-                            </p>
-                            <Form.Item
-                                label="Email"
-                                name="email"
-                                {...formItemLayout}
-                            >
-                                <Input disabled />
-                            </Form.Item>
                             <Form.Item
                                 label="Số điện thoại"
                                 name="phone"
                                 {...formItemLayout}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message:
-                                            'Vui lòng nhập số điện thoại của bạn!',
-                                    },
-                                ]}
                             >
                                 <Input />
                             </Form.Item>
@@ -318,19 +314,15 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         </div>
                         <div className={styles.verticalDivider} />
                         <div className={styles.formRight}>
-                            {uploadedImageName ? (
-                                <img
-                                    alt="Avatar"
-                                    className={styles.avatarImage}
-                                    src={
-                                        uploadedImageName.startsWith('http')
-                                            ? uploadedImageName
-                                            : `/images/${uploadedImageName}`
-                                    }
-                                />
-                            ) : (
-                                <UserOutlined className={styles.profileIcon} />
-                            )}
+                            <Avatar
+                                height={150}
+                                src={
+                                    uploadedImageName.startsWith('http')
+                                        ? uploadedImageName
+                                        : `/images/${uploadedImageName}`
+                                }
+                                width={150}
+                            />
                             <Form.Item
                                 getValueFromEvent={normFile}
                                 name="avatar"
@@ -343,7 +335,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                     onChange={handleChange}
                                 >
                                     <Button icon={<UploadOutlined />}>
-                                        Chọn Ảnh
+                                        Select Image
                                     </Button>
                                 </Upload>
                             </Form.Item>

@@ -74,11 +74,7 @@ export const getListPostManage = async (req: Request, res: Response) => {
         const select = {
             id: true,
             title: true,
-            category: {
-                select: {
-                    name: true,
-                },
-            },
+            category: true,
             user: {
                 select: {
                     name: true,
@@ -145,7 +141,7 @@ export const createPost = async (req: Request, res: Response) => {
             data: {
                 title,
                 description,
-                categoryId,
+                category: categoryId,
                 thumbnail,
                 isShow,
                 isFeatured,
@@ -184,7 +180,7 @@ export const updatePost = async (req: Request, res: Response) => {
             data: {
                 title,
                 description,
-                categoryId,
+                category: categoryId,
                 thumbnail,
                 isShow,
                 isFeatured,

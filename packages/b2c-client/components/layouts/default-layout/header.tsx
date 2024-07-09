@@ -6,13 +6,13 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { getImageUrl } from 'common/utils/getImageUrl';
+import Avatar from 'common/components/avatar';
+import { useUserQueryStore } from 'common/store/useUserStore';
 import { useAuth } from '~/hooks/useAuth';
 import useLoginModal from '~/hooks/useLoginModal';
 import useRegisterModal from '~/hooks/useRegisterModal';
 import Search from './search';
 import CartIcon from './cart-icon';
-import Avatar from './avatar';
-import { useUserQueryStore } from '~/hooks/useUserStore';
 import EditProfilePopup from '~/components/my-page/EditProfilePopup';
 import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
 
@@ -41,7 +41,7 @@ const Header = () => {
                     onClick={() => setIsProfilePopupVisible(true)}
                     role="presentation"
                 >
-                    Thông tin
+                    Thông tin người dùng
                 </div>
             ),
         },

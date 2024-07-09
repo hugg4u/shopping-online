@@ -149,25 +149,27 @@ const ListBlogPage: NextPage = () => {
                             );
                         }}
                     />
-                    <h1 className={styles.blogTitle}>Danh sách blog</h1>
-                    <Content className={styles.content}>
-                        <BlogContent
-                            blogs={blogs}
-                            currentPage={Number(routerQuery.page) || 1}
-                            onPageChange={(page, newPageSize) =>
-                                handleSearch(
-                                    page,
-                                    routerQuery.sort as string,
-                                    routerQuery.sortOrder as string,
-                                    routerQuery.category as string,
-                                    routerQuery.search as string,
-                                    newPageSize
-                                )
-                            }
-                            pageSize={Number(routerQuery.pageSize) || 10}
-                            total={totalBlogs}
-                        />
-                    </Content>
+                    <div className="rounded-lg border px-10">
+                        <h1 className={styles.blogTitle}>Danh sách blog</h1>
+                        <Content className={styles.content}>
+                            <BlogContent
+                                blogs={blogs}
+                                currentPage={Number(routerQuery.page) || 1}
+                                onPageChange={(page, newPageSize) =>
+                                    handleSearch(
+                                        page,
+                                        routerQuery.sort as string,
+                                        routerQuery.sortOrder as string,
+                                        routerQuery.category as string,
+                                        routerQuery.search as string,
+                                        newPageSize
+                                    )
+                                }
+                                pageSize={Number(routerQuery.pageSize) || 10}
+                                total={totalBlogs}
+                            />
+                        </Content>
+                    </div>
                 </Layout>
             </Layout>
         </Spin>
