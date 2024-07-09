@@ -292,6 +292,10 @@ export const getListProductCart = async (req: Request, res: Response) => {
                     in: listProductId as string[],
                 },
             },
+            include: {
+                category: true,
+                brand: true,
+            },
         });
 
         return res.status(200).json({

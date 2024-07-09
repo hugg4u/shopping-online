@@ -54,6 +54,7 @@ enum Role {
   ADMIN
   SELLER
   MARKETER
+  SELLERMANAGER
 }
 
 enum UserStatus {
@@ -218,7 +219,9 @@ model Cart {
 model Order {
   id            String       @id @default(uuid())
 
-  userId        String
+  appTransId       String? @unique
+
+  userId        String?
   address       String
   name          String
   gender        Gender
@@ -251,6 +254,7 @@ enum PAYMENT_TYPE {
 
 enum ORDER_STATUS {
   PAYMENT_PENDING
+  PAID
   PENDING
   CONFIRMED
   DELIVERING
