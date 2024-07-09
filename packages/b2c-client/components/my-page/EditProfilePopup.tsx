@@ -147,7 +147,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             };
 
             if (!profileChanged()) {
-                message.warning('No changes detected, update not required.');
+                message.warning(
+                    'Không phát hiện thấy thay đổi nào, không cần cập nhật.'
+                );
                 setIsConfirmationModalVisible(false);
                 return;
             }
@@ -231,7 +233,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={onClose}
                 onOk={handleOk}
                 open={visible}
-                title="Edit Profile"
+                title="Thông tin người dùng"
             >
                 <Form form={form} layout="horizontal" name="edit_profile">
                     <div className={styles.formContent}>
@@ -306,12 +308,6 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 label="Địa chỉ"
                                 name="address"
                                 {...formItemLayout}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please input your address!',
-                                    },
-                                ]}
                             >
                                 <Input />
                             </Form.Item>
@@ -356,7 +352,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={() => setIsConfirmationModalVisible(false)}
                 onOk={handleConfirmOk}
                 open={isConfirmationModalVisible}
-                title="Confirm Update"
+                title="Xác nhận cập nhật"
             >
                 <p>Bạn có chắc chắn muốn cập nhật thông tin không?</p>
             </Modal>

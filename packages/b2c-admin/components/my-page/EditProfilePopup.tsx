@@ -10,12 +10,20 @@ import {
     Upload,
 } from 'antd';
 import { UploadOutlined, UserOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import weekday from 'dayjs/plugin/weekday';
+import localeData from 'dayjs/plugin/localeData';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { RcFile, UploadFile } from 'antd/es/upload';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import request from 'common/utils/http-request';
+import request, { get } from 'common/utils/http-request';
+import { getImageUrl } from 'common/utils/getImageUrl';
 import styles from '~/styles/my-page/EditProfilePopup.module.css';
+
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 
 interface UserProfile {
     name: string;
@@ -24,26 +32,26 @@ interface UserProfile {
     gender: string;
     dob: string | null;
     address: string;
+    image: string;
 }
 
 interface EditProfilePopupProps {
     visible: boolean;
     onClose: () => void;
-    initialValues: UserProfile;
-    avatarUrl: string;
 }
 
 const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     visible,
     onClose,
-    initialValues,
-    avatarUrl,
 }) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState<UploadFile[]>([]);
-    const [uploadedImageName, setUploadedImageName] = useState(avatarUrl);
+    const [uploadedImageName, setUploadedImageName] = useState('');
     const [isConfirmationModalVisible, setIsConfirmationModalVisible] =
         useState(false);
+    const [initialValues, setInitialValues] = useState<UserProfile | null>(
+        null
+    );
 
     const { mutateAsync: uploadFileTrigger } = useMutation({
         mutationFn: (files: RcFile[]) => {
@@ -61,7 +69,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             return request.put('/user-profile/update', data);
         },
         onSuccess: () => {
-            message.success('Profile updated successfully');
+            message.success('Thông tin người dùng được cập nhật thành công');
             form.resetFields();
             setFileList([]);
             setUploadedImageName('');
@@ -69,22 +77,34 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         },
         onError: (err) => {
             const error = err as Error;
-            message.error(error.message || 'Failed to update profile');
+            message.error(
+                error.message || 'Không thể cập nhật thông tin người dùng'
+            );
         },
     });
 
     useEffect(() => {
         if (visible) {
-            form.setFieldsValue({
-                ...initialValues,
-                dob: initialValues.dob
-                    ? moment(initialValues.dob, 'DD/MM/YYYY')
-                    : null,
-            });
-            setUploadedImageName(avatarUrl);
-            setFileList([]); // Clear file list when modal opens
+            const fetchUserProfile = async () => {
+                try {
+                    const response = await get('/user-profile');
+                    const userData: UserProfile = response.data.data;
+                    setInitialValues(userData);
+                    form.setFieldsValue({
+                        ...userData,
+                        gender: userData.gender === 'MALE' ? 'Nam' : 'Nữ',
+                        dob: userData.dob ? dayjs(userData.dob) : null,
+                    });
+                    setUploadedImageName(getImageUrl(userData.image));
+                    setFileList([]);
+                } catch (error) {
+                    message.error('Failed to load user profile');
+                }
+            };
+
+            fetchUserProfile();
         }
-    }, [visible, form, initialValues, avatarUrl]);
+    }, [visible, form]);
 
     const handleOk = async () => {
         setIsConfirmationModalVisible(true);
@@ -93,22 +113,45 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const handleConfirmOk = async () => {
         try {
             const values = await form.validateFields();
-            let newUploadedImageName = uploadedImageName;
 
-            const initialValuesFormatted = {
-                ...initialValues,
-                dob: initialValues.dob
-                    ? moment(initialValues.dob, 'DD/MM/YYYY')
-                    : null,
+            // Trimming whitespace from string fields
+            const trimmedValues = {
+                ...values,
+                name: values.name.trim(),
+                email: values.email.trim(),
+                phone: values.phone.trim(),
+                address: values.address.trim(),
             };
 
-            // so sánh xem có thay đổi data ko
-            if (
-                JSON.stringify(values) ===
-                    JSON.stringify(initialValuesFormatted) &&
-                fileList.length === 0
-            ) {
-                message.warning('No changes detected, update not required.');
+            let newUploadedImageName = uploadedImageName;
+
+            const profileChanged = () => {
+                if (!initialValues) return true;
+
+                const initialValuesFormatted = {
+                    ...initialValues,
+                    dob: initialValues.dob ? dayjs(initialValues.dob) : null,
+                };
+
+                return (
+                    trimmedValues.name !== initialValuesFormatted.name ||
+                    trimmedValues.phone !== initialValuesFormatted.phone ||
+                    trimmedValues.gender !==
+                        (initialValuesFormatted.gender === 'MALE'
+                            ? 'Nam'
+                            : 'Nữ') ||
+                    (trimmedValues.dob &&
+                        trimmedValues.dob.format('YYYY-MM-DD') !==
+                            initialValuesFormatted.dob?.format('YYYY-MM-DD')) ||
+                    trimmedValues.address !== initialValuesFormatted.address ||
+                    fileList.length > 0
+                );
+            };
+
+            if (!profileChanged()) {
+                message.warning(
+                    'Không phát hiện thấy thay đổi nào, không cần cập nhật.'
+                );
                 setIsConfirmationModalVisible(false);
                 return;
             }
@@ -137,10 +180,12 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             const imageName = newUploadedImageName.split('/').pop();
 
             const updateData = {
-                ...values,
-                gender: values.gender === 'Nam' ? 'MALE' : 'FEMALE',
+                ...trimmedValues,
+                gender: trimmedValues.gender === 'Nam' ? 'MALE' : 'FEMALE',
                 image: imageName || '',
-                dob: values.dob ? values.dob.format('YYYY-MM-DD') : null,
+                dob: trimmedValues.dob
+                    ? trimmedValues.dob.format('YYYY-MM-DD')
+                    : null,
             };
 
             delete updateData.avatar;
@@ -149,7 +194,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             setIsConfirmationModalVisible(false);
         } catch (err) {
             const error = err as Error;
-            message.error(error.message || 'Failed to update profile');
+            message.error(
+                error.message || 'Không thể cập nhật thông tin người dùng'
+            );
         }
     };
 
@@ -190,28 +237,27 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={onClose}
                 onOk={handleOk}
                 open={visible}
-                title="Edit Profile"
+                title="Thông tin người dùng"
             >
-                <Form
-                    form={form}
-                    initialValues={{
-                        ...initialValues,
-                        dob: initialValues.dob
-                            ? moment(initialValues.dob, 'DD/MM/YYYY')
-                            : null,
-                    }}
-                    layout="horizontal"
-                    name="edit_profile"
-                >
+                <Form form={form} layout="horizontal" name="edit_profile">
                     <div className={styles.formContent}>
                         <div className={styles.formLeft}>
                             <Form.Item
                                 label="Name"
                                 name="name"
                                 {...formItemLayout}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Vui lòng nhập tên của bạn!',
+                                    },
+                                ]}
                             >
                                 <Input />
                             </Form.Item>
+                            <p className={styles.emailNote}>
+                                Không được thay đổi Email
+                            </p>
                             <Form.Item
                                 label="Email"
                                 name="email"
@@ -223,6 +269,13 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 label="Số điện thoại"
                                 name="phone"
                                 {...formItemLayout}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message:
+                                            'Vui lòng nhập số điện thoại của bạn!',
+                                    },
+                                ]}
                             >
                                 <Input />
                             </Form.Item>
@@ -242,9 +295,14 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 {...formItemLayout}
                             >
                                 <DatePicker
+                                    defaultPickerValue={
+                                        initialValues && initialValues.dob
+                                            ? dayjs(initialValues.dob)
+                                            : undefined
+                                    }
                                     disabledDate={(current) =>
                                         current &&
-                                        current > moment().endOf('day')
+                                        current > dayjs().endOf('day')
                                     }
                                     format="DD/MM/YYYY"
                                     style={{ width: '100%' }}
@@ -298,7 +356,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={() => setIsConfirmationModalVisible(false)}
                 onOk={handleConfirmOk}
                 open={isConfirmationModalVisible}
-                title="Confirm Update"
+                title="Xác nhận cập nhật"
             >
                 <p>Bạn có chắc chắn muốn cập nhật thông tin không?</p>
             </Modal>

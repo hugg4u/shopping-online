@@ -1,11 +1,11 @@
 import { MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, MenuProps, Skeleton } from 'antd';
+
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { getImageUrl } from 'common/utils/getImageUrl';
-import { get } from 'common/utils/http-request';
 import { useAuth } from '~/hooks/useAuth';
 import useLoginModal from '~/hooks/useLoginModal';
 import useRegisterModal from '~/hooks/useRegisterModal';
@@ -13,56 +13,19 @@ import Search from './search';
 import CartIcon from './cart-icon';
 import Avatar from './avatar';
 import { useUserQueryStore } from '~/hooks/useUserStore';
-import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
 import EditProfilePopup from '~/components/my-page/EditProfilePopup';
+import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
 
-interface UserProfile {
-    name: string;
-    email: string;
-    phone: string;
-    gender: string;
-    dob: string | null;
-    address: string;
-}
 const Header = () => {
     const auth = useAuth();
     const router = useRouter();
     const { onOpen: openLoginModal } = useLoginModal();
     const { onOpen: openRegisterModal } = useRegisterModal();
     const { user, isFetching } = useUserQueryStore();
-    const [, setUserImage] = useState<string | null>(null);
     const [isProfilePopupVisible, setIsProfilePopupVisible] = useState(false);
-    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [isChangePasswordPopupVisible, setIsChangePasswordPopupVisible] =
         useState(false);
-    const fetchUserImage = async () => {
-        try {
-            const response = await get('/user-image');
-            const imageUrl = getImageUrl(response.data.data.image);
-            setUserImage(imageUrl);
-        } catch (error) {
-            //
-        }
-    };
 
-    const fetchUserProfile = async () => {
-        try {
-            const response = await get('/user-profile');
-            setUserProfile(response.data.data);
-        } catch (error) {
-            //
-        }
-    };
-
-    useEffect(() => {
-        if (auth) {
-            fetchUserImage();
-            fetchUserProfile();
-        } else {
-            setUserImage(null);
-            setUserProfile(null);
-        }
-    }, [auth]);
     const logOut = () => {
         Cookies.remove('accessTokenClient');
         setTimeout(() => {
@@ -138,7 +101,9 @@ const Header = () => {
                         <div>
                             <Dropdown
                                 menu={{ items }}
-                                overlayStyle={{ width: 250 }}
+                                overlayStyle={{
+                                    width: 250,
+                                }}
                                 placement="bottomRight"
                             >
                                 <div
@@ -147,7 +112,7 @@ const Header = () => {
                                     role="presentation"
                                 >
                                     {isFetching ? (
-                                        <Skeleton.Avatar active />
+                                        <Skeleton.Avatar active className="" />
                                     ) : (
                                         <Avatar
                                             height={40}
@@ -157,10 +122,11 @@ const Header = () => {
                                             width={40}
                                         />
                                     )}
+
                                     <MenuOutlined />
                                 </div>
                             </Dropdown>
-                            {userProfile && (
+                            {user && (
                                 <EditProfilePopup
                                     onClose={() =>
                                         setIsProfilePopupVisible(false)
@@ -168,7 +134,7 @@ const Header = () => {
                                     visible={isProfilePopupVisible}
                                 />
                             )}
-                            {userProfile && (
+                            {user && (
                                 <ChangePasswordPopup
                                     onClose={() =>
                                         setIsChangePasswordPopupVisible(false)
