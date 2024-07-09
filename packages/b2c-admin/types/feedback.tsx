@@ -4,7 +4,7 @@ export type Feedback = {
     description: string | null;
     isShow?: boolean | null;
     user: User | null;
-    feedback_image?: FeedbackImage[] | null;
+    image?: FeedbackImage[] | null;
     userId: string | null;
     createdAt: Date | null;
     productId: string | null;

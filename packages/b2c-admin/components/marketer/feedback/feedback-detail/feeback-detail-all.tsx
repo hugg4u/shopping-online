@@ -9,7 +9,7 @@ type Props = {
 type InfoItemProps = {
     title?: string;
     value?: string | number | boolean | null;
-    render?: 'IMAGE' | 'RATE' | 'LIST_IMAGE';
+    render?: 'RATE' | 'LIST_IMAGE';
     listImage?: FeedbackImage[] | null;
 };
 
@@ -70,9 +70,9 @@ const FeedbackDetailAll: React.FC<Props> = ({ data }) => {
                 value={data?.isShow ? 'SHOW' : 'HIDE'}
             />
             <InfoItem
-                listImage={data?.feedback_image}
+                listImage={data?.image}
                 render="LIST_IMAGE"
-                title="Product image"
+                title="Feedback image"
             />
         </div>
     );
