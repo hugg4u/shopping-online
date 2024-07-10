@@ -29,14 +29,14 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
             return request.put('/user-profile/change-password', data);
         },
         onSuccess: () => {
-            message.success('Password changed successfully');
+            message.success('Mật khẩu đã được thay đổi thành công');
             form.resetFields();
             setConfirmVisible(false);
             onClose();
         },
         onError: (error: ErrorResponse) => {
             message.error(
-                error.response?.data?.message || 'Failed to change password'
+                error.response?.data?.message || 'Mật khẩu thay đổi thất bại'
             );
             setConfirmVisible(false);
         },
@@ -47,13 +47,17 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
             const values = await form.validateFields();
             const passwordRegex = /^.{8,}$/;
             if (!passwordRegex.test(values.newPassword)) {
+                message.error('Mật khẩu mới phải dài ít nhất 8 ký tự');
+                return;
+            }
+            if (values.newPassword === values.oldPassword) {
                 message.error(
-                    'Mật khẩu mới phải dài ít nhất 8 ký tự và chứa ký tự đặc biệt!'
+                    'Mật khẩu mới không được trùng với mật khẩu hiện tại'
                 );
                 return;
             }
             if (values.newPassword !== values.confirmPassword) {
-                message.error('Mật khẩu mới không khớp!');
+                message.error('Mật khẩu mới không khớp');
                 return;
             }
             setConfirmVisible(true);
@@ -101,7 +105,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                             {
                                 required: true,
                                 message:
-                                    'Vui lòng nhập mật khẩu hiện tại của bạn!',
+                                    'Vui lòng nhập mật khẩu hiện tại của bạn',
                             },
                         ]}
                     >
@@ -113,7 +117,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                         rules={[
                             {
                                 required: true,
-                                message: 'Vui lòng nhập mật khẩu mới của bạn!',
+                                message: 'Vui lòng nhập mật khẩu mới của bạn',
                             },
                             {
                                 min: 8,
@@ -130,7 +134,11 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                             {
                                 required: true,
                                 message:
-                                    'Vui lòng xác nhận mật khẩu mới của bạn!',
+                                    'Vui lòng xác nhận mật khẩu mới của bạn',
+                            },
+                            {
+                                min: 8,
+                                message: 'Mật khẩu có độ dài tối thiểu 8 kí tự',
                             },
                         ]}
                     >
@@ -149,7 +157,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                 title="Confirm Password Change"
                 visible={confirmVisible}
             >
-                <p>Are you sure you want to change your password?</p>
+                <p>Bạn có chắc chắn muốn thay đổi mật khẩu không?</p>
             </Modal>
         </>
     );

@@ -37,7 +37,7 @@ const ProfileForm = () => {
     const mapGender = (gender: string) => {
         if (gender === 'MALE') return 'Nam';
         if (gender === 'FEMALE') return 'Nữ';
-        return 'Khác';
+        return '';
     };
 
     const fetchUserProfile = async () => {

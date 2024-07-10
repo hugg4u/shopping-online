@@ -21,6 +21,7 @@ import request, { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import { useUserQueryStore } from 'common/store/useUserStore';
 import Avatar from 'common/components/avatar';
+import { PHONE_PATTERN } from 'common/constant/pattern';
 import styles from '~/styles/my-page/EditProfilePopup.module.css';
 
 dayjs.extend(weekday);
@@ -31,10 +32,10 @@ interface UserProfile {
     name: string;
     email: string;
     phone: string;
-    gender: string;
-    dob: string | null;
-    address: string;
-    image: string;
+    gender?: string;
+    dob?: string | null;
+    address?: string;
+    image?: string;
 }
 
 interface EditProfilePopupProps {
@@ -57,6 +58,17 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
     const { reload } = useUserQueryStore();
 
+    const mapGender = (gender: string | undefined) => {
+        if (gender === 'MALE') return 'Nam';
+        if (gender === 'FEMALE') return 'Nữ';
+        return undefined;
+    };
+    const mapGenderToAPI = (gender: string | undefined) => {
+        if (gender === 'Nam') return 'MALE';
+        if (gender === 'Nữ') return 'FEMALE';
+        return undefined;
+    };
+
     const { mutateAsync: uploadFileTrigger } = useMutation({
         mutationFn: (files: RcFile[]) => {
             const formData = new FormData();
@@ -64,7 +76,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             return request.post('upload', formData).then((res) => res.data);
         },
         onError: () => {
-            toast.error('Upload file failed!');
+            toast.error('Tải ảnh lên không thành công');
         },
     });
 
@@ -97,7 +109,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     setInitialValues(userData);
                     form.setFieldsValue({
                         ...userData,
-                        gender: userData.gender === 'MALE' ? 'Nam' : 'Nữ',
+                        gender: mapGender(userData.gender),
                         dob: userData.dob ? dayjs(userData.dob) : null,
                     });
                     setUploadedImageName(getImageUrl(userData.image));
@@ -126,7 +138,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 name: values.name.trim(),
                 email: values.email.trim(),
                 phone: values.phone.trim(),
-                address: values.address.trim(),
+                address: values.address?.trim() || null,
             };
 
             let newUploadedImageName = uploadedImageName;
@@ -137,15 +149,13 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 const initialValuesFormatted = {
                     ...initialValues,
                     dob: initialValues.dob ? dayjs(initialValues.dob) : null,
+                    gender: mapGender(initialValues.gender),
                 };
 
                 return (
                     trimmedValues.name !== initialValuesFormatted.name ||
                     trimmedValues.phone !== initialValuesFormatted.phone ||
-                    trimmedValues.gender !==
-                        (initialValuesFormatted.gender === 'MALE'
-                            ? 'Nam'
-                            : 'Nữ') ||
+                    trimmedValues.gender !== initialValuesFormatted.gender ||
                     (trimmedValues.dob &&
                         trimmedValues.dob.format('YYYY-MM-DD') !==
                             initialValuesFormatted.dob?.format('YYYY-MM-DD')) ||
@@ -187,7 +197,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
             const updateData = {
                 ...trimmedValues,
-                gender: trimmedValues.gender === 'Nam' ? 'MALE' : 'FEMALE',
+                gender: mapGenderToAPI(trimmedValues.gender),
                 image: imageName || '',
                 dob: trimmedValues.dob
                     ? trimmedValues.dob.format('YYYY-MM-DD')
@@ -263,7 +273,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tên của bạn!',
+                                        message: 'Vui lòng nhập tên của bạn',
                                     },
                                 ]}
                             >
@@ -273,6 +283,16 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 label="Số điện thoại"
                                 name="phone"
                                 {...formItemLayout}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Vui lòng nhập số điện thoại',
+                                    },
+                                    {
+                                        pattern: PHONE_PATTERN,
+                                        message: 'Số điện thoại sai định dạng',
+                                    },
+                                ]}
                             >
                                 <Input />
                             </Form.Item>
