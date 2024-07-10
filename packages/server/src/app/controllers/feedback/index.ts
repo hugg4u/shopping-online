@@ -333,7 +333,7 @@ export const getFeedbackById = async (req: Request, res: Response) => {
         return res.status(200).json({
             isOk: true,
             data: feedback,
-            message: 'Get product successfully!',
+            message: 'Get feedback successfully!',
         });
     } catch (error) {
         return res.sendStatus(500);

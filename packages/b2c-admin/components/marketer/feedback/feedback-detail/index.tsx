@@ -56,12 +56,6 @@ const FeedbackDetail = () => {
             toast.success(res.message);
             refetch();
         },
-        // onError: (
-        //     error: AxiosError<{
-        //         isOk?: boolean | null;
-        //         message?: string | null;
-        //     }>
-        // ) => toast.error(error.response?.data.message),
     });
     return (
         <Spin spinning={isLoading}>

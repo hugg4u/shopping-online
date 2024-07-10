@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import Link from 'next/link';
+import { getBlogCategoryName } from 'common/utils/getBlogCategoryName';
+import Image from 'next/image';
+import { cn } from 'common/utils';
 import Sidebar from '../../components/blog/Sidebar';
 import styles from '~/styles/blog/BlogDetail.module.css';
 
@@ -21,10 +24,7 @@ type Blog = {
     user: {
         name: string;
     };
-    category: {
-        id: string;
-        name: string;
-    };
+    category: 'NEWS' | 'REVIEW';
 };
 
 const BlogDetailPage: React.FC = () => {
@@ -64,11 +64,11 @@ const BlogDetailPage: React.FC = () => {
                                 href={{
                                     pathname: '/blog',
                                     query: {
-                                        category: blog?.category.id,
+                                        category: blog?.category,
                                     },
                                 }}
                             >
-                                {blog?.category.name}
+                                {getBlogCategoryName(blog?.category, 'vi')}
                             </Link>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>{blog?.title}</Breadcrumb.Item>
@@ -87,15 +87,18 @@ const BlogDetailPage: React.FC = () => {
                                 : ''}
                         </span>
                         <span className={styles.category}>
-                            Danh mục: {blog?.category.name}
+                            Danh mục:{' '}
+                            {getBlogCategoryName(blog?.category, 'vi')}
                         </span>
                     </div>
                     {blog?.thumbnail && (
-                        <div className={styles.thumbnailContainer}>
-                            <img
+                        <div className="flex justify-center">
+                            <Image
                                 alt={blog.title}
-                                className={styles.thumbnail}
+                                className={cn(styles.thumbnail, 'w-full')}
+                                height={800}
                                 src={getImageUrl(blog.thumbnail)}
+                                width={600}
                             />
                         </div>
                     )}

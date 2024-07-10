@@ -90,12 +90,12 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                     </Button>,
                 ]}
                 onCancel={onClose}
-                title="Change Password"
+                title="Đổi mật khẩu"
                 visible={visible}
             >
                 <Form form={form} layout="vertical" name="change_password">
                     <Form.Item
-                        label="Current Password"
+                        label="Mật khẩu hiện tại"
                         name="oldPassword"
                         rules={[
                             {
@@ -108,7 +108,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
-                        label="New Password"
+                        label="Mật khẩu mới"
                         name="newPassword"
                         rules={[
                             {
@@ -124,7 +124,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
-                        label="Confirm New Password"
+                        label="Xác nhận mật khẩu mới"
                         name="confirmPassword"
                         rules={[
                             {
