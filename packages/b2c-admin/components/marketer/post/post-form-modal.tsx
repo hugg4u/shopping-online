@@ -124,7 +124,7 @@ const PostFormModal: React.FC<Props> = ({ type, title, reload, postId }) => {
                 isFeatured: postInfo?.data?.isFeatured,
                 description: postInfo?.data?.description,
                 briefInfo: postInfo?.data?.briefInfo,
-                categoryId: postInfo?.data?.categoryId,
+                categoryId: postInfo?.data?.category,
                 thumbnailList: postInfo?.data?.thumbnail
                     ? [
                           {
