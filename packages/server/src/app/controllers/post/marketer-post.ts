@@ -8,7 +8,7 @@ import { db } from '../../../lib/db';
 type PostFilter = {
     title?: string;
     isShow?: boolean;
-    categoryId?: string;
+    // category?: string;
     userId?: string;
     isFeatured?: boolean;
 };
@@ -20,7 +20,7 @@ export const getListPostManage = async (req: Request, res: Response) => {
         search,
         pageSize,
         currentPage,
-        categoryId,
+        category,
         userId,
         title,
         isShow,
@@ -55,8 +55,11 @@ export const getListPostManage = async (req: Request, res: Response) => {
             }
         }
 
-        if (categoryId) {
-            whereClause.categoryId = String(categoryId);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const where: any = {};
+
+        if (category) {
+            where.category = String(category);
         }
         if (title) {
             whereClause.title = String(title);
@@ -94,6 +97,7 @@ export const getListPostManage = async (req: Request, res: Response) => {
                     contains: String(search || ''),
                 },
                 ...whereClause,
+                ...where,
             },
         });
 
@@ -104,6 +108,7 @@ export const getListPostManage = async (req: Request, res: Response) => {
                     contains: search ? String(search) : undefined,
                 },
                 ...whereClause,
+                ...where,
             },
             orderBy: orderBy ?? {
                 createdAt: 'desc',
