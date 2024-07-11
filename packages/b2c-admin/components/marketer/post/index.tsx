@@ -20,7 +20,7 @@ import {
 } from 'antd';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import * as request from 'common/utils/http-request';
-import { PAGE_SIZE } from 'common/constant';
+import { PAGE_SIZE, POST_CATEGORY } from 'common/constant';
 import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ import { AxiosError } from 'axios';
 import { getSortOrder } from 'common/utils/getSortOrder';
 import PostFormModal from './post-form-modal';
 import DeletePostFormModal from './delete-post-form-modal';
-import { Category, Post, User } from '~/types/post';
+import { Post, User } from '~/types/post';
 import Header from '~/components/header';
 
 type FormType = {
@@ -38,7 +38,7 @@ type FormType = {
     sortBy?: string;
     productId?: string;
     isShow?: boolean;
-    categoryId?: string;
+    category?: string;
     userId?: string;
     isFeatured?: boolean;
 };
@@ -61,11 +61,6 @@ const PostList = () => {
     });
 
     const [sortedInfo, setSortedInfo] = useState<Sorts>({});
-
-    const { data: categories, isLoading: categoryLoading } = useQuery({
-        queryKey: ['category'],
-        queryFn: () => request.get('category').then((res) => res.data),
-    });
 
     const { data: users, isLoading: userLoading } = useQuery({
         queryKey: ['listUser'],
@@ -183,7 +178,10 @@ const PostList = () => {
             sorter: true,
             sortOrder:
                 sortedInfo.columnKey === 'category' ? sortedInfo.order : null,
-            render: (value: Category) => <p>{value?.name}</p>,
+            render: (record: string) => {
+                const role = POST_CATEGORY.find((r) => r.id === record);
+                return role ? role.value : record;
+            },
             width: 150,
         },
         {
@@ -317,7 +315,7 @@ const PostList = () => {
     };
 
     return (
-        <Spin spinning={postLoading || categoryLoading || userLoading}>
+        <Spin spinning={postLoading || userLoading}>
             <Header title="Manage Post" />
             <div>
                 <Form
@@ -327,16 +325,14 @@ const PostList = () => {
                     wrapperCol={{ span: 18 }}
                 >
                     <div className="grid flex-1 grid-cols-2 justify-end gap-x-5 xl:grid-cols-3">
-                        <Form.Item<FormType> label="Category" name="categoryId">
+                        <Form.Item<FormType> label="Category" name="category">
                             <Select
                                 allowClear
                                 filterOption={filterOption}
-                                options={categories?.data?.map(
-                                    (item: Category) => ({
-                                        value: item.id,
-                                        label: item.name,
-                                    })
-                                )}
+                                options={POST_CATEGORY?.map((item) => ({
+                                    value: item.id,
+                                    label: item.value,
+                                }))}
                                 placeholder="Select a category..."
                                 showSearch
                             />
