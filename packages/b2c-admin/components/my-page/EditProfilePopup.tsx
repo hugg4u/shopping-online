@@ -21,6 +21,7 @@ import { toast } from 'react-toastify';
 import request, { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import { useUserQueryStore } from 'common/store/useUserStore';
+import { PHONE_PATTERN } from 'common/constant/pattern';
 import styles from '~/styles/my-page/EditProfilePopup.module.css';
 
 dayjs.extend(weekday);
@@ -31,12 +32,21 @@ interface UserProfile {
     name: string;
     email: string;
     phone: string;
-    gender: string;
-    dob: string | null;
-    address: string;
-    image: string;
+    gender?: string;
+    dob?: string | null;
+    address?: string;
+    image?: string;
 }
-
+const mapGender = (gender: string | undefined) => {
+    if (gender === 'MALE') return 'Nam';
+    if (gender === 'FEMALE') return 'Nữ';
+    return undefined;
+};
+const mapGenderToAPI = (gender: string | undefined) => {
+    if (gender === 'Nam') return 'MALE';
+    if (gender === 'Nữ') return 'FEMALE';
+    return undefined;
+};
 interface EditProfilePopupProps {
     visible: boolean;
     onClose: () => void;
@@ -81,9 +91,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         },
         onError: (err) => {
             const error = err as Error;
-            message.error(
-                error.message || 'Không thể cập nhật thông tin người dùng'
-            );
+            message.error(error.message || 'Unable to update user information');
         },
     });
 
@@ -96,7 +104,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     setInitialValues(userData);
                     form.setFieldsValue({
                         ...userData,
-                        gender: userData.gender === 'MALE' ? 'Nam' : 'Nữ',
+                        gender: mapGender(userData.gender),
                         dob: userData.dob ? dayjs(userData.dob) : null,
                     });
                     setUploadedImageName(getImageUrl(userData.image));
@@ -125,7 +133,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 name: values.name.trim(),
                 email: values.email.trim(),
                 phone: values.phone.trim(),
-                address: values.address.trim(),
+                address: values.address?.trim() || null,
             };
 
             let newUploadedImageName = uploadedImageName;
@@ -136,15 +144,13 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 const initialValuesFormatted = {
                     ...initialValues,
                     dob: initialValues.dob ? dayjs(initialValues.dob) : null,
+                    gender: mapGender(initialValues.gender),
                 };
 
                 return (
                     trimmedValues.name !== initialValuesFormatted.name ||
                     trimmedValues.phone !== initialValuesFormatted.phone ||
-                    trimmedValues.gender !==
-                        (initialValuesFormatted.gender === 'MALE'
-                            ? 'Nam'
-                            : 'Nữ') ||
+                    trimmedValues.gender !== initialValuesFormatted.gender ||
                     (trimmedValues.dob &&
                         trimmedValues.dob.format('YYYY-MM-DD') !==
                             initialValuesFormatted.dob?.format('YYYY-MM-DD')) ||
@@ -155,7 +161,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
             if (!profileChanged()) {
                 message.warning(
-                    'Không phát hiện thấy thay đổi nào, không cần cập nhật.'
+                    'Update failed. Please change or leave out the space at the end of the information field.'
                 );
                 setIsConfirmationModalVisible(false);
                 return;
@@ -186,7 +192,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
 
             const updateData = {
                 ...trimmedValues,
-                gender: trimmedValues.gender === 'Nam' ? 'MALE' : 'FEMALE',
+                gender: mapGenderToAPI(trimmedValues.gender),
                 image: imageName || '',
                 dob: trimmedValues.dob
                     ? trimmedValues.dob.format('YYYY-MM-DD')
@@ -199,9 +205,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             setIsConfirmationModalVisible(false);
         } catch (err) {
             const error = err as Error;
-            message.error(
-                error.message || 'Không thể cập nhật thông tin người dùng'
-            );
+            message.error(error.message || 'Unable to update user information');
         }
     };
 
@@ -242,7 +246,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={onClose}
                 onOk={handleOk}
                 open={visible}
-                title="Thông tin người dùng"
+                title="User Profile"
             >
                 <Form form={form} layout="horizontal" name="edit_profile">
                     <div className={styles.formContent}>
@@ -251,7 +255,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 label="Email"
                                 name="email"
                                 {...formItemLayout}
-                                help="Không được thay đổi Email"
+                                help="Email cannot be changed."
                             >
                                 <Input disabled />
                             </Form.Item>
@@ -262,31 +266,43 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tên của bạn!',
+                                        message: 'Please enter your name',
                                     },
                                 ]}
                             >
                                 <Input />
                             </Form.Item>
                             <Form.Item
-                                label="Số điện thoại"
+                                label="Phone number"
                                 name="phone"
                                 {...formItemLayout}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message:
+                                            'Please enter the phone number',
+                                    },
+                                    {
+                                        pattern: PHONE_PATTERN,
+                                        message:
+                                            'Phone number is in wrong format',
+                                    },
+                                ]}
                             >
                                 <Input />
                             </Form.Item>
                             <Form.Item
-                                label="Giới tính"
+                                label="Gender"
                                 name="gender"
                                 {...formItemLayout}
                             >
                                 <Radio.Group>
-                                    <Radio value="Nam">Nam</Radio>
-                                    <Radio value="Nữ">Nữ</Radio>
+                                    <Radio value="Nam">Male</Radio>
+                                    <Radio value="Nữ">Female</Radio>
                                 </Radio.Group>
                             </Form.Item>
                             <Form.Item
-                                label="Ngày sinh"
+                                label="Date of birth"
                                 name="dob"
                                 {...formItemLayout}
                             >
@@ -305,7 +321,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 />
                             </Form.Item>
                             <Form.Item
-                                label="Địa chỉ"
+                                label="Address"
                                 name="address"
                                 {...formItemLayout}
                             >
@@ -348,9 +364,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={() => setIsConfirmationModalVisible(false)}
                 onOk={handleConfirmOk}
                 open={isConfirmationModalVisible}
-                title="Xác nhận cập nhật"
+                title="Confirm update"
             >
-                <p>Bạn có chắc chắn muốn cập nhật thông tin không?</p>
+                <p>Are you sure you want to update the information?</p>
             </Modal>
         </>
     );
