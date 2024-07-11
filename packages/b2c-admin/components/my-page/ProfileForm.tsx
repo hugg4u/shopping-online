@@ -35,9 +35,9 @@ const ProfileForm = () => {
     const { reload } = useUserQueryStore();
 
     const mapGender = (gender: string) => {
-        if (gender === 'MALE') return 'Nam';
-        if (gender === 'FEMALE') return 'Nữ';
-        return 'Khác';
+        if (gender === 'MALE') return 'Male';
+        if (gender === 'FEMALE') return 'Female';
+        return '';
     };
 
     const fetchUserProfile = async () => {
@@ -100,7 +100,7 @@ const ProfileForm = () => {
             setCheckHideImg(false);
             setTimeout(() => {
                 reload();
-            }, 200);
+            });
         },
         onError: (err) => {
             const error = err as Error;

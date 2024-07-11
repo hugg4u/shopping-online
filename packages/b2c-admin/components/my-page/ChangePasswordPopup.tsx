@@ -36,7 +36,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
         },
         onError: (error: ErrorResponse) => {
             message.error(
-                error.response?.data?.message || 'Failed to change password'
+                error.response?.data?.message || 'Password change failed'
             );
             setConfirmVisible(false);
         },
@@ -48,12 +48,18 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
             const passwordRegex = /^.{8,}$/;
             if (!passwordRegex.test(values.newPassword)) {
                 message.error(
-                    'Mật khẩu mới phải dài ít nhất 8 ký tự và chứa ký tự đặc biệt!'
+                    'New password must be at least 8 characters long'
+                );
+                return;
+            }
+            if (values.newPassword === values.oldPassword) {
+                message.error(
+                    'New password cannot be the same as current password'
                 );
                 return;
             }
             if (values.newPassword !== values.confirmPassword) {
-                message.error('Mật khẩu mới không khớp!');
+                message.error('New password does not match');
                 return;
             }
             setConfirmVisible(true);
@@ -90,51 +96,51 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                     </Button>,
                 ]}
                 onCancel={onClose}
-                title="Đổi mật khẩu"
+                title="Change Password"
                 visible={visible}
             >
                 <Form form={form} layout="vertical" name="change_password">
                     <Form.Item
-                        label="Mật khẩu hiện tại"
+                        label="Current password"
                         name="oldPassword"
                         rules={[
                             {
                                 required: true,
-                                message:
-                                    'Vui lòng nhập mật khẩu hiện tại của bạn!',
+                                message: 'Please enter your current password',
                             },
                         ]}
                     >
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
-                        label="Mật khẩu mới"
+                        label="New password"
                         name="newPassword"
                         rules={[
                             {
                                 required: true,
-                                message: 'Vui lòng nhập mật khẩu mới của bạn!',
+                                message: 'Please enter your new password',
                             },
                             {
                                 min: 8,
-                                message: 'Mật khẩu có độ dài tối thiểu 8 kí tự',
+                                message:
+                                    'Password must be at least 8 characters long',
                             },
                         ]}
                     >
                         <Input.Password />
                     </Form.Item>
                     <Form.Item
-                        label="Xác nhận mật khẩu mới"
+                        label="Confirm new password"
                         name="confirmPassword"
                         rules={[
                             {
                                 required: true,
-                                message:
-                                    'Vui lòng xác nhận mật khẩu mới của bạn!',
+                                message: 'Please confirm your new password',
                             },
                             {
                                 min: 8,
-                                message: 'Mật khẩu có độ dài tối thiểu 8 kí tự',
+                                message:
+                                    'Password must be at least 8 characters long',
                             },
                         ]}
                     >
