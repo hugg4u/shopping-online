@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 import Cookie from 'js-cookie';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ConfigProvider } from 'antd';
@@ -113,11 +113,16 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
                 token: {
                     fontSize: 12,
                 },
+                components: {
+                    Modal: {
+                        motion: false,
+                    },
+                },
             }}
         >
             <QueryClientProvider client={queryClient}>
                 <Spin spinning={loading} />
-                <ToastContainer autoClose={2000} />
+                <ToastContainer autoClose={2000} stacked transition={Zoom} />
                 {getLayout(<Component {...pageProps} />)}
             </QueryClientProvider>
         </ConfigProvider>

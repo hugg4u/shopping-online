@@ -11,11 +11,12 @@ import {
     deleteUser,
     editUser,
     getListUser,
+    getSeller,
     getUser,
     getUserById,
 } from '../controllers/admin/user';
 
-import { isAuthenticated } from '../../middlewares';
+import { isAuthenticated, isSeller } from '../../middlewares';
 
 export default (router: Router) => {
     router.get('/user', isAuthenticated, getUser);
@@ -34,4 +35,5 @@ export default (router: Router) => {
     );
     router.get('/user-image', isAuthenticated, getUserImage);
     router.put('/user-profile/update-image', isAuthenticated, updateUserImage);
+    router.get('/seller-select', isAuthenticated, isSeller, getSeller);
 };

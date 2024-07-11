@@ -376,3 +376,54 @@ export const deleteUser = async (req: Request, res: Response) => {
         return res.sendStatus(500);
     }
 };
+
+export const getSeller = async (req: Request, res: Response) => {
+    const { search } = req.query;
+
+    try {
+        const user = await db.user.findMany({
+            where: {
+                OR: [
+                    {
+                        email: {
+                            contains: search ? String(search) : undefined,
+                        },
+                        role: 'SELLER',
+                    },
+                    {
+                        email: {
+                            contains: search ? String(search) : undefined,
+                        },
+                        role: 'SELLERMANAGER',
+                    },
+                    {
+                        name: {
+                            contains: search ? String(search) : undefined,
+                        },
+                        role: 'SELLER',
+                    },
+                    {
+                        name: {
+                            contains: search ? String(search) : undefined,
+                        },
+                        role: 'SELLERMANAGER',
+                    },
+                ],
+            },
+            select: {
+                id: true,
+                image: true,
+                name: true,
+                email: true,
+            },
+        });
+
+        return res.status(200).json({
+            isOk: true,
+            data: user,
+            message: 'Get seller successfully!',
+        });
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+};
