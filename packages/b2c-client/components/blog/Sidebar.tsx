@@ -48,13 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           }
         | undefined
     >(POST_CATEGORY.find((cat) => cat.id === currentCategory));
-
-    // const { data: categories = [], isLoading: categoryLoading } = useQuery<
-    //     Category[]
-    // >({
-    //     queryKey: ['category'],
-    //     queryFn: () => get('category').then((res) => res.data.data),
-    // });
+    const [searchValue, setSearchValue] = useState<string>('');
 
     const { data: latestPosts = [], isLoading: latestPostsLoading } = useQuery<
         LatestPost[]
@@ -70,6 +64,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             POST_CATEGORY.find((cat) => cat.id === currentCategory)
         );
     }, [currentCategory]);
+
+    useEffect(() => {
+        if (router.query.search) {
+            setSearchValue(router.query.search as string);
+        }
+    }, [router.query.search]);
 
     const handleCategoryChange = (category: { id: string; value: string }) => {
         if (selectedCategory?.id === category.id) {
@@ -97,7 +97,12 @@ const Sidebar: React.FC<SidebarProps> = ({
     };
 
     const onSearch = (value: string) => {
-        if (handleSearch) {
+        if (isDetailPage) {
+            router.push({
+                pathname: '/blog',
+                query: { page: 1, pageSize: 12, search: value },
+            });
+        } else if (handleSearch) {
             handleSearch(
                 1,
                 undefined,
@@ -105,6 +110,13 @@ const Sidebar: React.FC<SidebarProps> = ({
                 selectedCategory?.id || '',
                 value
             );
+        }
+    };
+
+    const handleResetFiltersInternal = () => {
+        setSearchValue('');
+        if (handleResetFilters) {
+            handleResetFilters();
         }
     };
 
@@ -121,8 +133,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             <div className={styles.searchSection}>
                 <Search
                     enterButton
+                    onChange={(e) => setSearchValue(e.target.value)}
                     onSearch={onSearch}
                     placeholder="Nhập tên blog để tìm kiếm..."
+                    value={searchValue}
                 />
             </div>
             <div className={styles.menuSection}>
@@ -164,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 <>
                     <Button
                         className={styles.resetButton}
-                        onClick={handleResetFilters}
+                        onClick={handleResetFiltersInternal}
                         type="link"
                     >
                         Xóa bộ lọc
