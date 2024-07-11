@@ -7,6 +7,7 @@ import {
     Form,
     Input,
     Layout,
+    Modal,
     Radio,
     RadioChangeEvent,
     Row,
@@ -236,40 +237,56 @@ const CartContact = () => {
                 };
             }) ?? [];
 
-        if (auth) {
-            const newOrder = await createOrderForUser({
-                name,
-                email,
-                gender: Object.keys(genderOptions)[
-                    Object.values(genderOptions).indexOf(gender)
-                ],
-                paymentMethod: selectedPaymentMethod,
-                phone,
-                address,
-                note,
-                orderDetails,
-            }).then((res) => res.data);
+        const createOrder = async () => {
+            if (auth) {
+                const newOrder = await createOrderForUser({
+                    name,
+                    email,
+                    gender: Object.keys(genderOptions)[
+                        Object.values(genderOptions).indexOf(gender)
+                    ],
+                    paymentMethod: selectedPaymentMethod,
+                    phone,
+                    address,
+                    note,
+                    orderDetails,
+                }).then((res) => res.data);
 
-            reloadCartQuery();
-            router.push(`/cart-completion?orderId=${newOrder.id}`);
-        } else {
-            const newOrder = await createOrderForGuest({
-                name,
-                email,
-                gender: Object.keys(genderOptions)[
-                    Object.values(genderOptions).indexOf(gender)
-                ],
-                paymentMethod: selectedPaymentMethod,
-                phone,
-                address,
-                note,
-                orderDetails,
-            }).then((res) => res.data);
+                reloadCartQuery();
+                router.push(`/cart-completion?orderId=${newOrder.id}`);
+            } else {
+                const newOrder = await createOrderForGuest({
+                    name,
+                    email,
+                    gender: Object.keys(genderOptions)[
+                        Object.values(genderOptions).indexOf(gender)
+                    ],
+                    paymentMethod: selectedPaymentMethod,
+                    phone,
+                    address,
+                    note,
+                    orderDetails,
+                }).then((res) => res.data);
 
-            deleteListProduct(itemKeysQuery.split(','));
+                deleteListProduct(itemKeysQuery.split(','));
 
-            router.push(`/cart-completion?orderId=${newOrder.id}`);
-        }
+                router.push(`/cart-completion?orderId=${newOrder.id}`);
+            }
+        };
+
+        let closable = false;
+
+        Modal.confirm({
+            title: 'Xác nhận đơn hàng',
+            content: 'Bạn có chắc chắn muốn tạo đơn hàng này?',
+            okText: 'Xác nhận',
+            cancelText: 'Hủy',
+            onOk: () => {
+                createOrder();
+                closable = true;
+            },
+            closable,
+        });
     };
 
     if (!auth) {
