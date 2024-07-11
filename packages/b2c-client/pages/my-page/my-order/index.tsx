@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { Input, Layout, Pagination, Spin, Tabs, TabsProps } from 'antd';
-import { PAGE_SIZE } from 'common/constant';
+import { Input, Pagination, Spin, Tabs, TabsProps } from 'antd';
+import { PAGE_SIZE_CLIENT } from 'common/constant';
 import { QueryResponseType } from 'common/types';
 import { Order, orderStatus } from 'common/types/order';
 import * as request from 'common/utils/http-request';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { OrderCard } from '~/components/order/order-card';
-import styles from '~/styles/Products.module.css';
 
 const items: TabsProps['items'] = Object.entries(orderStatus).map(
     ([key, value]) => ({
@@ -27,7 +26,7 @@ type SearchParams = {
 
 const MyOrder: NextPage = () => {
     const [searchParams, setSearchParams] = useState<SearchParams>({
-        pageSize: PAGE_SIZE,
+        pageSize: PAGE_SIZE_CLIENT,
         currentPage: 1,
     });
 
@@ -51,8 +50,8 @@ const MyOrder: NextPage = () => {
         refetch();
     }, [searchParams]);
     return (
-        <div className="">
-            <Layout className={styles.container}>
+        <div className="bg-white">
+            <div>
                 <Spin spinning={isLoading}>
                     <Tabs
                         centered
@@ -105,8 +104,6 @@ const MyOrder: NextPage = () => {
                                             });
                                         }}
                                         pageSize={searchParams?.pageSize}
-                                        pageSizeOptions={[5, 10, 20, 50]}
-                                        showSizeChanger
                                         total={listOrder?.pagination?.total}
                                     />
                                 ) : null}
@@ -114,7 +111,7 @@ const MyOrder: NextPage = () => {
                         </div>
                     </div>
                 </Spin>
-            </Layout>
+            </div>
         </div>
     );
 };

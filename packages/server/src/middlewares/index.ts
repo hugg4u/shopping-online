@@ -96,15 +96,11 @@ export const isSellerManager = async (
         },
     });
 
-    if (!user) {
+    if (!user || user.role !== 'SELLERMANAGER') {
         return res.sendStatus(403);
     }
 
-    if (user.role === 'SELLERMANAGER') {
-        return next();
-    }
-
-    return res.status(403);
+    return next();
 };
 
 export const isAdmin = async (

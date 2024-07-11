@@ -15,7 +15,7 @@ const Avatar: React.FC<Props> = ({ width, height, src, className }) => {
     return (
         <Image
             alt="avatar"
-            className={cn('rounded-full', className)}
+            className={cn('rounded-full object-cover', className)}
             height={height}
             onError={() => {
                 setFallback('/images/placeholder.jpg');

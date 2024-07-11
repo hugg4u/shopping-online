@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { isAuthenticated } from '../../middlewares';
+import { isAuthenticated, isSeller, isSellerManager } from '../../middlewares';
 import {
     createOrderForGuest,
     createOrderForUser,
@@ -10,6 +10,11 @@ import {
     getOrderDetail,
     updateOrderStatusAfterPayment,
 } from '../controllers/order';
+import {
+    getListOrderCms,
+    updateAssignee,
+    updateOrderStatus,
+} from '../controllers/order/order-cms';
 
 export default (router: Router) => {
     router.get('/my-order', isAuthenticated, getListOrder);
@@ -21,5 +26,25 @@ export default (router: Router) => {
     router.put(
         '/order/update-status-after-payment/:id',
         updateOrderStatusAfterPayment
+    );
+
+    // CMS
+    router.get(
+        '/order/list-order-cms',
+        isAuthenticated,
+        isSeller,
+        getListOrderCms
+    );
+    router.put(
+        '/order/update-assignee/:id',
+        isAuthenticated,
+        isSellerManager,
+        updateAssignee
+    );
+    router.put(
+        '/order/update-status/:id',
+        isAuthenticated,
+        isSellerManager,
+        updateOrderStatus
     );
 };
