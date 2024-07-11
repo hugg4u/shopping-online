@@ -246,7 +246,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={onClose}
                 onOk={handleOk}
                 open={visible}
-                title="Thông tin người dùng"
+                title="User Profile"
             >
                 <Form form={form} layout="horizontal" name="edit_profile">
                     <div className={styles.formContent}>
@@ -364,7 +364,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 onCancel={() => setIsConfirmationModalVisible(false)}
                 onOk={handleConfirmOk}
                 open={isConfirmationModalVisible}
-                title="Xác nhận cập nhật"
+                title="Confirm update"
             >
                 <p>Are you sure you want to update the information?</p>
             </Modal>

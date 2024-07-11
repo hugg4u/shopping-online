@@ -194,9 +194,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <span className={styles.menuTitleText}>Liên hệ</span>
                 </div>
                 <ul className={styles.contactList}>
-                    <li>Email: blogcontact@example.com</li>
+                    <li>Email: perfumeshop1830@gmail.com</li>
                     <li>Điện thoại: (123) 456-7890</li>
-                    <li>Địa chỉ: 123 Đường Blog, Thành phố Blog, PC 12345</li>
+                    <li>
+                        Địa chỉ: 123 Đường Nước Hoa, Thành phố Hương, PC 12345
+                    </li>
                     <li>
                         <button
                             className={styles.contactDetailButton}

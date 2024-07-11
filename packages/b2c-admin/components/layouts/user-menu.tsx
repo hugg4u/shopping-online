@@ -36,7 +36,7 @@ const Header: React.FC<Props> = ({ title }) => {
                     onClick={() => setIsProfilePopupVisible(true)}
                     role="presentation"
                 >
-                    Profile
+                    User Profile
                 </div>
             ),
         },

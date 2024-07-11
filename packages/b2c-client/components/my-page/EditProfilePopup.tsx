@@ -225,7 +225,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     const beforeUpload = (file: UploadFile) => {
         const isImage = file.type && file.type.startsWith('image/');
         if (!isImage) {
-            message.error('Bạn chỉ có thể tải lên các tập tin hình ảnh!');
+            message.error('Bạn chỉ có thể tải lên tập tin hình ảnh');
             return Upload.LIST_IGNORE;
         }
         return isImage;

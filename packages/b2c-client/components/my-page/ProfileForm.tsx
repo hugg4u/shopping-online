@@ -61,7 +61,7 @@ const ProfileForm = () => {
                 setAvatarUrl(getImageUrl(userData.image));
             }
         } catch (error) {
-            message.error('Failed to load user profile');
+            message.error('Không tải được thông tin người dùng');
         } finally {
             setLoading(false);
         }
@@ -84,7 +84,7 @@ const ProfileForm = () => {
             return request.post('upload', formData).then((res) => res.data);
         },
         onError: () => {
-            toast.error('Upload file failed!');
+            toast.error('Tải ảnh lên không thành công');
         },
     });
 
@@ -104,14 +104,16 @@ const ProfileForm = () => {
         },
         onError: (err) => {
             const error = err as Error;
-            message.error(error.message || 'Failed to update profile');
+            message.error(
+                error.message || 'Không thể cập nhật thông tin người dùng'
+            );
         },
     });
 
     const beforeUpload = (file: UploadFile) => {
         const isImage = file.type && file.type.startsWith('image/');
         if (!isImage) {
-            message.error('You can only upload image files!');
+            message.error('Bạn chỉ có thể tải lên tập tin hình ảnh');
             return Upload.LIST_IGNORE;
         }
         return isImage;
@@ -158,7 +160,9 @@ const ProfileForm = () => {
             await updateUserImage(imageName);
         } catch (err) {
             const error = err as Error;
-            message.error(error.message || 'Failed to update profile');
+            message.error(
+                error.message || 'Không thể cập nhật thông tin người dùng'
+            );
         }
     };
 

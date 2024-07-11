@@ -154,7 +154,7 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
                 okText="Confirm"
                 onCancel={handleCancel}
                 onOk={confirmChangePassword}
-                title="Confirm Password Change"
+                title="Xác nhận thay đổi mật khẩu"
                 visible={confirmVisible}
             >
                 <p>Bạn có chắc chắn muốn thay đổi mật khẩu không?</p>
