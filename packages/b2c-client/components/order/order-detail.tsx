@@ -224,7 +224,7 @@ const OrderDetail = () => {
                                     hoverable
                                     key={detail.id}
                                     onClick={() =>
-                                        push(`/product/${detail.id}`)
+                                        push(`/product/${detail.productId}`)
                                     }
                                 >
                                     <div className=" flex h-full items-center">
@@ -249,7 +249,7 @@ const OrderDetail = () => {
                                                     {detail?.size}
                                                     ml
                                                 </p>
-                                                <p className="text-base ">
+                                                <p className="text-base">
                                                     x {detail?.quantity}
                                                 </p>
                                             </div>

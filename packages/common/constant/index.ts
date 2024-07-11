@@ -9,6 +9,15 @@ export const RATING_LIST = [
     { id: 5, value: 5 },
 ];
 
+export const ORDER_STATUS = [
+    { id: 'PAYMENT_PENDING', value: 'PAYMENT_PENDING' },
+    { id: 'PAID', value: 'PAID' },
+    { id: 'PENDING', value: 'PENDING' },
+    { id: 'CONFIRMED', value: 'CONFIRMED' },
+    { id: 'DELIVERING', value: 'DELIVERING' },
+    { id: 'DELIVERED', value: 'DELIVERED' },
+];
+
 export const RATING_LIST_CLIENT = [
     { id: 5, value: 5 },
     { id: 4, value: 4 },
@@ -87,6 +96,8 @@ export const FILTER_LIST = [
 ];
 
 export const PAGE_SIZE = 5;
+
+export const PAGE_SIZE_CLIENT = 10;
 
 export const PAGE_SIZE_CLIENT_PRODUCT = 12;
 export const PAGE_SIZE_CLIENT_BLOG = 12;
