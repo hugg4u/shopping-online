@@ -29,6 +29,7 @@ import * as request from 'common/utils/http-request';
 import { useAuth } from '~/hooks/useAuth';
 import useCartStore from '~/hooks/useCartStore';
 import CartContactItem from './cart-contact-list';
+import { useCartQuery } from '~/hooks/useCartQuery';
 
 const { Content } = Layout;
 
@@ -46,7 +47,7 @@ const CartContact = () => {
 
     const [totalCartPrice, setTotalCartPrice] = useState(0);
     const { data: cartStorage, deleteListProduct } = useCartStore();
-
+    const { reload: reloadCartQuery } = useCartQuery();
     // lấy dữ liệu product có trong localstorage nếu chưa đăng nhập
     const { data: listProductCart } = useQuery<QueryResponseType<Product>>({
         queryKey: ['list_product_cart'],
@@ -61,7 +62,6 @@ const CartContact = () => {
                 })
                 .then((res) => res.data);
         },
-        enabled: cartStorage.length > 0,
     });
 
     // lấy dữ liệu cart từ database nếu đã đăng nhập
@@ -250,6 +250,7 @@ const CartContact = () => {
                 orderDetails,
             }).then((res) => res.data);
 
+            reloadCartQuery();
             router.push(`/cart-completion?orderId=${newOrder.id}`);
         } else {
             const newOrder = await createOrderForGuest({
