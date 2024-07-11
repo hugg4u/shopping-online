@@ -75,3 +75,12 @@
     margin-bottom: 16px;
     margin-left: 90px;
 }
+
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}

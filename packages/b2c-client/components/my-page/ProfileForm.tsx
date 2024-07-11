@@ -14,7 +14,7 @@ import request, { get } from 'common/utils/http-request';
 import { useMutation } from '@tanstack/react-query';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import moment from 'moment';
-import { RcFile } from 'antd/es/upload';
+import { RcFile, UploadProps } from 'antd/es/upload';
 import { toast } from 'react-toastify';
 import { useUserQueryStore } from 'common/store/useUserStore';
 import Avatar from 'common/components/avatar';
@@ -186,6 +186,24 @@ const ProfileForm = () => {
         },
     };
 
+    const customItemRender: UploadProps['itemRender'] = (originNode) => {
+        const customFileName = '';
+        return React.cloneElement(originNode, {
+            ...originNode.props,
+            children: React.Children.map(
+                originNode.props.children,
+                (child, index) => {
+                    if (index === 1 && React.isValidElement(child)) {
+                        return React.cloneElement(child as React.ReactElement, {
+                            children: customFileName,
+                        });
+                    }
+                    return child;
+                }
+            ),
+        } as React.ReactElement);
+    };
+
     return (
         <Spin spinning={loading}>
             <div className={styles.profileFormContainer}>
@@ -275,6 +293,7 @@ const ProfileForm = () => {
                                     beforeUpload={beforeUpload}
                                     className={styles.uploadContainer}
                                     fileList={fileList}
+                                    itemRender={customItemRender}
                                     listType="picture"
                                     maxCount={1}
                                     onChange={handleChange}
