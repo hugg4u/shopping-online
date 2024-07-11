@@ -89,3 +89,4 @@ export const FILTER_LIST = [
 export const PAGE_SIZE = 5;
 
 export const PAGE_SIZE_CLIENT_PRODUCT = 12;
+export const PAGE_SIZE_CLIENT_BLOG = 12;
