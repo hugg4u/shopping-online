@@ -209,7 +209,7 @@ const ProfileForm = () => {
                         <div className={styles.formLeft}>
                             <Form.Item
                                 {...formItemLayout}
-                                label="Name"
+                                label="Tên"
                                 name="name"
                             >
                                 <Input readOnly />

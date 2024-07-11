@@ -249,7 +249,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     return (
         <>
             <Modal
+                cancelText="Đóng"
                 className={styles.editProfilePopup}
+                okText="Xác nhận"
                 onCancel={onClose}
                 onOk={handleOk}
                 open={visible}
@@ -267,7 +269,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 <Input disabled />
                             </Form.Item>
                             <Form.Item
-                                label="Name"
+                                label="Tên"
                                 name="name"
                                 {...formItemLayout}
                                 rules={[
@@ -366,7 +368,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 </Form>
             </Modal>
             <Modal
+                cancelText="Hủy"
                 className={styles.centeredModal}
+                okText="Xác nhận"
                 onCancel={() => setIsConfirmationModalVisible(false)}
                 onOk={handleConfirmOk}
                 open={isConfirmationModalVisible}

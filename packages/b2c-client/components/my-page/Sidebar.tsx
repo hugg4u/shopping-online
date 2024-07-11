@@ -32,7 +32,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
             <div className={styles.profileInfo}>
                 <UserOutlined className={styles.profileIcon} />
                 <div className={styles.profileText}>
-                    <span className={styles.profileName}>User Profile</span>
+                    <span className={styles.profileName}>
+                        Thông tin người dùng
+                    </span>
                 </div>
             </div>
             <Menu

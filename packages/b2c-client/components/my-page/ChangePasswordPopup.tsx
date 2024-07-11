@@ -87,10 +87,10 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
             <Modal
                 footer={[
                     <Button key="back" onClick={onClose}>
-                        Cancel
+                        Đóng
                     </Button>,
                     <Button key="submit" onClick={handleOk} type="primary">
-                        Submit
+                        Xác nhận
                     </Button>,
                 ]}
                 onCancel={onClose}
@@ -149,9 +149,9 @@ const ChangePasswordPopup: React.FC<ChangePasswordPopupProps> = ({
 
             {/* Confirmation Modal */}
             <Modal
-                cancelText="Cancel"
+                cancelText="Hủy"
                 centered
-                okText="Confirm"
+                okText="Xác nhận"
                 onCancel={handleCancel}
                 onOk={confirmChangePassword}
                 title="Xác nhận thay đổi mật khẩu"
