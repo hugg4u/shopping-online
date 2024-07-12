@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { RcFile, UploadFile } from 'antd/es/upload';
+import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import request, { get } from 'common/utils/http-request';
@@ -235,6 +235,36 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         return e?.fileList;
     };
 
+    const customItemRender: UploadProps['itemRender'] = (originNode) => {
+        const customFileName = '';
+        return React.cloneElement(originNode, {
+            ...originNode.props,
+            children: React.Children.map(
+                originNode.props.children,
+                (child, index) => {
+                    if (index === 1 && React.isValidElement(child)) {
+                        return React.cloneElement(child as React.ReactElement, {
+                            children: customFileName,
+                        });
+                    }
+                    return child;
+                }
+            ),
+        } as React.ReactElement);
+    };
+
+    const getAvatarSrc = () => {
+        if (!uploadedImageName) {
+            return '/images/default_avatar.jpg';
+        }
+
+        if (uploadedImageName.startsWith('http')) {
+            return uploadedImageName;
+        }
+
+        return getImageUrl(uploadedImageName);
+    };
+
     const formItemLayout = {
         labelCol: {
             xs: { span: 24 },
@@ -339,11 +369,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                         <div className={styles.formRight}>
                             <Avatar
                                 height={150}
-                                src={
-                                    uploadedImageName.startsWith('http')
-                                        ? uploadedImageName
-                                        : `/images/${uploadedImageName}`
-                                }
+                                src={getAvatarSrc()}
                                 width={150}
                             />
 
@@ -353,7 +379,9 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             >
                                 <Upload
                                     beforeUpload={beforeUpload}
+                                    className={styles.uploadContainer}
                                     fileList={fileList}
+                                    itemRender={customItemRender}
                                     listType="picture"
                                     maxCount={1}
                                     onChange={handleChange}
