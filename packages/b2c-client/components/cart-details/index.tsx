@@ -83,18 +83,6 @@ const CartDetails = () => {
         },
     });
 
-    const { mutate: addCart } = useMutation({
-        mutationFn: async (dataAddCart: {
-            productId: string;
-            quantity: number;
-        }) => {
-            return request.post('/cart/add', dataAddCart);
-        },
-        onSuccess: () => {
-            refetchCart(); // Corrected function name
-        },
-    });
-
     useEffect(() => {
         if (listCartItemsStore?.data) {
             const total = listCartItemsStore.data.reduce((acc, cur) => {
@@ -164,13 +152,6 @@ const CartDetails = () => {
             const product = itemKeysQuery.split(',');
             product.forEach((e: string) => {
                 const [id, quantity] = e.split(':');
-                if (!cartItems.some((item) => item.product?.id === id)) {
-                    addCart({
-                        productId: id,
-                        quantity: Number(quantity),
-                    });
-                    refetchCart();
-                }
 
                 setSelectedItems((prevSelectedItems) => [
                     ...prevSelectedItems,
@@ -178,7 +159,7 @@ const CartDetails = () => {
                 ]);
             });
         }
-    }, [itemKeysQuery, cartItems, addCart, refetchCart]);
+    }, [itemKeysQuery, cartItems]);
 
     const handleCheckboxChange = (id: string, checked: boolean) => {
         setSelectedItems((prevSelectedItems) => {
@@ -188,6 +169,7 @@ const CartDetails = () => {
             return prevSelectedItems.filter((item) => item.id !== id);
         });
     };
+
     const handlePurchase = () => {
         const queryString = selectedItems?.map((e) => `${e.id}`).join(',');
         if (queryString === null || queryString === '') {
