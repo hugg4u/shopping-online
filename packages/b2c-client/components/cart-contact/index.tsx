@@ -21,7 +21,6 @@ import { OrderDetail } from 'common/types/order';
 import { Product } from 'common/types/product';
 import { currencyFormatter } from 'common/utils/formatter';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -289,6 +288,10 @@ const CartContact = () => {
         });
     };
 
+    const handleBackToCart = () => {
+        router.push(`/cart-details?itemKeys=${itemKeysQuery}`);
+    };
+
     if (!auth) {
         return (
             <Layout>
@@ -501,18 +504,19 @@ const CartContact = () => {
                                             </div>
                                             <div className="m-10 flex justify-evenly">
                                                 <div>
-                                                    <Link href="/cart-details">
-                                                        <Button
-                                                            block
-                                                            size="large"
-                                                            style={{
-                                                                marginBottom: 20,
-                                                            }}
-                                                            type="primary"
-                                                        >
-                                                            Quay về giỏ hàng
-                                                        </Button>
-                                                    </Link>
+                                                    <Button
+                                                        block
+                                                        onClick={
+                                                            handleBackToCart
+                                                        }
+                                                        size="large"
+                                                        style={{
+                                                            marginBottom: 20,
+                                                        }}
+                                                        type="primary"
+                                                    >
+                                                        Quay về giỏ hàng
+                                                    </Button>
                                                 </div>
                                                 <div>
                                                     <Button
@@ -777,18 +781,17 @@ const CartContact = () => {
                                         </div>
                                         <div className="m-10 flex justify-evenly">
                                             <div>
-                                                <Link href="/cart-details">
-                                                    <Button
-                                                        block
-                                                        size="large"
-                                                        style={{
-                                                            marginBottom: 20,
-                                                        }}
-                                                        type="primary"
-                                                    >
-                                                        Quay về giỏ hàng
-                                                    </Button>
-                                                </Link>
+                                                <Button
+                                                    block
+                                                    onClick={handleBackToCart}
+                                                    size="large"
+                                                    style={{
+                                                        marginBottom: 20,
+                                                    }}
+                                                    type="primary"
+                                                >
+                                                    Quay về giỏ hàng
+                                                </Button>
                                             </div>
                                             <div>
                                                 <Button
