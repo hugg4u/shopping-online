@@ -84,6 +84,7 @@ model Product {
   categoryId     String
   thumbnail      String? @db.Text
   rating         Float   @default(0)
+  totalRate      Int?
   isShow         Boolean @default(true)
   isFeatured     Boolean @default(false)
 
@@ -180,8 +181,7 @@ model Feedback {
   description String? @db.Text
   userId      String
   productId   String
-  rating      Float?
-  totalRate   Int?
+  rating      Float? 
   isShow      Boolean @default(true)
 
   createdAt DateTime @default(now())
