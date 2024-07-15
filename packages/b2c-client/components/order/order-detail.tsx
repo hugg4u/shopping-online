@@ -120,7 +120,7 @@ const OrderDetail = () => {
                                                         )
                                                         .join(',');
                                                 push(
-                                                    `/my-page/cart-details?itemKeys=${queryString}&orderId=${orderDetail.id}`
+                                                    `/cart-details?itemKeys=${queryString}&orderId=${orderDetail.id}`
                                                 );
                                             }}
                                             size="large"
