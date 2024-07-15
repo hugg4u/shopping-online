@@ -36,26 +36,30 @@ export const getListOrderCms = async (req: Request, res: Response) => {
             };
         }
 
-        const total = await db.order.count();
+        const whereClause = {
+            id: {
+                contains: orderId as string,
+            },
+            user: {
+                name: {
+                    contains: customer as string,
+                },
+            },
+            createdAt: {
+                gte: startDate ? new Date(startDate as string) : undefined,
+                lt: endDate ? getNextDate(endDate as string) : undefined,
+            },
+        };
+
+        const total = await db.order.count({
+            where: { ...whereClause },
+        });
 
         const orderList = await db.order.findMany({
             skip:
                 (Number(currentPage ?? 1) - 1) * Number(pageSize ?? PAGE_SIZE),
             take: Number(pageSize ?? PAGE_SIZE),
-            where: {
-                id: {
-                    contains: orderId as string,
-                },
-                user: {
-                    name: {
-                        contains: customer as string,
-                    },
-                },
-                createdAt: {
-                    gte: startDate ? new Date(startDate as string) : undefined,
-                    lt: endDate ? getNextDate(endDate as string) : undefined,
-                },
-            },
+            where: { ...whereClause },
             select: {
                 id: true,
                 name: true,
