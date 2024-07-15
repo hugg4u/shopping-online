@@ -32,6 +32,7 @@ model User {
 
   accounts Account[]
   feedback Feedback[]
+  comment Comment[]
   cart     Cart[]
   order    Order[] @relation("customer")
   post     Post[]
@@ -95,6 +96,7 @@ model Product {
   product_image ProductImage[]
 
   feedback Feedback[]
+  comment Comment[]
   cart     Cart[]
 
   @@index([brandId, categoryId])
@@ -178,7 +180,8 @@ model Feedback {
   description String? @db.Text
   userId      String
   productId   String
-  rating      Int?
+  rating      Float?
+  totalRate   Int?
   isShow      Boolean @default(true)
 
   createdAt DateTime @default(now())
@@ -188,6 +191,24 @@ model Feedback {
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   image FeedbackImage[]
+
+  @@index([userId, productId])
+}
+
+model Comment {
+  id          String  @id @default(uuid())
+  description String? @db.Text
+  userId      String
+  productId   String 
+  isShow      Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+ 
 
   @@index([userId, productId])
 }
