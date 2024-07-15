@@ -24,11 +24,14 @@ import { currencyFormatter } from 'common/utils/formatter';
 import { ORDER_STATUS, PAGE_SIZE } from 'common/constant';
 import { toast } from 'react-toastify';
 import { getSortOrder } from 'common/utils/getSortOrder';
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import { getImageUrl } from 'common/utils/getImageUrl';
 import OrderDescription from './order-description';
 import AssignSeller from './assign-seller';
 
 type FormType = {
-    id?: string;
+    orderId?: string;
     customer?: string;
     status?: string;
     date?: Date[];
@@ -50,13 +53,14 @@ const OrderList = () => {
 
     const { data, isFetching, refetch } = useQuery<QueryResponseType<OrderCms>>(
         {
-            queryKey: ['order-list-cms', sortedInfo],
+            queryKey: ['order-list-cms', sortedInfo, searchParams],
             queryFn: () =>
                 request
                     .get('order/list-order-cms', {
                         params: {
                             orderName: sortedInfo?.field,
                             order: getSortOrder(sortedInfo?.order),
+                            ...searchParams,
                         },
                     })
                     .then((res) => res.data),
@@ -115,8 +119,36 @@ const OrderList = () => {
             render(_, record) {
                 return (
                     <div>
-                        <div className="text-base font-medium">
-                            {record?.orderDetail?.[0]?.productName}
+                        <div className="flex gap-4 text-base font-medium">
+                            <div>
+                                <Image
+                                    alt={
+                                        record?.orderDetail?.[0]?.thumbnail ??
+                                        ''
+                                    }
+                                    className="rounded-md object-cover"
+                                    height={60}
+                                    src={getImageUrl(
+                                        record?.orderDetail?.[0]?.thumbnail ??
+                                            ''
+                                    )}
+                                    style={{
+                                        width: 60,
+                                        height: 60,
+                                    }}
+                                    width={60}
+                                />
+                            </div>
+                            <div>
+                                <p>{record?.orderDetail?.[0]?.productName}</p>
+                                <p>x{record?.orderDetail?.[0]?.quantity}</p>
+                                <p>
+                                    {record?.orderDetail?.[0]?.totalPrice &&
+                                        currencyFormatter(
+                                            record?.orderDetail?.[0]?.totalPrice
+                                        )}
+                                </p>
+                            </div>
                         </div>
                         <div className="text-slate-500">
                             {record?._count?.orderDetail} more product
@@ -170,6 +202,7 @@ const OrderList = () => {
             title: 'Assignee',
             dataIndex: 'seller',
             key: 'Assignee',
+            width: 255,
             render(_, record) {
                 return (
                     <AssignSeller
@@ -198,28 +231,40 @@ const OrderList = () => {
     };
 
     const onFinish: FormProps<FormType>['onFinish'] = (values) => {
-        // eslint-disable-next-line no-console
-        console.log(values);
+        const submitObj = {
+            orderId: values.orderId,
+            customer: values.customer,
+            startDate: values?.date?.[0]
+                ? dayjs(values?.date?.[0]).format('YYYY-MM-DD')
+                : undefined,
+            endDate: values?.date?.[1]
+                ? dayjs(values?.date?.[1]).format('YYYY-MM-DD')
+                : undefined,
+        };
+
+        setSearchParams((prev) => ({ ...prev, ...submitObj }));
     };
 
     return (
         <Spin spinning={isFetching}>
             <div>
                 <Form onFinish={onFinish}>
-                    <Form.Item<FormType> label="ID" name="id">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item<FormType> label="Customer" name="customer">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item<FormType> label="Ordered date" name="date">
-                        <RangePicker format="YYYY-MM-DD" />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button htmlType="submit" type="primary">
-                            Search
-                        </Button>
-                    </Form.Item>
+                    <div className="grid grid-cols-4 gap-10">
+                        <Form.Item<FormType> label="ID" name="orderId">
+                            <Input placeholder="Enter orderId..." />
+                        </Form.Item>
+                        <Form.Item<FormType> label="Customer" name="customer">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item<FormType> label="Ordered date" name="date">
+                            <RangePicker format="YYYY-MM-DD" />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button htmlType="submit" type="primary">
+                                Search
+                            </Button>
+                        </Form.Item>
+                    </div>
                 </Form>
             </div>
             <div>

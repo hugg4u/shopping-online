@@ -5,6 +5,7 @@ import { SortOrder } from '../../../types/index';
 import { getToken } from '../../../lib/utils';
 import { db } from '../../../lib/db';
 import { PAGE_SIZE } from '../../../constant';
+import { getNextDate } from '../../../lib/getNextDate';
 
 // type WhereClause = {
 //     isVerified: boolean;
@@ -13,7 +14,16 @@ import { PAGE_SIZE } from '../../../constant';
 // };
 
 export const getListOrderCms = async (req: Request, res: Response) => {
-    const { currentPage, pageSize, order, orderName } = req.query;
+    const {
+        currentPage,
+        pageSize,
+        order,
+        orderName,
+        orderId,
+        customer,
+        startDate,
+        endDate,
+    } = req.query;
 
     try {
         let orderBy:
@@ -32,7 +42,20 @@ export const getListOrderCms = async (req: Request, res: Response) => {
             skip:
                 (Number(currentPage ?? 1) - 1) * Number(pageSize ?? PAGE_SIZE),
             take: Number(pageSize ?? PAGE_SIZE),
-
+            where: {
+                id: {
+                    contains: orderId as string,
+                },
+                user: {
+                    name: {
+                        contains: customer as string,
+                    },
+                },
+                createdAt: {
+                    gte: startDate ? new Date(startDate as string) : undefined,
+                    lt: endDate ? getNextDate(endDate as string) : undefined,
+                },
+            },
             select: {
                 id: true,
                 name: true,
