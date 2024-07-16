@@ -16,6 +16,7 @@ export const ORDER_STATUS = [
     { id: 'CONFIRMED', value: 'CONFIRMED' },
     { id: 'DELIVERING', value: 'DELIVERING' },
     { id: 'DELIVERED', value: 'DELIVERED' },
+    { id: 'CANCELED', value: 'CANCELED' },
 ];
 
 export const RATING_LIST_CLIENT = [
