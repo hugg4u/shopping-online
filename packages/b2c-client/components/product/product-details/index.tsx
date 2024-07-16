@@ -146,6 +146,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                                     </span>
                                     <span>
                                         <Rate
+                                            allowHalf
                                             className="text-primary"
                                             disabled
                                             value={data?.rating ?? 0}
