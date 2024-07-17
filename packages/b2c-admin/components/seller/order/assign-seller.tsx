@@ -69,13 +69,6 @@ const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
         if (!wrapperRef.current?.contains(e.target)) {
             setIsOpen(false);
         }
-        if (
-            wrapperRef.current?.contains(e.target) &&
-            auth &&
-            auth?.role === 'SELLERMANAGER'
-        ) {
-            setIsOpen(true);
-        }
     };
 
     useEffect(() => {
@@ -95,7 +88,15 @@ const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
             ref={wrapperRef}
             role="presentation"
         >
-            <div className="p-2">
+            <div
+                className="p-2"
+                onClick={() => {
+                    if (auth && auth?.role === 'SELLERMANAGER') {
+                        setIsOpen((prev) => !prev);
+                    }
+                }}
+                role="presentation"
+            >
                 {seller ? (
                     <div className="flex items-center space-x-2">
                         <div>

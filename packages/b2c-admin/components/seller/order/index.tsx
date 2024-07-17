@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/no-unstable-nested-components */
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -11,9 +12,11 @@ import {
     Input,
     Select,
     Spin,
+    Switch,
     Table,
     TableColumnsType,
     TableProps,
+    Tooltip,
 } from 'antd';
 import type { QueryResponseType, Sorts } from 'common/types';
 import type { OrderCms } from 'common/types/order';
@@ -27,14 +30,21 @@ import { getSortOrder } from 'common/utils/getSortOrder';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { getImageUrl } from 'common/utils/getImageUrl';
-import OrderDescription from './order-description';
+import { User } from 'common/types/customer';
+import Avatar from 'common/components/avatar';
+import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
+import { useDebounceValue } from 'usehooks-ts';
+import { cn } from 'common/utils';
+import Link from 'next/link';
 import AssignSeller from './assign-seller';
+import { useAuthCms } from '~/hooks/useAuthCms';
 
 type FormType = {
     orderId?: string;
     customer?: string;
     status?: string;
     date?: Date[];
+    assignee?: string;
 };
 
 type SearchParams = FormType & {
@@ -45,15 +55,24 @@ type SearchParams = FormType & {
 const { RangePicker } = DatePicker;
 
 const OrderList = () => {
+    const auth = useAuthCms();
+
     const [searchParams, setSearchParams] = useState<SearchParams>({
         pageSize: PAGE_SIZE,
         currentPage: 1,
     });
     const [sortedInfo, setSortedInfo] = useState<Sorts<FormType>>({});
+    const [searchAssignee, setSearchAssign] = useState<string>();
+    const [meMode, setMeMode] = useState<boolean>(false);
+
+    const [searchAssigneeDebouncedValue] = useDebounceValue(
+        searchAssignee,
+        500
+    );
 
     const { data, isFetching, refetch } = useQuery<QueryResponseType<OrderCms>>(
         {
-            queryKey: ['order-list-cms', sortedInfo, searchParams],
+            queryKey: ['order-list-cms', sortedInfo, searchParams, meMode],
             queryFn: () =>
                 request
                     .get('order/list-order-cms', {
@@ -61,11 +80,24 @@ const OrderList = () => {
                             orderName: sortedInfo?.field,
                             order: getSortOrder(sortedInfo?.order),
                             ...searchParams,
+                            meMode,
                         },
                     })
                     .then((res) => res.data),
         }
     );
+
+    const { data: sellerData } = useQuery<QueryResponseType<User>>({
+        queryKey: ['seller-select', searchAssigneeDebouncedValue],
+        queryFn: () =>
+            request
+                .get('/seller-select', {
+                    params: {
+                        search: searchAssigneeDebouncedValue,
+                    },
+                })
+                .then((res) => res.data),
+    });
 
     const { mutate } = useMutation({
         mutationFn: ({
@@ -167,7 +199,11 @@ const OrderList = () => {
                     ? sortedInfo.order
                     : null,
             render(value) {
-                return <div>{currencyFormatter(value)}</div>;
+                return (
+                    <div className="text-base font-semibold">
+                        {currencyFormatter(value)}
+                    </div>
+                );
             },
         },
         {
@@ -192,7 +228,7 @@ const OrderList = () => {
                         }}
                         optionFilterProp="label"
                         options={ORDER_STATUS}
-                        placeholder="Select a person"
+                        placeholder="Select a status"
                         value={value}
                     />
                 );
@@ -212,6 +248,21 @@ const OrderList = () => {
                         }}
                         seller={record?.seller}
                     />
+                );
+            },
+        },
+        {
+            title: 'Action',
+            key: 'actions',
+            render(_, record) {
+                return (
+                    <Tooltip title="Detail">
+                        <Button type="link">
+                            <Link href={`/seller/order/${record.id}`}>
+                                <EyeOutlined className="text-base" />
+                            </Link>
+                        </Button>
+                    </Tooltip>
                 );
             },
         },
@@ -240,6 +291,8 @@ const OrderList = () => {
             endDate: values?.date?.[1]
                 ? dayjs(values?.date?.[1]).format('YYYY-MM-DD')
                 : undefined,
+            assignee: values.assignee,
+            status: values.status,
         };
 
         setSearchParams((prev) => ({ ...prev, ...submitObj }));
@@ -248,17 +301,93 @@ const OrderList = () => {
     return (
         <Spin spinning={isFetching}>
             <div>
-                <Form onFinish={onFinish}>
-                    <div className="grid grid-cols-4 gap-10">
+                <Form
+                    labelCol={{ span: 5 }}
+                    onFinish={onFinish}
+                    wrapperCol={{ span: 18 }}
+                >
+                    <div className={cn('grid grid-cols-3 gap-10')}>
                         <Form.Item<FormType> label="ID" name="orderId">
                             <Input placeholder="Enter orderId..." />
                         </Form.Item>
                         <Form.Item<FormType> label="Customer" name="customer">
-                            <Input />
+                            <Input placeholder="Enter customer name..." />
+                        </Form.Item>
+                        <Form.Item<FormType> label="Status" name="status">
+                            <Select
+                                optionFilterProp="label"
+                                options={ORDER_STATUS}
+                                placeholder="Select a status..."
+                            />
                         </Form.Item>
                         <Form.Item<FormType> label="Ordered date" name="date">
-                            <RangePicker format="YYYY-MM-DD" />
+                            <RangePicker
+                                className="w-full"
+                                format="YYYY-MM-DD"
+                            />
                         </Form.Item>
+                        {auth?.role === 'SELLERMANAGER' && (
+                            <Form.Item<FormType>
+                                label="Assignee"
+                                name="assignee"
+                            >
+                                <Select
+                                    allowClear
+                                    dropdownRender={(menu) => (
+                                        <>
+                                            <div className="p-2">
+                                                <Input
+                                                    onChange={(e) => {
+                                                        setSearchAssign(
+                                                            e.target.value
+                                                        );
+                                                    }}
+                                                    placeholder="Enter seller name, email or phone..."
+                                                    prefix={
+                                                        <SearchOutlined className="text-slate-500" />
+                                                    }
+                                                    value={searchAssignee}
+                                                />
+                                            </div>
+                                            {menu}
+                                        </>
+                                    )}
+                                    labelRender={({ label }) => {
+                                        return <div>{label}</div>;
+                                    }}
+                                    placeholder="Select a seller..."
+                                    size="large"
+                                >
+                                    {sellerData?.data?.map((item) => (
+                                        <Select.Option
+                                            key={item.id}
+                                            value={item.id}
+                                        >
+                                            <div className="flex items-center gap-x-4">
+                                                <div>
+                                                    <Avatar
+                                                        height={30}
+                                                        src={getImageUrl(
+                                                            item?.image
+                                                        )}
+                                                        width={30}
+                                                    />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <p className="font-medium leading-none">
+                                                        {item?.name}
+                                                    </p>
+                                                    <p className="leading-none text-slate-500">
+                                                        {item?.email}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        )}
+
                         <Form.Item>
                             <Button htmlType="submit" type="primary">
                                 Search
@@ -267,15 +396,18 @@ const OrderList = () => {
                     </div>
                 </Form>
             </div>
+            <div className="my-5">
+                <Switch
+                    checkedChildren="Me mode on"
+                    onChange={(checked) => setMeMode(checked)}
+                    unCheckedChildren="Me mode off"
+                    value={meMode}
+                />
+            </div>
             <div>
                 <Table
                     columns={columns}
                     dataSource={data?.data}
-                    expandable={{
-                        expandedRowRender: (record: Partial<OrderCms>) => {
-                            return <OrderDescription data={record} />;
-                        },
-                    }}
                     onChange={handleTableChange}
                     pagination={{
                         total: data?.pagination?.total,
