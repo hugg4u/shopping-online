@@ -396,14 +396,17 @@ const OrderList = () => {
                     </div>
                 </Form>
             </div>
-            <div className="my-5">
-                <Switch
-                    checkedChildren="Me mode on"
-                    onChange={(checked) => setMeMode(checked)}
-                    unCheckedChildren="Me mode off"
-                    value={meMode}
-                />
-            </div>
+            {auth?.role === 'SELLER' && (
+                <div className="my-5">
+                    <Switch
+                        checkedChildren="Me mode on"
+                        onChange={(checked) => setMeMode(checked)}
+                        unCheckedChildren="Me mode off"
+                        value={meMode}
+                    />
+                </div>
+            )}
+
             <div>
                 <Table
                     columns={columns}
