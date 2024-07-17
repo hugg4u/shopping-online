@@ -7,6 +7,7 @@ import {
     Form,
     Input,
     Layout,
+    Modal,
     Radio,
     RadioChangeEvent,
     Row,
@@ -20,7 +21,6 @@ import { OrderDetail } from 'common/types/order';
 import { Product } from 'common/types/product';
 import { currencyFormatter } from 'common/utils/formatter';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -236,40 +236,60 @@ const CartContact = () => {
                 };
             }) ?? [];
 
-        if (auth) {
-            const newOrder = await createOrderForUser({
-                name,
-                email,
-                gender: Object.keys(genderOptions)[
-                    Object.values(genderOptions).indexOf(gender)
-                ],
-                paymentMethod: selectedPaymentMethod,
-                phone,
-                address,
-                note,
-                orderDetails,
-            }).then((res) => res.data);
+        const createOrder = async () => {
+            if (auth) {
+                const newOrder = await createOrderForUser({
+                    name,
+                    email,
+                    gender: Object.keys(genderOptions)[
+                        Object.values(genderOptions).indexOf(gender)
+                    ],
+                    paymentMethod: selectedPaymentMethod,
+                    phone,
+                    address,
+                    note,
+                    orderDetails,
+                }).then((res) => res.data);
 
-            reloadCartQuery();
-            router.push(`/cart-completion?orderId=${newOrder.id}`);
-        } else {
-            const newOrder = await createOrderForGuest({
-                name,
-                email,
-                gender: Object.keys(genderOptions)[
-                    Object.values(genderOptions).indexOf(gender)
-                ],
-                paymentMethod: selectedPaymentMethod,
-                phone,
-                address,
-                note,
-                orderDetails,
-            }).then((res) => res.data);
+                reloadCartQuery();
+                router.push(`/cart-completion?orderId=${newOrder.id}`);
+            } else {
+                const newOrder = await createOrderForGuest({
+                    name,
+                    email,
+                    gender: Object.keys(genderOptions)[
+                        Object.values(genderOptions).indexOf(gender)
+                    ],
+                    paymentMethod: selectedPaymentMethod,
+                    phone,
+                    address,
+                    note,
+                    orderDetails,
+                }).then((res) => res.data);
 
-            deleteListProduct(itemKeysQuery.split(','));
+                deleteListProduct(itemKeysQuery.split(','));
 
-            router.push(`/cart-completion?orderId=${newOrder.id}`);
-        }
+                router.push(`/cart-completion?orderId=${newOrder.id}`);
+            }
+        };
+
+        let closable = false;
+
+        Modal.confirm({
+            title: 'Xác nhận đơn hàng',
+            content: 'Bạn có chắc chắn muốn tạo đơn hàng này?',
+            okText: 'Xác nhận',
+            cancelText: 'Hủy',
+            onOk: () => {
+                createOrder();
+                closable = true;
+            },
+            closable,
+        });
+    };
+
+    const handleBackToCart = () => {
+        router.push(`/cart-details?itemKeys=${itemKeysQuery}`);
     };
 
     if (!auth) {
@@ -484,18 +504,19 @@ const CartContact = () => {
                                             </div>
                                             <div className="m-10 flex justify-evenly">
                                                 <div>
-                                                    <Link href="/cart-details">
-                                                        <Button
-                                                            block
-                                                            size="large"
-                                                            style={{
-                                                                marginBottom: 20,
-                                                            }}
-                                                            type="primary"
-                                                        >
-                                                            Quay về giỏ hàng
-                                                        </Button>
-                                                    </Link>
+                                                    <Button
+                                                        block
+                                                        onClick={
+                                                            handleBackToCart
+                                                        }
+                                                        size="large"
+                                                        style={{
+                                                            marginBottom: 20,
+                                                        }}
+                                                        type="primary"
+                                                    >
+                                                        Quay về giỏ hàng
+                                                    </Button>
                                                 </div>
                                                 <div>
                                                     <Button
@@ -760,18 +781,17 @@ const CartContact = () => {
                                         </div>
                                         <div className="m-10 flex justify-evenly">
                                             <div>
-                                                <Link href="/cart-details">
-                                                    <Button
-                                                        block
-                                                        size="large"
-                                                        style={{
-                                                            marginBottom: 20,
-                                                        }}
-                                                        type="primary"
-                                                    >
-                                                        Quay về giỏ hàng
-                                                    </Button>
-                                                </Link>
+                                                <Button
+                                                    block
+                                                    onClick={handleBackToCart}
+                                                    size="large"
+                                                    style={{
+                                                        marginBottom: 20,
+                                                    }}
+                                                    type="primary"
+                                                >
+                                                    Quay về giỏ hàng
+                                                </Button>
                                             </div>
                                             <div>
                                                 <Button

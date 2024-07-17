@@ -1,0 +1,58 @@
+@startuml
+actor User
+
+participant "EditProfilePopup" as EditProfilePopup
+participant "UserController" as UserController
+participant "UserService" as UserService
+participant "Database" as Database
+
+== Display User Profile ==
+User -> EditProfilePopup: Open Edit Profile Popup
+EditProfilePopup -> UserController: fetchUserProfile()
+UserController -> UserService: getUserProfile()
+UserService -> Database: findUnique({ id: userId })
+Database --> UserService: Return user profile data
+UserService --> UserController: Return user profile data
+UserController --> EditProfilePopup: Return user profile data
+EditProfilePopup -> User: Display user profile form
+
+== Update User Profile ==
+User -> EditProfilePopup: Submit updated profile data
+EditProfilePopup -> UserController: updateUserProfile({ name, gender, dob, phone, address, image })
+note right of EditProfilePopup
+- name
+- gender
+- dob
+- phone
+- address
+- image
+end note
+
+alt Image Upload
+    EditProfilePopup -> UserController: uploadImage(file)
+    UserController -> UserService: uploadFile([file])
+    UserService -> Database: Store image(file)
+    Database --> UserService: Return image URL
+    UserService --> UserController: Return image URL
+    UserController --> EditProfilePopup: Return image URL
+    EditProfilePopup -> EditProfilePopup: Update form with image URL
+end
+
+UserController -> UserService: validateUserData({ name, gender, dob, phone, address, image })
+UserService -> UserService: Perform validation
+UserService --> UserController: Return validation result
+
+alt Validation success
+    UserController -> UserService: updateUserProfile({ id: userId, name, gender, dob, phone, address, image })
+    UserService -> Database: update({ where: { id: userId }, data: { name, gender, dob, phone, address, image } })
+    Database --> UserService: Confirm update
+    UserService --> UserController: Confirm update
+    UserController --> EditProfilePopup: Return success message
+    EditProfilePopup -> User: Display success message
+else Validation failure
+    UserService --> UserController: Return error message
+    UserController --> EditProfilePopup: Return error message
+    EditProfilePopup -> User: Display error message
+end
+
+@enduml

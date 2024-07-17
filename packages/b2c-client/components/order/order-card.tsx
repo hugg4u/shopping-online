@@ -6,6 +6,8 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { CopyButton } from 'common/components/copy-button';
+import { useMutation } from '@tanstack/react-query';
+import request from 'common/utils/http-request';
 import DeleteOrderAlert from './delete-order-alert';
 // import FeedbackModal from '../modals/feedback-modal';
 // import ReviewModal from '../modals/review-modal';
@@ -21,6 +23,29 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
     // const [isFeedbackModalVisible, setFeedbackModalVisible] = useState(false);
 
     const { push } = useRouter();
+
+    const { mutate: addCart } = useMutation({
+        mutationFn: async (dataAddCart: {
+            productId: string;
+            quantity: number;
+        }) => {
+            return request.post('/cart/add', dataAddCart);
+        },
+    });
+
+    const handleBuyAgain = () => {
+        orderDetail?.map((item) =>
+            addCart({
+                productId: item.productId ?? '',
+                quantity: Number(item.quantity ?? 0),
+            })
+        );
+
+        const queryString = order.orderDetail
+            ?.map((e) => `${e.productId}:${e.quantity}`)
+            .join(',');
+        push(`/cart-details?itemKeys=${queryString}`);
+    };
 
     return (
         <div className="my-4">
@@ -209,18 +234,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
 
                                     {order.status === 'DELIVERED' && (
                                         <Button
-                                            onClick={() => {
-                                                const queryString =
-                                                    order.orderDetail
-                                                        ?.map(
-                                                            (e) =>
-                                                                `${e.productId}:${e.quantity}`
-                                                        )
-                                                        .join(',');
-                                                push(
-                                                    `/my-page/cart-details?itemKeys=${queryString}`
-                                                );
-                                            }}
+                                            onClick={handleBuyAgain}
                                             size="large"
                                             style={{
                                                 width: '100px',
