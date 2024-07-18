@@ -49,11 +49,11 @@ export const getListOrderCms = async (req: Request, res: Response) => {
             id: {
                 contains: orderId as string,
             },
-            user: {
-                name: {
-                    contains: customer as string,
-                },
+
+            name: {
+                contains: customer as string,
             },
+
             sellerId: assignee as string,
             createdAt: {
                 gte: startDate ? new Date(startDate as string) : undefined,
