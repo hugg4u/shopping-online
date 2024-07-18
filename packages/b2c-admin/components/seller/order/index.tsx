@@ -257,11 +257,11 @@ const OrderList = () => {
             render(_, record) {
                 return (
                     <Tooltip title="Detail">
-                        <Button type="link">
-                            <Link href={`/seller/order/${record.id}`}>
+                        <Link href={`/seller/order/${record.id}`}>
+                            <Button type="link">
                                 <EyeOutlined className="text-base" />
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </Tooltip>
                 );
             },
@@ -315,6 +315,7 @@ const OrderList = () => {
                         </Form.Item>
                         <Form.Item<FormType> label="Status" name="status">
                             <Select
+                                allowClear
                                 optionFilterProp="label"
                                 options={ORDER_STATUS}
                                 placeholder="Select a status..."

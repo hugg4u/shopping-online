@@ -44,7 +44,7 @@ export default (router: Router) => {
     router.put(
         '/order/update-status/:id',
         isAuthenticated,
-        isSellerManager,
+        isSeller,
         updateOrderStatus
     );
 };
