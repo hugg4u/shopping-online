@@ -241,8 +241,8 @@ const ProductList = () => {
         },
         {
             title: 'Brief Info',
-            dataIndex: 'description',
-            key: 'description',
+            dataIndex: 'briefInfo',
+            key: 'briefInfo',
             width: 200,
             render: (value: string) => (
                 <div className="line-clamp-3">{value}</div>

@@ -38,6 +38,7 @@ export const getListProductFeatured = async (req: Request, res: Response) => {
                 description: true,
                 original_price: true,
                 discount_price: true,
+                briefInfo: true,
             },
             orderBy: {
                 updatedAt: 'desc',
@@ -104,6 +105,7 @@ export const searchProducts = async (req: Request, res: Response) => {
                 description: true,
                 thumbnail: true,
                 updatedAt: true,
+                briefInfo: true,
             },
         });
 
