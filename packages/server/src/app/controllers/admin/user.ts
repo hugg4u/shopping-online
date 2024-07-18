@@ -17,34 +17,38 @@ export const getUser = async (req: Request, res: Response) => {
 
     const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
 
-    const user = await db.user.findUnique({
-        where: {
-            id: tokenDecoded.id,
-        },
-        select: {
-            name: true,
-            email: true,
-            image: true,
-            address: true,
-            gender: true,
-            dob: true,
-            phone: true,
-        },
-    });
-
-    if (!user) {
-        res.status(403).json({
-            message: 'User not found!',
+    try {
+        const user = await db.user.findUnique({
+            where: {
+                id: tokenDecoded.id,
+            },
+            select: {
+                name: true,
+                email: true,
+                image: true,
+                address: true,
+                gender: true,
+                dob: true,
+                phone: true,
+            },
         });
+
+        if (!user) {
+            res.status(403).json({
+                message: 'User not found!',
+            });
+        }
+
+        const successObj = {
+            isOk: true,
+            data: user,
+            message: 'Get user successfully!',
+        };
+
+        return res.status(200).json(successObj);
+    } catch (error) {
+        return res.sendStatus(500);
     }
-
-    const successObj = {
-        isOk: true,
-        data: user,
-        message: 'Get user successfully!',
-    };
-
-    return res.status(200).json(successObj);
 };
 
 export const getListUser = async (req: Request, res: Response) => {

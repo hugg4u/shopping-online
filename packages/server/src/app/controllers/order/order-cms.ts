@@ -5,17 +5,36 @@ import { SortOrder } from '../../../types/index';
 import { getToken } from '../../../lib/utils';
 import { db } from '../../../lib/db';
 import { PAGE_SIZE } from '../../../constant';
+import { getNextDate } from '../../../lib/getNextDate';
 
-// type WhereClause = {
-//     isVerified: boolean;
-//     status?: string;
-//     OR?: Record<string, Record<string, string | undefined>>[];
-// };
+type OrderStatus =
+    | 'PAYMENT_PENDING'
+    | 'PAID'
+    | 'PENDING'
+    | 'CONFIRMED'
+    | 'DELIVERING'
+    | 'DELIVERED'
+    | 'CANCELED';
 
 export const getListOrderCms = async (req: Request, res: Response) => {
-    const { currentPage, pageSize, order, orderName } = req.query;
+    const {
+        currentPage,
+        pageSize,
+        order,
+        orderName,
+        orderId,
+        customer,
+        startDate,
+        endDate,
+        assignee,
+        meMode,
+        status,
+    } = req.query;
 
     try {
+        const accessToken = getToken(req);
+        const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
+
         let orderBy:
             | Record<string, SortOrder | Record<string, SortOrder>>
             | undefined;
@@ -26,13 +45,36 @@ export const getListOrderCms = async (req: Request, res: Response) => {
             };
         }
 
-        const total = await db.order.count();
+        const whereClause = {
+            id: {
+                contains: orderId as string,
+            },
+            user: {
+                name: {
+                    contains: customer as string,
+                },
+            },
+            sellerId: assignee as string,
+            createdAt: {
+                gte: startDate ? new Date(startDate as string) : undefined,
+                lt: endDate ? getNextDate(endDate as string) : undefined,
+            },
+            status: status ? (status as OrderStatus) : undefined,
+        };
+
+        if (meMode === 'true') {
+            whereClause.sellerId = tokenDecoded?.id;
+        }
+
+        const total = await db.order.count({
+            where: { ...whereClause },
+        });
 
         const orderList = await db.order.findMany({
             skip:
                 (Number(currentPage ?? 1) - 1) * Number(pageSize ?? PAGE_SIZE),
             take: Number(pageSize ?? PAGE_SIZE),
-
+            where: { ...whereClause },
             select: {
                 id: true,
                 name: true,

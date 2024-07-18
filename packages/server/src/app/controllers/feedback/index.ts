@@ -1,16 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import { PAGE_SIZE } from 'common/constant';
 import { Request, Response } from 'express';
 import { jwtDecode } from 'jwt-decode';
 import { TokenDecoded } from 'types';
-
-import { getToken } from '../../../lib/utils';
 import { db } from '../../../lib/db';
-
-type CreateFeedbackData = {
-    productId: string;
-    description?: string;
-    rating?: number | null;
-};
+import { getToken } from '../../../lib/utils';
 
 type FeedbackFilter = {
     description?: string;
@@ -23,24 +17,8 @@ type FeedbackFilter = {
 
 type SortOrder = 'desc' | 'asc';
 
-type FeedbackItem = {
-    id: string;
-    description?: string;
-    userName?: string;
-    userId: string;
-    productId: string;
-    rating: number | null;
-    createdAt: Date;
-    updatedAt: Date;
-};
-
 export const addFeedback = async (req: Request, res: Response) => {
-    const { productId, description, rating }: CreateFeedbackData = req.body;
-    // const accessToken = req.headers.authorization?.split(' ')[1];
-
-    // if (!accessToken) {
-    //     return res.status(401).json({ message: 'No access token provided' });
-    // }
+    const { productId, description, rating } = req.body;
 
     const accessToken = getToken(req);
 
@@ -50,23 +28,49 @@ export const addFeedback = async (req: Request, res: Response) => {
 
     const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
     try {
-        // const decodedToken = jwtDecode<TokenDecoded>(accessToken);
-        // const userId = decodedToken.id;
-
         // Thêm feedback mới
-        const newFeedback: FeedbackItem = await db.feedback.create({
+        const newFeedback = await db.feedback.create({
             data: {
                 userId: tokenDecoded.id,
                 productId,
                 description,
-                rating: rating ?? null, // Đặt giá trị mặc định là null nếu không có rating
+                rating,
+            },
+        });
+
+        const product = await db.product.findUnique({
+            where: {
+                id: productId,
+            },
+            select: {
+                rating: true,
+                totalRate: true,
+                _count: {
+                    select: {
+                        feedback: true,
+                    },
+                },
+            },
+        });
+
+        const newTotalRate = product.totalRate + rating;
+        const averageRating = newTotalRate / product._count.feedback;
+        const newRating = Math.ceil(averageRating * 2) / 2;
+
+        await db.product.update({
+            where: {
+                id: productId,
+            },
+            data: {
+                rating: newRating,
+                totalRate: newTotalRate,
             },
         });
 
         return res.status(201).json({
             isOk: true,
             data: newFeedback,
-            message: 'Feedback added successfully!',
+            message: 'Đánh giá sản phẩm thành công!',
         });
     } catch (error) {
         return res

@@ -15,6 +15,7 @@ import { cn } from 'common/utils';
 import { Input } from 'antd';
 import { useDebounceValue } from 'usehooks-ts';
 import { toast } from 'react-toastify';
+import { useAuthCms } from '~/hooks/useAuthCms';
 
 type Props = {
     seller?: User | null;
@@ -23,6 +24,8 @@ type Props = {
 };
 
 const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
+    const auth = useAuthCms();
+
     const wrapperRef = useRef<ElementRef<'div'>>(null);
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -66,9 +69,6 @@ const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
         if (!wrapperRef.current?.contains(e.target)) {
             setIsOpen(false);
         }
-        if (wrapperRef.current?.contains(e.target)) {
-            setIsOpen(true);
-        }
     };
 
     useEffect(() => {
@@ -77,15 +77,26 @@ const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
         return () => {
             document.removeEventListener('click', handleClickOutSide);
         };
-    }, [wrapperRef]);
+    }, [wrapperRef, auth]);
 
     return (
         <div
-            className="relative min-w-[150px] cursor-pointer select-none rounded-md border"
+            className={cn(
+                'relative min-w-[150px] select-none rounded-md border',
+                auth?.role === 'SELLERMANAGER' ? 'cursor-pointer' : null
+            )}
             ref={wrapperRef}
             role="presentation"
         >
-            <div className="p-2">
+            <div
+                className="p-2"
+                onClick={() => {
+                    if (auth && auth?.role === 'SELLERMANAGER') {
+                        setIsOpen((prev) => !prev);
+                    }
+                }}
+                role="presentation"
+            >
                 {seller ? (
                     <div className="flex items-center space-x-2">
                         <div>
@@ -99,13 +110,15 @@ const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
                             <p className="font-medium">{seller?.name}</p>
                             <p className="text-slate-500">{seller?.email}</p>
                         </div>
-                        <div>
-                            {isOpen ? (
-                                <CaretUpOutlined />
-                            ) : (
-                                <CaretDownOutlined />
-                            )}
-                        </div>
+                        {auth?.role === 'SELLERMANAGER' && (
+                            <div>
+                                {isOpen ? (
+                                    <CaretUpOutlined />
+                                ) : (
+                                    <CaretDownOutlined />
+                                )}
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div className="flex h-[30px] items-center gap-1 text-slate-400">
