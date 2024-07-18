@@ -23,8 +23,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     discount_price,
     original_price,
     quantity,
-    description,
     thumbnail,
+    briefInfo,
 }) => {
     const { onOpen } = useLoginModal();
     const auth = useAuth();
@@ -106,7 +106,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <Card.Meta
                     description={
                         <div className={styles.metaDescription}>
-                            {description}
+                            {briefInfo}
                         </div>
                     }
                     title={<div className={styles.metaTitle}>{name}</div>}

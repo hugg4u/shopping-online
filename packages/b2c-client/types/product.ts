@@ -7,4 +7,5 @@ export type Product = {
     description: string;
     thumbnail: string;
     updatedAt: string;
+    briefInfo: string;
 };
