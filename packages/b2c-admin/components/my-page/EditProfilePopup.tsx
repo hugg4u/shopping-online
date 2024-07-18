@@ -147,13 +147,30 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                     gender: mapGender(initialValues.gender),
                 };
 
+                const isDobChanged = () => {
+                    if (
+                        trimmedValues.dob === null &&
+                        initialValuesFormatted.dob === null
+                    ) {
+                        return false;
+                    }
+                    if (
+                        trimmedValues.dob === null ||
+                        initialValuesFormatted.dob === null
+                    ) {
+                        return true;
+                    }
+                    return (
+                        trimmedValues.dob.format('YYYY-MM-DD') !==
+                        initialValuesFormatted.dob.format('YYYY-MM-DD')
+                    );
+                };
+
                 return (
                     trimmedValues.name !== initialValuesFormatted.name ||
                     trimmedValues.phone !== initialValuesFormatted.phone ||
                     trimmedValues.gender !== initialValuesFormatted.gender ||
-                    (trimmedValues.dob &&
-                        trimmedValues.dob.format('YYYY-MM-DD') !==
-                            initialValuesFormatted.dob?.format('YYYY-MM-DD')) ||
+                    isDobChanged() ||
                     trimmedValues.address !== initialValuesFormatted.address ||
                     fileList.length > 0
                 );
