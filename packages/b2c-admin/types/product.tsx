@@ -36,6 +36,7 @@ export type Product = {
     updatedAt?: string | null;
     brand?: Brand | null;
     product_image?: ProductImage[] | null;
+    briefInfo?: string | null;
 };
 
 export type ResponseProductById = {
