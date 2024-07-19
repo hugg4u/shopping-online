@@ -12,18 +12,15 @@ import {
 } from 'common/types/order';
 import { currencyFormatter } from 'common/utils/formatter';
 import { getImageUrl } from 'common/utils/getImageUrl';
-import request, { get } from 'common/utils/http-request';
+import request from 'common/utils/http-request';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Sider from 'antd/es/layout/Sider';
-import { PAGE_SIZE_CLIENT_PRODUCT } from 'common/constant';
 import styles from '~/styles/Products.module.css';
-import EditOrderModal from './edit-order-modal';
-import DeleteOrderAlert from './delete-order-alert';
 import FeedbackModal from '../modals/feedback-modal';
 import ReviewModal from '../modals/review-modal';
-import Sidebar from '../product/Sidebar';
+import DeleteOrderAlert from './delete-order-alert';
+import EditOrderModal from './edit-order-modal';
 
 type SearchParams = {
     page: number;
@@ -39,10 +36,6 @@ const OrderDetail = () => {
     const { query: routerQuery, back, push, pathname } = useRouter();
 
     const [isFeedbackModalVisible, setFeedbackModalVisible] = useState(false);
-
-    const [products, setProducts] = useState([]);
-    const [totalProducts, setTotalProducts] = useState(0);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const {
         data: orderDetail,

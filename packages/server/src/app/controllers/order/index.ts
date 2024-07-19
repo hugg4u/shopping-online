@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Request, Response } from 'express';
 import { jwtDecode } from 'jwt-decode';
 import { ORDER_STATUS, OrderDetail, Prisma } from '@prisma/client';
@@ -112,7 +113,82 @@ export const getOrderDetail = async (req: Request, res: Response) => {
 
         if (!orderDetail) {
             return res.status(403).json({
-                message: 'Order information not founded!',
+                isOk: false,
+                message: 'Đơn hàng không tồn tại!',
+            });
+        }
+
+        return res.status(201).json({
+            isOk: true,
+            data: orderDetail,
+            message: 'Get order detail successfully!',
+        });
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+};
+
+export const checkAcceptRedirectDetail = async (
+    req: Request,
+    res: Response
+) => {
+    const { id } = req.params;
+    const accessToken = getToken(req);
+
+    if (!accessToken) {
+        return res.sendStatus(401);
+    }
+
+    const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
+
+    try {
+        const orderDetail = await db.order.findUnique({
+            where: {
+                id,
+            },
+            include: {
+                orderDetail: true,
+            },
+        });
+
+        if (orderDetail.userId !== tokenDecoded.id) {
+            return res.status(403).json({
+                isOk: false,
+                message: 'Unauthorized to access this order!',
+            });
+        }
+
+        if (!orderDetail) {
+            return res.status(403).json({
+                isOk: false,
+                message: 'Đơn hàng không tồn tại!',
+            });
+        }
+
+        return res.status(201).json({
+            isOk: true,
+        });
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+};
+
+export const getOrderCompletion = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+        const orderDetail = await db.order.findUnique({
+            where: {
+                id,
+            },
+            include: {
+                orderDetail: true,
+            },
+        });
+
+        if (!orderDetail) {
+            return res.status(403).json({
+                message: 'Đơn hàng không tồn tại!',
             });
         }
 
@@ -129,7 +205,37 @@ export const getOrderDetail = async (req: Request, res: Response) => {
 export const deleteOrder = async (req: Request, res: Response) => {
     const { id } = req.params;
 
+    const accessToken = getToken(req);
+
+    if (!accessToken) {
+        return res.sendStatus(401);
+    }
+
+    const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
+
     try {
+        const orderDetail = await db.order.findUnique({
+            where: {
+                id,
+            },
+            include: {
+                orderDetail: true,
+            },
+        });
+
+        if (!orderDetail) {
+            return res.status(403).json({
+                message: 'Đơn hàng không tồn tại!',
+            });
+        }
+
+        if (orderDetail.userId !== tokenDecoded.id) {
+            return res.status(403).json({
+                isOk: false,
+                message: 'Unauthorized to access this order!',
+            });
+        }
+
         const orderDeleted = await db.order.delete({
             where: {
                 id,
@@ -149,6 +255,29 @@ export const deleteOrder = async (req: Request, res: Response) => {
 export const editOrderInformation = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { name, gender, email, phone, address } = req.body;
+
+    const accessToken = getToken(req);
+
+    if (!accessToken) {
+        return res.sendStatus(401);
+    }
+
+    const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
+
+    const orderExisted = await db.order.findUnique({
+        where: {
+            id,
+        },
+        select: {
+            userId: true,
+        },
+    });
+
+    if (tokenDecoded.id !== orderExisted.userId) {
+        return res.status(403).json({
+            message: 'Bạn không có quyền!',
+        });
+    }
 
     try {
         const orderUpdated = await db.order.update({
@@ -195,9 +324,23 @@ export const updateOrder = async (req: Request, res: Response) => {
             },
         });
 
+        const accessToken = getToken(req);
+
+        if (!accessToken) {
+            return res.sendStatus(401);
+        }
+
+        const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
+
         if (!orderExisted) {
             return res.status(403).json({
                 message: 'Đơn hàng không tìm thấy!',
+            });
+        }
+
+        if (tokenDecoded.id !== orderExisted.userId) {
+            return res.status(403).json({
+                message: 'Bạn không có quyền!',
             });
         }
 
