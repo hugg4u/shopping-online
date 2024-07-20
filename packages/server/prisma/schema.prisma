@@ -79,6 +79,7 @@ model Product {
   discount_price Int?
   quantity       Int     @default(0)
   sold_quantity  Int     @default(0)
+  briefInfo      String? @db.Text
   description    String? @db.Text
   size           Int?
   categoryId     String
