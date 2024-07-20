@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import { useAuth } from 'b2c-client/hooks/useAuth';
 
 type User = {
+    id: string | null;
     name: string | null;
     email: string | null;
     image: string | null;

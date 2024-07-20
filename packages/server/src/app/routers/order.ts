@@ -12,8 +12,11 @@ import {
 } from '../controllers/order';
 import {
     getListOrderCms,
+    getOrderAuditLog,
+    getOrderDetailCms,
     updateAssignee,
     updateOrderStatus,
+    updateSaleNote,
 } from '../controllers/order/order-cms';
 
 export default (router: Router) => {
@@ -46,5 +49,23 @@ export default (router: Router) => {
         isAuthenticated,
         isSeller,
         updateOrderStatus
+    );
+    router.get(
+        '/order/order-detail-cms/:id',
+        isAuthenticated,
+        isSeller,
+        getOrderDetailCms
+    );
+    router.get(
+        '/order/audit-log/:id',
+        isAuthenticated,
+        isSeller,
+        getOrderAuditLog
+    );
+    router.put(
+        '/order/update-sale-note/:id',
+        isAuthenticated,
+        isSeller,
+        updateSaleNote
     );
 };

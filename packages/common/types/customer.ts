@@ -16,7 +16,7 @@ export type User = {
     email: string;
     address: string;
     phone: string;
-    dob: null;
+    dob: string;
     gender: string;
     image: string;
     status: string;

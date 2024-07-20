@@ -36,6 +36,7 @@ import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
 import { useDebounceValue } from 'usehooks-ts';
 import { cn } from 'common/utils';
 import Link from 'next/link';
+import { useUserQueryStore } from 'common/store/useUserStore';
 import AssignSeller from './assign-seller';
 import { useAuthCms } from '~/hooks/useAuthCms';
 
@@ -56,6 +57,7 @@ const { RangePicker } = DatePicker;
 
 const OrderList = () => {
     const auth = useAuthCms();
+    const { user } = useUserQueryStore();
 
     const [searchParams, setSearchParams] = useState<SearchParams>({
         pageSize: PAGE_SIZE,
@@ -148,29 +150,25 @@ const OrderList = () => {
             title: 'Product',
             dataIndex: 'orderDetail',
             key: 'orderDetail',
+            width: 450,
             render(_, record) {
                 return (
                     <div>
                         <div className="flex gap-4 text-base font-medium">
-                            <div>
-                                <Image
-                                    alt={
-                                        record?.orderDetail?.[0]?.thumbnail ??
-                                        ''
-                                    }
-                                    className="rounded-md object-cover"
-                                    height={60}
-                                    src={getImageUrl(
-                                        record?.orderDetail?.[0]?.thumbnail ??
-                                            ''
-                                    )}
-                                    style={{
-                                        width: 60,
-                                        height: 60,
-                                    }}
-                                    width={60}
-                                />
-                            </div>
+                            <Image
+                                alt={record?.orderDetail?.[0]?.thumbnail ?? ''}
+                                className="rounded-md object-cover"
+                                height={60}
+                                src={getImageUrl(
+                                    record?.orderDetail?.[0]?.thumbnail ?? ''
+                                )}
+                                style={{
+                                    width: 60,
+                                    height: 60,
+                                }}
+                                width={60}
+                            />
+
                             <div>
                                 <p>{record?.orderDetail?.[0]?.productName}</p>
                                 <p>x{record?.orderDetail?.[0]?.quantity}</p>
@@ -182,9 +180,12 @@ const OrderList = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="text-slate-500">
-                            {record?._count?.orderDetail} more product
-                        </div>
+                        {record?._count?.orderDetail &&
+                            Number(record?._count?.orderDetail) - 1 > 0 && (
+                                <div className="text-slate-500">
+                                    {record?._count?.orderDetail} more product
+                                </div>
+                            )}
                     </div>
                 );
             },
@@ -214,7 +215,8 @@ const OrderList = () => {
             sortOrder:
                 sortedInfo.columnKey === 'status' ? sortedInfo.order : null,
             render(value, record) {
-                return (
+                return (user && user.data?.id === record.seller?.id) ||
+                    auth?.role === 'SELLERMANAGER' ? (
                     <Select
                         className="w-[160px]"
                         onChange={(selected) => {
@@ -231,6 +233,8 @@ const OrderList = () => {
                         placeholder="Select a status"
                         value={value}
                     />
+                ) : (
+                    <div>{value}</div>
                 );
             },
         },

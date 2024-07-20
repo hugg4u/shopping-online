@@ -248,7 +248,8 @@ model Order {
   name          String
   gender        Gender
   email         String
-  phone   String
+  phone         String
+  saleNote      String? @db.Text
   
   status        ORDER_STATUS @default(PENDING)
   totalAmount   Int

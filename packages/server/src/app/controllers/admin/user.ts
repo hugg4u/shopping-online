@@ -30,6 +30,7 @@ export const getUser = async (req: Request, res: Response) => {
                 gender: true,
                 dob: true,
                 phone: true,
+                id: true,
             },
         });
 
