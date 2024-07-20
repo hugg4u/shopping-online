@@ -8,7 +8,7 @@ type Props = {
 
 const SellerLayout = ({ children }: Props) => {
     return (
-        <div>
+        <div className="min-w-[1280px]">
             <Header title="Seller" />
             <div className="flex h-full">
                 <SellerSidebar />

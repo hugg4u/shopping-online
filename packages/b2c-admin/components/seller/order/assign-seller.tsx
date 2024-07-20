@@ -16,9 +16,10 @@ import { Input } from 'antd';
 import { useDebounceValue } from 'usehooks-ts';
 import { toast } from 'react-toastify';
 import { useAuthCms } from '~/hooks/useAuthCms';
+import { Seller } from '~/types/order';
 
 type Props = {
-    seller?: User | null;
+    seller?: User | Seller | null;
     orderId: string | null;
     reload?: () => void;
 };
@@ -82,8 +83,10 @@ const AssignSeller: React.FC<Props> = ({ seller, orderId, reload }) => {
     return (
         <div
             className={cn(
-                'relative min-w-[150px] select-none rounded-md border',
-                auth?.role === 'SELLERMANAGER' ? 'cursor-pointer' : null
+                'relative min-w-[150px] rounded-md border',
+                auth?.role === 'SELLERMANAGER'
+                    ? 'cursor-pointer select-none'
+                    : null
             )}
             ref={wrapperRef}
             role="presentation"

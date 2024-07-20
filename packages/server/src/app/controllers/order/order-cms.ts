@@ -127,6 +127,7 @@ export const getOrderDetailCms = async (req: Request, res: Response) => {
                 name: true,
                 orderDetail: {
                     select: {
+                        id: true,
                         productId: true,
                         productName: true,
                         thumbnail: true,
@@ -134,10 +135,29 @@ export const getOrderDetailCms = async (req: Request, res: Response) => {
                         originalPrice: true,
                         discountPrice: true,
                         size: true,
+                        category: true,
+                        totalPrice: true,
                     },
                 },
                 totalAmount: true,
                 status: true,
+                notes: true,
+                seller: true,
+                phone: true,
+                gender: true,
+                address: true,
+                email: true,
+                saleNote: true,
+                user: {
+                    select: {
+                        name: true,
+                        email: true,
+                        address: true,
+                        phone: true,
+                        dob: true,
+                        gender: true,
+                    },
+                },
             },
         });
 
@@ -252,6 +272,93 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
             isOk: true,
             data: order,
             message: 'Update order status successfully!',
+        });
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+};
+
+export const updateSaleNote = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { saleNote } = req.body;
+
+    try {
+        const accessToken = getToken(req);
+
+        const tokenDecoded = jwtDecode(accessToken) as TokenDecoded;
+
+        const seller = await db.user.findFirst({
+            where: {
+                id: tokenDecoded.id,
+            },
+        });
+
+        const prevOrder = await db.order.findFirst({
+            where: { id },
+        });
+
+        const order = await db.order.update({
+            where: {
+                id,
+            },
+            data: {
+                saleNote,
+            },
+        });
+
+        if (!prevOrder.saleNote) {
+            await db.auditLog.create({
+                data: {
+                    userId: seller.id,
+                    action: 'CREATE',
+                    orderId: order.id,
+                    title: 'created sale note',
+                    userImage: seller.image ?? '',
+                    userName: seller.name ?? '',
+                    userEmail: seller.email,
+                },
+            });
+        } else {
+            await db.auditLog.create({
+                data: {
+                    userId: seller.id,
+                    action: 'UPDATE',
+                    orderId: order.id,
+                    title: 'updated sale note',
+                    userImage: seller.image ?? '',
+                    userName: seller.name ?? '',
+                    userEmail: seller.email,
+                },
+            });
+        }
+
+        return res.status(200).json({
+            isOk: true,
+            data: order,
+            message: 'Update order sale note status successfully!',
+        });
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+};
+
+export const getOrderAuditLog = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+        const auditLog = await db.auditLog.findMany({
+            where: {
+                orderId: id,
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+
+        return res.status(200).json({
+            isOk: true,
+            data: auditLog,
+            message: 'Get order audit log successfully!',
         });
     } catch (error) {
         return res.sendStatus(500);

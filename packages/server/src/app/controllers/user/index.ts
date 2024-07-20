@@ -19,6 +19,7 @@ export const getProfileUser = async (req: Request, res: Response) => {
         const user = await db.user.findUnique({
             where: { id: userId },
             select: {
+                id: true,
                 name: true,
                 email: true,
                 image: true,
