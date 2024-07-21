@@ -18,7 +18,7 @@ type FeedbackFilter = {
 type SortOrder = 'desc' | 'asc';
 
 export const addFeedback = async (req: Request, res: Response) => {
-    const { productId, description, rating } = req.body;
+    const { productId, description, rating, orderDetailId, images } = req.body;
 
     const accessToken = getToken(req);
 
@@ -35,6 +35,11 @@ export const addFeedback = async (req: Request, res: Response) => {
                 productId,
                 description,
                 rating,
+                image: {
+                    createMany: {
+                        data: images,
+                    },
+                },
             },
         });
 
@@ -66,6 +71,16 @@ export const addFeedback = async (req: Request, res: Response) => {
                 totalRate: newTotalRate,
             },
         });
+        if (orderDetailId) {
+            await db.orderDetail.update({
+                where: {
+                    id: orderDetailId,
+                },
+                data: {
+                    feedbackId: newFeedback.id,
+                },
+            });
+        }
 
         return res.status(201).json({
             isOk: true,

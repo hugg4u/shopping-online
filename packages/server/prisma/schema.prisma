@@ -194,6 +194,7 @@ model Feedback {
   image FeedbackImage[]
 
   @@index([userId, productId])
+  OrderDetail OrderDetail[]
 }
 
 model Comment {
@@ -201,7 +202,7 @@ model Comment {
   description String? @db.Text
   userId      String
   productId   String 
-  isShow      Boolean @default(true)
+  isShow      Boolean @default(true)  
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -302,6 +303,9 @@ model OrderDetail {
 
   orderId String
   order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  feedbackId String?
+  feedback Feedback? @relation(fields: [feedbackId], references: [id])
 
   @@index([orderId])
 }

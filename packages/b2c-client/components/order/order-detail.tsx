@@ -17,10 +17,9 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from '~/styles/Products.module.css';
-import FeedbackModal from '../modals/feedback-modal';
-import ReviewModal from '../modals/review-modal';
 import DeleteOrderAlert from './delete-order-alert';
 import EditOrderModal from './edit-order-modal';
+import FeedBackModal from '../modals/feedback-modal';
 
 type SearchParams = {
     page: number;
@@ -279,11 +278,15 @@ const OrderDetail = () => {
                                                     role="presentation"
                                                 >
                                                     {orderDetail.status ===
-                                                    'DELIVERED' ? (
-                                                        <ReviewModal
+                                                        'DELIVERED' &&
+                                                    !detail.feedbackId ? (
+                                                        <FeedBackModal
                                                             category={
                                                                 detail.category ??
                                                                 ''
+                                                            }
+                                                            orderDetailId={
+                                                                detail.id ?? ''
                                                             }
                                                             productId={
                                                                 detail?.productId ??
@@ -293,6 +296,7 @@ const OrderDetail = () => {
                                                                 detail.productName ??
                                                                 ''
                                                             }
+                                                            reload={refetch}
                                                             size={
                                                                 detail.size?.toString() ??
                                                                 ''
@@ -303,38 +307,7 @@ const OrderDetail = () => {
                                                             }
                                                         />
                                                     ) : (
-                                                        <>
-                                                            <Button
-                                                                onClick={() =>
-                                                                    setFeedbackModalVisible(
-                                                                        true
-                                                                    )
-                                                                }
-                                                                size="large"
-                                                                type="primary"
-                                                            >
-                                                                Phản hồi
-                                                            </Button>
-
-                                                            <FeedbackModal
-                                                                onClose={() =>
-                                                                    setFeedbackModalVisible(
-                                                                        false
-                                                                    )
-                                                                }
-                                                                productId={
-                                                                    detail.productId ??
-                                                                    ''
-                                                                }
-                                                                productName={
-                                                                    detail.productName ??
-                                                                    ''
-                                                                }
-                                                                visible={
-                                                                    isFeedbackModalVisible
-                                                                }
-                                                            />
-                                                        </>
+                                                        ''
                                                     )}
                                                 </div>
                                             </div>

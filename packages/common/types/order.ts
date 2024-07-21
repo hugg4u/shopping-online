@@ -17,6 +17,7 @@ export type OrderDetail = {
     productName: string | null;
 
     orderId: string | null;
+    feedbackId: string | null;
 };
 
 export type Order = {
