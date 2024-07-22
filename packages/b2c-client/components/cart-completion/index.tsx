@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react';
 import { ZLPayResponse } from 'common/types/payment';
 import { toast } from 'react-toastify';
 import moment from 'moment';
+import { useAuth } from '~/hooks/useAuth';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -30,6 +31,7 @@ const CartCompletion = () => {
     const [qrCode, setQRCode] = useState<string | undefined>();
     const [appTransId, setAppTransId] = useState<string | undefined>('');
     const [secondsToGo, setSecondsToGo] = useState(60);
+    const auth = useAuth();
 
     const [visibleReceiverInformation, setVisibleReceiverInformation] =
         useState(true);
@@ -39,10 +41,10 @@ const CartCompletion = () => {
         useState(true);
 
     const { data: orderDetail, isLoading: isLoadingOrder } = useQuery<Order>({
-        queryKey: ['order-detail'],
+        queryKey: ['order-completion', router.query.orderId],
         queryFn: () =>
             request
-                .get(`/order-detail/${router.query.orderId}`)
+                .get(`/order-completion/${router.query.orderId}`)
                 .then((res) => res.data)
                 .then((res) => res.data),
     });
@@ -70,6 +72,18 @@ const CartCompletion = () => {
             );
         },
     });
+
+    const { data: isAcceptDetail, isLoading: isLoadingCheckAcceptDetail } =
+        useQuery<{
+            isOk: boolean;
+        }>({
+            queryKey: ['check-accept-order-detail', auth],
+            queryFn: () =>
+                request
+                    .get(`/check-accept-order-detail/${router.query.orderId}`)
+                    .then((res) => res.data),
+            enabled: !!auth,
+        });
 
     useEffect(() => {
         (async () => {
@@ -132,7 +146,7 @@ const CartCompletion = () => {
     });
 
     return (
-        <Spin spinning={isLoadingOrder}>
+        <Spin spinning={isLoadingOrder || isLoadingCheckAcceptDetail}>
             <div className="w-full text-base">
                 <div className="flex  w-full justify-center">
                     <div className="flex w-[1000px] min-w-[500px] max-w-[1000px] flex-col items-center space-y-4">
@@ -168,19 +182,20 @@ const CartCompletion = () => {
                                 </span>
                             </div>
                         </div>
-
-                        <div className="flex items-center">
-                            <Button
-                                onClick={() =>
-                                    router.push(
-                                        `my-page/my-order/${orderDetail?.id}`
-                                    )
-                                }
-                                size="large"
-                            >
-                                Chi tiết đơn hàng
-                            </Button>
-                        </div>
+                        {isAcceptDetail && (
+                            <div className="flex items-center">
+                                <Button
+                                    onClick={() =>
+                                        router.push(
+                                            `my-page/my-order/${orderDetail?.id}`
+                                        )
+                                    }
+                                    size="large"
+                                >
+                                    Chi tiết đơn hàng
+                                </Button>
+                            </div>
+                        )}
 
                         {/* Thông tin thanh toán */}
                         <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4">
