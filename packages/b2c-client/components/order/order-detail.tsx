@@ -88,7 +88,7 @@ const OrderDetail = () => {
                                 </span>
                             </div>
                         </div>
-                        <div className=" flex items-center justify-between rounded-lg bg-orange-100 p-4">
+                        <div className=" flex items-center justify-between rounded-lg bg-rose-50 p-4">
                             <div>
                                 <span className="text-lg">
                                     Ngày đặt hàng:
@@ -102,7 +102,7 @@ const OrderDetail = () => {
                             <div className="flex flex-col gap-2">
                                 {orderDetail?.status === 'PENDING' && (
                                     <>
-                                        <Button
+                                        {/* <Button
                                             onClick={() => {
                                                 const queryString =
                                                     orderDetail.orderDetail
@@ -122,7 +122,7 @@ const OrderDetail = () => {
                                             type="primary"
                                         >
                                             Chỉnh sửa đơn hàng
-                                        </Button>
+                                        </Button> */}
                                         {orderDetail &&
                                             orderDetail.orderDetail && (
                                                 <DeleteOrderAlert

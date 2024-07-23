@@ -236,9 +236,12 @@ export const deleteOrder = async (req: Request, res: Response) => {
             });
         }
 
-        const orderDeleted = await db.order.delete({
+        const orderDeleted = await db.order.update({
             where: {
                 id,
+            },
+            data: {
+                status: 'CANCELED',
             },
         });
 
