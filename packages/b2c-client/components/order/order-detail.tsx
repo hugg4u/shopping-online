@@ -312,7 +312,7 @@ const OrderDetail = () => {
                                 </div>
                                 <p>
                                     <span>Phương thức thanh toán: </span>
-                                    <span className="">
+                                    <span className="text-primary">
                                         {
                                             orderPaymentMethod[
                                                 orderDetail?.paymentMethod as keyof typeof orderPaymentMethod
