@@ -225,12 +225,12 @@ const OrderDetail = () => {
                                                         x {detail?.quantity}
                                                     </p>
                                                 </div>
-                                                <div className="flex  items-center justify-center gap-8">
-                                                    <div className="flex gap-2 text-base">
-                                                        <span
+                                                <div className="flex items-center justify-center gap-8">
+                                                    <div className="flex gap-2 text-base text-lg">
+                                                        <p
                                                             className={
                                                                 detail?.discountPrice
-                                                                    ? 'text-gray-400 line-through'
+                                                                    ? 'text-base text-gray-400 line-through'
                                                                     : ''
                                                             }
                                                         >
@@ -240,15 +240,17 @@ const OrderDetail = () => {
                                                                         detail?.originalPrice
                                                                     )
                                                                 )}
-                                                        </span>
-                                                        <span>
-                                                            {detail?.discountPrice &&
-                                                                currencyFormatter(
+                                                        </p>
+
+                                                        {detail?.discountPrice && (
+                                                            <p>
+                                                                {currencyFormatter(
                                                                     Number(
                                                                         detail?.discountPrice
                                                                     )
                                                                 )}
-                                                        </span>
+                                                            </p>
+                                                        )}
                                                     </div>
                                                     <div
                                                         className="flex flex-col gap-4"
