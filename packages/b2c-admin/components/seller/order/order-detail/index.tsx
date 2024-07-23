@@ -166,6 +166,9 @@ const OrderDetail = () => {
                             </div>
                         </div>
                     </OrderDetailItem>
+                    <OrderDetailItem title="Customer note">
+                        <div>{data?.data?.notes}</div>
+                    </OrderDetailItem>
                     <OrderDetailItem title="Ordered Products">
                         <div className="space-y-2 py-2">
                             {data?.data?.orderDetail?.map((item) => (
