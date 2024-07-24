@@ -198,7 +198,7 @@ const OrderDetail = () => {
                                     href={`/product/${detail.productId}`}
                                     key={detail.id}
                                 >
-                                    <div className="rounded-lg border py-2 text-slate-600">
+                                    <div className="rounded-lg border p-2 text-slate-600">
                                         <div className="flex h-full items-center">
                                             <Image
                                                 className="pr-4"

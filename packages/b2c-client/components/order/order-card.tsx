@@ -176,19 +176,19 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                     }}
                                     role="presentation"
                                 >
-                                    {order.status === 'DELIVERED' ||
-                                        (order.status === 'CANCELED' && (
-                                            <Button
-                                                onClick={handleBuyAgain}
-                                                size="large"
-                                                style={{
-                                                    width: '100px',
-                                                }}
-                                                type="primary"
-                                            >
-                                                Mua lại
-                                            </Button>
-                                        ))}
+                                    {(order.status === 'DELIVERED' ||
+                                        order.status === 'CANCELED') && (
+                                        <Button
+                                            onClick={handleBuyAgain}
+                                            size="large"
+                                            style={{
+                                                width: '100px',
+                                            }}
+                                            type="primary"
+                                        >
+                                            Mua lại
+                                        </Button>
+                                    )}
 
                                     <div
                                         onClick={(e) => {
