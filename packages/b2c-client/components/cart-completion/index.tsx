@@ -3,6 +3,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
     ClockCircleOutlined,
+    CopyOutlined,
     DownOutlined,
     MailOutlined,
 } from '@ant-design/icons';
@@ -14,14 +15,15 @@ import {
     orderPaymentMethod,
     orderStatus,
 } from 'common/types/order';
+import { ZLPayResponse } from 'common/types/payment';
 import { currencyFormatter } from 'common/utils/formatter';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import request from 'common/utils/http-request';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ZLPayResponse } from 'common/types/payment';
 import { toast } from 'react-toastify';
-import moment from 'moment';
+import { copy } from 'common/utils/copy';
 import { useAuth } from '~/hooks/useAuth';
 
 const { Title, Paragraph, Text } = Typography;
@@ -159,6 +161,23 @@ const CartCompletion = () => {
                                 Đơn hàng của bạn đang được xử lí
                             </p>
                             <p>
+                                <span>Mã đơn hàng: {orderDetail?.id} </span>
+                                <span>
+                                    <Button
+                                        icon={<CopyOutlined />}
+                                        onClick={() => {
+                                            if (orderDetail?.id) {
+                                                copy(orderDetail?.id);
+                                                toast.success(
+                                                    'Sao chép mã đơn hàng thành công.'
+                                                );
+                                            }
+                                        }}
+                                        type="text"
+                                    />
+                                </span>
+                            </p>
+                            <p>
                                 Trạng thái đơn hàng:{' '}
                                 {
                                     orderStatus[
@@ -198,9 +217,9 @@ const CartCompletion = () => {
                         )}
 
                         {/* Thông tin thanh toán */}
-                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4">
+                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4 pt-0">
                             <div
-                                className="flex cursor-pointer items-center justify-between font-bold"
+                                className="flex cursor-pointer items-center justify-between pt-4 font-bold"
                                 onClick={() => {
                                     setVisiblePaymentInformation(
                                         !visiblePaymentInformation
@@ -360,9 +379,9 @@ const CartCompletion = () => {
                             </div>
                         </div>
                         {/* Thông tin nhận hàng */}
-                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4">
+                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4 pt-0">
                             <div
-                                className="flex cursor-pointer items-center justify-between font-bold"
+                                className="flex cursor-pointer items-center justify-between pt-4 font-bold"
                                 onClick={() => {
                                     setVisibleReceiverInformation(
                                         !visibleReceiverInformation
@@ -417,9 +436,9 @@ const CartCompletion = () => {
                         </div>
 
                         {/* Chi tiết đơn hàng */}
-                        <div className="w-full rounded-lg border border-solid p-4">
+                        <div className="w-full rounded-lg border border-solid p-4 pt-0">
                             <div
-                                className="flex cursor-pointer items-center justify-between font-bold"
+                                className="flex cursor-pointer items-center justify-between pt-4 font-bold"
                                 onClick={() => {
                                     setVisibleProductInformation(
                                         !visibleProductInformation
