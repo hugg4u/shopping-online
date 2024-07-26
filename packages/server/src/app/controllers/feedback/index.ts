@@ -107,6 +107,7 @@ export const getFeedback = async (req: Request, res: Response) => {
             where: {
                 productId: productId ? String(productId) : undefined,
                 rating: rate ? Number(rate) : undefined,
+                isShow: true,
             },
         });
         const listFeedback = await db.feedback.findMany({
@@ -114,6 +115,7 @@ export const getFeedback = async (req: Request, res: Response) => {
             where: {
                 productId: productId ? String(productId) : undefined,
                 rating: rate ? Number(rate) : undefined,
+                isShow: true,
             },
             select: {
                 id: true,
