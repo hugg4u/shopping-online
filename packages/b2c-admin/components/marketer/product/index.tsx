@@ -236,7 +236,12 @@ const ProductList = () => {
             width: 150,
             align: 'center',
             render: (value: string) => (
-                <Image height={80} src={getImageUrl(value)} width={80} />
+                <Image
+                    className="object-cover"
+                    height={80}
+                    src={getImageUrl(value)}
+                    width={80}
+                />
             ),
         },
         {
@@ -387,7 +392,12 @@ const ProductList = () => {
                             />
                         </Form.Item>
                         <Form.Item<FormType> label="Search" name="search">
-                            <Input.Search placeholder="Enter product name..." />
+                            <Input
+                                placeholder="Enter product name..."
+                                prefix={
+                                    <SearchOutlined className="text-slate-400" />
+                                }
+                            />
                         </Form.Item>
                         <Form.Item<FormType> label="Rate" name="rating">
                             <Select allowClear placeholder="Select rating...">

@@ -26,12 +26,10 @@ const Header = () => {
     const [isChangePasswordPopupVisible, setIsChangePasswordPopupVisible] =
         useState(false);
 
-    const logOut = () => {
-        Cookies.remove('accessTokenClient');
-        router.push('/');
-        setTimeout(() => {
-            window.location.reload();
-        }, 100);
+    const logOut = async () => {
+        await Cookies.remove('accessTokenClient');
+        await router.push('/');
+        window.location.reload();
     };
 
     const items: MenuProps['items'] = [

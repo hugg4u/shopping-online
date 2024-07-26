@@ -7,6 +7,7 @@ import moment from 'moment';
 import { getSortOrder } from 'common/utils/getSortOrder';
 import { Category } from '~/types/product';
 import { Pagination, QueryResponseType, Sorts } from '~/types';
+import CategoryFormModal from './category-form-modal';
 
 type FormType = {
     search?: string;
@@ -21,8 +22,8 @@ const ListCategory = () => {
     );
     const [sortedInfo, setSortedInfo] = useState<Sorts<FormType>>({});
 
-    const { data, isLoading, refetch } = useQuery<QueryResponseType<Category>>({
-        queryKey: ['list-category-manage'],
+    const { data, isLoading } = useQuery<QueryResponseType<Category>>({
+        queryKey: ['list-category-manage', paginationQuery, sortedInfo],
         queryFn: () =>
             request
                 .get('manage/category', {
@@ -58,7 +59,7 @@ const ListCategory = () => {
             sortOrder:
                 sortedInfo.columnKey === 'createdAt' ? sortedInfo.order : null,
             render: (value: Date) => (
-                <p>{value ? moment(value).format('DD-MMM-YYYY') : ''}</p>
+                <p>{value ? moment(value).format('YYYY-MM-DD') : ''}</p>
             ),
         },
         {
@@ -84,14 +85,15 @@ const ListCategory = () => {
             pageSize: pagination.pageSize,
         });
         setSortedInfo(sorter as Sorts<FormType>);
-        setTimeout(() => {
-            refetch();
-        }, 500);
     };
 
     return (
         <Spin spinning={isLoading}>
-            <div>
+            <div className="space-y-4">
+                <div>Form</div>
+                <div>
+                    <CategoryFormModal />
+                </div>
                 <Table
                     columns={columns}
                     dataSource={data?.data}

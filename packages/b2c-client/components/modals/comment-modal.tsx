@@ -72,7 +72,7 @@ const CommentModal: React.FC<Props> = ({
     return (
         <div>
             <div onClick={(e) => handleOpen(e)} role="presentation">
-                <Button type="primary">Phản hồi</Button>
+                <Button>Phản hồi</Button>
             </div>
 
             <Modal
