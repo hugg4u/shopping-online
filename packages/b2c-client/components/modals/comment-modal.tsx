@@ -7,6 +7,8 @@ import * as request from 'common/utils/http-request';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAuth } from '~/hooks/useAuth';
+import useLoginModal from '~/hooks/useLoginModal';
 
 type Props = {
     productId: string;
@@ -32,6 +34,8 @@ const CommentModal: React.FC<Props> = ({
 
     const [form] = Form.useForm();
     const { push } = useRouter();
+    const auth = useAuth();
+    const { onOpen } = useLoginModal();
 
     const { mutate, isPending } = useMutation({
         mutationFn: (data: { productId: string; description: string }) =>
@@ -55,16 +59,19 @@ const CommentModal: React.FC<Props> = ({
         });
     };
 
+    const handleOpen = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!auth) {
+            onOpen();
+            return;
+        }
+        setIsOpenModal(true);
+    };
+
     return (
         <div>
-            <div
-                onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setIsOpenModal(true);
-                }}
-                role="presentation"
-            >
+            <div onClick={(e) => handleOpen(e)} role="presentation">
                 <Button type="primary">Phản hồi</Button>
             </div>
 
@@ -77,7 +84,7 @@ const CommentModal: React.FC<Props> = ({
                 onCancel={() => setIsOpenModal(false)}
                 onOk={() => form.submit()}
                 open={isOpenModal}
-                title="Đánh giá sản phẩm"
+                title="Phản hồi sản phẩm"
                 width={600}
             >
                 <div className="max-h-[75vh] overflow-auto px-5">
