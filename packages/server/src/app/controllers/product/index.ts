@@ -308,3 +308,17 @@ export const getListProductCart = async (req: Request, res: Response) => {
         return res.sendStatus(500);
     }
 };
+
+export const getListProduct = async (req: Request, res: Response) => {
+    try {
+        const listProduct = await db.product.findMany({});
+
+        return res.status(200).json({
+            isOk: true,
+            data: listProduct,
+            message: 'Get list product successfully!',
+        });
+    } catch (error) {
+        return res.sendStatus(500);
+    }
+};

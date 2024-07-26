@@ -52,6 +52,7 @@ const OrderDetail = () => {
                 .then((res) => res.data),
         onSuccess: (res) => {
             toast.success(res.message);
+            activityRef.current?.reload();
             refetch();
         },
         onError: () => {
@@ -133,6 +134,7 @@ const OrderDetail = () => {
                                 <AssignSeller
                                     orderId={data?.data?.id}
                                     reload={() => {
+                                        activityRef.current?.reload();
                                         refetch();
                                     }}
                                     seller={data?.data?.seller}
@@ -163,6 +165,9 @@ const OrderDetail = () => {
                                 {data?.data?.address}
                             </div>
                         </div>
+                    </OrderDetailItem>
+                    <OrderDetailItem title="Customer note">
+                        <div>{data?.data?.notes}</div>
                     </OrderDetailItem>
                     <OrderDetailItem title="Ordered Products">
                         <div className="space-y-2 py-2">

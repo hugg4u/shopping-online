@@ -19,6 +19,7 @@ import useCartStore from '~/hooks/useCartStore';
 import { useAuth } from '~/hooks/useAuth';
 import { useCartQuery } from '~/hooks/useCartQuery';
 import Feedback from './feedback';
+import Comment from './comment';
 
 type Props = {
     data?: Product;
@@ -279,6 +280,9 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     productId={data?.id ?? ''}
                     productRate={data?.rating ?? 0}
                 />
+            </div>
+            <div className="mt-10">
+                <Comment productId={data?.id ?? ''} />
             </div>
         </div>
     );
