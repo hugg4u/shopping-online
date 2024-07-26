@@ -161,7 +161,7 @@ const CartContact = () => {
             gender: string;
             phone: string;
             address: string;
-            note: string;
+            notes: string;
             paymentMethod: string;
             orderDetails: OrderDetail[];
         }) =>
@@ -186,7 +186,7 @@ const CartContact = () => {
             gender: string;
             phone: string;
             address: string;
-            note: string;
+            notes: string;
             paymentMethod: string;
             orderDetails: OrderDetail[];
         }) =>
@@ -202,7 +202,7 @@ const CartContact = () => {
     });
 
     const handleCreateOrder = async () => {
-        const { name, email, gender, phone, address, note } =
+        const { name, email, gender, phone, address, notes } =
             form.getFieldsValue();
         try {
             await form.validateFields();
@@ -233,6 +233,7 @@ const CartContact = () => {
                     productId: item?.id ?? null,
                     productName: item?.name ?? null,
                     orderId: null,
+                    feedbackId: null,
                 };
             }) ?? [];
 
@@ -247,7 +248,7 @@ const CartContact = () => {
                     paymentMethod: selectedPaymentMethod,
                     phone,
                     address,
-                    note,
+                    notes,
                     orderDetails,
                 }).then((res) => res.data);
 
@@ -263,7 +264,7 @@ const CartContact = () => {
                     paymentMethod: selectedPaymentMethod,
                     phone,
                     address,
-                    note,
+                    notes,
                     orderDetails,
                 }).then((res) => res.data);
 
@@ -424,7 +425,7 @@ const CartContact = () => {
 
                                                         <Form.Item
                                                             label="Ghi chú"
-                                                            name="note"
+                                                            name="notes"
                                                             rules={[
                                                                 {
                                                                     max: 1000,
@@ -465,12 +466,12 @@ const CartContact = () => {
                                                             hàng(COD)
                                                         </div>
                                                     </Radio>
-                                                    <Radio value="BANK_TRANSFER">
+                                                    {/* <Radio value="BANK_TRANSFER">
                                                         <div className="font-semibold">
                                                             Thanh toán qua
                                                             ZaloPay
                                                         </div>
-                                                    </Radio>
+                                                    </Radio> */}
                                                 </Space>
                                             </Radio.Group>
                                         </Card>
@@ -664,7 +665,7 @@ const CartContact = () => {
 
                                                     <Form.Item
                                                         label="Ghi chú"
-                                                        name="note"
+                                                        name="notes"
                                                     >
                                                         <Input.TextArea
                                                             rows={5}
@@ -698,11 +699,11 @@ const CartContact = () => {
                                                         hàng(COD)
                                                     </div>
                                                 </Radio>
-                                                <Radio value="BANK_TRANSFER">
+                                                {/* <Radio value="BANK_TRANSFER">
                                                     <div className="font-semibold">
                                                         Thanh toán qua ZaloPay
                                                     </div>
-                                                </Radio>
+                                                </Radio> */}
                                             </Space>
                                         </Radio.Group>
                                     </Card>

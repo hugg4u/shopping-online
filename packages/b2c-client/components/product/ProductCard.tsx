@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { Button, Card, Typography } from 'antd';
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { Button, Card, Typography } from 'antd';
 import * as request from 'common/utils/http-request';
-import { getImageUrl } from '~/../common/utils/getImageUrl';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { toast } from 'react-toastify';
 import { currencyFormatter } from '~/../common/utils/formatter';
-import styles from '../../styles/ProductCard.module.css';
-import useLoginModal from '~/hooks/useLoginModal';
+import { getImageUrl } from '~/../common/utils/getImageUrl';
 import { useAuth } from '~/hooks/useAuth';
 import { Product } from '~/types/product';
+import styles from '../../styles/ProductCard.module.css';
 
-import FeedbackModal from '../modals/feedback-modal';
 import { useCartQuery } from '~/hooks/useCartQuery';
 import useCartStore from '~/hooks/useCartStore';
+import CommentModal from '../modals/comment-modal';
 
 type ProductCardProps = Omit<Product, 'updatedAt'>;
 
@@ -26,10 +25,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     thumbnail,
     briefInfo,
 }) => {
-    const { onOpen } = useLoginModal();
     const auth = useAuth();
     const router = useRouter();
-    const [isFeedbackModalVisible, setFeedbackModalVisible] = useState(false);
 
     const { reload } = useCartQuery();
     const { addProduct } = useCartStore();
@@ -70,15 +67,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         }
     };
 
-    const handleFeedback = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation();
-        if (!auth) {
-            onOpen();
-        } else {
-            setFeedbackModalVisible(true);
-        }
-    };
-
     const handleCardClick = () => {
         router.push(`/product/${id}`);
     };
@@ -90,71 +78,69 @@ const ProductCard: React.FC<ProductCardProps> = ({
         discount_price !== null && discount_price !== original_price;
 
     return (
-        <>
-            <Card
-                className={styles.productCard}
-                cover={
-                    <img
-                        alt={name}
-                        className={styles.productImage}
-                        src={imageUrl}
-                    />
-                }
-                hoverable
-                onClick={handleCardClick} // Thêm sự kiện onClick cho thẻ Card
-            >
-                <Card.Meta
-                    description={
-                        <div className={styles.metaDescription}>
-                            {briefInfo}
-                        </div>
-                    }
-                    title={<div className={styles.metaTitle}>{name}</div>}
+        <Card
+            className={styles.productCard}
+            cover={
+                <img
+                    alt={name}
+                    className={styles.productImage}
+                    src={imageUrl}
                 />
-                <Typography.Paragraph
-                    className={styles.originalPrice}
-                    style={{
-                        visibility: showDiscountPrice ? 'visible' : 'hidden',
-                    }}
-                >
-                    <del>{currencyFormatter(original_price)}</del>
-                </Typography.Paragraph>
-                <Typography.Paragraph className={styles.discountPrice}>
-                    {currencyFormatter(
-                        showDiscountPrice ? discount_price : original_price
-                    )}
-                </Typography.Paragraph>
-                <div className={styles.buttonContainer}>
-                    {quantity > 0 ? (
-                        <Button onClick={handleBuy} type="primary">
-                            Mua
-                        </Button>
-                    ) : (
-                        <Button
-                            className={styles.outStock}
-                            disabled
-                            onClick={handleOutStock}
-                        >
-                            Hết hàng
-                        </Button>
-                    )}
-
-                    <Button
-                        className={styles.feedbackButton}
-                        onClick={handleFeedback}
-                        type="default"
-                    >
-                        Phản hồi
-                    </Button>
-                </div>
-            </Card>
-            <FeedbackModal
-                onClose={() => setFeedbackModalVisible(false)}
-                productId={id}
-                productName={name}
-                visible={isFeedbackModalVisible}
+            }
+            hoverable
+            onClick={handleCardClick} // Thêm sự kiện onClick cho thẻ Card
+        >
+            <Card.Meta
+                description={
+                    <div className={styles.metaDescription}>{briefInfo}</div>
+                }
+                title={<div className={styles.metaTitle}>{name}</div>}
             />
-        </>
+            <Typography.Paragraph
+                className={styles.originalPrice}
+                style={{
+                    visibility: showDiscountPrice ? 'visible' : 'hidden',
+                }}
+            >
+                <del>{currencyFormatter(original_price)}</del>
+            </Typography.Paragraph>
+            <Typography.Paragraph className={styles.discountPrice}>
+                {currencyFormatter(
+                    showDiscountPrice ? discount_price : original_price
+                )}
+            </Typography.Paragraph>
+            <div className={styles.buttonContainer}>
+                {quantity > 0 ? (
+                    <Button onClick={handleBuy} type="primary">
+                        Mua
+                    </Button>
+                ) : (
+                    <Button
+                        className={styles.outStock}
+                        disabled
+                        onClick={handleOutStock}
+                    >
+                        Hết hàng
+                    </Button>
+                )}
+
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }}
+                    role="presentation"
+                >
+                    <CommentModal
+                        discount_price={discount_price ?? 0}
+                        original_price={original_price ?? 0}
+                        productId={id ?? ''}
+                        productName={name ?? ''}
+                        thumnail={thumbnail ?? ''}
+                    />
+                </div>
+            </div>
+        </Card>
     );
 };
 

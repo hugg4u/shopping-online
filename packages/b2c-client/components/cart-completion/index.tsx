@@ -3,6 +3,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
     ClockCircleOutlined,
+    CopyOutlined,
     DownOutlined,
     MailOutlined,
 } from '@ant-design/icons';
@@ -14,14 +15,16 @@ import {
     orderPaymentMethod,
     orderStatus,
 } from 'common/types/order';
+import { ZLPayResponse } from 'common/types/payment';
 import { currencyFormatter } from 'common/utils/formatter';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import request from 'common/utils/http-request';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ZLPayResponse } from 'common/types/payment';
 import { toast } from 'react-toastify';
-import moment from 'moment';
+import { copy } from 'common/utils/copy';
+import { useAuth } from '~/hooks/useAuth';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -30,6 +33,7 @@ const CartCompletion = () => {
     const [qrCode, setQRCode] = useState<string | undefined>();
     const [appTransId, setAppTransId] = useState<string | undefined>('');
     const [secondsToGo, setSecondsToGo] = useState(60);
+    const auth = useAuth();
 
     const [visibleReceiverInformation, setVisibleReceiverInformation] =
         useState(true);
@@ -39,10 +43,10 @@ const CartCompletion = () => {
         useState(true);
 
     const { data: orderDetail, isLoading: isLoadingOrder } = useQuery<Order>({
-        queryKey: ['order-detail'],
+        queryKey: ['order-completion', router.query.orderId],
         queryFn: () =>
             request
-                .get(`/order-detail/${router.query.orderId}`)
+                .get(`/order-completion/${router.query.orderId}`)
                 .then((res) => res.data)
                 .then((res) => res.data),
     });
@@ -70,6 +74,18 @@ const CartCompletion = () => {
             );
         },
     });
+
+    const { data: isAcceptDetail, isLoading: isLoadingCheckAcceptDetail } =
+        useQuery<{
+            isOk: boolean;
+        }>({
+            queryKey: ['check-accept-order-detail', auth],
+            queryFn: () =>
+                request
+                    .get(`/check-accept-order-detail/${router.query.orderId}`)
+                    .then((res) => res.data),
+            enabled: !!auth,
+        });
 
     useEffect(() => {
         (async () => {
@@ -132,7 +148,7 @@ const CartCompletion = () => {
     });
 
     return (
-        <Spin spinning={isLoadingOrder}>
+        <Spin spinning={isLoadingOrder || isLoadingCheckAcceptDetail}>
             <div className="w-full text-base">
                 <div className="flex  w-full justify-center">
                     <div className="flex w-[1000px] min-w-[500px] max-w-[1000px] flex-col items-center space-y-4">
@@ -143,6 +159,23 @@ const CartCompletion = () => {
                             </p>
                             <p className="text-[#f43f5e]">
                                 Đơn hàng của bạn đang được xử lí
+                            </p>
+                            <p>
+                                <span>Mã đơn hàng: {orderDetail?.id} </span>
+                                <span>
+                                    <Button
+                                        icon={<CopyOutlined />}
+                                        onClick={() => {
+                                            if (orderDetail?.id) {
+                                                copy(orderDetail?.id);
+                                                toast.success(
+                                                    'Sao chép mã đơn hàng thành công.'
+                                                );
+                                            }
+                                        }}
+                                        type="text"
+                                    />
+                                </span>
                             </p>
                             <p>
                                 Trạng thái đơn hàng:{' '}
@@ -168,24 +201,25 @@ const CartCompletion = () => {
                                 </span>
                             </div>
                         </div>
-
-                        <div className="flex items-center">
-                            <Button
-                                onClick={() =>
-                                    router.push(
-                                        `my-page/my-order/${orderDetail?.id}`
-                                    )
-                                }
-                                size="large"
-                            >
-                                Chi tiết đơn hàng
-                            </Button>
-                        </div>
+                        {isAcceptDetail && (
+                            <div className="flex items-center">
+                                <Button
+                                    onClick={() =>
+                                        router.push(
+                                            `my-page/my-order/${orderDetail?.id}`
+                                        )
+                                    }
+                                    size="large"
+                                >
+                                    Chi tiết đơn hàng
+                                </Button>
+                            </div>
+                        )}
 
                         {/* Thông tin thanh toán */}
-                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4">
+                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4 pt-0">
                             <div
-                                className="flex cursor-pointer items-center justify-between font-bold"
+                                className="flex cursor-pointer items-center justify-between pt-4 font-bold"
                                 onClick={() => {
                                     setVisiblePaymentInformation(
                                         !visiblePaymentInformation
@@ -345,9 +379,9 @@ const CartCompletion = () => {
                             </div>
                         </div>
                         {/* Thông tin nhận hàng */}
-                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4">
+                        <div className="w-full border-spacing-2 flex-col items-center justify-center rounded-lg  border border-solid p-4 pt-0">
                             <div
-                                className="flex cursor-pointer items-center justify-between font-bold"
+                                className="flex cursor-pointer items-center justify-between pt-4 font-bold"
                                 onClick={() => {
                                     setVisibleReceiverInformation(
                                         !visibleReceiverInformation
@@ -402,9 +436,9 @@ const CartCompletion = () => {
                         </div>
 
                         {/* Chi tiết đơn hàng */}
-                        <div className="w-full rounded-lg border border-solid p-4">
+                        <div className="w-full rounded-lg border border-solid p-4 pt-0">
                             <div
-                                className="flex cursor-pointer items-center justify-between font-bold"
+                                className="flex cursor-pointer items-center justify-between pt-4 font-bold"
                                 onClick={() => {
                                     setVisibleProductInformation(
                                         !visibleProductInformation

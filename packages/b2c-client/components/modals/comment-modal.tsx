@@ -1,44 +1,45 @@
+/* eslint-disable react/no-unused-prop-types */
 import { useMutation } from '@tanstack/react-query';
-import { Button, Card, Form, FormProps, Image, Input, Modal, Rate } from 'antd';
+import { Button, Card, Form, FormProps, Image, Input, Modal } from 'antd';
+import { currencyFormatter } from 'common/utils/formatter';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import * as request from 'common/utils/http-request';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAuth } from '~/hooks/useAuth';
+import useLoginModal from '~/hooks/useLoginModal';
 
 type Props = {
     productId: string;
     productName: string;
     thumnail: string;
-    size: string;
-    category: string;
+    discount_price: number;
+    original_price: number;
 };
 
 type FormType = {
     productName: string;
-    rating: number;
     description: string;
 };
 
-const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
-
-const ReviewModal: React.FC<Props> = ({
+const CommentModal: React.FC<Props> = ({
     productId,
     productName,
     thumnail,
-    size,
-    category,
+    discount_price,
+    original_price,
 }) => {
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
     const [form] = Form.useForm();
     const { push } = useRouter();
+    const auth = useAuth();
+    const { onOpen } = useLoginModal();
+
     const { mutate, isPending } = useMutation({
-        mutationFn: (data: {
-            productId: string;
-            rating: number;
-            description: string;
-        }) => request.post('/feedback/add', data).then((res) => res.data),
+        mutationFn: (data: { productId: string; description: string }) =>
+            request.post('/comment/add', data).then((res) => res.data),
         onSuccess: (res) => {
             toast.success(res?.message);
             form.resetFields();
@@ -54,23 +55,24 @@ const ReviewModal: React.FC<Props> = ({
     const onFinish: FormProps<FormType>['onFinish'] = async (values) => {
         mutate({
             productId,
-            rating: values.rating ?? 5,
             description: values.description,
         });
     };
 
+    const handleOpen = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!auth) {
+            onOpen();
+            return;
+        }
+        setIsOpenModal(true);
+    };
+
     return (
         <div>
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                    setIsOpenModal(true);
-                }}
-                role="presentation"
-            >
-                <Button size="large" type="primary">
-                    Đánh giá
-                </Button>
+            <div onClick={(e) => handleOpen(e)} role="presentation">
+                <Button type="primary">Phản hồi</Button>
             </div>
 
             <Modal
@@ -82,7 +84,7 @@ const ReviewModal: React.FC<Props> = ({
                 onCancel={() => setIsOpenModal(false)}
                 onOk={() => form.submit()}
                 open={isOpenModal}
-                title="Đánh giá sản phẩm"
+                title="Phản hồi sản phẩm"
                 width={600}
             >
                 <div className="max-h-[75vh] overflow-auto px-5">
@@ -114,21 +116,32 @@ const ReviewModal: React.FC<Props> = ({
                                                 <p className="text-xl">
                                                     {productName}
                                                 </p>
-                                                <p className="text-base text-gray-500">
-                                                    Phân loại hàng: {category},{' '}
-                                                    {size}
-                                                    ml
-                                                </p>
+                                            </div>
+                                            <div className="flex items-center gap-4 text-lg">
+                                                <div className="flex gap-2">
+                                                    <span
+                                                        className={
+                                                            discount_price
+                                                                ? 'text-gray-400 line-through'
+                                                                : ''
+                                                        }
+                                                    >
+                                                        {original_price &&
+                                                            currencyFormatter(
+                                                                original_price
+                                                            )}
+                                                    </span>
+                                                    <span>
+                                                        {discount_price > 0 &&
+                                                            currencyFormatter(
+                                                                discount_price
+                                                            )}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </Card>
-                            </Form.Item>
-                            <Form.Item
-                                label="Chất lượng sản phẩm"
-                                name="rating"
-                            >
-                                <Rate defaultValue={5} tooltips={desc} />
                             </Form.Item>
                             <Form.Item
                                 label="Phản hồi"
@@ -137,14 +150,14 @@ const ReviewModal: React.FC<Props> = ({
                                     {
                                         required: true,
                                         message:
-                                            'Hãy thêm đánh giá của bạn về sản phẩm',
+                                            'Hãy thêm phản hồi của bạn về sản phẩm',
                                     },
                                 ]}
-                                style={{ resize: 'none' }}
                             >
                                 <Input.TextArea
                                     placeholder="Phản hồi sản phẩm"
-                                    rows={4}
+                                    rows={5}
+                                    style={{ resize: 'none' }}
                                 />
                             </Form.Item>
                         </div>
@@ -155,4 +168,4 @@ const ReviewModal: React.FC<Props> = ({
     );
 };
 
-export default ReviewModal;
+export default CommentModal;

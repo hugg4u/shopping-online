@@ -8,6 +8,7 @@ import React from 'react';
 import { CopyButton } from 'common/components/copy-button';
 import { useMutation } from '@tanstack/react-query';
 import request from 'common/utils/http-request';
+import Link from 'next/link';
 import DeleteOrderAlert from './delete-order-alert';
 // import FeedbackModal from '../modals/feedback-modal';
 // import ReviewModal from '../modals/review-modal';
@@ -89,14 +90,9 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                 </div>
                             </div>
                             <div>
-                                <Button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        push(`/my-page/my-order/${id}`);
-                                    }}
-                                >
-                                    Chi tiết đơn hàng
-                                </Button>
+                                <Link href={`/my-page/my-order/${id}`}>
+                                    <Button>Chi tiết đơn hàng</Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -180,59 +176,8 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                     }}
                                     role="presentation"
                                 >
-                                    {/* {order?.orderDetail &&
-                                        order.count === 0 &&
-                                        (order.status === 'DELIVERED' ? (
-                                            <ReviewModal
-                                                category={
-                                                    order.orderDetail[0]
-                                                        ?.category ?? ''
-                                                }
-                                                productId={
-                                                    order?.orderDetail[0]
-                                                        ?.productId ?? ''
-                                                }
-                                                productName={
-                                                    order.orderDetail[0]
-                                                        ?.productName ?? ''
-                                                }
-                                                size={
-                                                    order.orderDetail[0]?.size?.toString() ??
-                                                    ''
-                                                }
-                                                thumnail={
-                                                    order.orderDetail[0]
-                                                        ?.thumbnail ?? ''
-                                                }
-                                            />
-                                        ) : (
-                                            <Button
-                                                onClick={() =>
-                                                    setFeedbackModalVisible(
-                                                        true
-                                                    )
-                                                }
-                                                size="large"
-                                                type="primary"
-                                            >
-                                                Phản hồi
-                                            </Button>
-                                        ))}
-
-                                    <FeedbackModal
-                                        onClose={() =>
-                                            setFeedbackModalVisible(false)
-                                        }
-                                        productId={
-                                            orderDetail[0]?.productId ?? ''
-                                        }
-                                        productName={
-                                            orderDetail[0]?.productName ?? ''
-                                        }
-                                        visible={isFeedbackModalVisible}
-                                    /> */}
-
-                                    {order.status === 'DELIVERED' && (
+                                    {(order.status === 'DELIVERED' ||
+                                        order.status === 'CANCELED') && (
                                         <Button
                                             onClick={handleBuyAgain}
                                             size="large"
@@ -251,8 +196,10 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                         }}
                                         role="presentation"
                                     >
-                                        {order &&
-                                            order.status === 'PENDING' && (
+                                        {(order &&
+                                            order.status === 'PENDING') ||
+                                            (order.status ===
+                                                'PAYMENT_PENDING' && (
                                                 <DeleteOrderAlert
                                                     orderId={order.id ?? ''}
                                                     productName={
@@ -269,7 +216,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                                     }
                                                     reload={() => reload()}
                                                 />
-                                            )}
+                                            ))}
                                     </div>
                                 </div>
                                 <div className="w-full flex-col">
