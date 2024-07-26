@@ -14,10 +14,11 @@ import {
 } from 'antd';
 import { QueryResponseType } from 'common/types';
 import { Customer } from 'common/types/customer';
-import { PAGE_SIZE } from 'common/constant';
+import { CUSTOMER_STATUS, PAGE_SIZE } from 'common/constant';
 import { getSortOrder } from 'common/utils/getSortOrder';
 import { SearchOutlined } from '@ant-design/icons';
 import { Sorts } from '~/types';
+import CustomerForm from './customer-form';
 
 type FormType = {
     search?: string;
@@ -29,18 +30,6 @@ type SearchParams = FormType & {
     currentPage?: number;
 };
 
-const CUSTOMER_STATUS = [
-    {
-        value: 'NEWLY_REGISTER',
-    },
-    {
-        value: 'NEWLY_BOUGHT',
-    },
-    {
-        value: 'BANNED',
-    },
-];
-
 const CustomerList = () => {
     const [form] = Form.useForm();
 
@@ -51,19 +40,21 @@ const CustomerList = () => {
 
     const [sortedInfo, setSortedInfo] = useState<Sorts<FormType>>({});
 
-    const { data, isFetching } = useQuery<QueryResponseType<Customer>>({
-        queryKey: ['customer-list', searchParams, sortedInfo],
-        queryFn: () =>
-            request
-                .get('customer', {
-                    params: {
-                        ...searchParams,
-                        orderName: sortedInfo?.field,
-                        order: getSortOrder(sortedInfo?.order),
-                    },
-                })
-                .then((res) => res.data),
-    });
+    const { data, isFetching, refetch } = useQuery<QueryResponseType<Customer>>(
+        {
+            queryKey: ['customer-list', searchParams, sortedInfo],
+            queryFn: () =>
+                request
+                    .get('customer', {
+                        params: {
+                            ...searchParams,
+                            orderName: sortedInfo?.field,
+                            order: getSortOrder(sortedInfo?.order),
+                        },
+                    })
+                    .then((res) => res.data),
+        }
+    );
 
     const columns: TableColumnsType<Partial<Customer>> = [
         {
@@ -115,6 +106,23 @@ const CustomerList = () => {
             title: 'Address',
             dataIndex: 'address',
             key: 'address',
+        },
+        {
+            title: 'Actions',
+            key: 'actions',
+            render: (_, record) => {
+                return (
+                    <div>
+                        <CustomerForm
+                            customerId={record?.id}
+                            reloadList={() => {
+                                refetch();
+                            }}
+                            type="UPDATE"
+                        />
+                    </div>
+                );
+            },
         },
     ];
 
@@ -198,6 +206,14 @@ const CustomerList = () => {
                         </div>
                     </Form>
                 </div>
+                <div className="flex justify-end py-4">
+                    <CustomerForm
+                        reloadList={() => {
+                            refetch();
+                        }}
+                        type="CREATE"
+                    />
+                </div>
                 <Table
                     columns={columns}
                     dataSource={data?.data}
@@ -210,6 +226,7 @@ const CustomerList = () => {
                         showSizeChanger: true,
                         pageSize: searchParams?.pageSize,
                     }}
+                    rowKey="id"
                 />
             </div>
         </Spin>

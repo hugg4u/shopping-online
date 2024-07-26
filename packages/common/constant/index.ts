@@ -19,6 +19,27 @@ export const ORDER_STATUS = [
     { id: 'CANCELED', value: 'CANCELED' },
 ];
 
+export const CUSTOMER_STATUS = [
+    {
+        value: 'NEWLY_REGISTER',
+    },
+    {
+        value: 'NEWLY_BOUGHT',
+    },
+    {
+        value: 'BANNED',
+    },
+];
+
+export const USER_GENDER = [
+    {
+        value: 'MALE',
+    },
+    {
+        value: 'FEMALE',
+    },
+];
+
 export const RATING_LIST_CLIENT = [
     { id: 5, value: 5 },
     { id: 4, value: 4 },
