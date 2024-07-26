@@ -191,7 +191,7 @@ const OrderList = () => {
             },
         },
         {
-            title: 'Total amount',
+            title: 'Total cost',
             dataIndex: 'totalAmount',
             key: 'totalAmount',
             sorter: true,
@@ -311,7 +311,7 @@ const OrderList = () => {
                     wrapperCol={{ span: 18 }}
                 >
                     <div className={cn('grid grid-cols-3 gap-10')}>
-                        <Form.Item<FormType> label="ID" name="orderId">
+                        <Form.Item<FormType> label="Order ID" name="orderId">
                             <Input placeholder="Enter orderId..." />
                         </Form.Item>
                         <Form.Item<FormType> label="Customer" name="customer">
@@ -333,7 +333,7 @@ const OrderList = () => {
                         </Form.Item>
                         {auth?.role === 'SELLERMANAGER' && (
                             <Form.Item<FormType>
-                                label="Assignee"
+                                label="Sale name"
                                 name="assignee"
                             >
                                 <Select
