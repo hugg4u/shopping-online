@@ -12,6 +12,7 @@ import styles from '../../styles/ProductCard.module.css';
 
 import { useCartQuery } from '~/hooks/useCartQuery';
 import useCartStore from '~/hooks/useCartStore';
+import CommentModal from '../modals/comment-modal';
 
 type ProductCardProps = Omit<Product, 'updatedAt'>;
 
@@ -122,6 +123,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         Hết hàng
                     </Button>
                 )}
+
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }}
+                    role="presentation"
+                >
+                    <CommentModal
+                        discount_price={discount_price ?? 0}
+                        original_price={original_price ?? 0}
+                        productId={id ?? ''}
+                        productName={name ?? ''}
+                        thumnail={thumbnail ?? ''}
+                    />
+                </div>
             </div>
         </Card>
     );

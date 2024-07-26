@@ -67,7 +67,7 @@ export const createComment = async (req: Request, res: Response) => {
         return res.status(200).json({
             isOk: true,
             data: comment,
-            message: 'Get list comment successfully!',
+            message: 'Phản hồi sản phẩm thành công!',
         });
     } catch (error) {
         return res.sendStatus(500);

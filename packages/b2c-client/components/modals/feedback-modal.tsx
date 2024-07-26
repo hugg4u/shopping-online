@@ -140,6 +140,7 @@ const FeedBackModal: React.FC<Props> = ({
         <div>
             <div
                 onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     setIsOpenModal(true);
                 }}
