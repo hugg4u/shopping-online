@@ -7,7 +7,7 @@ export type Customer = {
     dob: null;
     gender: string;
     image: string;
-    status: string;
+    status: CustomerStatus;
 };
 
 export type User = {
@@ -22,3 +22,5 @@ export type User = {
     status: string;
     role: string;
 };
+
+export type CustomerStatus = 'NEWLY_REGISTER' | 'NEWLY_BOUGHT' | 'BANNED';
