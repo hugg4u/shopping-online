@@ -85,7 +85,7 @@ const OrderDetail = () => {
                             </div>
                         </div>
                     </OrderDetailItem>
-                    <OrderDetailItem title="Customer">
+                    <OrderDetailItem title="Customer full name">
                         {data?.data?.user?.name || data?.data?.name}
                     </OrderDetailItem>
                     <OrderDetailItem title="Email">
@@ -127,7 +127,7 @@ const OrderDetail = () => {
                             <div>{data?.data?.status}</div>
                         )}
                     </OrderDetailItem>
-                    <OrderDetailItem title="Seller">
+                    <OrderDetailItem title="Sale name">
                         <div className="py-2">
                             {data?.data?.id && (
                                 <AssignSeller
@@ -143,7 +143,7 @@ const OrderDetail = () => {
                     <OrderDetailItem title="Receiver information">
                         <div className="space-y-1 py-2">
                             <div>
-                                <span className="font-medium">Name:</span>{' '}
+                                <span className="font-medium">Full name:</span>{' '}
                                 {data?.data?.name}
                             </div>
                             <div>

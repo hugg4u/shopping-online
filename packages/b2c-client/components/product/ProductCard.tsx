@@ -43,13 +43,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
             return request.post('/cart/add', data);
         },
         onSuccess: () => {
-            toast.success('Product added to cart successfully!');
+            toast.success('Sản phẩm được thêm vào giỏ hàng thành công!');
             setTimeout(() => {
                 reload();
             }, 200);
         },
         onError: () => {
-            toast.error('Failed to add product to cart.');
+            toast.error('Không thể thêm sản phẩm vào giỏ hàng.');
         },
     });
 

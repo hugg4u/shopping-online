@@ -5,7 +5,7 @@ import OrderList from '~/components/seller/order';
 const OrderPage = () => {
     return (
         <div>
-            <Header title="Order List" />
+            <Header title="Orders List" />
             <OrderList />
         </div>
     );
