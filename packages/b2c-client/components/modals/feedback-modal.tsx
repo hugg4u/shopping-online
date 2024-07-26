@@ -138,14 +138,16 @@ const FeedBackModal: React.FC<Props> = ({
 
     return (
         <div>
-            <div
-                onClick={(e) => {
-                    e.stopPropagation();
-                    setIsOpenModal(true);
-                }}
-                role="presentation"
-            >
-                <Button size="large" type="primary">
+            <div>
+                <Button
+                    className="z-50"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsOpenModal(true);
+                    }}
+                    size="large"
+                    type="primary"
+                >
                     Đánh giá
                 </Button>
             </div>

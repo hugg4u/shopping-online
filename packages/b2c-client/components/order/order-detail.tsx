@@ -12,7 +12,7 @@ import { getImageUrl } from 'common/utils/getImageUrl';
 import request from 'common/utils/http-request';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+
 import { copy } from 'common/utils/copy';
 import { toast } from 'react-toastify';
 import DeleteOrderAlert from './delete-order-alert';
@@ -20,7 +20,7 @@ import EditOrderModal from './edit-order-modal';
 import FeedBackModal from '../modals/feedback-modal';
 
 const OrderDetail = () => {
-    const { query: routerQuery, back } = useRouter();
+    const { query: routerQuery, back, push } = useRouter();
 
     const {
         data: orderDetail,
@@ -194,110 +194,110 @@ const OrderDetail = () => {
                         {/* Sản phẩm  */}
                         <div className="flex flex-col gap-4">
                             {orderDetail?.orderDetail?.map((detail) => (
-                                <Link
-                                    href={`/product/${detail.productId}`}
-                                    key={detail.id}
+                                <div
+                                    className="cursor-pointer rounded-lg border p-2 text-slate-600"
+                                    onClick={() => {
+                                        push(`/product/${detail.productId}`);
+                                    }}
+                                    role="presentation"
                                 >
-                                    <div className="rounded-lg border p-2 text-slate-600">
-                                        <div className="flex h-full items-center">
-                                            <Image
-                                                className="pr-4"
-                                                height={80}
-                                                preview={false}
-                                                src={getImageUrl(
-                                                    detail.thumbnail
-                                                        ? detail.thumbnail
-                                                        : ''
-                                                )}
-                                            />
-                                            <div className="flex h-full w-full justify-between">
-                                                <div className="flex-col gap-8">
-                                                    <p className="text-xl">
-                                                        {detail.productName}
-                                                    </p>
-                                                    <p className="text-base text-gray-500">
-                                                        Phân loại hàng:{' '}
-                                                        {detail?.category},{' '}
-                                                        {detail?.size}
-                                                        ml
-                                                    </p>
-                                                    <p className="text-base">
-                                                        x {detail?.quantity}
-                                                    </p>
-                                                </div>
-                                                <div className="flex items-center justify-center gap-8">
-                                                    <div className="flex gap-2 text-base text-lg">
-                                                        <p
-                                                            className={
-                                                                detail?.discountPrice
-                                                                    ? 'text-base text-gray-400 line-through'
-                                                                    : ''
-                                                            }
-                                                        >
-                                                            {detail?.originalPrice &&
-                                                                currencyFormatter(
-                                                                    Number(
-                                                                        detail?.originalPrice
-                                                                    )
-                                                                )}
-                                                        </p>
-
-                                                        {detail?.discountPrice && (
-                                                            <p>
-                                                                {currencyFormatter(
-                                                                    Number(
-                                                                        detail?.discountPrice
-                                                                    )
-                                                                )}
-                                                            </p>
-                                                        )}
-                                                    </div>
-                                                    <div
-                                                        className="flex flex-col gap-4"
-                                                        onClick={(e) =>
-                                                            e.stopPropagation()
+                                    <div className="flex h-full items-center">
+                                        <Image
+                                            className="pr-4"
+                                            height={80}
+                                            preview={false}
+                                            src={getImageUrl(
+                                                detail.thumbnail
+                                                    ? detail.thumbnail
+                                                    : ''
+                                            )}
+                                        />
+                                        <div className="flex h-full w-full justify-between">
+                                            <div className="flex-col gap-8">
+                                                <p className="text-xl">
+                                                    {detail.productName}
+                                                </p>
+                                                <p className="text-base text-gray-500">
+                                                    Phân loại hàng:{' '}
+                                                    {detail?.category},{' '}
+                                                    {detail?.size}
+                                                    ml
+                                                </p>
+                                                <p className="text-base">
+                                                    x {detail?.quantity}
+                                                </p>
+                                            </div>
+                                            <div className="flex items-center justify-center gap-8">
+                                                <div className="flex gap-2 text-base text-lg">
+                                                    <p
+                                                        className={
+                                                            detail?.discountPrice
+                                                                ? 'text-base text-gray-400 line-through'
+                                                                : ''
                                                         }
-                                                        role="presentation"
                                                     >
-                                                        {orderDetail.status ===
-                                                            'DELIVERED' &&
-                                                        !detail.feedbackId ? (
-                                                            <FeedBackModal
-                                                                category={
-                                                                    detail.category ??
-                                                                    ''
-                                                                }
-                                                                orderDetailId={
-                                                                    detail.id ??
-                                                                    ''
-                                                                }
-                                                                productId={
-                                                                    detail?.productId ??
-                                                                    ''
-                                                                }
-                                                                productName={
-                                                                    detail.productName ??
-                                                                    ''
-                                                                }
-                                                                reload={refetch}
-                                                                size={
-                                                                    detail.size?.toString() ??
-                                                                    ''
-                                                                }
-                                                                thumnail={
-                                                                    detail.thumbnail ??
-                                                                    ''
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ''
-                                                        )}
-                                                    </div>
+                                                        {detail?.originalPrice &&
+                                                            currencyFormatter(
+                                                                Number(
+                                                                    detail?.originalPrice
+                                                                )
+                                                            )}
+                                                    </p>
+
+                                                    {detail?.discountPrice && (
+                                                        <p>
+                                                            {currencyFormatter(
+                                                                Number(
+                                                                    detail?.discountPrice
+                                                                )
+                                                            )}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                                <div
+                                                    className="flex flex-col gap-4"
+                                                    onClick={(e) =>
+                                                        e.stopPropagation()
+                                                    }
+                                                    role="presentation"
+                                                >
+                                                    {orderDetail.status ===
+                                                        'DELIVERED' &&
+                                                    !detail.feedbackId ? (
+                                                        <FeedBackModal
+                                                            category={
+                                                                detail.category ??
+                                                                ''
+                                                            }
+                                                            orderDetailId={
+                                                                detail.id ?? ''
+                                                            }
+                                                            productId={
+                                                                detail?.productId ??
+                                                                ''
+                                                            }
+                                                            productName={
+                                                                detail.productName ??
+                                                                ''
+                                                            }
+                                                            reload={refetch}
+                                                            size={
+                                                                detail.size?.toString() ??
+                                                                ''
+                                                            }
+                                                            thumnail={
+                                                                detail.thumbnail ??
+                                                                ''
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        ''
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </Link>
+                                </div>
                             ))}
                         </div>
 
