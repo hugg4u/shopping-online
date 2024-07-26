@@ -28,9 +28,10 @@ const Header = () => {
 
     const logOut = () => {
         Cookies.remove('accessTokenClient');
+        router.push('/');
         setTimeout(() => {
-            router.reload();
-        }, 200);
+            window.location.reload();
+        }, 100);
     };
 
     const items: MenuProps['items'] = [
