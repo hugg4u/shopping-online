@@ -74,11 +74,12 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
     }, [data?.id]);
 
     useLayoutEffect(() => {
-        if (buyQuantity <= 0) {
-            setByQuantity(1);
-        }
-        if (data?.quantity && buyQuantity > data?.quantity) {
-            setByQuantity(data?.quantity);
+        if (data?.quantity && data?.quantity >= 0) {
+            if (buyQuantity <= 0) {
+                setByQuantity(1);
+            } else if (data?.quantity && buyQuantity > data?.quantity) {
+                setByQuantity(data?.quantity);
+            }
         }
     }, [buyQuantity, data?.quantity]);
 
@@ -223,7 +224,10 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                             </div>
                         </div>
                         <div className="text-slate-500">
-                            {data?.quantity ?? 0} sản phẩm có sẵn
+                            {data?.quantity && data?.quantity > 0
+                                ? data?.quantity
+                                : 0}{' '}
+                            sản phẩm có sẵn
                         </div>
                     </div>
                     <div>
