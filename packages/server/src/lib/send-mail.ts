@@ -1339,3 +1339,23 @@ export const sendBill = async (order: OrderResponse) => {
         throw new Error('Error sending email');
     }
 };
+
+// export const sendMail = async ({
+//     to,
+//     subject,
+//     title,
+//     mainContent,
+//     secondContent,
+//     label,
+//     link,
+// }: {
+//     to: string;
+//     subject: string;
+//     title?: string;
+//     mainContent?: string;
+//     secondContent?: string;
+//     label?: string;
+//     link?: string;
+// }) => {};
+
+// export const sendBill = async (order: OrderResponse) => {};

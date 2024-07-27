@@ -55,17 +55,6 @@ const Header: React.FC<Props> = ({ title }) => {
             key: '3',
             label: (
                 <div
-                    onClick={() => router.push('/my-page')}
-                    role="presentation"
-                >
-                    My Orders
-                </div>
-            ),
-        },
-        {
-            key: '4',
-            label: (
-                <div
                     className="text-rose-500"
                     onClick={logOut}
                     role="presentation"
@@ -78,7 +67,13 @@ const Header: React.FC<Props> = ({ title }) => {
 
     return (
         <div className="flex h-[76px] w-full items-center justify-between px-5 shadow-md">
-            <div className="text-2xl font-bold uppercase">{title}</div>
+            <div
+                className="cursor-pointer text-2xl font-bold uppercase"
+                onClick={() => router.push('/')}
+                role="presentation"
+            >
+                {title}
+            </div>
             <div>
                 <Dropdown
                     menu={{ items }}
