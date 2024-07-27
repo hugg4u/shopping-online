@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { Alert, Button, Form, Input, Select } from 'antd';
+import { Alert, Button, Form, Input, Select, Spin, Typography } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import Modal from 'common/components/modal';
 import * as request from 'common/utils/http-request';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import useLoginModal from '~/hooks/useLoginModal';
 import useRegisterModal from '~/hooks/useRegisterModal';
@@ -16,16 +16,30 @@ const genderOptions = {
 const RegisterModal = () => {
     const [emailUser, setEmailUser] = useState('');
     const [form] = Form.useForm();
-
     const { isOpen, onClose } = useRegisterModal();
     const { onOpen } = useLoginModal();
-
     const [loading, setLoading] = useState(false);
+    const [secondsToGo, setSecondsToGo] = useState(0);
+    const { Paragraph, Text } = Typography;
 
     const toggle = useCallback(() => {
         onClose();
         onOpen();
     }, [onClose, onOpen]);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (secondsToGo > 0) {
+                setSecondsToGo(secondsToGo - 1);
+            }
+            if (secondsToGo === 0) {
+                clearInterval(timer);
+            }
+        }, 1000);
+        return () => {
+            clearInterval(timer);
+        };
+    });
 
     const { mutate: verifyEmail, isPending: verifyEmailIsPending } =
         useMutation({
@@ -101,6 +115,7 @@ const RegisterModal = () => {
 
     const handleResendEmail = () => {
         verifyEmail(emailUser);
+        setSecondsToGo(60);
     };
 
     const bodyContent = (
@@ -235,7 +250,7 @@ const RegisterModal = () => {
                     <Button htmlType="submit" />
                 </Form.Item>
             </Form>
-            {registerUserIsSuccess && (
+            {registerUserIsSuccess && secondsToGo === 0 && (
                 <Alert
                     description={
                         <>
@@ -256,6 +271,21 @@ const RegisterModal = () => {
                     message={`Chúng tôi đã gửi đến ${emailUser} email xác nhận để kích hoạt tài khoản.`}
                     type="info"
                 />
+            )}
+
+            {secondsToGo > 0 && (
+                <Paragraph className="flex space-x-2 ">
+                    <Spin />
+                    <div className="flex space-x-1">
+                        <span>Gửi email xác thực sau</span>
+                        <Text type="danger">
+                            {Math.floor(secondsToGo / 60)}
+                        </Text>{' '}
+                        <span>phút</span>
+                        <Text type="danger">{secondsToGo % 60}</Text>{' '}
+                        <span>giây</span>
+                    </div>
+                </Paragraph>
             )}
         </div>
     );
