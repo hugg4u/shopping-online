@@ -216,6 +216,12 @@ export const loginClient = async (req: Request, res: Response) => {
         });
     }
 
+    if (user.status === 'BANNED') {
+        return res.status(403).json({
+            message: 'Tài khoản đã bị vô hiệu hoá!',
+        });
+    }
+
     const token = jwt.sign(
         { id: user.id, email: user.email, name: user.name },
         TOKEN_KEY

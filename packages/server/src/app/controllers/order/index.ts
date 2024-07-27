@@ -457,8 +457,14 @@ export const createOrderForUser = async (req: Request, res: Response) => {
             });
         }
 
-        // Xoá bỏ sản phẩm trong cart
+        await db.user.update({
+            where: { id: tokenDecoded.id },
+            data: {
+                status: 'NEWLY_BOUGHT',
+            },
+        });
 
+        // Xoá bỏ sản phẩm trong cart
         await db.cart.deleteMany({
             where: {
                 userId: tokenDecoded.id,

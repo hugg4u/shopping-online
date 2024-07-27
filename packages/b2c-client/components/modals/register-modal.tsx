@@ -160,6 +160,10 @@ const RegisterModal = () => {
                             required: true,
                             message: 'Hãy nhập mật khẩu của bạn',
                         },
+                        {
+                            min: 8,
+                            message: 'Mật khẩu phải ít nhất 8 kí tự',
+                        },
                     ]}
                 >
                     <Input.Password size="large" />
@@ -174,6 +178,7 @@ const RegisterModal = () => {
                             required: true,
                             message: 'Hãy xác nhận mật khẩu của bạn',
                         },
+
                         ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (
