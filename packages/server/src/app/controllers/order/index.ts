@@ -245,6 +245,22 @@ export const deleteOrder = async (req: Request, res: Response) => {
             },
         });
 
+        orderDetail.orderDetail.map(async (detail) => {
+            await db.product.update({
+                where: {
+                    id: detail.productId,
+                },
+                data: {
+                    quantity: {
+                        increment: detail.quantity,
+                    },
+                    sold_quantity: {
+                        decrement: detail.quantity,
+                    },
+                },
+            });
+        });
+
         return res.status(201).json({
             isOk: true,
             data: orderDeleted,
