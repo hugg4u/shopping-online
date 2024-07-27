@@ -254,7 +254,28 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
             data: {
                 status,
             },
+            include: {
+                orderDetail: true,
+            },
         });
+
+        if (status === 'CANCELED') {
+            order.orderDetail.map(async (detail) => {
+                await db.product.update({
+                    where: {
+                        id: detail.productId,
+                    },
+                    data: {
+                        quantity: {
+                            increment: detail.quantity,
+                        },
+                        sold_quantity: {
+                            decrement: detail.quantity,
+                        },
+                    },
+                });
+            });
+        }
 
         await db.auditLog.create({
             data: {
