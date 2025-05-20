@@ -2359,6 +2359,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cloudinary@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "cloudinary@npm:2.6.1"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    q: "npm:^1.5.1"
+  checksum: 148693dfe8fb1ba918f1e2c3e7bfd6f46224b00f157978b7919260a31e6db7e17dd8d3416360253c1125aa9dbd1fb08913962e10b9c2b5e083597814a2c2f875
+  languageName: node
+  linkType: hard
+
 "clsx@npm:^2.1.0":
   version: 2.1.0
   resolution: "clsx@npm:2.1.0"
@@ -2386,6 +2396,7 @@ __metadata:
     antd: "npm:^5.15.3"
     axios: "npm:^1.7.0"
     babel-plugin-import: "npm:^1.13.8"
+    cloudinary: "npm:^2.6.1"
     clsx: "npm:^2.1.0"
     create-next-app-ts: "npm:^0.0.3"
     crypto-js: "npm:^4.2.0"
@@ -2407,6 +2418,7 @@ __metadata:
     husky: "npm:^9.0.11"
     js-cookie: "npm:^3.0.5"
     moment: "npm:^2.30.1"
+    multer-storage-cloudinary: "npm:^4.0.0"
     next-plugin-antd-less: "npm:^1.8.0"
     next-transpile-modules: "npm:^10.0.1"
     nodemailer: "npm:^6.9.13"
@@ -5464,6 +5476,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"multer-storage-cloudinary@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "multer-storage-cloudinary@npm:4.0.0"
+  peerDependencies:
+    cloudinary: ^1.21.0
+  checksum: febbed4bbb6153b7db04c2574e43d446a8fdd9fed731928ffa6afee8f2495acaeb72e09cf785efa34848bcf415cca95532a664f80e93b901f4181babf44ee00b
+  languageName: node
+  linkType: hard
+
 "multer@npm:^1.4.5-lts.1":
   version: 1.4.5-lts.1
   resolution: "multer@npm:1.4.5-lts.1"
@@ -6418,6 +6439,13 @@ __metadata:
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: 14f76a8206bc3464f794fb2e3d3cc665ae416c01893ad7a02b23766eb07159144ee612ad67af5e84fa4479ccfe67678c4feb126b0485651b302babf66f04f9e9
+  languageName: node
+  linkType: hard
+
+"q@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "q@npm:1.5.1"
+  checksum: 7855fbdba126cb7e92ef3a16b47ba998c0786ec7fface236e3eb0135b65df36429d91a86b1fff3ab0927b4ac4ee88a2c44527c7c3b8e2a37efbec9fe34803df4
   languageName: node
   linkType: hard
 

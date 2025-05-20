@@ -736,7 +736,7 @@ const CartContact = () => {
                                                                         className="shadow-lg"
                                                                         layout="fill"
                                                                         objectFit="cover"
-                                                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item.product?.thumbnail}`}
+                                                                        src={`${item.product?.thumbnail}`}
                                                                     />
                                                                 </div>
                                                             </Col>

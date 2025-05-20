@@ -131,7 +131,7 @@ const PostFormModal: React.FC<Props> = ({ type, title, reload, postId }) => {
                               uid: '-1',
                               name: postInfo?.data?.thumbnail ?? '',
                               status: 'done',
-                              url: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${postInfo?.data?.thumbnail}`,
+                              url: `${postInfo?.data?.thumbnail}`,
                           },
                       ]
                     : undefined,

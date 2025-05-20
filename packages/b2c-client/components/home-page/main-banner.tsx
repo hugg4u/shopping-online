@@ -128,7 +128,7 @@ const MainBanner = () => {
                                                     className="shadow-lg"
                                                     layout="fill"
                                                     objectFit="cover"
-                                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item.image}`}
+                                                    src={`${item.image}`}
                                                 />
                                             </div>
                                         </div>

@@ -81,7 +81,7 @@ export const getListOrder = async (req: Request, res: Response) => {
             ...order,
             // eslint-disable-next-line no-underscore-dangle
             count: order._count.orderDetail - 1,
-            _count: undefined,
+            _count: undefined as any,
         }));
 
         return res.status(201).json({

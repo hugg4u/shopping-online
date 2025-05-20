@@ -241,7 +241,7 @@ const CartDetails = () => {
                                                                 className="shadow-lg"
                                                                 layout="fill"
                                                                 objectFit="cover"
-                                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item?.thumbnail}`}
+                                                                src={`${item?.thumbnail}`}
                                                             />
                                                         </div>
                                                     </Col>
@@ -525,7 +525,7 @@ const CartDetails = () => {
                                                                 className="shadow-lg"
                                                                 layout="fill"
                                                                 objectFit="cover"
-                                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item.product?.thumbnail}`}
+                                                                src={`${item.product?.thumbnail}`}
                                                             />
                                                         </div>
                                                     </Col>
