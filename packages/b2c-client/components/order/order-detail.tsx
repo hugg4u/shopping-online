@@ -99,9 +99,7 @@ const OrderDetail = () => {
                                 </span>
                             </div>
                             <div className="flex flex-col gap-2">
-                                {(orderDetail?.status === 'PENDING' ||
-                                    orderDetail?.status === 'PAYMENT_PENDING' ||
-                                    orderDetail?.status === 'PAID') && (
+                                {orderDetail?.status === 'PAYMENT_PENDING' && (
                                     <div>
                                         {orderDetail &&
                                             orderDetail.orderDetail && (
@@ -122,7 +120,7 @@ const OrderDetail = () => {
                                                             ) as string[]
                                                     }
                                                     reload={() => {}}
-                                                    width={200}
+                                                    width={150}
                                                 />
                                             )}
                                     </div>
@@ -173,9 +171,8 @@ const OrderDetail = () => {
                                     </p>
                                 </div>
                                 <div>
-                                    {(orderDetail?.status === 'PENDING' ||
-                                        orderDetail?.status ===
-                                            'PAYMENT_PENDING' ||
+                                    {(orderDetail?.status ===
+                                        'PAYMENT_PENDING' ||
                                         orderDetail?.status === 'PAID') && (
                                         <EditOrderModal
                                             address={orderDetail?.address ?? ''}

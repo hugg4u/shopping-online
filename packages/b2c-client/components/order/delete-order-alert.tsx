@@ -43,7 +43,7 @@ const DeleteOrderAlert: React.FC<Props> = ({
                     e.stopPropagation();
                     setIsOpenModal(true);
                 }}
-                size="large"
+                size="middle"
                 style={{ width: `${width}px` }}
                 type="default"
             >

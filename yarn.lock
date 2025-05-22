@@ -747,6 +747,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@payos/node@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "@payos/node@npm:1.0.10"
+  dependencies:
+    axios: "npm:^1.5.0"
+    crypto: "npm:^1.0.1"
+  checksum: 7955686bff87e70615fd5029f2037cae095bb1cbce09cff4f7f1c1640bf09090dd5705879e21c87a1635c77cfcf593be1eec519deb01423ca0475ab6799576d5
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -1964,6 +1974,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.5.0":
+  version: 1.9.0
+  resolution: "axios@npm:1.9.0"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 9371a56886c2e43e4ff5647b5c2c3c046ed0a3d13482ef1d0135b994a628c41fbad459796f101c655e62f0c161d03883454474d2e435b2e021b1924d9f24994c
+  languageName: node
+  linkType: hard
+
 "axios@npm:^1.7.0":
   version: 1.7.0
   resolution: "axios@npm:1.7.0"
@@ -2384,6 +2405,7 @@ __metadata:
     "@babel/runtime": "npm:^7.24.0"
     "@gumlet/react-hls-player": "npm:^1.0.1"
     "@next/eslint-plugin-next": "npm:^14.2.3"
+    "@payos/node": "npm:^1.0.10"
     "@tanstack/react-query": "npm:^5.28.6"
     "@types/crypto-js": "npm:^4"
     "@types/eslint": "npm:^8"
@@ -2432,6 +2454,7 @@ __metadata:
     tailwind-merge: "npm:^2.2.2"
     typescript: "npm:^5.4.2"
     usehooks-ts: "npm:^3.1.0"
+    uuid: "npm:^11.1.0"
     zustand: "npm:^4.5.2"
   languageName: unknown
   linkType: soft
@@ -2721,6 +2744,13 @@ __metadata:
   version: 4.2.0
   resolution: "crypto-js@npm:4.2.0"
   checksum: 8fbdf9d56f47aea0794ab87b0eb9833baf80b01a7c5c1b0edc7faf25f662fb69ab18dc2199e2afcac54670ff0cd9607a9045a3f7a80336cccd18d77a55b9fdf0
+  languageName: node
+  linkType: hard
+
+"crypto@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "crypto@npm:1.0.1"
+  checksum: fcf7dbd68ac5415b7fde7d7208fe203038e92e83e8a8fcf6e86ab4771ce3dd026d6967a990ba56b9d1c771378210814d5c90d907d3739fbd1723d552ad6c8ab8
   languageName: node
   linkType: hard
 
@@ -8482,6 +8512,15 @@ __metadata:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: 02ba649de1b7ca8854bfe20a82f1dfbdda3fb57a22ab4a8972a63a34553cf7aa51bc9081cf7e001b035b88186d23689d69e71b510e610a09a4c66f68aa95b672
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "uuid@npm:11.1.0"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 34aa51b9874ae398c2b799c88a127701408cd581ee89ec3baa53509dd8728cbb25826f2a038f9465f8b7be446f0fbf11558862965b18d21c993684297628d4d3
   languageName: node
   linkType: hard
 

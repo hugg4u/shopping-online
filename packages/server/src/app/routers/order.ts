@@ -10,7 +10,6 @@ import {
     getListOrder,
     getOrderCompletion,
     getOrderDetail,
-    updateOrderStatusAfterPayment,
 } from '../controllers/order';
 import {
     getListOrderCms,
@@ -29,10 +28,10 @@ export default (router: Router) => {
     router.delete('/my-order/delete/:id', isAuthenticated, deleteOrder);
     router.post('/my-order/user/create', isAuthenticated, createOrderForUser);
     router.post('/my-order/guest/create', createOrderForGuest);
-    router.put(
-        '/order/update-status-after-payment/:id',
-        updateOrderStatusAfterPayment
-    );
+    // router.put(
+    //     '/order/update-status-after-payment/:id',
+    //     updateOrderStatusAfterPayment
+    // );
     router.get(
         '/check-accept-order-detail/:id',
         isAuthenticated,

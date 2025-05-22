@@ -81,6 +81,7 @@ export const getListOrder = async (req: Request, res: Response) => {
             ...order,
             // eslint-disable-next-line no-underscore-dangle
             count: order._count.orderDetail - 1,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             _count: undefined as any,
         }));
 
@@ -579,27 +580,27 @@ export const createOrderForGuest = async (req: Request, res: Response) => {
     }
 };
 
-export const updateOrderStatusAfterPayment = async (
-    req: Request,
-    res: Response
-) => {
-    const { id } = req.params;
+// export const updateOrderStatusAfterPayment = async (
+//     req: Request,
+//     res: Response
+// ) => {
+//     const { id } = req.params;
 
-    try {
-        await db.order.update({
-            where: {
-                id: String(id),
-            },
-            data: {
-                status: 'PAID',
-            },
-        });
+//     try {
+//         await db.order.update({
+//             where: {
+//                 id: String(id),
+//             },
+//             data: {
+//                 status: 'PAID',
+//             },
+//         });
 
-        return res.status(201).json({
-            isOk: true,
-            message: 'Cập nhật trạng thái đơn hàng thành công!',
-        });
-    } catch (error) {
-        return res.status(500).json({ message: 'Internal server error!' });
-    }
-};
+//         return res.status(201).json({
+//             isOk: true,
+//             message: 'Cập nhật trạng thái đơn hàng thành công!',
+//         });
+//     } catch (error) {
+//         return res.status(500).json({ message: 'Internal server error!' });
+//     }
+// };
