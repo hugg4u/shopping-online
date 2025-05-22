@@ -89,7 +89,16 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                     </span>
                                 </div>
                             </div>
-                            <div>
+                            <div className="space-x-2">
+                                {status === 'PAYMENT_PENDING' && (
+                                    <Link
+                                        href={`/cart-completion?orderId=${id}`}
+                                    >
+                                        <Button color="primary" type="primary">
+                                            Thanh toán đơn hàng
+                                        </Button>
+                                    </Link>
+                                )}
                                 <Link href={`/my-page/my-order/${id}`}>
                                     <Button>Chi tiết đơn hàng</Button>
                                 </Link>
@@ -180,7 +189,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                         order.status === 'CANCELED') && (
                                         <Button
                                             onClick={handleBuyAgain}
-                                            size="large"
+                                            size="middle"
                                             style={{
                                                 width: '100px',
                                             }}
@@ -215,6 +224,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                                             ) as string[]
                                                     }
                                                     reload={() => reload()}
+                                                    width={100}
                                                 />
                                             ))}
                                     </div>

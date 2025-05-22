@@ -203,7 +203,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     {showAllBlogs ? 'Rút gọn' : 'Xem thêm'}
                 </Button>
             </div>
-            <div className={styles.contactsSection}>
+            {/* <div className={styles.contactsSection}>
                 <div className={styles.menuTitle}>
                     <span className={styles.menuTitleText}>Liên hệ</span>
                 </div>
@@ -223,7 +223,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         </button>
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </Sider>
     );
 };

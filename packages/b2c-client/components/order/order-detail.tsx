@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 
 import { copy } from 'common/utils/copy';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 import DeleteOrderAlert from './delete-order-alert';
 import EditOrderModal from './edit-order-modal';
 import FeedBackModal from '../modals/feedback-modal';
@@ -100,7 +101,20 @@ const OrderDetail = () => {
                             </div>
                             <div className="flex flex-col gap-2">
                                 {orderDetail?.status === 'PAYMENT_PENDING' && (
-                                    <div>
+                                    <div className="flex space-x-2">
+                                        {orderDetail?.status ===
+                                            'PAYMENT_PENDING' && (
+                                            <Link
+                                                href={`/cart-completion?orderId=${orderDetail?.id}`}
+                                            >
+                                                <Button
+                                                    color="primary"
+                                                    type="primary"
+                                                >
+                                                    Thanh toán đơn hàng
+                                                </Button>
+                                            </Link>
+                                        )}
                                         {orderDetail &&
                                             orderDetail.orderDetail && (
                                                 <DeleteOrderAlert

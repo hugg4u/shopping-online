@@ -70,8 +70,6 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                     overflowedIndicator={null}
                 >
                     <Menu.Item
-                        className={`${styles.menuItem} ${selectedItems.includes('2') ? styles.active : ''}`}
-                        key="2"
                         onClick={() => handleSortChange('updatedAt', 'desc')}
                     >
                         Mới Nhất

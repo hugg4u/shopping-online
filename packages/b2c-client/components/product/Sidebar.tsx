@@ -138,9 +138,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         : categories.slice(0, 3);
     const visibleBrands = expandedBrands ? brands : brands.slice(0, 3);
 
-    const handleContactClick = () => {
-        router.push('/contact');
-    };
+    // const handleContactClick = () => {
+    //     router.push('/contact');
+    // };
 
     return (
         <Sider className={styles.sidebar} width={300}>
@@ -241,7 +241,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     />
                 ))}
             </div>
-            <div className={styles.contactsSection}>
+            {/* <div className={styles.contactsSection}>
                 <div className={styles.menuTitle}>
                     <span className={styles.menuTitleText}>Liên hệ</span>
                 </div>
@@ -261,7 +261,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         </button>
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </Sider>
     );
 };
