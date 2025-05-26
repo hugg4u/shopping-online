@@ -244,156 +244,175 @@ const CartCompletion = () => {
                                         ]
                                     }
                                 </p>
+
+                                {/* Hiển thị QR và thông tin thanh toán */}
                                 {orderDetail?.paymentMethod ===
                                     'BANK_TRANSFER' &&
-                                orderDetail.status === 'PAYMENT_PENDING' ? (
-                                    <div className="my-4 flex w-full flex-col items-center justify-center gap-8 md:flex-row">
-                                        {/* QR Code bên trái */}
-                                        <div className="flex flex-col items-center">
-                                            <QRCode
-                                                size={250}
-                                                value={qrCode ?? ''}
-                                            />
-                                            <Text className="mt-2 text-gray-600">
-                                                Quét mã QR để thanh toán
-                                            </Text>
-                                        </div>
+                                    orderDetail.status ===
+                                        'PAYMENT_PENDING' && (
+                                        <div className="my-4 flex w-full flex-col items-center justify-center gap-8 md:flex-row">
+                                            {/* QR Code bên trái */}
+                                            <div className="flex flex-col items-center">
+                                                <QRCode
+                                                    size={250}
+                                                    value={qrCode ?? ''}
+                                                />
+                                                <Text className="mt-2 text-gray-600">
+                                                    Quét mã QR để thanh toán
+                                                </Text>
+                                            </div>
 
-                                        {/* Thông tin thanh toán bên phải */}
-                                        <div className="flex w-full flex-col gap-3 md:w-1/2">
-                                            <div className="flex items-center gap-2">
-                                                <div className="flex flex-row items-center gap-2">
-                                                    <Image
-                                                        height={55}
-                                                        preview={false}
-                                                        src={getImageUrl(
-                                                            paymentData?.bankLogo
-                                                        )}
-                                                        width={100}
-                                                    />
-                                                    <div className="flex flex-col">
-                                                        <Text className="text-base text-gray-500">
-                                                            Ngân hàng
-                                                        </Text>
-                                                        <Text className="text-lg font-bold text-gray-800">
-                                                            {
-                                                                paymentData?.bankName
-                                                            }
-                                                        </Text>
+                                            {/* Thông tin thanh toán bên phải */}
+                                            <div className="flex w-full flex-col gap-3 md:w-1/2">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="flex flex-row items-center gap-2">
+                                                        <Image
+                                                            height={55}
+                                                            preview={false}
+                                                            src={getImageUrl(
+                                                                paymentData?.bankLogo
+                                                            )}
+                                                            width={100}
+                                                        />
+                                                        <div className="flex flex-col">
+                                                            <Text className="text-base text-gray-500">
+                                                                Ngân hàng
+                                                            </Text>
+                                                            <Text className="text-lg font-bold text-gray-800">
+                                                                {
+                                                                    paymentData?.bankName
+                                                                }
+                                                            </Text>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <Text className="text-sm text-gray-500">
-                                                    Chủ tài khoản:
-                                                </Text>
-                                                <Text className="text-sm font-bold text-gray-800">
-                                                    {paymentData?.accountName ||
-                                                        ''}
-                                                </Text>
-                                            </div>
-
-                                            <div className="flex items-center justify-between">
                                                 <div className="flex flex-col">
                                                     <Text className="text-sm text-gray-500">
-                                                        Số tài khoản:
+                                                        Chủ tài khoản:
                                                     </Text>
                                                     <Text className="text-sm font-bold text-gray-800">
-                                                        {paymentData?.accountNumber ||
+                                                        {paymentData?.accountName ||
                                                             ''}
                                                     </Text>
                                                 </div>
-                                                <Button
-                                                    icon={<CopyOutlined />}
-                                                    onClick={() => {
-                                                        if (
-                                                            paymentData?.accountNumber
-                                                        ) {
-                                                            copy(
+
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <Text className="text-sm text-gray-500">
+                                                            Số tài khoản:
+                                                        </Text>
+                                                        <Text className="text-sm font-bold text-gray-800">
+                                                            {paymentData?.accountNumber ||
+                                                                ''}
+                                                        </Text>
+                                                    </div>
+                                                    <Button
+                                                        icon={<CopyOutlined />}
+                                                        onClick={() => {
+                                                            if (
                                                                 paymentData?.accountNumber
-                                                            );
-                                                            toast.success(
-                                                                'Sao chép số tài khoản thành công.'
-                                                            );
-                                                        }
-                                                    }}
-                                                    type="text"
-                                                />
-                                            </div>
-
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex flex-col">
-                                                    <Text className="text-sm text-gray-500">
-                                                        Số tiền:
-                                                    </Text>
-                                                    <Text className="text-sm font-bold text-gray-800">
-                                                        {currencyFormatter(
-                                                            Number(
-                                                                paymentData?.amount
-                                                            )
-                                                        )}
-                                                    </Text>
+                                                            ) {
+                                                                copy(
+                                                                    paymentData?.accountNumber
+                                                                );
+                                                                toast.success(
+                                                                    'Sao chép số tài khoản thành công.'
+                                                                );
+                                                            }
+                                                        }}
+                                                        type="text"
+                                                    />
                                                 </div>
-                                                <Button
-                                                    icon={<CopyOutlined />}
-                                                    onClick={() => {
-                                                        if (
-                                                            paymentData?.amount
-                                                        ) {
-                                                            copy(
-                                                                paymentData?.amount
-                                                            );
-                                                            toast.success(
-                                                                'Sao chép .'
-                                                            );
-                                                        }
-                                                    }}
-                                                    type="text"
-                                                />
-                                            </div>
 
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex flex-col">
-                                                    <Text className="text-sm text-gray-500">
-                                                        Nội dung:
-                                                    </Text>
-                                                    <Text className="max-w-[200px] truncate text-sm font-bold text-gray-800">
-                                                        {paymentData?.description ??
-                                                            ''}
-                                                    </Text>
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <Text className="text-sm text-gray-500">
+                                                            Số tiền:
+                                                        </Text>
+                                                        <Text className="text-sm font-bold text-gray-800">
+                                                            {currencyFormatter(
+                                                                Number(
+                                                                    paymentData?.amount
+                                                                )
+                                                            )}
+                                                        </Text>
+                                                    </div>
+                                                    <Button
+                                                        icon={<CopyOutlined />}
+                                                        onClick={() => {
+                                                            if (
+                                                                paymentData?.amount
+                                                            ) {
+                                                                copy(
+                                                                    paymentData?.amount?.toString()
+                                                                );
+                                                                toast.success(
+                                                                    'Sao chép số tiền thành công.'
+                                                                );
+                                                            }
+                                                        }}
+                                                        type="text"
+                                                    />
                                                 </div>
-                                                <Button
-                                                    icon={<CopyOutlined />}
-                                                    onClick={() => {
-                                                        if (
-                                                            paymentData?.description
-                                                        ) {
-                                                            copy(
+
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <Text className="text-sm text-gray-500">
+                                                            Nội dung:
+                                                        </Text>
+                                                        <Text className="max-w-[200px] truncate text-sm font-bold text-gray-800">
+                                                            {paymentData?.description ??
+                                                                ''}
+                                                        </Text>
+                                                    </div>
+                                                    <Button
+                                                        icon={<CopyOutlined />}
+                                                        onClick={() => {
+                                                            if (
                                                                 paymentData?.description
-                                                            );
-                                                            toast.success(
-                                                                'Sao chép nội dung chuyển khoản thành công.'
-                                                            );
-                                                        }
-                                                    }}
-                                                    type="text"
-                                                />
-                                            </div>
+                                                            ) {
+                                                                copy(
+                                                                    paymentData?.description
+                                                                );
+                                                                toast.success(
+                                                                    'Sao chép nội dung chuyển khoản thành công.'
+                                                                );
+                                                            }
+                                                        }}
+                                                        type="text"
+                                                    />
+                                                </div>
 
-                                            <div className="mt-2 rounded-md bg-gray-100 p-3">
-                                                <Text className="text-sm text-gray-700">
-                                                    Vui lòng không thay đổi nội
-                                                    dung chuyển khoản để đơn
-                                                    hàng được xử lý tự động.
-                                                </Text>
+                                                <div className="mt-2 rounded-md bg-gray-100 p-3">
+                                                    <Text className="text-sm text-gray-700">
+                                                        Vui lòng không thay đổi
+                                                        nội dung chuyển khoản để
+                                                        đơn hàng được xử lý tự
+                                                        động.
+                                                    </Text>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ) : (
+                                    )}
+
+                                {/* Hiển thị trạng thái cho COD */}
+                                {/* {orderDetail?.paymentMethod ===
+                                    'CASH_ON_DELIVERY' && (
                                     <p className="text-base text-gray-500">
-                                        Đơn hàng đã được thanh toán thành công
+                                        Đơn hàng thanh toán khi nhận hàng
                                     </p>
-                                )}
+                                )} */}
+
+                                {/* Hiển thị trạng thái đã thanh toán */}
+                                {orderDetail?.paymentMethod ===
+                                    'BANK_TRANSFER' &&
+                                    orderDetail.status !==
+                                        'PAYMENT_PENDING' && (
+                                        <p className="text-base text-gray-500">
+                                            Đơn hàng đã được thanh toán thành
+                                            công
+                                        </p>
+                                    )}
                             </div>
                         </div>
                         {/* Thông tin nhận hàng */}

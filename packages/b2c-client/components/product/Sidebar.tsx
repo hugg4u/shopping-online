@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         currentBrand || []
     );
 
-    const router = useRouter();
+    // const router = useRouter();
 
     useEffect(() => {
         setSelectedCategory(currentCategory);
