@@ -8,7 +8,6 @@ import { PAGE_SIZE_CLIENT_PRODUCT } from 'common/constant';
 import Sidebar from '../../components/product/Sidebar';
 import HeaderBar from '../../components/product/HeaderBar';
 import ProductContent from '../../components/product/ProductContent';
-import styles from '~/styles/Products.module.css';
 
 const { Content } = Layout;
 
@@ -148,7 +147,7 @@ const Products: NextPage = () => {
                 isLoading
             }
         >
-            <Layout className={styles.container}>
+            <Layout className="mx-[100px] flex gap-10 bg-white">
                 <Sidebar
                     brands={brands}
                     categories={categories}
@@ -182,7 +181,7 @@ const Products: NextPage = () => {
                         );
                     }}
                 />
-                <Layout className={styles.mainLayout}>
+                <Layout className="flex-1">
                     <HeaderBar
                         currentSort={routerQuery.sort as string}
                         currentSortOrder={routerQuery.sortOrder as string}
@@ -210,8 +209,8 @@ const Products: NextPage = () => {
                             );
                         }}
                     />
-                    {/* <h1 className={styles.productTitle}>Danh sách sản phẩm</h1> */}
-                    <Content className={styles.content}>
+                    {/* <h1 className="bg-white text-3xl font-bold text-gray-800 mb-2 text-center">Danh sách sản phẩm</h1> */}
+                    <Content className="min-h-[280px] bg-white">
                         <ProductContent
                             currentPage={Number(routerQuery.page) || 1}
                             onPageChange={(page, newPageSize) =>

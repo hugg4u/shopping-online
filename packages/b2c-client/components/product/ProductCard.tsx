@@ -8,7 +8,6 @@ import { currencyFormatter } from '~/../common/utils/formatter';
 import { getImageUrl } from '~/../common/utils/getImageUrl';
 import { useAuth } from '~/hooks/useAuth';
 import { Product } from '~/types/product';
-import styles from '../../styles/ProductCard.module.css';
 
 import { useCartQuery } from '~/hooks/useCartQuery';
 import useCartStore from '~/hooks/useCartStore';
@@ -79,11 +78,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     return (
         <Card
-            className={styles.productCard}
+            className="mb-4 flex h-[400px] w-[230px] flex-col justify-between shadow-lg"
             cover={
                 <img
                     alt={name}
-                    className={styles.productImage}
+                    className="h-[200px] w-full border border-gray-100 object-cover p-2 shadow-sm"
                     src={imageUrl}
                 />
             }
@@ -92,31 +91,37 @@ const ProductCard: React.FC<ProductCardProps> = ({
         >
             <Card.Meta
                 description={
-                    <div className={styles.metaDescription}>{briefInfo}</div>
+                    <div className="line-clamp-2 w-full overflow-hidden text-ellipsis">
+                        {briefInfo}
+                    </div>
                 }
-                title={<div className={styles.metaTitle}>{name}</div>}
+                title={
+                    <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                        {name}
+                    </div>
+                }
             />
             <Typography.Paragraph
-                className={styles.originalPrice}
+                className="mb-1 text-gray-500 line-through"
                 style={{
                     visibility: showDiscountPrice ? 'visible' : 'hidden',
                 }}
             >
                 <del>{currencyFormatter(original_price)}</del>
             </Typography.Paragraph>
-            <Typography.Paragraph className={styles.discountPrice}>
+            <Typography.Paragraph className="text-primary mb-2 font-bold">
                 {currencyFormatter(
                     showDiscountPrice ? discount_price : original_price
                 )}
             </Typography.Paragraph>
-            <div className={styles.buttonContainer}>
+            <div className="mt-2 flex justify-between">
                 {quantity > 0 ? (
                     <Button onClick={handleBuy} type="primary">
                         Mua
                     </Button>
                 ) : (
                     <Button
-                        className={styles.outStock}
+                        className="bg-gray-100 text-black"
                         disabled
                         onClick={handleOutStock}
                     >

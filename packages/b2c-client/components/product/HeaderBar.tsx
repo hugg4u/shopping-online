@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, Layout, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import styles from '../../styles/HeaderBar.module.css';
 
 const { Header } = Layout;
 
@@ -61,11 +60,13 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     };
 
     return (
-        <Header className={styles.header}>
-            <div className={styles.sortSection}>
-                <span className={styles.sortText}>Sắp xếp theo</span>
+        <Header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
+            <div className="flex flex-grow items-center">
+                <span className="mr-4 text-base text-gray-600">
+                    Sắp xếp theo
+                </span>
                 <Menu
-                    className={styles.menu}
+                    className="flex flex-grow items-center border-b-0 bg-white"
                     mode="horizontal"
                     overflowedIndicator={null}
                 >
@@ -96,7 +97,10 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                         }
                         trigger={['click']}
                     >
-                        <Menu.Item className={styles.menuItem} key="4">
+                        <Menu.Item
+                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded border-none bg-white px-4 leading-10 text-gray-600 transition-all duration-300 hover:bg-red-500 hover:text-white"
+                            key="4"
+                        >
                             Giá <DownOutlined />
                         </Menu.Item>
                     </Dropdown>

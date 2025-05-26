@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { currencyFormatter } from '~/../common/utils/formatter';
 import { getImageUrl } from '~/../common/utils/getImageUrl';
-import styles from '../../styles/LatestProductCard.module.css';
 
 type LatestProductCardProps = {
     id: string;
@@ -35,30 +34,30 @@ const LatestProductCard: React.FC<LatestProductCardProps> = ({
         discount_price !== null && discount_price !== original_price;
     return (
         <div
-            className={styles.latestProductCard}
+            className="mb-2.5 flex w-full rounded border border-gray-100 bg-white p-2.5 shadow-md transition-shadow duration-300 hover:shadow-lg"
             onClick={handleCardClick}
             onKeyDown={handleKeyDown}
             role="button"
             tabIndex={0}
         >
-            <div className={styles.productImageContainer}>
+            <div className="mr-2.5 flex flex-1 items-center justify-center">
                 <img
                     alt={name}
-                    className={styles.productImage}
+                    className="h-auto w-full max-w-[60px] rounded object-cover"
                     src={imageUrl}
                 />
             </div>
-            <div className={styles.productInfo}>
-                <span className={styles.productName}>{name}</span>
+            <div className="flex flex-[2] flex-col justify-center">
+                <span className="mb-1.5 text-sm font-bold">{name}</span>
                 <span
-                    className={styles.originalPrice}
+                    className="mb-1 text-sm text-gray-500 line-through"
                     style={{
                         visibility: finalDiscountPrice ? 'visible' : 'hidden',
                     }}
                 >
                     <del>{currencyFormatter(original_price)}</del>
                 </span>
-                <span className={styles.discountPrice}>
+                <span className="text-primary text-sm">
                     {currencyFormatter(
                         finalDiscountPrice ? discount_price : original_price
                     )}

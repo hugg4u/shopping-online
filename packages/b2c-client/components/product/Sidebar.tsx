@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Input, Layout, Menu } from 'antd';
-import { useRouter } from 'next/router';
 import LatestProductCard from './LatestProductCard';
-import styles from '../../styles/Sidebar.module.css';
 
 const { Sider } = Layout;
 const { Search } = Input;
@@ -62,8 +60,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     const [selectedBrands, setSelectedBrands] = useState<string[]>(
         currentBrand || []
     );
-
-    // const router = useRouter();
 
     useEffect(() => {
         setSelectedCategory(currentCategory);
@@ -138,24 +134,22 @@ const Sidebar: React.FC<SidebarProps> = ({
         : categories.slice(0, 3);
     const visibleBrands = expandedBrands ? brands : brands.slice(0, 3);
 
-    // const handleContactClick = () => {
-    //     router.push('/contact');
-    // };
-
     return (
-        <Sider className={styles.sidebar} width={300}>
-            <div className={styles.searchSection}>
+        <Sider
+            className="fixed bottom-6 left-6 top-6 w-[260px] overflow-y-auto rounded-md border bg-white p-2.5"
+            style={{ backgroundColor: 'white' }}
+            width={300}
+        >
+            <div className="mb-4">
                 <Search
                     enterButton
                     onSearch={onSearch}
                     placeholder="Nhập tên sản phẩm để tìm kiếm..."
                 />
             </div>
-            <div className={styles.menuSection}>
-                <div className={styles.menuTitle}>
-                    <span className={styles.menuTitleText}>
-                        Tất Cả Danh Mục
-                    </span>
+            <div className="mb-6">
+                <div className="mb-4 text-base font-bold">
+                    <span className="text-base font-bold">Tất Cả Danh Mục</span>
                 </div>
                 <Menu
                     mode="inline"
@@ -164,7 +158,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 >
                     {visibleCategories.map((category) => (
                         <Menu.Item
-                            className={styles.selectedItem}
+                            className="text-primary font-bold"
                             key={category.id}
                             onClick={() => handleCategoryChange(category.id)}
                         >
@@ -172,9 +166,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                         </Menu.Item>
                     ))}
                     {categories.length > 3 && (
-                        <Menu.Item className={styles.selectedItem} key="toggle">
+                        <Menu.Item
+                            className="text-primary font-bold"
+                            key="toggle"
+                        >
                             <Button
-                                className={styles.toggleButton}
+                                className="w-full pl-0 text-left"
                                 onClick={() =>
                                     setExpandedCategories(!expandedCategories)
                                 }
@@ -186,15 +183,15 @@ const Sidebar: React.FC<SidebarProps> = ({
                     )}
                 </Menu>
             </div>
-            <div className={styles.menuSection}>
-                <div className={styles.menuTitle}>
-                    <span className={styles.menuTitleText}>Thương Hiệu</span>
+            <div className="mb-6">
+                <div className="mb-4 text-base font-bold">
+                    <span className="text-base font-bold">Thương Hiệu</span>
                 </div>
-                <div className={styles.checkboxGroup}>
+                <div className="flex flex-col">
                     {visibleBrands.map((brand) => (
                         <Checkbox
                             checked={selectedBrands.includes(brand.id)}
-                            className={styles.checkbox}
+                            className="mb-2"
                             key={brand.id}
                             onChange={() => handleBrandChange(brand.id)}
                         >
@@ -204,7 +201,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     {brands.length > 3 && (
                         <div key="toggle">
                             <Button
-                                className={styles.toggleButton}
+                                className="w-full pl-0 text-left"
                                 onClick={() =>
                                     setExpandedBrands(!expandedBrands)
                                 }
@@ -217,16 +214,16 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </div>
             </div>
             <Button
-                className={styles.resetButton}
+                className="bg-primary mt-2.5 w-full cursor-pointer rounded-md border-none text-center font-bold text-white transition-colors duration-500 hover:bg-red-600 hover:text-white"
                 onClick={handleResetFilters}
                 type="link"
             >
                 Xóa bộ lọc
             </Button>
-            <div className={styles.divider} />
-            <div className={styles.latestProductsSection}>
-                <div className={styles.menuTitle}>
-                    <span className={styles.menuTitleText}>
+            <div className="my-5 border-b border-gray-200" />
+            <div className="mt-5">
+                <div className="mb-4 text-base font-bold">
+                    <span className="text-base font-bold">
                         Sản phẩm mới nhất
                     </span>
                 </div>
@@ -241,27 +238,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                     />
                 ))}
             </div>
-            {/* <div className={styles.contactsSection}>
-                <div className={styles.menuTitle}>
-                    <span className={styles.menuTitleText}>Liên hệ</span>
-                </div>
-                <ul className={styles.contactList}>
-                    <li>Email: perfumeshop1830@gmail.com</li>
-                    <li>Điện thoại: (123) 456-7890</li>
-                    <li>
-                        Địa chỉ: 123 Đường Nước Hoa, Thành phố Hương, PC 12345
-                    </li>
-                    <li>
-                        <button
-                            className={styles.contactDetailButton}
-                            onClick={handleContactClick}
-                            type="button"
-                        >
-                            Thông tin chi tiết
-                        </button>
-                    </li>
-                </ul>
-            </div> */}
         </Sider>
     );
 };

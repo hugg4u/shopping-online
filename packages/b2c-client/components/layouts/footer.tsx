@@ -5,66 +5,71 @@ import {
     InstagramOutlined,
     TwitterOutlined,
 } from '@ant-design/icons';
-import styles from '../../styles/Footer.module.css';
 
 const { Footer: LayoutFooter } = Layout;
 const { Title, Text, Link } = Typography;
 
 const Footer = () => {
     return (
-        <LayoutFooter className={styles.footer}>
-            <div className={styles.container}>
+        <LayoutFooter className="relative w-full bg-gray-100 py-10 before:absolute before:-top-5 before:left-1/2 before:h-5 before:w-[100px] before:-translate-x-1/2 before:rounded-t-[50%] before:bg-white before:content-['']">
+            <div className="mx-auto max-w-[1200px] px-4">
                 <Row gutter={[32, 32]}>
                     <Col md={8} sm={12} xs={24}>
-                        <Title className={styles.title} level={4}>
+                        <Title className="mb-5 text-gray-800" level={4}>
                             Liên Hệ
                         </Title>
-                        <Text className={styles.text}>
+                        <Text className="text-gray-600">
                             123 Đường Nước Hoa, Thành phố Hương, PC 12345
                         </Text>
                         <br />
-                        <Text className={styles.text}>
+                        <Text className="text-gray-600">
                             Điện thoại: (123) 456-7890
                         </Text>
                         <br />
-                        <Text className={styles.text}>
+                        <Text className="text-gray-600">
                             Email: perfumeshop1830@gmail.com
                         </Text>
                     </Col>
                     <Col md={8} sm={12} xs={24}>
-                        <Title className={styles.title} level={4}>
+                        <Title className="mb-5 text-gray-800" level={4}>
                             Theo Dõi Chúng Tôi
                         </Title>
                         <Space size="middle">
                             <Link href="https://facebook.com" target="_blank">
-                                <FacebookOutlined className={styles.icon} />
+                                <FacebookOutlined className="text-2xl text-gray-600" />
                             </Link>
                             <Link href="https://instagram.com" target="_blank">
-                                <InstagramOutlined className={styles.icon} />
+                                <InstagramOutlined className="text-2xl text-gray-600" />
                             </Link>
                             <Link href="https://twitter.com" target="_blank">
-                                <TwitterOutlined className={styles.icon} />
+                                <TwitterOutlined className="text-2xl text-gray-600" />
                             </Link>
                         </Space>
                     </Col>
                     <Col md={8} sm={12} xs={24}>
-                        <Title className={styles.title} level={4}>
+                        <Title className="mb-5 text-gray-800" level={4}>
                             Liên Kết Hữu Ích
                         </Title>
-                        <ul className={styles.list}>
+                        <ul className="list-none pl-0">
                             <li>
-                                <Link className={styles.link} href="/about">
+                                <Link
+                                    className="text-blue-500 no-underline"
+                                    href="/about"
+                                >
                                     Về Chúng Tôi
                                 </Link>
                             </li>
                             <li>
-                                <Link className={styles.link} href="/contact">
+                                <Link
+                                    className="text-blue-500 no-underline"
+                                    href="/contact"
+                                >
                                     Liên Hệ
                                 </Link>
                             </li>
                             <li>
                                 <Link
-                                    className={styles.link}
+                                    className="text-blue-500 no-underline"
                                     href="/privacy-policy"
                                 >
                                     Chính Sách Bảo Mật
@@ -72,7 +77,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    className={styles.link}
+                                    className="text-blue-500 no-underline"
                                     href="/terms-of-service"
                                 >
                                     Điều Khoản Dịch Vụ
@@ -82,7 +87,7 @@ const Footer = () => {
                     </Col>
                 </Row>
                 <Row justify="center" style={{ marginTop: '20px' }}>
-                    <Text className={styles.text}>
+                    <Text className="text-gray-600">
                         © 2024 Cửa Hàng Nước Hoa. Mọi quyền được bảo lưu.
                     </Text>
                 </Row>
