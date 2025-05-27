@@ -60,17 +60,18 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     };
 
     return (
-        <Header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
+        <Header className="flex h-16 items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-6 shadow-sm">
             <div className="flex flex-grow items-center">
-                <span className="mr-4 text-base text-gray-600">
+                <span className="mr-6 text-base font-semibold text-gray-700">
                     Sắp xếp theo
                 </span>
                 <Menu
-                    className="flex flex-grow items-center border-b-0 bg-white"
+                    className="flex flex-grow items-center border-b-0 bg-transparent"
                     mode="horizontal"
                     overflowedIndicator={null}
                 >
                     <Menu.Item
+                        className="rounded-md font-medium transition-all duration-300 hover:bg-rose-50 hover:text-rose-600"
                         onClick={() => handleSortChange('updatedAt', 'desc')}
                     >
                         Mới Nhất
@@ -79,6 +80,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                     <Dropdown
                         overlay={
                             <Menu
+                                className="rounded-lg shadow-lg"
                                 onClick={(e) => {
                                     const sortOrder = e.key as string;
                                     handleSortChange(
@@ -87,10 +89,16 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                                     );
                                 }}
                             >
-                                <Menu.Item key="asc">
+                                <Menu.Item
+                                    className="hover:bg-rose-50 hover:text-rose-600"
+                                    key="asc"
+                                >
                                     Giá thấp đến cao
                                 </Menu.Item>
-                                <Menu.Item key="desc">
+                                <Menu.Item
+                                    className="hover:bg-rose-50 hover:text-rose-600"
+                                    key="desc"
+                                >
                                     Giá cao đến thấp
                                 </Menu.Item>
                             </Menu>
@@ -98,7 +106,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                         trigger={['click']}
                     >
                         <Menu.Item
-                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded border-none bg-white px-4 leading-10 text-gray-600 transition-all duration-300 hover:bg-red-500 hover:text-white"
+                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-rose-500 hover:text-white hover:shadow-md"
                             key="4"
                         >
                             Giá <DownOutlined />

@@ -12,14 +12,15 @@ const MainSider = () => {
         queryFn: () => request.get('category').then((res) => res.data),
     });
     return (
-        <div>
-            <div className="container py-3">
-                <div className="flex space-x-4">
+        <div className="border-t border-gray-100 bg-gradient-to-r from-rose-50 to-pink-50">
+            <div className="container py-4">
+                <div className="flex items-center justify-center space-x-6">
                     <SiderItem href="/" title="Trang chủ" />
                     <SiderItem href="/product" title="Tất cả sản phẩm" />
                     {data?.data?.map((item) => (
                         <SiderItem
                             href="/product"
+                            key={item.id}
                             query={{ category: item.id ?? '' }}
                             title={item.name ?? ''}
                         />

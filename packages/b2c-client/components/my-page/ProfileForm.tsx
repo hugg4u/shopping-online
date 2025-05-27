@@ -19,7 +19,6 @@ import { toast } from 'react-toastify';
 import { useUserQueryStore } from 'common/store/useUserStore';
 import Avatar from 'common/components/avatar';
 import EditProfilePopup from './EditProfilePopup';
-import styles from '~/styles/my-page/ProfileForm.module.css';
 
 const { Title } = Typography;
 
@@ -206,10 +205,13 @@ const ProfileForm = () => {
 
     return (
         <Spin spinning={loading}>
-            <div className={styles.profileFormContainer}>
-                <Title level={3}>Hồ Sơ Của Tôi</Title>
+            <div className="mx-auto max-w-6xl rounded-lg bg-white p-8 shadow-lg">
+                <Title className="mb-6 text-center text-gray-800" level={3}>
+                    Hồ Sơ Của Tôi
+                </Title>
 
                 <Form
+                    className="mt-6"
                     form={form}
                     initialValues={{
                         name: '',
@@ -221,77 +223,95 @@ const ProfileForm = () => {
                     }}
                     layout="horizontal"
                     name="profile"
-                    style={{ marginTop: '20px' }}
                 >
-                    <div className={styles.formContent}>
-                        <div className={styles.formLeft}>
+                    <div className="flex gap-8">
+                        <div className="flex-1 space-y-6">
                             <Form.Item
                                 {...formItemLayout}
+                                className="mb-4"
                                 label="Tên"
                                 name="name"
                             >
-                                <Input readOnly />
+                                <Input
+                                    className="rounded-lg border-gray-300 bg-gray-50"
+                                    readOnly
+                                />
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
+                                className="mb-4"
                                 label="Email"
                                 name="email"
                             >
-                                <Input readOnly />
+                                <Input
+                                    className="rounded-lg border-gray-300 bg-gray-50"
+                                    readOnly
+                                />
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
+                                className="mb-4"
                                 label="Số điện thoại"
                                 name="phone"
                             >
-                                <Input readOnly />
+                                <Input
+                                    className="rounded-lg border-gray-300 bg-gray-50"
+                                    readOnly
+                                />
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
+                                className="mb-4"
                                 label="Giới tính"
                                 name="gender"
                             >
                                 <Input
+                                    className="rounded-lg border-gray-300 bg-gray-50"
                                     readOnly
                                     value={form.getFieldValue('gender')}
                                 />
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
+                                className="mb-4"
                                 label="Ngày sinh"
                                 name="dob"
                             >
-                                <Input readOnly />
+                                <Input
+                                    className="rounded-lg border-gray-300 bg-gray-50"
+                                    readOnly
+                                />
                             </Form.Item>
                             <Form.Item
                                 {...formItemLayout}
+                                className="mb-4"
                                 label="Địa chỉ"
                                 name="address"
                             >
-                                <Input readOnly />
+                                <Input
+                                    className="rounded-lg border-gray-300 bg-gray-50"
+                                    readOnly
+                                />
                             </Form.Item>
                         </div>
-                        <div className={styles.verticalDivider} />
-                        <div className={styles.formRight}>
+
+                        <div className="h-full w-px bg-gray-200" />
+
+                        <div className="flex w-80 flex-col items-center space-y-6">
                             <Avatar height={150} src={avatarUrl} width={150} />
 
-                            {/* {avatarUrl ? (
-                                <img
-                                    alt="Avatar"
-                                    className={styles.avatarImage}
-                                    src={avatarUrl}
-                                />
-                            ) : (
-                                <UserOutlined className={styles.profileIcon} />
-                            )} */}
-                            <div>Avatar</div>
+                            <div className="text-lg font-semibold text-gray-700">
+                                Avatar
+                            </div>
+
                             <Form.Item
+                                className="w-full"
                                 getValueFromEvent={normFile}
                                 name="avatar"
                             >
                                 <Upload
                                     beforeUpload={beforeUpload}
-                                    className={styles.uploadContainer}
+                                    className="flex w-full justify-center"
                                     fileList={fileList}
                                     itemRender={customItemRender}
                                     listType="picture"
@@ -300,7 +320,7 @@ const ProfileForm = () => {
                                     showUploadList={checkHideImg}
                                 >
                                     <Button
-                                        className={styles.btnUpdateImg}
+                                        className="rounded-lg bg-rose-500 text-white hover:bg-rose-600"
                                         icon={<UploadOutlined />}
                                         onClick={handleDisplayImg}
                                     >
@@ -308,8 +328,9 @@ const ProfileForm = () => {
                                     </Button>
                                 </Upload>
                             </Form.Item>
+
                             <Button
-                                className={styles.btnUpdateImg}
+                                className="rounded-lg bg-green-500 text-white hover:bg-green-600"
                                 icon={<UploadOutlined />}
                                 onClick={handleUpdateImage}
                                 style={{
@@ -321,8 +342,10 @@ const ProfileForm = () => {
                             </Button>
                         </div>
                     </div>
-                    <Form.Item>
+
+                    <Form.Item className="mt-8 text-center">
                         <Button
+                            className="rounded-lg bg-blue-500 px-8 py-2 text-white hover:bg-blue-600"
                             htmlType="submit"
                             onClick={openModal}
                             type="primary"
@@ -331,6 +354,7 @@ const ProfileForm = () => {
                         </Button>
                     </Form.Item>
                 </Form>
+
                 <EditProfilePopup
                     onClose={handlePopupClose}
                     visible={isModalVisible}

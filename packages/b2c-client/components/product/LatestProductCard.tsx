@@ -34,30 +34,32 @@ const LatestProductCard: React.FC<LatestProductCardProps> = ({
         discount_price !== null && discount_price !== original_price;
     return (
         <div
-            className="mb-2.5 flex w-full rounded border border-gray-100 bg-white p-2.5 shadow-md transition-shadow duration-300 hover:shadow-lg"
+            className="hover:scale-102 group mb-3 flex w-full cursor-pointer rounded-lg border border-gray-100 bg-white p-3 shadow-sm transition-all duration-300 hover:border-rose-200 hover:shadow-md"
             onClick={handleCardClick}
             onKeyDown={handleKeyDown}
             role="button"
             tabIndex={0}
         >
-            <div className="mr-2.5 flex flex-1 items-center justify-center">
+            <div className="mr-3 flex flex-1 items-center justify-center overflow-hidden rounded-md">
                 <img
                     alt={name}
-                    className="h-auto w-full max-w-[60px] rounded object-cover"
+                    className="h-auto w-full max-w-[65px] rounded-md object-cover transition-transform duration-300 group-hover:scale-110"
                     src={imageUrl}
                 />
             </div>
-            <div className="flex flex-[2] flex-col justify-center">
-                <span className="mb-1.5 text-sm font-bold">{name}</span>
+            <div className="flex flex-[2] flex-col justify-center space-y-1">
+                <span className="line-clamp-2 text-sm font-semibold text-gray-800 transition-colors duration-300 group-hover:text-rose-600">
+                    {name}
+                </span>
                 <span
-                    className="mb-1 text-sm text-gray-500 line-through"
+                    className="text-xs text-gray-400 line-through"
                     style={{
                         visibility: finalDiscountPrice ? 'visible' : 'hidden',
                     }}
                 >
                     <del>{currencyFormatter(original_price)}</del>
                 </span>
-                <span className="text-primary text-sm">
+                <span className="text-sm font-bold text-rose-600">
                     {currencyFormatter(
                         finalDiscountPrice ? discount_price : original_price
                     )}

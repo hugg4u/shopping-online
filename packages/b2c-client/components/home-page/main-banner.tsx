@@ -127,7 +127,7 @@ const MainBanner = () => {
                                                     alt={item.title ?? ''}
                                                     className="shadow-lg"
                                                     layout="fill"
-                                                    objectFit="cover"
+                                                    objectFit="fill"
                                                     src={`${item.image}`}
                                                 />
                                             </div>

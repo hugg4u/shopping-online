@@ -69,7 +69,6 @@ export const getContactUser = async (req: Request, res: Response) => {
 export const addToCart = async (req: Request, res: Response) => {
     const { productId, quantity }: CreateCartData = req.body;
     const accessToken = req.headers.authorization?.split(' ')[1];
-
     if (!accessToken) {
         return res.status(401).json({ message: 'Không có token truy cập!' });
     }
@@ -98,9 +97,10 @@ export const addToCart = async (req: Request, res: Response) => {
             // });
 
             // Có ròi thì không cập nhật nữa
-            return res.status(204).json({
-                isOk: false,
-                message: 'Sản phẩm đã có trong giỏ hàng!',
+            return res.status(200).json({
+                isOk: true,
+                // data: updatedCartItem,
+                message: 'Thêm sản phẩm vào giỏ hàng thành công!',
             });
         }
 

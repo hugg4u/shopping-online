@@ -147,93 +147,96 @@ const Products: NextPage = () => {
                 isLoading
             }
         >
-            <Layout className="mx-[100px] flex gap-10 bg-white">
-                <Sidebar
-                    brands={brands}
-                    categories={categories}
-                    currentBrand={(routerQuery.brand as string)?.split(',')}
-                    currentCategory={routerQuery.category as string}
-                    currentSort={routerQuery.sort as string}
-                    currentSortOrder={routerQuery.sortOrder as string}
-                    handleResetFilters={handleResetFilters}
-                    handleSearch={handleSearch}
-                    latestProducts={latestProducts}
-                    setBrand={(brand) => {
-                        handleSearch(
-                            1,
-                            routerQuery.sort as string,
-                            routerQuery.sortOrder as string,
-                            routerQuery.category as string,
-                            routerQuery.search as string,
-                            undefined,
-                            brand
-                        );
-                    }}
-                    setCategory={(cat) => {
-                        handleSearch(
-                            1,
-                            routerQuery.sort as string,
-                            routerQuery.sortOrder as string,
-                            cat,
-                            routerQuery.search as string,
-                            undefined,
-                            (routerQuery.brand as string)?.split(',')
-                        );
-                    }}
-                />
-                <Layout className="flex-1">
-                    <HeaderBar
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+                <Layout className="mx-[80px] flex gap-8 overflow-hidden rounded-lg bg-transparent shadow-lg">
+                    <Sidebar
+                        brands={brands}
+                        categories={categories}
+                        currentBrand={(routerQuery.brand as string)?.split(',')}
+                        currentCategory={routerQuery.category as string}
                         currentSort={routerQuery.sort as string}
                         currentSortOrder={routerQuery.sortOrder as string}
+                        handleResetFilters={handleResetFilters}
                         handleSearch={handleSearch}
-                        setSort={(newSort) => {
+                        latestProducts={latestProducts}
+                        setBrand={(brand) => {
                             handleSearch(
                                 1,
-                                newSort,
+                                routerQuery.sort as string,
                                 routerQuery.sortOrder as string,
                                 routerQuery.category as string,
                                 routerQuery.search as string,
                                 undefined,
-                                (routerQuery.brand as string)?.split(',')
+                                brand
                             );
                         }}
-                        setSortOrder={(newSortOrder) => {
+                        setCategory={(cat) => {
                             handleSearch(
                                 1,
                                 routerQuery.sort as string,
-                                newSortOrder,
-                                routerQuery.category as string,
+                                routerQuery.sortOrder as string,
+                                cat,
                                 routerQuery.search as string,
                                 undefined,
                                 (routerQuery.brand as string)?.split(',')
                             );
                         }}
                     />
-                    {/* <h1 className="bg-white text-3xl font-bold text-gray-800 mb-2 text-center">Danh sách sản phẩm</h1> */}
-                    <Content className="min-h-[280px] bg-white">
-                        <ProductContent
-                            currentPage={Number(routerQuery.page) || 1}
-                            onPageChange={(page, newPageSize) =>
+                    <Layout className="flex-1 rounded-r-lg bg-white">
+                        <HeaderBar
+                            currentSort={routerQuery.sort as string}
+                            currentSortOrder={routerQuery.sortOrder as string}
+                            handleSearch={handleSearch}
+                            setSort={(newSort) => {
                                 handleSearch(
-                                    page,
-                                    routerQuery.sort as string,
+                                    1,
+                                    newSort,
                                     routerQuery.sortOrder as string,
                                     routerQuery.category as string,
                                     routerQuery.search as string,
-                                    newPageSize,
+                                    undefined,
                                     (routerQuery.brand as string)?.split(',')
-                                )
-                            }
-                            pageSize={
-                                Number(routerQuery.pageSize) ||
-                                PAGE_SIZE_CLIENT_PRODUCT
-                            }
-                            products={products}
-                            total={totalProducts}
+                                );
+                            }}
+                            setSortOrder={(newSortOrder) => {
+                                handleSearch(
+                                    1,
+                                    routerQuery.sort as string,
+                                    newSortOrder,
+                                    routerQuery.category as string,
+                                    routerQuery.search as string,
+                                    undefined,
+                                    (routerQuery.brand as string)?.split(',')
+                                );
+                            }}
                         />
-                    </Content>
+                        <Content className="min-h-[280px] bg-white">
+                            <ProductContent
+                                currentPage={Number(routerQuery.page) || 1}
+                                onPageChange={(page, newPageSize) =>
+                                    handleSearch(
+                                        page,
+                                        routerQuery.sort as string,
+                                        routerQuery.sortOrder as string,
+                                        routerQuery.category as string,
+                                        routerQuery.search as string,
+                                        newPageSize,
+                                        (routerQuery.brand as string)?.split(
+                                            ','
+                                        )
+                                    )
+                                }
+                                pageSize={
+                                    Number(routerQuery.pageSize) ||
+                                    PAGE_SIZE_CLIENT_PRODUCT
+                                }
+                                products={products}
+                                total={totalProducts}
+                            />
+                        </Content>
+                    </Layout>
                 </Layout>
-            </Layout>
+            </div>
         </Spin>
     );
 };

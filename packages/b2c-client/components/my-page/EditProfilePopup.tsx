@@ -22,7 +22,6 @@ import { getImageUrl } from 'common/utils/getImageUrl';
 import { useUserQueryStore } from 'common/store/useUserStore';
 import Avatar from 'common/components/avatar';
 import { PHONE_PATTERN } from 'common/constant/pattern';
-import styles from '~/styles/my-page/EditProfilePopup.module.css';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
@@ -295,16 +294,17 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
         <>
             <Modal
                 cancelText="Đóng"
-                className={styles.editProfilePopup}
+                className="rounded-lg"
                 okText="Xác nhận"
                 onCancel={onClose}
                 onOk={handleOk}
                 open={visible}
                 title="Thông tin người dùng"
+                width={800}
             >
                 <Form form={form} layout="horizontal" name="edit_profile">
-                    <div className={styles.formContent}>
-                        <div className={styles.formLeft}>
+                    <div className="flex gap-8">
+                        <div className="flex-1 space-y-4">
                             <Form.Item
                                 label="Email"
                                 name="email"
@@ -380,8 +380,8 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                                 <Input />
                             </Form.Item>
                         </div>
-                        <div className={styles.verticalDivider} />
-                        <div className={styles.formRight}>
+                        <div className="h-full w-px bg-gray-200" />
+                        <div className="flex w-64 flex-col items-center space-y-6">
                             <Avatar
                                 height={150}
                                 src={getAvatarSrc()}
@@ -394,7 +394,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                             >
                                 <Upload
                                     beforeUpload={beforeUpload}
-                                    className={styles.uploadContainer}
+                                    className="flex w-full justify-center"
                                     fileList={fileList}
                                     itemRender={customItemRender}
                                     listType="picture"
@@ -412,7 +412,7 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
             </Modal>
             <Modal
                 cancelText="Hủy"
-                className={styles.centeredModal}
+                className="rounded-lg text-center"
                 okText="Xác nhận"
                 onCancel={() => setIsConfirmationModalVisible(false)}
                 onOk={handleConfirmOk}

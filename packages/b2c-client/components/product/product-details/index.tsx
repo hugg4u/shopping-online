@@ -116,7 +116,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
         if (data?.id) {
             if (!auth) {
                 addProduct({ productId: data?.id, quantity: buyQuantity });
-                router.push('/cart-details');
+                router.push(`/cart-details?itemKeys=${data?.id}`);
             } else {
                 const response = await addToCartTrigger({
                     productId: data?.id,
@@ -126,7 +126,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                 if (response?.isOk) {
                     toast.success('Thêm sản phẩm vào giỏ hàng thành công.');
                     reload();
-                    router.push('/cart-details');
+                    router.push(`/cart-details?itemKeys=${data?.id}`);
                 }
             }
         }

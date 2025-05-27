@@ -1,75 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
-import PropTypes from 'prop-types';
 import {
-    IdcardOutlined,
-    LockOutlined,
-    ShoppingCartOutlined,
+    HeartOutlined,
+    LogoutOutlined,
+    SettingOutlined,
+    ShoppingOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import ChangePasswordPopup from './ChangePasswordPopup';
-import styles from '~/styles/my-page/Sidebar.module.css';
-
-const { SubMenu } = Menu;
 
 type SidebarProps = {
+    selectedKey: string;
     onMenuClick: (key: string) => void;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ onMenuClick }) => {
-    const [isChangePasswordVisible, setChangePasswordVisible] = useState(false);
-
-    const handleMenuClick = ({ key }: { key: string }) => {
-        if (key === '2') {
-            setChangePasswordVisible(true);
-        } else {
-            onMenuClick(key);
-        }
-    };
+const Sidebar: React.FC<SidebarProps> = ({ selectedKey, onMenuClick }) => {
+    const menuItems = [
+        {
+            key: 'profile',
+            icon: <UserOutlined />,
+            label: 'Thông tin cá nhân',
+        },
+        {
+            key: 'orders',
+            icon: <ShoppingOutlined />,
+            label: 'Đơn hàng của tôi',
+        },
+        {
+            key: 'wishlist',
+            icon: <HeartOutlined />,
+            label: 'Danh sách yêu thích',
+        },
+        {
+            key: 'settings',
+            icon: <SettingOutlined />,
+            label: 'Cài đặt',
+        },
+        {
+            key: 'logout',
+            icon: <LogoutOutlined />,
+            label: 'Đăng xuất',
+        },
+    ];
 
     return (
-        <div className={styles.sidebarContainer}>
-            <div className={styles.profileInfo}>
-                <UserOutlined className={styles.profileIcon} />
-                <div className={styles.profileText}>
-                    <span className={styles.profileName}>
-                        Thông tin người dùng
+        <div className="w-64 rounded-lg bg-white p-6 shadow-lg">
+            <div className="mb-6 flex items-center space-x-3 rounded-lg bg-gradient-to-r from-rose-50 to-pink-50 p-4">
+                <UserOutlined className="text-2xl text-rose-600" />
+                <div className="flex flex-col">
+                    <span className="text-lg font-semibold text-gray-800">
+                        Tài khoản của tôi
                     </span>
                 </div>
             </div>
+
             <Menu
-                defaultOpenKeys={['sub1']}
-                defaultSelectedKeys={['1']}
-                mode="inline"
-                onClick={handleMenuClick}
-                style={{ height: '100%', borderRight: 0 }}
+                className="border-none bg-transparent"
+                mode="vertical"
+                onClick={({ key }) => onMenuClick(key)}
+                selectedKeys={[selectedKey]}
             >
-                <SubMenu
-                    icon={<UserOutlined />}
-                    key="sub1"
-                    title="Tài Khoản Của Tôi"
-                >
-                    <Menu.Item icon={<IdcardOutlined />} key="1">
-                        Hồ Sơ
+                {menuItems.map((item) => (
+                    <Menu.Item
+                        className="mb-2 rounded-lg font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-600"
+                        icon={item.icon}
+                        key={item.key}
+                    >
+                        {item.label}
                     </Menu.Item>
-                    <Menu.Item icon={<LockOutlined />} key="2">
-                        Đổi Mật Khẩu
-                    </Menu.Item>
-                </SubMenu>
-                <Menu.Item icon={<ShoppingCartOutlined />} key="3">
-                    Đơn Mua
-                </Menu.Item>
+                ))}
             </Menu>
-            <ChangePasswordPopup
-                onClose={() => setChangePasswordVisible(false)}
-                visible={isChangePasswordVisible}
-            />
         </div>
     );
-};
-
-Sidebar.propTypes = {
-    onMenuClick: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

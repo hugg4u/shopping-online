@@ -81,20 +81,22 @@ const Header = () => {
     ];
 
     return (
-        <div>
-            <div className="container flex h-[76px] w-full items-center justify-between">
+        <div className="bg-white shadow-md">
+            <div className="container flex h-[80px] w-full items-center justify-between px-6">
                 <Link href="/">
-                    <div className="flex select-none flex-col items-center gap-0 uppercase">
-                        <div className="text-lg leading-4 text-rose-600">
+                    <div className="flex select-none flex-col items-center gap-0 uppercase transition-transform duration-300 hover:scale-105">
+                        <div className="text-lg font-semibold leading-4 text-rose-600">
                             The
                         </div>
-                        <div className="text-2xl font-bold">Perfume</div>
+                        <div className="bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-2xl font-bold text-transparent">
+                            Perfume
+                        </div>
                     </div>
                 </Link>
-                <div>
+                <div className="mx-8 max-w-md flex-1">
                     <Search />
                 </div>
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-6">
                     <CartIcon />
                     {auth ? (
                         <div>
@@ -106,7 +108,7 @@ const Header = () => {
                                 placement="bottomRight"
                             >
                                 <div
-                                    className="flex cursor-pointer space-x-4 rounded-full border px-3 py-2"
+                                    className="flex cursor-pointer space-x-3 rounded-full border-2 border-gray-200 px-4 py-2 transition-all duration-300 hover:border-rose-300 hover:shadow-md"
                                     onClick={() => router.push('/my-page')}
                                     role="presentation"
                                 >
@@ -122,7 +124,7 @@ const Header = () => {
                                         />
                                     )}
 
-                                    <MenuOutlined />
+                                    <MenuOutlined className="text-gray-600" />
                                 </div>
                             </Dropdown>
                             {user && (
@@ -144,10 +146,18 @@ const Header = () => {
                         </div>
                     ) : (
                         <div className="flex space-x-3">
-                            <Button onClick={openLoginModal} type="primary">
+                            <Button
+                                className="h-10 px-6 font-medium shadow-md transition-all duration-300 hover:shadow-lg"
+                                onClick={openLoginModal}
+                                type="primary"
+                            >
                                 Đăng nhập
                             </Button>
-                            <Button onClick={openRegisterModal} type="default">
+                            <Button
+                                className="h-10 border-2 border-gray-300 px-6 font-medium transition-all duration-300 hover:border-rose-300 hover:text-rose-600"
+                                onClick={openRegisterModal}
+                                type="default"
+                            >
                                 Đăng ký
                             </Button>
                         </div>
