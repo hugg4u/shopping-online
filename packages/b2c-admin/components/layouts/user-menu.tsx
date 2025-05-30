@@ -55,7 +55,7 @@ const Header: React.FC<Props> = ({ title }) => {
             key: '3',
             label: (
                 <div
-                    className="text-rose-500"
+                    className="text-amber-700"
                     onClick={logOut}
                     role="presentation"
                 >

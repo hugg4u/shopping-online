@@ -128,7 +128,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             {!isDetailPage && (
                 <div className="mb-8">
                     <div className="mb-4 text-lg font-bold text-gray-800">
-                        <span className="bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-amber-600 to-amber-600 bg-clip-text text-transparent">
                             Danh mục
                         </span>
                     </div>
@@ -143,7 +143,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     >
                         {visibleCategories.map((category) => (
                             <Menu.Item
-                                className="rounded-md font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-600"
+                                className="rounded-md font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-600"
                                 key={category.id}
                                 onClick={() =>
                                     handleCategoryChange(category.id || '')
@@ -154,11 +154,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                         ))}
                         {(categories?.data?.length || 0) > 3 && (
                             <Menu.Item
-                                className="rounded-md font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-600"
+                                className="rounded-md font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-600"
                                 key="toggle"
                             >
                                 <Button
-                                    className="w-full pl-0 text-left text-rose-600 hover:text-rose-700"
+                                    className="w-full pl-0 text-left text-amber-600 hover:text-amber-700"
                                     onClick={() =>
                                         setExpandedCategories(
                                             !expandedCategories
@@ -176,7 +176,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
             {!isDetailPage && handleResetFilters && (
                 <Button
-                    className="mb-6 w-full cursor-pointer rounded-lg border-none bg-gradient-to-r from-rose-500 to-pink-500 py-3 text-center font-bold text-white shadow-md transition-all duration-300 hover:from-rose-600 hover:to-pink-600 hover:shadow-lg"
+                    className="mb-6 w-full cursor-pointer rounded-lg border-none bg-gradient-to-r from-amber-500 to-amber-500 py-3 text-center font-bold text-white shadow-md transition-all duration-300 hover:from-amber-600 hover:to-amber-600 hover:shadow-lg"
                     onClick={handleResetFilters}
                     type="primary"
                 >
@@ -188,7 +188,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
             <div className="mt-6">
                 <div className="mb-4 text-lg font-bold text-gray-800">
-                    <span className="bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-amber-600 to-amber-600 bg-clip-text text-transparent">
                         Blog mới nhất
                     </span>
                 </div>

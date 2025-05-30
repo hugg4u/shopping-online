@@ -320,7 +320,7 @@ const ProfileForm = () => {
                                     showUploadList={checkHideImg}
                                 >
                                     <Button
-                                        className="rounded-lg bg-rose-500 text-white hover:bg-rose-600"
+                                        className="rounded-lg bg-amber-500 text-white hover:bg-amber-600"
                                         icon={<UploadOutlined />}
                                         onClick={handleDisplayImg}
                                     >

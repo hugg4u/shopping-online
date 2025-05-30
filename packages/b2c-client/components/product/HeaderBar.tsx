@@ -60,9 +60,18 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     };
 
     return (
-        <Header className="flex h-16 items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-6 shadow-sm">
+        <Header
+            className="flex h-16 items-center justify-between border-b px-6 shadow-sm"
+            style={{
+                backgroundColor: '#FAF6F0',
+                borderBottomColor: '#E5DDD5',
+            }}
+        >
             <div className="flex flex-grow items-center">
-                <span className="mr-6 text-base font-semibold text-gray-700">
+                <span
+                    className="mr-6 text-base font-semibold"
+                    style={{ color: '#3C2415' }}
+                >
                     Sắp xếp theo
                 </span>
                 <Menu
@@ -71,8 +80,16 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                     overflowedIndicator={null}
                 >
                     <Menu.Item
-                        className="rounded-md font-medium transition-all duration-300 hover:bg-rose-50 hover:text-rose-600"
+                        className="rounded-md font-medium transition-all duration-300"
                         onClick={() => handleSortChange('updatedAt', 'desc')}
+                        style={{
+                            color: selectedItems.includes('2')
+                                ? '#C8965F'
+                                : '#6B5B4F',
+                            backgroundColor: selectedItems.includes('2')
+                                ? '#FAF6F0'
+                                : 'transparent',
+                        }}
                     >
                         Mới Nhất
                     </Menu.Item>
@@ -88,16 +105,23 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                                         sortOrder
                                     );
                                 }}
+                                style={{ backgroundColor: '#F5F1E8' }}
                             >
                                 <Menu.Item
-                                    className="hover:bg-rose-50 hover:text-rose-600"
+                                    className="transition-colors"
                                     key="asc"
+                                    style={{
+                                        color: '#3C2415',
+                                    }}
                                 >
                                     Giá thấp đến cao
                                 </Menu.Item>
                                 <Menu.Item
-                                    className="hover:bg-rose-50 hover:text-rose-600"
+                                    className="transition-colors"
                                     key="desc"
+                                    style={{
+                                        color: '#3C2415',
+                                    }}
                                 >
                                     Giá cao đến thấp
                                 </Menu.Item>
@@ -106,8 +130,13 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                         trigger={['click']}
                     >
                         <Menu.Item
-                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-rose-500 hover:text-white hover:shadow-md"
+                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none px-4 leading-10 shadow-sm transition-all duration-300"
                             key="4"
+                            style={{
+                                backgroundColor: '#F5F1E8',
+                                color: '#6B5B4F',
+                                border: '1px solid #E5DDD5',
+                            }}
                         >
                             Giá <DownOutlined />
                         </Menu.Item>

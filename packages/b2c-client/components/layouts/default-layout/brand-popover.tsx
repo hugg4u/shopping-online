@@ -16,27 +16,50 @@ const BrandPopover = () => {
     const content = useMemo(() => {
         if (data?.data && data?.data?.length === 0) {
             return (
-                <div className="text-primary p-5 text-center">
+                <div className="p-6 text-center" style={{ color: '#6B5B4F' }}>
+                    <div className="mb-2 text-2xl">🍃</div>
                     Chưa có thương hiệu!
                 </div>
             );
         }
 
         return (
-            <div className="customScroll grid max-h-[500px] max-w-[1000px] grid-cols-4 gap-5 p-2">
+            <div
+                className="customScroll grid max-h-[500px] max-w-[800px] grid-cols-3 gap-4 rounded-lg"
+                style={{
+                    backgroundColor: '#FAF6F0',
+                    border: '1px solid #E5DDD5',
+                }}
+            >
                 {data?.data?.map((item) => (
                     <Link
-                        className="hover:text-primary text-base text-slate-600"
+                        className="group rounded-lg border p-3 transition-all duration-300 hover:shadow-md"
                         href={{
                             pathname: '/product',
                             query: {
                                 brand: item?.id,
                             },
                         }}
+                        key={item.id}
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#F5F1E8',
+                        }}
                     >
-                        <div className="flex items-center gap-1">
-                            <DoubleRightOutlined className="text-xs" />
-                            <p className="line-clamp-1">{item?.name}</p>
+                        <div className="flex items-center gap-2">
+                            <DoubleRightOutlined
+                                className="text-sm transition-colors duration-300"
+                                style={{ color: '#C8965F' }}
+                            />
+                            <p
+                                className="line-clamp-1 font-medium transition-colors duration-300"
+                                style={{
+                                    color: '#3C2415',
+                                    margin: 0,
+                                }}
+                            >
+                                {item?.name}
+                            </p>
                         </div>
                     </Link>
                 ))}

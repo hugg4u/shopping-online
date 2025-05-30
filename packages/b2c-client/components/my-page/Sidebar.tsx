@@ -44,8 +44,8 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedKey, onMenuClick }) => {
 
     return (
         <div className="w-64 rounded-lg bg-white p-6 shadow-lg">
-            <div className="mb-6 flex items-center space-x-3 rounded-lg bg-gradient-to-r from-rose-50 to-pink-50 p-4">
-                <UserOutlined className="text-2xl text-rose-600" />
+            <div className="mb-6 flex items-center space-x-3 rounded-lg bg-gradient-to-r from-amber-50 to-amber-50 p-4">
+                <UserOutlined className="text-2xl text-amber-600" />
                 <div className="flex flex-col">
                     <span className="text-lg font-semibold text-gray-800">
                         Tài khoản của tôi
@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedKey, onMenuClick }) => {
             >
                 {menuItems.map((item) => (
                     <Menu.Item
-                        className="mb-2 rounded-lg font-medium text-gray-700 hover:bg-rose-50 hover:text-rose-600"
+                        className="mb-2 rounded-lg font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-600"
                         icon={item.icon}
                         key={item.key}
                     >

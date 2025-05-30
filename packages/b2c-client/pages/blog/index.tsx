@@ -153,7 +153,7 @@ const ListBlogPage: NextPage = () => {
                             }}
                         />
                         <div className="rounded-lg border border-gray-100 px-10 py-6">
-                            <h1 className="mb-6 bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-center text-3xl font-bold text-transparent">
+                            <h1 className="mb-6 bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-center text-3xl font-bold text-transparent">
                                 Danh sách blog
                             </h1>
                             <Content className="min-h-[280px] bg-white">

@@ -30,7 +30,7 @@ const LatestBlogCard: React.FC<LatestBlogCardProps> = ({
 
     return (
         <div
-            className="hover:scale-102 group mb-3 flex w-full cursor-pointer rounded-lg border border-gray-100 bg-white p-3 shadow-sm transition-all duration-300 hover:border-rose-200 hover:shadow-md"
+            className="hover:scale-102 group mb-3 flex w-full cursor-pointer rounded-lg border border-gray-100 bg-white p-3 shadow-sm transition-all duration-300 hover:border-amber-200 hover:shadow-md"
             onClick={handleCardClick}
             onKeyDown={handleKeyDown}
             role="button"
@@ -44,7 +44,7 @@ const LatestBlogCard: React.FC<LatestBlogCardProps> = ({
                 />
             </div>
             <div className="flex flex-[2] flex-col justify-center space-y-1">
-                <span className="line-clamp-2 text-sm font-semibold text-gray-800 transition-colors duration-300 group-hover:text-rose-600">
+                <span className="line-clamp-2 text-sm font-semibold text-gray-800 transition-colors duration-300 group-hover:text-amber-600">
                     {title}
                 </span>
             </div>

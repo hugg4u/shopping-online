@@ -21,7 +21,7 @@ const MyPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+        <div className="min-h-screen" style={{ backgroundColor: '#FAF6F0' }}>
             <Layout className="mx-auto max-w-7xl bg-transparent">
                 <div className="flex gap-8 p-8">
                     <Sidebar
@@ -29,7 +29,13 @@ const MyPage = () => {
                         selectedKey={currentPage}
                     />
                     <div className="flex-1">
-                        <Content className="rounded-lg bg-white p-6 shadow-lg">
+                        <Content
+                            className="rounded-xl border p-6 shadow-sm"
+                            style={{
+                                backgroundColor: '#F5F1E8',
+                                borderColor: '#E5DDD5',
+                            }}
+                        >
                             {renderContent()}
                         </Content>
                     </div>

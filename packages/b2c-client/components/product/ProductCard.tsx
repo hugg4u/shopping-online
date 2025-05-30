@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { Card } from 'antd';
+import { Card, Rate } from 'antd';
 import {
     EyeOutlined,
     ShoppingCartOutlined,
@@ -165,7 +165,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     {/* Discount badge */}
                     {hasDiscount && !isOutOfStock && (
                         <div className="absolute left-3 top-3 z-10">
-                            <span className="rounded-full bg-gradient-to-r from-red-500 to-pink-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
+                            <span className="rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
                                 -{discountPercentage}%
                             </span>
                         </div>
@@ -210,7 +210,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
                                     <div
                                         aria-label="Mua ngay sản phẩm"
-                                        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-gray-700 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-rose-500 hover:text-white"
+                                        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-gray-700 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-amber-500 hover:text-white"
                                         onClick={handleBuyNow}
                                         onKeyDown={(e) =>
                                             handleKeyDown(e, () =>
@@ -235,7 +235,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <div className="flex h-full flex-col justify-between p-1">
                 {/* Product Info */}
                 <div className="space-y-2">
-                    <h3 className="line-clamp-2 text-base font-semibold text-gray-800 transition-colors duration-300 group-hover:text-rose-600">
+                    <h3 className="line-clamp-2 text-base font-semibold text-gray-800 transition-colors duration-300 group-hover:text-amber-600">
                         {name}
                     </h3>
 
@@ -255,7 +255,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                                 {currencyFormatter(original_price)}
                             </div>
                         )}
-                        <div className="text-xl font-bold text-rose-600">
+                        <div className="text-xl font-bold text-amber-600">
                             {currencyFormatter(finalPrice)}
                         </div>
                     </div>
@@ -270,10 +270,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
                         {/* Rating placeholder - có thể thêm sau */}
                         <div className="flex items-center space-x-1 text-yellow-400">
-                            <span className="text-xs">⭐</span>
-                            <span className="text-xs text-gray-500">
-                                {rating ?? 0}
-                            </span>
+                            <Rate disabled value={rating} />
                         </div>
                     </div>
                 </div>

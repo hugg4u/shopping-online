@@ -64,13 +64,13 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                     overflowedIndicator={null}
                 >
                     <Menu.Item
-                        className={`ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-rose-500 hover:text-white hover:shadow-md ${selectedItems.includes('desc') ? 'bg-rose-500 text-white' : ''}`}
+                        className={`ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-amber-500 hover:text-white hover:shadow-md ${selectedItems.includes('desc') ? 'bg-amber-500 text-white' : ''}`}
                         onClick={() => handleSortChange('updatedAt', 'desc')}
                     >
                         Mới nhất
                     </Menu.Item>
                     <Menu.Item
-                        className={`ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-rose-500 hover:text-white hover:shadow-md ${selectedItems.includes('asc') ? 'bg-rose-500 text-white' : ''}`}
+                        className={`ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-amber-500 hover:text-white hover:shadow-md ${selectedItems.includes('asc') ? 'bg-amber-500 text-white' : ''}`}
                         onClick={() => handleSortChange('updatedAt', 'asc')}
                     >
                         Cũ nhất

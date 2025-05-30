@@ -67,6 +67,7 @@ const MainBanner = () => {
                     swiper1Ref.current?.autoplay?.stop();
                     swiper2Ref.current?.autoplay?.stop();
                 }}
+                style={{ backgroundColor: '#FAF6F0' }}
             >
                 <Swiper
                     autoplay={{
@@ -111,10 +112,10 @@ const MainBanner = () => {
                                         width: '100%',
                                         backgroundColor:
                                             item?.backgroundSliderColor ??
-                                            '#028267',
+                                            '#F5F1E8',
                                     }}
                                 >
-                                    <div className="absolute right-[0] z-10 h-full shadow-[-10px_10px_15px_#1111112A]">
+                                    <div className="absolute right-[0] z-10 h-full shadow-[-10px_10px_15px_rgba(60,36,21,0.2)]">
                                         <div className="z-8 relative">
                                             <div
                                                 className="w-[100vw] !max-w-[1340px]"
@@ -171,7 +172,7 @@ const MainBanner = () => {
                                                 style={{
                                                     color:
                                                         item?.titleTextColor ??
-                                                        '#FFFFFF',
+                                                        '#3C2415',
                                                 }}
                                             >
                                                 {item?.title}
@@ -181,7 +182,7 @@ const MainBanner = () => {
                                                 style={{
                                                     color:
                                                         item?.noteTextColor ??
-                                                        '#FFFFFF',
+                                                        '#C8965F',
                                                 }}
                                             >
                                                 {item?.note}
@@ -193,15 +194,19 @@ const MainBanner = () => {
                         ))}
                     </Swiper>
                 </div>
-                <div className="absolute bottom-[24px] left-[calc((100%-1200px)/2)] z-50 flex items-center text-white">
+                <div className="absolute bottom-[24px] left-[calc((100%-1200px)/2)] z-50 flex items-center">
                     <div className="mr-[50px] flex space-x-[8px]">
                         <div
-                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border border-[#00454D] bg-[#00454D] hover:border-[#101010] hover:bg-[#101010] hover:bg-opacity-80"
+                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border transition-all duration-300"
                             onClick={() => swiper1Ref.current?.slidePrev()}
                             onKeyDown={() => swiper1Ref.current?.slidePrev()}
                             onMouseEnter={() => setActiveLeft(true)}
                             onMouseLeave={() => setActiveLeft(false)}
                             role="presentation"
+                            style={{
+                                borderColor: '#C8965F',
+                                backgroundColor: '#C8965F',
+                            }}
                         >
                             <ArrowLeftSquare
                                 background="none"
@@ -212,12 +217,16 @@ const MainBanner = () => {
                         </div>
 
                         <div
-                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border border-[#00454D] bg-[#00454D] hover:border-[#101010] hover:bg-[#101010] hover:bg-opacity-80"
+                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border transition-all duration-300"
                             onClick={() => swiper1Ref.current?.slideNext()}
                             onKeyDown={() => swiper1Ref.current?.slideNext()}
                             onMouseEnter={() => setActiveRight(true)}
                             onMouseLeave={() => setActiveRight(false)}
                             role="presentation"
+                            style={{
+                                borderColor: '#C8965F',
+                                backgroundColor: '#C8965F',
+                            }}
                         >
                             <ArrowRightSquare
                                 background="none"
@@ -227,7 +236,10 @@ const MainBanner = () => {
                             />
                         </div>
                     </div>
-                    <div className="space-x-1.5 text-lg leading-[19px] text-black">
+                    <div
+                        className="space-x-1.5 text-lg leading-[19px]"
+                        style={{ color: '#3C2415' }}
+                    >
                         <span>{currentSlice}</span>
                         <span>/</span>
                         <span>{data?.data?.length}</span>

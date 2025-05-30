@@ -52,7 +52,7 @@ const Feedback: React.FC<Props> = ({ productId, productRate }) => {
                 <div className="text-xl uppercase underline underline-offset-4">
                     Đánh giá
                 </div>
-                <div className="mt-5 grid grid-cols-5 rounded-md border border-rose-50 bg-rose-50 py-8">
+                <div className="mt-5 grid grid-cols-5 rounded-md border border-amber-50 bg-amber-50 py-8">
                     <div className="flex flex-col items-center gap-4">
                         <div className="text-primary">
                             <span className="mr-1.5 text-xl">

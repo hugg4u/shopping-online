@@ -8,4 +8,5 @@ export type Product = {
     thumbnail: string;
     updatedAt: string;
     briefInfo: string;
+    rating: number;
 };
