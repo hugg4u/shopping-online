@@ -1,118 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Checkbox } from 'antd';
-import {
-    FilterOutlined,
-    FireOutlined,
-    ReloadOutlined,
-} from '@ant-design/icons';
+import { FireOutlined } from '@ant-design/icons';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { get } from 'common/utils/http-request';
 import LatestProductCard from './LatestProductCard';
 
-type SidebarProps = {
-    categories: { id: string; name: string }[];
-    brands: { id: string; name: string }[];
-    latestProducts: {
-        id: string;
-        name: string;
-        discount_price: number;
-        original_price: number;
-        thumbnail: string;
-    }[];
-    setCategory: (category: string) => void;
-    setBrand: (brand: string[]) => void;
-    handleResetFilters: () => void;
-    handleSearch: (
-        page: number,
-        sort?: string,
-        sortOrder?: string,
-        category?: string,
-        searchTerm?: string,
-        pageSize?: number,
-        brand?: string[]
-    ) => void;
-    currentSort?: string;
-    currentSortOrder?: string;
-    currentCategory?: string;
-    currentBrand?: string[];
-};
-
-const Sidebar: React.FC<SidebarProps> = ({
-    categories = [],
-    brands = [],
-    latestProducts = [],
-    setCategory,
-    setBrand,
-    handleResetFilters,
-    handleSearch,
-    currentSort,
-    currentSortOrder,
-    currentCategory,
-    currentBrand,
-}) => {
-    const [expandedCategories, setExpandedCategories] = useState(false);
-    const [expandedBrands, setExpandedBrands] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState<
-        string | undefined
-    >(currentCategory);
-    const [selectedBrands, setSelectedBrands] = useState<string[]>(
-        currentBrand || []
-    );
-
-    useEffect(() => {
-        setSelectedCategory(currentCategory);
-    }, [currentCategory]);
-    useEffect(() => {
-        setSelectedBrands(currentBrand || []);
-    }, [currentBrand]);
-
-    const handleCategoryChange = (category: string) => {
-        if (selectedCategory === category) {
-            setCategory('');
-            setSelectedCategory('');
-            handleSearch(
-                1,
-                currentSort,
-                currentSortOrder,
-                '',
-                undefined,
-                undefined,
-                selectedBrands
-            );
-        } else {
-            setCategory(category);
-            setSelectedCategory(category);
-            handleSearch(
-                1,
-                currentSort,
-                currentSortOrder,
-                category,
-                undefined,
-                undefined,
-                selectedBrands
-            );
+const Sidebar: React.FC = () => {
+    const { data: latestProducts, isLoading: latestProductsLoading } = useQuery(
+        {
+            queryKey: ['latestProducts'],
+            queryFn: () =>
+                get('product/latest', {
+                    params: { limit: 3 },
+                }).then((res) => res.data.data),
         }
-    };
-
-    const handleBrandChange = (brand: string) => {
-        const updatedSelectedBrands = selectedBrands.includes(brand)
-            ? selectedBrands.filter((b) => b !== brand)
-            : [...selectedBrands, brand];
-        setBrand(updatedSelectedBrands);
-        setSelectedBrands(updatedSelectedBrands);
-        handleSearch(
-            1,
-            currentSort,
-            currentSortOrder,
-            selectedCategory,
-            undefined,
-            undefined,
-            updatedSelectedBrands
-        );
-    };
-
-    const visibleCategories = expandedCategories
-        ? categories
-        : categories.slice(0, 4);
-    const visibleBrands = expandedBrands ? brands : brands.slice(0, 4);
+    );
 
     return (
         <div className="space-y-6">

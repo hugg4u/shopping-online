@@ -1,6 +1,6 @@
 import React from 'react';
 import CartDetails from '~/components/cart-details';
-import LatestProductList from '~/components/common/latest-product';
+import Sidebar from '~/components/product/Sidebar';
 
 const CartDetailsPage = () => {
     return (
@@ -18,7 +18,7 @@ const CartDetailsPage = () => {
                                 borderColor: '#E5DDD5',
                             }}
                         >
-                            <LatestProductList />
+                            <Sidebar />
                         </div>
                     </div>
                     <div className="flex-1">
