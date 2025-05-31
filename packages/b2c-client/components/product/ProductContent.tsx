@@ -21,8 +21,8 @@ const ProductContent: React.FC<ProductContentProps> = ({
     pageSize,
 }) => {
     return (
-        <Layout className="bg-white">
-            <Content className="min-h-[calc(100vh-64px)] w-[1000px] max-w-[1200px] bg-white p-5">
+        <Layout className="bg-[#f4f1e7]">
+            <Content className="min-h-[calc(100vh-64px)]  w-[2000px] bg-[#f4f1e7] p-5">
                 {products.length === 0 ? (
                     <div className="mt-[30%] text-center text-2xl text-gray-500">
                         Không có sản phẩm
