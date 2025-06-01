@@ -207,12 +207,10 @@ const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
                 }
             }
 
-            const imageName = newUploadedImageName.split('/').pop();
-
             const updateData = {
                 ...trimmedValues,
                 gender: mapGenderToAPI(trimmedValues.gender),
-                image: imageName || '',
+                image: newUploadedImageName || '',
                 dob: trimmedValues.dob
                     ? trimmedValues.dob.format('YYYY-MM-DD')
                     : null,

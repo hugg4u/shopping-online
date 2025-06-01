@@ -105,7 +105,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
     const title = `Hi ${user.name},`;
     const mainContent =
         'Thank you for registering with us. To continue using our services, please verify your email address by clicking the button below:';
-    const link = `http://localhost:3000/verify-email?id=${user.id}&token=${token}`;
+    const link = `${process.env.CLIENT_URL || 'http://localhost:3000'}/verify-email?id=${user.id}&token=${token}`;
     const label = 'Click here to verify';
     const secondContent = `If you did not request this verification, you can safely ignore this email. Your account will not be affected.<br>
         Best regards,<br>
@@ -292,7 +292,7 @@ export const senMailResetPassword = async (req: Request, res: Response) => {
     const title = `Chào ${user.name},`;
     const mainContent =
         'Bạn nhận được email này vì chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn. Nhấn vào nút bên dưới để đặt lại mật khẩu của bạn.';
-    const link = `http://localhost:3000/reset-password?token=${token}`;
+    const link = `${process.env.CLIENT_URL || 'http://localhost:3000'}/reset-password?token=${token}`;
     const label = 'Nhấn vào đây để đặt lại mật khẩu';
     const secondContent = `Nếu bạn không yêu cầu xác minh này, bạn có thể bỏ qua email này một cách an toàn. Tài khoản của bạn sẽ không bị ảnh hưởng.<br>
             Trân trọng,<br>

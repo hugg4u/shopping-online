@@ -948,7 +948,7 @@ const htmlBill = (order: OrderResponse) => {
               >
                 <p style="margin: 0">
 					Đây là bản tóm tắt về đơn đặt hàng gần đây của bạn. Nếu bạn có bất kỳ câu hỏi hoặc mối quan tâm về đơn đặt hàng của bạn, xin vui lòng
-                  <a href="http://localhost:3000/contact">liên hệ với chúng tôi</a>.
+                  <a href="${process.env.CLIENT_URL || 'http://localhost:3000'}/contact">liên hệ với chúng tôi</a>.
                 </p>
               </td>
             </tr>
@@ -1202,7 +1202,7 @@ const htmlBill = (order: OrderResponse) => {
 					  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
               <tbody>
                 <tr>
-                  <td><a href="http://localhost:3000/cart-completion?orderId=${order?.id}" target="_blank">Chi tiết đơn hàng</a></td>
+                  <td><a href="${process.env.CLIENT_URL || 'http://localhost:3000'}/cart-completion?orderId=${order?.id}" target="_blank">Chi tiết đơn hàng</a></td>
                 </tr>
 					    </tbody>
 					  </table>

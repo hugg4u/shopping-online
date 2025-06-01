@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Router } from 'express';
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
@@ -42,7 +43,6 @@ export default (router: Router) => {
                 imageUrls,
             });
         } catch (error) {
-            console.error('Upload error:', error);
             res.status(500).json({ message: 'Internal server error' });
         }
     });

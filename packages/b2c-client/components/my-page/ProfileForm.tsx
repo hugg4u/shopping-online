@@ -153,10 +153,7 @@ const ProfileForm = () => {
                 }
             }
 
-            // Loại bỏ phần URL khỏi tên ảnh, chỉ lưu tên ảnh
-            const imageName = `${newUploadedImageName.split('/').pop()}`;
-
-            await updateUserImage(imageName);
+            await updateUserImage(newUploadedImageName);
         } catch (err) {
             const error = err as Error;
             message.error(
