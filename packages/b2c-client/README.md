@@ -1,4 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# B2C Client - Perfume Shop
+
+Frontend client cho hệ thống shopping online, được xây dựng với Next.js 14.
+
+## 🚀 Deployment trên Vercel
+
+### Cấu hình đã sẵn sàng:
+- ✅ `vercel.json` - Cấu hình Vercel
+- ✅ `next.config.js` - Tối ưu cho Vercel & monorepo
+- ✅ `tsconfig.json` - TypeScript paths cho monorepo
+- ✅ `env.example` - Environment variables template
+
+### Environment Variables cần thiết:
+```env
+NEXT_PUBLIC_SITE=CLIENT
+NEXT_PUBLIC_API_BASE_URL=https://8080--main--hungpc--hung.coder1.hirogo-dev.com
+NEXT_PUBLIC_APP_NAME=Perfume Shop Client
+NEXT_PUBLIC_APP_DESCRIPTION=E-commerce platform for perfumes
+NEXT_PUBLIC_CLIENT_URL=https://your-app-name.vercel.app
+NODE_ENV=production
+```
+
+### Deploy qua Vercel Dashboard:
+
+1. **Import Repository**:
+   - Truy cập https://vercel.com/dashboard
+   - Click "New Project"
+   - Import Git repository
+
+2. **Configure Project**:
+   - **Framework Preset**: Next.js
+   - **Root Directory**: `packages/b2c-client`
+   - **Build Command**: `yarn build`
+   - **Output Directory**: `.next`
+   - **Install Command**: `yarn install`
+
+3. **Set Environment Variables** như trên
+
+### Deploy qua CLI:
+```bash
+# Cài đặt Vercel CLI
+npm install -g vercel
+
+# Login
+vercel login
+
+# Deploy
+vercel --prod
+```
+
+## 🛠 Development
+
+```bash
+# Install dependencies
+yarn install
+
+# Start development server
+yarn dev
+
+# Build for production
+yarn build
+
+# Start production server
+yarn start
+```
+
+## 📋 Tech Stack
+
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Ant Design
+- **State Management**: Zustand + React Query
+- **API Client**: Axios
+
+## 🔗 API Integration
+
+Client kết nối với API server tại: `https://8080--main--hungpc--hung.coder1.hirogo-dev.com`
+
+Các endpoint chính:
+- Authentication: `/auth/*`
+- Products: `/product/*`
+- Cart: `/cart/*`
+- Orders: `/order/*`
+- User: `/user/*`
+
+## 📁 Project Structure
+
+```
+packages/b2c-client/
+├── components/          # React components
+├── pages/              # Next.js pages
+├── styles/             # CSS styles
+├── types/              # TypeScript types
+├── hooks/              # Custom hooks
+├── public/             # Static assets
+├── next.config.js      # Next.js configuration
+├── tsconfig.json       # TypeScript configuration
+└── vercel.json         # Vercel deployment config
+```
 
 ## Getting Started
 

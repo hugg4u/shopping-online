@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd packages/b2c-client && npm run build",
+  "framework": "nextjs",
+  "installCommand": "yarn install",
+  "outputDirectory": "packages/b2c-client/.next"
+} 

@@ -1,6 +1,4 @@
-import React, { useMemo } from 'react';
-import { Popover } from 'antd';
-import Link from 'next/link';
+import React from 'react';
 import * as request from 'common/utils/http-request';
 import { useQuery } from '@tanstack/react-query';
 import type { QueryResponseType } from 'common/types';

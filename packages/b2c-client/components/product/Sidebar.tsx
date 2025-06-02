@@ -2,18 +2,51 @@ import { FireOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { get } from 'common/utils/http-request';
+import { Product } from '~/types/product';
 import LatestProductCard from './LatestProductCard';
 
-const Sidebar: React.FC = () => {
-    const { data: latestProducts, isLoading: latestProductsLoading } = useQuery(
-        {
-            queryKey: ['latestProducts'],
-            queryFn: () =>
-                get('product/latest', {
-                    params: { limit: 3 },
-                }).then((res) => res.data.data),
-        }
-    );
+// Define types
+interface Brand {
+    id: string;
+    name: string;
+}
+
+interface Category {
+    id: string;
+    name: string;
+}
+
+// Define props interface
+interface SidebarProps {
+    brands?: Brand[];
+    categories?: Category[];
+    currentBrand?: string[];
+    currentCategory?: string;
+    currentSort?: string;
+    currentSortOrder?: string;
+    handleResetFilters?: () => void;
+    handleSearch?: (
+        page?: number,
+        sortParam?: string,
+        sortOrderParam?: string,
+        categoryParam?: string,
+        searchParam?: string,
+        pageSizeParam?: number,
+        brandParam?: string[]
+    ) => void;
+    latestProducts?: Product[];
+    setBrand?: (brand: string[]) => void;
+    setCategory?: (category: string) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = () => {
+    const { data: latestProducts } = useQuery({
+        queryKey: ['latestProducts'],
+        queryFn: () =>
+            get('product/latest', {
+                params: { limit: 3 },
+            }).then((res) => res.data.data),
+    });
 
     return (
         <div className="space-y-6">
@@ -34,7 +67,7 @@ const Sidebar: React.FC = () => {
                     </div>
 
                     <div className="space-y-4 p-4">
-                        {latestProducts.slice(0, 3).map((product) => (
+                        {latestProducts.slice(0, 3).map((product: Product) => (
                             <LatestProductCard
                                 discount_price={product.discount_price}
                                 id={product.id}
@@ -49,13 +82,6 @@ const Sidebar: React.FC = () => {
             )}
         </div>
     );
-};
-
-Sidebar.defaultProps = {
-    currentSort: '',
-    currentSortOrder: '',
-    currentCategory: '',
-    currentBrand: [],
 };
 
 export default Sidebar;
