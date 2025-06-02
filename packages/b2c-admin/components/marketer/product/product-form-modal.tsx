@@ -321,8 +321,8 @@ const ProductFormModal: React.FC<Props> = ({
                 briefInfo,
                 thumbnail: newThumbnail?.[0] ?? '',
                 product_image: [
-                    ...(filesUploaded || []), 
-                    ...(newProductImageRequest || [])
+                    ...(filesUploaded || []),
+                    ...(newProductImageRequest || []),
                 ],
             };
 
