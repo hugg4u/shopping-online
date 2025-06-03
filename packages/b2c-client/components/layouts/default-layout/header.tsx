@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import Avatar from 'common/components/avatar';
 import { useUserQueryStore } from 'common/store/useUserStore';
-import { useAuth } from '~/hooks/useAuth';
+import { useAuth } from '@shopping/common';
 import useLoginModal from '~/hooks/useLoginModal';
 // import useRegisterModal from '~/hooks/useRegisterModal';
 import Search from './search';

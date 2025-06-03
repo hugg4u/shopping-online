@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "cd ../.. && yarn install && yarn workspace @shopping/b2c-client build",
-  "outputDirectory": "packages/b2c-client/.next",
-  "installCommand": "cd ../.. && yarn install",
+  "buildCommand": "cd ../.. && yarn install --frozen-lockfile && yarn workspace @shopping/b2c-client build",
+  "outputDirectory": ".next",
+  "installCommand": "cd ../.. && yarn install --frozen-lockfile",
   "framework": "nextjs"
 } 

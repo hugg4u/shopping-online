@@ -39,7 +39,7 @@ const nextConfig = withTM(
             // Handle monorepo setup for Vercel
             config.resolve.alias = {
                 ...config.resolve.alias,
-                'common': path.resolve(__dirname, '../common'),
+                '@shopping/common': path.resolve(__dirname, '../common'),
                 '~': path.resolve(__dirname),
             };
             
