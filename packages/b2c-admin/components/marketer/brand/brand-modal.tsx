@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Form, FormProps, Input, Modal, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 
 type Props = {

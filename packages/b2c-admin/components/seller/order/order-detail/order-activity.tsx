@@ -1,10 +1,10 @@
 import React, { useImperativeHandle } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { Spin } from 'antd';
-import { QueryResponseType } from 'common/types';
-import Avatar from 'common/components/avatar';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { QueryResponseType } from '@shopping/common/types';
+import Avatar from '@shopping/common/components/avatar';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
 import { Activity } from '~/types/activity';
 

@@ -1,14 +1,14 @@
 import { LoadingOutlined, SearchOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 import React, { ElementRef, useEffect, useRef, useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
-import * as request from 'common/utils/http-request';
-import type { QueryResponseType } from 'common/types';
-import { ProductFeatured } from 'common/types/product';
+import * as request from '@shopping/common/utils/http-request';
+import type { QueryResponseType } from '@shopping/common/types';
+import { ProductFeatured } from '@shopping/common/types/product';
 import Image from 'next/image';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { currencyFormatter } from 'common/utils/formatter';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 

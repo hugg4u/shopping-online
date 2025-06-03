@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useQuery } from '@tanstack/react-query';
-import { QueryResponseType } from 'common/types';
-import type { FeedbackType } from 'common/types/feedback';
+import { QueryResponseType } from '@shopping/common/types';
+import type { FeedbackType } from '@shopping/common/types/feedback';
 import {
     Image as AntImage,
     Pagination,
@@ -12,10 +12,10 @@ import {
     Spin,
 } from 'antd';
 import Image from 'next/image';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
-import { PAGE_SIZE, RATING_LIST_CLIENT } from 'common/constant';
-import Avatar from 'common/components/avatar';
+import { PAGE_SIZE, RATING_LIST_CLIENT } from '@shopping/common/constant';
+import Avatar from '@shopping/common/components/avatar';
 
 type Props = {
     productId: string;

@@ -1,4 +1,4 @@
-import { User } from 'common/types/customer';
+import { User } from '@shopping/common/types/customer';
 
 export type Order = {
     id: string;

@@ -1,8 +1,8 @@
 import React from 'react';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { LatestPost } from 'common/types/post';
+import type { LatestPost } from '@shopping/common/types/post';
 
 type Props = {
     data: Partial<LatestPost>;

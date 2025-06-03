@@ -1,19 +1,18 @@
 import { FireOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { get } from 'common/utils/http-request';
+import { get } from '@shopping/common/utils/http-request';
+import { Product } from '@shopping/common/types/product';
 import LatestProductCard from './LatestProductCard';
 
 const Sidebar: React.FC = () => {
-    const { data: latestProducts, isLoading: latestProductsLoading } = useQuery(
-        {
-            queryKey: ['latestProducts'],
-            queryFn: () =>
-                get('product/latest', {
-                    params: { limit: 3 },
-                }).then((res) => res.data.data),
-        }
-    );
+    const { data: latestProducts } = useQuery<Product[]>({
+        queryKey: ['latestProducts'],
+        queryFn: () =>
+            get('product/latest', {
+                params: { limit: 3 },
+            }).then((res) => res.data.data),
+    });
 
     return (
         <div className="space-y-6">

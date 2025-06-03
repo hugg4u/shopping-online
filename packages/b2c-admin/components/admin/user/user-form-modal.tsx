@@ -15,7 +15,7 @@ import {
     UploadFile,
 } from 'antd';
 import { RcFile } from 'antd/es/upload';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';

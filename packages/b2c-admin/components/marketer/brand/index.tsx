@@ -13,7 +13,7 @@ import {
     Tooltip,
 } from 'antd';
 import { useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { Brand } from '~/types/product';

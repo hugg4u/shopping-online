@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import * as request from 'common/utils/http-request';
-import type { QueryResponseType } from 'common/types';
-import type { LatestPost } from 'common/types/post';
+import * as request from '@shopping/common/utils/http-request';
+import type { QueryResponseType } from '@shopping/common/types';
+import type { LatestPost } from '@shopping/common/types/post';
 import FeaturedPostItem from './latest-post-item';
 
 const ListLatestPost = () => {

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { currencyFormatter } from 'common/utils/formatter';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import moment from 'moment';
 import { Image, Rate } from 'antd';
 import { Product, ProductImage } from '~/types/product';

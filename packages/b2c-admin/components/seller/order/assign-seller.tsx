@@ -5,13 +5,13 @@ import {
     UserAddOutlined,
 } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import Avatar from 'common/components/avatar';
-import { User } from 'common/types/customer';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import Avatar from '@shopping/common/components/avatar';
+import { User } from '@shopping/common/types/customer';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import React, { ElementRef, useEffect, useRef, useState } from 'react';
-import * as request from 'common/utils/http-request';
-import { QueryResponseType } from 'common/types';
-import { cn } from 'common/utils';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseType } from '@shopping/common/types';
+import { cn } from '@shopping/common/utils';
 import { Input } from 'antd';
 import { useDebounceValue } from 'usehooks-ts';
 import { toast } from 'react-toastify';

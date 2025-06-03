@@ -2,7 +2,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, Modal, Tooltip } from 'antd';
 import React, { useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 
 type Props = {

@@ -934,6 +934,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@shopping/common@workspace:packages/common":
+  version: 0.0.0-use.local
+  resolution: "@shopping/common@workspace:packages/common"
+  dependencies:
+    "@prisma/client": "npm:^5.11.0"
+    "@types/node": "npm:^20"
+    "@types/react": "npm:^18"
+    "@types/react-dom": "npm:^18"
+    autoprefixer: "npm:^10.0.1"
+    next: "npm:14.1.3"
+    postcss: "npm:^8"
+    react: "npm:^18"
+    react-dom: "npm:^18"
+    tailwindcss: "npm:^3.3.0"
+    typescript: "npm:^5"
+  languageName: unknown
+  linkType: soft
+
 "@swc/helpers@npm:0.4.11":
   version: 0.4.11
   resolution: "@swc/helpers@npm:0.4.11"
@@ -1149,6 +1167,15 @@ __metadata:
   version: 1.3.5
   resolution: "@types/mime@npm:1.3.5"
   checksum: c2ee31cd9b993804df33a694d5aa3fa536511a49f2e06eeab0b484fef59b4483777dbb9e42a4198a0809ffbf698081fdbca1e5c2218b82b91603dfab10a10fbc
+  languageName: node
+  linkType: hard
+
+"@types/morgan@npm:^1":
+  version: 1.9.9
+  resolution: "@types/morgan@npm:1.9.9"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 2b310c6f7c3cd1d0e19fd8c644c6f4edd58415bb88be78cc8bea853c02b165a76e6d7ade91f5b92c124e9b9cf3a810c23e400392d5e30118988f68575dcd1ed4
   languageName: node
   linkType: hard
 
@@ -2077,6 +2104,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"basic-auth@npm:~2.0.1":
+  version: 2.0.1
+  resolution: "basic-auth@npm:2.0.1"
+  dependencies:
+    safe-buffer: "npm:5.1.2"
+  checksum: 05f56db3a0fc31c89c86b605231e32ee143fb6ae38dc60616bc0970ae6a0f034172def99e69d3aed0e2c9e7cac84e2d63bc51a0b5ff6ab5fc8808cc8b29923c1
+  languageName: node
+  linkType: hard
+
 "bcrypt@npm:^5.1.1":
   version: 5.1.1
   resolution: "bcrypt@npm:5.1.1"
@@ -2536,23 +2572,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"common@workspace:packages/common":
-  version: 0.0.0-use.local
-  resolution: "common@workspace:packages/common"
-  dependencies:
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
-    "@types/react-dom": "npm:^18"
-    autoprefixer: "npm:^10.0.1"
-    next: "npm:14.1.3"
-    postcss: "npm:^8"
-    react: "npm:^18"
-    react-dom: "npm:^18"
-    tailwindcss: "npm:^3.3.0"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
-
 "compressible@npm:~2.0.16":
   version: 2.0.18
   resolution: "compressible@npm:2.0.18"
@@ -2931,7 +2950,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:2.0.0":
+"depd@npm:2.0.0, depd@npm:~2.0.0":
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
   checksum: 58bd06ec20e19529b06f7ad07ddab60e504d9e0faca4bd23079fac2d279c3594334d736508dc350e06e510aba5e22e4594483b3a6562ce7c17dd797f4cc4ad2c
@@ -5485,6 +5504,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"morgan@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "morgan@npm:1.10.0"
+  dependencies:
+    basic-auth: "npm:~2.0.1"
+    debug: "npm:2.6.9"
+    depd: "npm:~2.0.0"
+    on-finished: "npm:~2.3.0"
+    on-headers: "npm:~1.0.2"
+  checksum: 684db061daca28f8d8e3bfd50bd0d21734401b46f74ea76f6df7785d45698fcd98f6d3b81a6bad59f8288c429183afba728c428e8f66d2e8c30fd277af3b5b3a
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -5988,6 +6020,15 @@ __metadata:
   dependencies:
     ee-first: "npm:1.1.1"
   checksum: 46fb11b9063782f2d9968863d9cbba33d77aa13c17f895f56129c274318b86500b22af3a160fe9995aa41317efcd22941b6eba747f718ced08d9a73afdb087b4
+  languageName: node
+  linkType: hard
+
+"on-finished@npm:~2.3.0":
+  version: 2.3.0
+  resolution: "on-finished@npm:2.3.0"
+  dependencies:
+    ee-first: "npm:1.1.1"
+  checksum: c904f9e518b11941eb60279a3cbfaf1289bd0001f600a950255b1dede9fe3df8cd74f38483550b3bb9485165166acb5db500c3b4c4337aec2815c88c96fcc2ea
   languageName: node
   linkType: hard
 
@@ -7512,6 +7553,7 @@ __metadata:
     "@types/cors": "npm:^2.8.17"
     "@types/express": "npm:^4.17.21"
     "@types/jsonwebtoken": "npm:^9"
+    "@types/morgan": "npm:^1"
     "@types/multer": "npm:^1.4.11"
     bcrypt: "npm:^5.1.1"
     body-parser: "npm:^1.20.2"
@@ -7522,6 +7564,7 @@ __metadata:
     express: "npm:^4.18.3"
     jsonwebtoken: "npm:^9.0.2"
     jwt-decode: "npm:^4.0.0"
+    morgan: "npm:^1.10.0"
     multer: "npm:^1.4.5-lts.1"
     nodemon: "npm:^3.1.0"
     prisma: "npm:^5.11.0"

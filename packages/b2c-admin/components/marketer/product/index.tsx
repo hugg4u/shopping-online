@@ -20,15 +20,15 @@ import {
     Tooltip,
 } from 'antd';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
-import { PAGE_SIZE, RATING_LIST } from 'common/constant';
+import * as request from '@shopping/common/utils/http-request';
+import { PAGE_SIZE, RATING_LIST } from '@shopping/common/constant';
 import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
-import { currencyFormatter } from 'common/utils/formatter';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import Link from 'next/link';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { getSortOrder } from 'common/utils/getSortOrder';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import ProductFormModal from './product-form-modal';
 import { Brand, Category, Product } from '~/types/product';
 import Header from '~/components/header';

@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unused-prop-types */
 import { useMutation } from '@tanstack/react-query';
 import { Button, Card, Form, FormProps, Image, Input, Modal } from 'antd';
-import { currencyFormatter } from 'common/utils/formatter';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import * as request from 'common/utils/http-request';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';

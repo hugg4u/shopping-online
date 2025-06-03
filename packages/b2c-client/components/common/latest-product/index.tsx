@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import * as request from 'common/utils/http-request';
-import type { QueryResponseType } from 'common/types';
+import * as request from '@shopping/common/utils/http-request';
+import type { QueryResponseType } from '@shopping/common/types';
 import type { Product } from '~/types/product';
 import LatestProductItem from './latest-product-item';
 

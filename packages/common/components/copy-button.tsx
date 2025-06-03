@@ -1,7 +1,7 @@
 import { CopyOutlined } from '@ant-design/icons';
 import React from 'react';
-import { copy } from 'common/utils/copy';
-import { cn } from 'common/utils';
+import { copy } from '@shopping/common/utils/copy';
+import { cn } from '@shopping/common/utils';
 import { toast } from 'react-toastify';
 
 type Props = {

@@ -16,10 +16,10 @@ import {
     UploadFile,
 } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 import { RcFile } from 'antd/es/upload';
-import { POST_CATEGORY } from 'common/constant';
+import { POST_CATEGORY } from '@shopping/common/constant';
 import { ResponsePostById } from '~/types/post';
 
 type Props = {

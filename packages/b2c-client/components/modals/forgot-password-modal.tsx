@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form, Input } from 'antd';
-import Modal from 'common/components/modal';
+import Modal from '@shopping/common/components/modal';
 import { useMutation } from '@tanstack/react-query';
-import request from 'common/utils/http-request';
+import request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 

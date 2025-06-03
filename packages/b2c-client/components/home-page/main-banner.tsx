@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
-import { QueryResponseType } from 'common/types';
-import { Slider } from 'common/types/slider';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseType } from '@shopping/common/types';
+import { Slider } from '@shopping/common/types/slider';
 import { Spin } from 'antd';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 import { Autoplay, Controller, Navigation, Pagination } from 'swiper/modules';
 import type { Swiper as TypeSwiper } from 'swiper';
-import { ArrowLeftSquare, ArrowRightSquare } from 'common/icons';
+import { ArrowLeftSquare, ArrowRightSquare } from '@shopping/common/icons';
 import { useRouter } from 'next/router';
 
 const MainBanner = () => {

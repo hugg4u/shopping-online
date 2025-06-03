@@ -1,18 +1,21 @@
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { QueryErrorType, QueryResponseGetOneType } from 'common/types';
+import {
+    QueryErrorType,
+    QueryResponseGetOneType,
+} from '@shopping/common/types';
 import { Button, Image, Select, Spin } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import { copy } from 'common/utils/copy';
+import { copy } from '@shopping/common/utils/copy';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { currencyFormatter } from 'common/utils/formatter';
-import { useUserQueryStore } from 'common/store/useUserStore';
-import { ORDER_STATUS } from 'common/constant';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { cn } from 'common/utils';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { useUserQueryStore } from '@shopping/common/store/useUserStore';
+import { ORDER_STATUS } from '@shopping/common/constant';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import { cn } from '@shopping/common/utils';
 import { Order } from '~/types/order';
 import OrderDetailItem from './order-detail-item';
 import AssignSeller from '../assign-seller';

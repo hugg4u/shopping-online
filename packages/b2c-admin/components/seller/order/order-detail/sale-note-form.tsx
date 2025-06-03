@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
-import * as request from 'common/utils/http-request';
-import { QueryResponseGetOneType } from 'common/types';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseGetOneType } from '@shopping/common/types';
 import { toast } from 'react-toastify';
 import { Button, Form, FormProps, Input } from 'antd';
 import { Order } from '~/types/order';

@@ -1,4 +1,4 @@
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 import Image from 'next/image';
 import React, { useState } from 'react';
 

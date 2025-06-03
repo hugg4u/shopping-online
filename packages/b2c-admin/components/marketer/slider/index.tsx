@@ -17,10 +17,10 @@ import {
     Tag,
 } from 'antd';
 import { AxiosError } from 'axios';
-import { PAGE_SIZE } from 'common/constant';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { getSortOrder } from 'common/utils/getSortOrder';
-import * as request from 'common/utils/http-request';
+import { PAGE_SIZE } from '@shopping/common/constant';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
+import * as request from '@shopping/common/utils/http-request';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Header from '~/components/header';

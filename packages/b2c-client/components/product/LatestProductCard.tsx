@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { currencyFormatter } from '~/../common/utils/formatter';
-import { getImageUrl } from '~/../common/utils/getImageUrl';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 
 type LatestProductCardProps = {
     id: string;

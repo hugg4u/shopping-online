@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { currencyFormatter } from 'common/utils/formatter';
-import { cn } from 'common/utils';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { cn } from '@shopping/common/utils';
 import Link from 'next/link';
 import type { Product } from '~/types/product';
 

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Layout, Spin } from 'antd';
 import { CalendarOutlined, TagOutlined, UserOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
-import { get } from 'common/utils/http-request';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { get } from '@shopping/common/utils/http-request';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import Link from 'next/link';
-import { getBlogCategoryName } from 'common/utils/getBlogCategoryName';
+import { getBlogCategoryName } from '@shopping/common/utils/getBlogCategoryName';
 
 import Sidebar from '../../components/blog/Sidebar';
 

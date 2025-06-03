@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useQuery } from '@tanstack/react-query';
-import type { LatestPost } from 'common/types/post';
-import type { QueryResponseType } from 'common/types';
+import type { LatestPost } from '@shopping/common/types/post';
+import type { QueryResponseType } from '@shopping/common/types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import type { Swiper as TypeSwiper } from 'swiper';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 import { Button } from 'antd';
 import Link from 'next/link';
 import PostFeaturedItem from './post-featured-item';

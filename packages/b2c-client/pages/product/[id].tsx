@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
-import { QueryResponseGetOneType } from 'common/types';
-import { Product } from 'common/types/product';
+import { QueryResponseGetOneType } from '@shopping/common/types';
+import { Product } from '@shopping/common/types/product';
 import { Breadcrumb, Spin } from 'antd';
 import Link from 'next/link';
 import ProductDetail from '~/components/product/product-details';

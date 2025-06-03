@@ -1,0 +1,92 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: shopping_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: shopping_online
+      MYSQL_USER: shopping_user
+      MYSQL_PASSWORD: shopping_password
+    ports:
+      - "1111:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - shopping_network
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "shopping_user", "-pshopping_password"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+      start_period: 40s
+
+  server:
+    build:
+      context: .
+      dockerfile: packages/server/Dockerfile
+    container_name: shopping_server
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - DATABASE_URL=mysql://root:root123@mysql:3306/shopping_online
+    ports:
+      - "1113:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./packages/server/public:/app/packages/server/public
+    networks:
+      - shopping_network
+
+  client:
+    build:
+      context: .
+      dockerfile: packages/b2c-client/Dockerfile
+    container_name: shopping_client
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
+    ports:
+      - "1114:3000"
+    networks:
+      - shopping_network
+
+  admin:
+    build:
+      context: .
+      dockerfile: packages/b2c-admin/Dockerfile
+    container_name: shopping_admin
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
+    ports:
+      - "1115:3001"
+    networks:
+      - shopping_network
+
+  adminer:
+    image: adminer
+    container_name: shopping_adminer
+    restart: unless-stopped
+    ports:
+      - "1112:8080"
+    networks:
+      - shopping_network
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+
+networks:
+  shopping_network:
+    driver: bridge 

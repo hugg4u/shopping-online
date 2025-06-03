@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { QueryResponseType } from 'common/types';
-import type { FeedbackType } from 'common/types/feedback';
+import { QueryResponseType } from '@shopping/common/types';
+import type { FeedbackType } from '@shopping/common/types/feedback';
 import { Button, Form, FormProps, Input, Pagination, Rate, Spin } from 'antd';
 import Image from 'next/image';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
-import { PAGE_SIZE } from 'common/constant';
+import { PAGE_SIZE } from '@shopping/common/constant';
 import { SendOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 import useLoginModal from '~/hooks/useLoginModal';

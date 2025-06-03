@@ -10,14 +10,14 @@ import {
     UploadFile,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import request, { get } from 'common/utils/http-request';
+import request, { get } from '@shopping/common/utils/http-request';
 import { useMutation } from '@tanstack/react-query';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
 import { RcFile, UploadProps } from 'antd/es/upload';
 import { toast } from 'react-toastify';
-import Avatar from 'common/components/avatar';
-import { useUserQueryStore } from 'common/store/useUserStore';
+import Avatar from '@shopping/common/components/avatar';
+import { useUserQueryStore } from '@shopping/common/store/useUserStore';
 import EditProfilePopup from './EditProfilePopup';
 import styles from '~/styles/my-page/ProfileForm.module.css';
 

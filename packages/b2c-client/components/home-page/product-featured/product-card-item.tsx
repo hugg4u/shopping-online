@@ -1,9 +1,9 @@
 import React from 'react';
-import type { ProductFeatured } from 'common/types/product';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import type { ProductFeatured } from '@shopping/common/types/product';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import Image from 'next/image';
 import Link from 'next/link';
-import { currencyFormatter } from 'common/utils/formatter';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 
 type Props = {
     data: Partial<ProductFeatured>;

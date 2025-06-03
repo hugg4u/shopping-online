@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { getImageUrl } from '~/../common/utils/getImageUrl';
 import Image from 'next/image';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 
 type Blog = {
     id: string;

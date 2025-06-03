@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { MenuOutlined } from '@ant-design/icons';
+import Avatar from '@shopping/common/components/avatar';
+import { useUserQueryStore } from '@shopping/common/store/useUserStore';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import type { MenuProps } from 'antd';
 import { Dropdown, Skeleton } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { useUserQueryStore } from 'common/store/useUserStore';
-import Avatar from 'common/components/avatar';
-import EditProfilePopup from '../my-page/EditProfilePopup';
+import React, { useState } from 'react';
 import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
+import EditProfilePopup from '../my-page/EditProfilePopup';
 
 type Props = {
     title: string;

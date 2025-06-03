@@ -1,10 +1,7 @@
-import React, { useMemo } from 'react';
-import { Popover } from 'antd';
-import Link from 'next/link';
-import * as request from 'common/utils/http-request';
+import type { QueryResponseType } from '@shopping/common/types';
+import type { Brand } from '@shopping/common/types/product';
+import * as request from '@shopping/common/utils/http-request';
 import { useQuery } from '@tanstack/react-query';
-import type { QueryResponseType } from 'common/types';
-import type { Brand } from 'common/types/product';
 import { SiderItem } from './sider-item';
 
 const BrandPopover = () => {
