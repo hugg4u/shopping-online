@@ -81,7 +81,7 @@ const NaturalBackgroundSection: React.FC = () => {
                                     textShadow: '0 2px 4px rgba(0,0,0,0.8)',
                                 }}
                             >
-                                Soma Tea mang đến những dòng trà thảo mộc thanh
+                                Somma Tea mang đến những dòng trà thảo mộc thanh
                                 nhiệt giải độc, chắt lọc từ nguồn nguyên liệu
                                 tinh túy nhất, giúp cân bằng cơ thể, thư thái
                                 tâm hồn, dẫn lối bạn đến với trải nghiệm trà độc

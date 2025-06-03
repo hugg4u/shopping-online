@@ -55,7 +55,7 @@ const Footer = () => {
                                         color: '#D4A574',
                                     }}
                                 >
-                                    Soma Tea
+                                    Somma Tea
                                 </div>
                                 <div style={{ color: '#C8965F' }}>
                                     Trà Thượng Hạng
@@ -63,7 +63,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <Text style={{ color: '#B8A082', lineHeight: '1.6' }}>
-                            Soma Tea tự hào mang đến những sản phẩm trà cao cấp
+                            Somma Tea tự hào mang đến những sản phẩm trà cao cấp
                             với hương vị đậm đà, thuần khiết từ những vùng đất
                             trồng trà nổi tiếng nhất Việt Nam.
                         </Text>
@@ -115,7 +115,7 @@ const Footer = () => {
                                     }}
                                 />
                                 <Text style={{ color: '#B8A082' }}>
-                                    info@somatea.vn
+                                    info@sommatea.vn
                                 </Text>
                             </div>
                             <div className="flex items-center gap-3">
@@ -204,10 +204,10 @@ const Footer = () => {
                             className="text-center"
                             style={{ color: '#B8A082' }}
                         >
-                            © 2025 Soma Tea. Mọi quyền được bảo lưu.
+                            © 2025 Somma Tea. Mọi quyền được bảo lưu.
                             <br />
                             <span style={{ color: '#D4A574' }}>
-                                Thiết kế bởi Soma Team
+                                Thiết kế bởi Somma Team
                             </span>
                         </Text>
                     </Row>

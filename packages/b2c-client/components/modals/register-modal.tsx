@@ -128,7 +128,7 @@ const RegisterModal = () => {
                     Tạo tài khoản!
                 </div>
                 <div className="mt-2 font-light" style={{ color: '#6B5B4F' }}>
-                    Chào mừng bạn đến với Soma Tea
+                    Chào mừng bạn đến với Somma Tea
                 </div>
             </div>
             <Form

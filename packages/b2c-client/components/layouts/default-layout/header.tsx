@@ -97,13 +97,13 @@ const Header = () => {
                                 className="text-lg font-semibold leading-4"
                                 style={{ color: '#3C2415' }}
                             >
-                                Lá Trà
+                                Somma
                             </div>
                             <div
                                 className="text-2xl font-bold"
                                 style={{ color: '#C8965F' }}
                             >
-                                Ngon
+                                Tea
                             </div>
                         </div>
                     </Link>

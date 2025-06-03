@@ -64,7 +64,7 @@ const Page404: NextPageWithLayout = () => {
                     className="mt-2 text-sm font-medium uppercase tracking-wider"
                     style={{ color: '#C8965F' }}
                 >
-                    Soma Tea
+                    Somma Tea
                 </div>
             </div>
         </div>

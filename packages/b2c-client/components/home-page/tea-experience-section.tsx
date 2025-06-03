@@ -16,7 +16,7 @@ const TeaExperienceSection: React.FC = () => {
             number: '02',
             title: 'GIẢI ĐỘC TỰ NHIÊN',
             description:
-                'Cơ thể không cần phải gồng mình để khỏe. Nó chỉ cần được yêu thương đúng cách. Soma Tea là sự kết hợp của những lá, hoa và rễ – thứ mà thiên nhiên đã tạo ra để nâng đỡ cơ thể người – một cách tự nhiên, hiền hậu và bền bỉ.',
+                'Cơ thể không cần phải gồng mình để khỏe. Nó chỉ cần được yêu thương đúng cách. Somma Tea là sự kết hợp của những lá, hoa và rễ – thứ mà thiên nhiên đã tạo ra để nâng đỡ cơ thể người – một cách tự nhiên, hiền hậu và bền bỉ.',
             image: 'images/tea-experience-2.jpg',
         },
         {

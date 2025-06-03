@@ -89,10 +89,10 @@ const Contact = () => {
                                 <br />
                                 <a
                                     className="font-semibold"
-                                    href="mailto:info@somatea.vn"
+                                    href="mailto:info@sommatea.vn"
                                     style={{ color: '#C8965F' }}
                                 >
-                                    info@somatea.vn
+                                    info@sommatea.vn
                                 </a>
                                 <br />
                                 Phản hồi trong 24h
