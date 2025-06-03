@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const withTM = require('next-transpile-modules')([
-    'common',
-    '@gumlet/react-hls-player',
-]);
+const withTM = require('next-transpile-modules')(['@shopping/common']);
 
 const withAntdLess = require('next-plugin-antd-less');
 
@@ -69,7 +66,7 @@ const nextConfig = withTM(
                 },
             ],
         },
-        reactStrictMode: false,
+        reactStrictMode: true,
         swcMinify: true,
         sassOptions: {
             includePaths: [path.join(__dirname, 'styles')],
