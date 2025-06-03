@@ -73,10 +73,22 @@ const ResetPasswordForm: React.FC = () => {
     };
 
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-gray-100">
+        <div
+            className="flex h-screen w-full items-center justify-center"
+            style={{ backgroundColor: '#FAF6F0' }}
+        >
             {isTokenValid ? (
-                <div className="max-w-lg rounded-lg bg-white p-8 shadow-md">
-                    <h2 className="mb-8 text-center text-3xl font-bold">
+                <div
+                    className="max-w-lg rounded-xl border p-8 shadow-sm"
+                    style={{
+                        backgroundColor: '#F5F1E8',
+                        borderColor: '#E5DDD5',
+                    }}
+                >
+                    <h2
+                        className="mb-8 text-center text-3xl font-bold"
+                        style={{ color: '#3C2415' }}
+                    >
                         Đặt lại mật khẩu
                     </h2>
                     <Form
@@ -88,7 +100,11 @@ const ResetPasswordForm: React.FC = () => {
                         onFinish={onFinish}
                     >
                         <Form.Item
-                            label="Mật khẩu mới"
+                            label={
+                                <span style={{ color: '#3C2415' }}>
+                                    Mật khẩu mới
+                                </span>
+                            }
                             name="password"
                             rules={[
                                 {
@@ -102,12 +118,22 @@ const ResetPasswordForm: React.FC = () => {
                                 },
                             ]}
                         >
-                            <Input.Password size="large" />
+                            <Input.Password
+                                size="large"
+                                style={{
+                                    borderColor: '#E5DDD5',
+                                    backgroundColor: '#FAF6F0',
+                                }}
+                            />
                         </Form.Item>
                         <Form.Item
                             dependencies={['password']}
                             hasFeedback
-                            label="Xác nhận mật khẩu"
+                            label={
+                                <span style={{ color: '#3C2415' }}>
+                                    Xác nhận mật khẩu
+                                </span>
+                            }
                             name="confirmPassword"
                             rules={[
                                 {
@@ -131,7 +157,13 @@ const ResetPasswordForm: React.FC = () => {
                                 }),
                             ]}
                         >
-                            <Input.Password size="large" />
+                            <Input.Password
+                                size="large"
+                                style={{
+                                    borderColor: '#E5DDD5',
+                                    backgroundColor: '#FAF6F0',
+                                }}
+                            />
                         </Form.Item>
                         <Form.Item>
                             <Button
@@ -142,7 +174,7 @@ const ResetPasswordForm: React.FC = () => {
                     </Form>
                 </div>
             ) : (
-                <div className="mb-8 text-lg text-neutral-500">
+                <div className="mb-8 text-lg" style={{ color: '#6B5B4F' }}>
                     Xác nhận đặt lại mật khẩu không hợp lệ. Vui lòng thử lại!
                 </div>
             )}

@@ -1,12 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Router } from 'express';
 import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-const storage = multer.diskStorage({
-    // Adjust storage configuration as needed
-    destination: 'public/images',
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
+// Cấu hình Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Cấu hình storage cho Cloudinary
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'shopping-online',
+        allowed_formats: ['jpg', 'jpeg', 'png'],
+        transformation: [{ width: 1000, height: 1000, crop: 'limit' }],
+    } as any,
 });
 
 const upload = multer({ storage });
@@ -22,9 +34,8 @@ export default (router: Router) => {
             }
 
             const imageUrls = uploadedFiles.map((file) => {
-                // Generate image URLs based on your storage strategy
-                // (e.g., URLs for cloud storage or local paths)
-                return file.filename;
+                // Lấy URL từ Cloudinary
+                return (file as any).path;
             });
 
             res.status(200).json({

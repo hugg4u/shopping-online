@@ -165,7 +165,7 @@ const ProductFormModal: React.FC<Props> = ({
                               uid: '-1',
                               name: productInfo?.data?.thumbnail ?? '',
                               status: 'done',
-                              url: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${productInfo?.data?.thumbnail}`,
+                              url: `${productInfo?.data?.thumbnail}`,
                           },
                       ]
                     : undefined,
@@ -174,7 +174,7 @@ const ProductFormModal: React.FC<Props> = ({
                           uid: item.id ?? '-1',
                           name: item.url ?? '',
                           status: 'done',
-                          url: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item.url}`,
+                          url: `${item.url}`,
                       }))
                     : undefined,
             });
@@ -320,8 +320,10 @@ const ProductFormModal: React.FC<Props> = ({
                 isFeatured,
                 briefInfo,
                 thumbnail: newThumbnail?.[0] ?? '',
-                product_image:
-                    [...filesUploaded, ...newProductImageRequest] ?? [],
+                product_image: [
+                    ...(filesUploaded || []), 
+                    ...(newProductImageRequest || [])
+                ],
             };
 
             updateProductTrigger(submitObj);

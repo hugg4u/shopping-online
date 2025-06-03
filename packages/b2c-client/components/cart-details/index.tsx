@@ -184,10 +184,13 @@ const CartDetails = () => {
 
     if (!auth) {
         return (
-            <Layout>
-                <Content style={{ padding: '0 48px' }}>
-                    <Layout style={{ padding: '24px 0' }}>
-                        <Content>
+            <Layout className="bg-[#f4f1e7]">
+                <Content className="bg-[#f4f1e7]" style={{ padding: '0 48px' }}>
+                    <Layout
+                        className="bg-[#f4f1e7]"
+                        style={{ padding: '24px 0' }}
+                    >
+                        <Content className="bg-[#f4f1e7]">
                             <Row gutter={16}>
                                 <Col span={16}>
                                     {listCartItemsStore?.data?.map((item) => (
@@ -241,7 +244,7 @@ const CartDetails = () => {
                                                                 className="shadow-lg"
                                                                 layout="fill"
                                                                 objectFit="cover"
-                                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item?.thumbnail}`}
+                                                                src={`${item?.thumbnail}`}
                                                             />
                                                         </div>
                                                     </Col>
@@ -525,7 +528,7 @@ const CartDetails = () => {
                                                                 className="shadow-lg"
                                                                 layout="fill"
                                                                 objectFit="cover"
-                                                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item.product?.thumbnail}`}
+                                                                src={`${item.product?.thumbnail}`}
                                                             />
                                                         </div>
                                                     </Col>

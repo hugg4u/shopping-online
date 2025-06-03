@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Natural Tea Theme - Moss Green & Serene */
+:root {
+  /* Primary Colors - Moss Green Palette */
+  --moss-green: #4a5d23;
+  --moss-light: #6b7c32;
+  --moss-dark: #3a4a1c;
+  --sage-green: #87a96b;
+  --forest-green: #2d3e0f;
+  
+  /* Secondary Colors - Natural Earth Tones */
+  --cream: #faf8f3;
+  --warm-white: #f9f7f4;
+  --soft-beige: #f0ede6;
+  --earth-brown: #8b7355;
+  --stone-gray: #a8a5a0;
+  
+  /* Accent Colors */
+  --tea-gold: #d4af37;
+  --natural-green: #7fb069;
+  --muted-green: #b8c5a6;
+}
+
+/* Gentle Animations for Natural Feel */
+@keyframes gentle-sway {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(2px) rotate(1deg);
+  }
+  75% {
+    transform: translateX(-2px) rotate(-1deg);
+  }
+}
+
+@keyframes soft-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes moss-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Base Typography - Natural & Readable */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--moss-dark);
+  background-color: var(--warm-white);
+  line-height: 1.6;
+}
+
+/* Natural Tea Utility Classes */
+.moss-gradient-text {
+  background: linear-gradient(135deg, var(--moss-green), var(--sage-green), var(--natural-green));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: moss-gradient 4s ease infinite;
+}
+
+.gentle-sway {
+  animation: gentle-sway 6s ease-in-out infinite;
+}
+
+.soft-fade-in {
+  animation: soft-fade-in 0.8s ease-out;
+}
+
+/* Natural Card Styles */
+.natural-card {
+  @apply bg-white rounded-2xl shadow-sm border border-stone-200;
+  transition: all 0.3s ease;
+}
+
+.natural-card:hover {
+  @apply shadow-lg;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(74, 93, 35, 0.1);
+}
+
+/* Moss Theme Components */
+.moss-button {
+  @apply bg-gradient-to-r from-moss-green to-moss-light text-white font-medium py-3 px-6 rounded-xl;
+  @apply transition-all duration-300 shadow-md hover:shadow-lg;
+  @apply hover:from-moss-dark hover:to-moss-green;
+}
+
+.moss-button:hover {
+  transform: translateY(-2px);
+}
+
+.moss-badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  @apply bg-sage-green/10 text-moss-green border border-sage-green/20;
+}
+
+.moss-input {
+  @apply border border-stone-300 focus:border-moss-green focus:ring-2 focus:ring-moss-green/20;
+  @apply rounded-lg px-4 py-3 bg-white transition-all duration-200;
+}
+
+/* Natural Backgrounds */
+.moss-bg {
+  background: linear-gradient(135deg, 
+    rgba(74, 93, 35, 0.05) 0%, 
+    rgba(135, 169, 107, 0.03) 50%, 
+    rgba(127, 176, 105, 0.02) 100%);
+}
+
+.natural-texture {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(74, 93, 35, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(135, 169, 107, 0.02) 0%, transparent 50%);
+}
+
+.tea-story-bg {
+  background: linear-gradient(to bottom, 
+    var(--warm-white) 0%, 
+    var(--soft-beige) 50%, 
+    var(--cream) 100%);
+}
+
+/* Typography Classes */
+.heading-primary {
+  @apply text-4xl md:text-5xl font-bold text-moss-dark leading-tight;
+}
+
+.heading-secondary {
+  @apply text-3xl md:text-4xl font-semibold text-moss-green leading-tight;
+}
+
+.heading-tertiary {
+  @apply text-2xl md:text-3xl font-medium text-moss-green;
+}
+
+.text-natural {
+  @apply text-stone-700 leading-relaxed;
+}
+
+.text-muted {
+  @apply text-stone-600;
+}
+
+.text-accent {
+  @apply text-moss-green font-medium;
+}
+
+/* Section Spacing */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.container-natural {
+  @apply container mx-auto px-6 md:px-8;
+}
+
+/* Natural Shadows */
+.shadow-natural {
+  box-shadow: 0 4px 20px rgba(74, 93, 35, 0.08);
+}
+
+.shadow-natural-lg {
+  box-shadow: 0 8px 32px rgba(74, 93, 35, 0.12);
+}
+
+/* Story Section Styles */
+.story-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.story-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a5d23' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Product Grid */
+.product-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .natural-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .moss-button:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--soft-beige);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sage-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--moss-green);
+}
+
+/* Focus States */
+.moss-focus {
+  @apply focus:outline-none focus:ring-2 focus:ring-moss-green/30 focus:border-moss-green;
+}
+
+/* Utility Classes */
+.moss-green { color: var(--moss-green); }
+.moss-light { color: var(--moss-light); }
+.moss-dark { color: var(--moss-dark); }
+.sage-green { color: var(--sage-green); }
+.natural-green { color: var(--natural-green); }
+
+.bg-moss-green { background-color: var(--moss-green); }
+.bg-moss-light { background-color: var(--moss-light); }
+.bg-sage-green { background-color: var(--sage-green); }
+.bg-cream { background-color: var(--cream); }
+.bg-warm-white { background-color: var(--warm-white); } 

@@ -20,7 +20,7 @@ const Avatar: React.FC<Props> = ({ width, height, src, className }) => {
             onError={() => {
                 setFallback('/images/placeholder.jpg');
             }}
-            src={fallback ?? src}
+            src={src ?? fallback}
             style={{
                 width,
                 height,

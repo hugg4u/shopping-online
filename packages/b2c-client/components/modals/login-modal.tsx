@@ -113,10 +113,13 @@ const LoginModal = () => {
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <div className="text-center">
-                <div className="text-2xl font-bold">
+                <div
+                    className="text-2xl font-bold"
+                    style={{ color: '#3C2415' }}
+                >
                     Đăng nhập với tài khoản của bạn!
                 </div>
-                <div className="mt-2 font-light text-neutral-500">
+                <div className="mt-2 font-light" style={{ color: '#6B5B4F' }}>
                     Chào mừng quay trở lại
                 </div>
             </div>
@@ -128,7 +131,7 @@ const LoginModal = () => {
                 onFinish={onFinish}
             >
                 <Form.Item
-                    label="Email"
+                    label={<span style={{ color: '#3C2415' }}>Email</span>}
                     name="email"
                     rules={[
                         {
@@ -137,10 +140,16 @@ const LoginModal = () => {
                         },
                     ]}
                 >
-                    <Input size="large" />
+                    <Input
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
-                    label="Mật khẩu"
+                    label={<span style={{ color: '#3C2415' }}>Mật khẩu</span>}
                     name="password"
                     rules={[
                         {
@@ -149,7 +158,13 @@ const LoginModal = () => {
                         },
                     ]}
                 >
-                    <Input.Password size="large" />
+                    <Input.Password
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
 
                 <Form.Item hidden>
@@ -163,9 +178,12 @@ const LoginModal = () => {
                         <>
                             <span>
                                 <button
-                                    className="focus:shadow-outline rounded font-bold text-blue-500 hover:text-blue-700 focus:outline-none"
+                                    className="focus:shadow-outline rounded font-bold focus:outline-none"
                                     disabled={secondsToGo > 0}
                                     onClick={sendMail}
+                                    style={{
+                                        color: '#C8965F',
+                                    }}
                                     type="button"
                                 >
                                     Ấn vào đây
@@ -180,21 +198,29 @@ const LoginModal = () => {
                         </>
                     }
                     message="Tài khoản của bạn chưa được xác thực."
+                    style={{
+                        backgroundColor: '#FAF6F0',
+                        borderColor: '#C8965F',
+                    }}
                     type="info"
                 />
             )}
 
             {secondsToGo > 0 && (
-                <Paragraph className="flex space-x-2 ">
+                <Paragraph className="flex space-x-2">
                     <Spin />
                     <div className="flex space-x-1">
-                        <span>Gửi email xác thực sau</span>
-                        <Text type="danger">
+                        <span style={{ color: '#6B5B4F' }}>
+                            Gửi email xác thực sau
+                        </span>
+                        <Text style={{ color: '#C8965F' }}>
                             {Math.floor(secondsToGo / 60)}
-                        </Text>{' '}
-                        <span>phút</span>
-                        <Text type="danger">{secondsToGo % 60}</Text>{' '}
-                        <span>giây</span>
+                        </Text>
+                        <span style={{ color: '#6B5B4F' }}>phút</span>
+                        <Text style={{ color: '#C8965F' }}>
+                            {secondsToGo % 60}
+                        </Text>
+                        <span style={{ color: '#6B5B4F' }}>giây</span>
                     </div>
                 </Paragraph>
             )}
@@ -203,19 +229,31 @@ const LoginModal = () => {
 
     const footerContent = (
         <div className="mt-3 flex flex-col gap-4">
-            <hr />
-            <div className="mt-4 text-center font-light text-neutral-500">
+            <hr style={{ borderColor: '#E5DDD5' }} />
+            <div
+                className="mt-4 text-center font-light"
+                style={{ color: '#6B5B4F' }}
+            >
                 <div className="flex flex-col items-center justify-center gap-2">
                     <div>
                         <ForgotPasswordModal />
                     </div>
                     <div>Lần đầu bạn mua hàng với chúng tôi?</div>
                     <div
-                        className="cursor-pointer text-neutral-800 hover:underline"
+                        className="cursor-pointer hover:underline"
                         onClick={toggle}
                         role="presentation"
+                        style={{ color: '#3C2415' }}
                     >
-                        <Button type="link">Tạo tài khoản</Button>
+                        <Button
+                            style={{
+                                color: '#C8965F',
+                                borderColor: 'transparent',
+                            }}
+                            type="link"
+                        >
+                            Tạo tài khoản
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -231,7 +269,7 @@ const LoginModal = () => {
             isOpen={isOpen}
             onClose={onClose}
             onSubmit={onSubmit}
-            title="Đăng nhâp"
+            title="Đăng nhập"
         />
     );
 };

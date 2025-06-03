@@ -1,117 +1,256 @@
 import React from 'react';
-import { Button, Col, Form, Input, Layout, Row, Typography } from 'antd';
+import { Button, Col, Form, Input, Row, Typography } from 'antd';
 import {
+    ClockCircleOutlined,
     EnvironmentOutlined,
     MailOutlined,
     PhoneOutlined,
 } from '@ant-design/icons';
-import styles from '../styles/Contact.module.css';
 
 const { Title, Text } = Typography;
 
 const Contact = () => {
     return (
-        <Layout.Content className={styles.container}>
-            <Title className={styles.title}>Liên hệ với chúng tôi</Title>
+        <div
+            className="min-h-screen py-16"
+            style={{ backgroundColor: '#FAF6F0' }}
+        >
+            <div className="mx-auto max-w-[1200px] px-4">
+                <div
+                    className="rounded-2xl p-12 shadow-sm"
+                    style={{
+                        backgroundColor: '#F5F1E8',
+                        border: '1px solid #E5DDD5',
+                    }}
+                >
+                    <Title
+                        className="mb-12 text-center text-4xl font-bold md:text-5xl"
+                        style={{
+                            color: '#3C2415',
+                            letterSpacing: '0.05em',
+                        }}
+                    >
+                        Liên hệ với chúng tôi
+                    </Title>
 
-            <Row className={styles.infoRow} gutter={[24, 24]}>
-                <Col className={styles.infoCol} md={8} sm={12} xs={24}>
-                    <PhoneOutlined className={styles.icon} />
-                    <Title className={styles.methodTitle} level={4}>
-                        Hotline
-                    </Title>
-                    <Text className={styles.text}>
-                        Gọi đến hotline chăm sóc khách hàng của chúng tôi tại
-                        (123) 456-7890 (9h sáng – 9h tối) 7 ngày trong tuần nếu
-                        bạn cần bất kỳ thông tin hoặc hỗ trợ nào từ The Perfume.
-                    </Text>
-                </Col>
-                <Col className={styles.infoCol} md={8} sm={12} xs={24}>
-                    <MailOutlined className={styles.icon} />
-                    <Title className={styles.methodTitle} level={4}>
-                        Email
-                    </Title>
-                    <Text className={styles.text}>
-                        Gửi email đến{' '}
-                        <a href="mailto:perfumeshop1830@gmail.com">
-                            perfumeshop1830@gmail.com
-                        </a>{' '}
-                        để nhận được hỗ trợ từ The Perfume (phản hồi trong vòng
-                        24 giờ).
-                    </Text>
-                </Col>
-                <Col className={styles.infoCol} md={8} sm={12} xs={24}>
-                    <EnvironmentOutlined className={styles.icon} />
-                    <Title className={styles.methodTitle} level={4}>
-                        Địa chỉ cửa hàng
-                    </Title>
-                    <Text className={styles.text}>
-                        Showroom 1: 123 Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh
-                        <br />
-                        Showroom 2: 456 Đường Trần Hưng Đạo, Quận 5, TP. Hồ Chí
-                        Minh
-                        <br />
-                        Showroom 3: 789 Đường Nguyễn Văn Linh, Quận 7, TP. Hồ
-                        Chí Minh
-                    </Text>
-                </Col>
-            </Row>
-
-            <Row className={styles.formRow}>
-                <Col md={16} sm={24} xs={24}>
-                    <Title className={styles.formTitle} level={3}>
-                        Gửi tin nhắn cho chúng tôi
-                    </Title>
-                    <Form className={styles.form}>
-                        <Form.Item
-                            name="name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Vui lòng nhập tên của bạn!',
-                                },
-                            ]}
+                    <Row className="mb-20" gutter={[32, 32]}>
+                        <Col
+                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
+                            md={6}
+                            sm={12}
+                            style={{ backgroundColor: '#FAF6F0' }}
+                            xs={24}
                         >
-                            <Input placeholder="Tên của bạn" />
-                        </Form.Item>
-                        <Form.Item
-                            name="email"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Vui lòng nhập email của bạn!',
-                                },
-                            ]}
-                        >
-                            <Input placeholder="Email của bạn" />
-                        </Form.Item>
-                        <Form.Item
-                            name="message"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Vui lòng nhập tin nhắn của bạn!',
-                                },
-                            ]}
-                        >
-                            <Input.TextArea
-                                placeholder="Tin nhắn của bạn"
-                                rows={4}
+                            <PhoneOutlined
+                                className="mb-6 text-5xl"
+                                style={{ color: '#C8965F' }}
                             />
-                        </Form.Item>
-                        <Form.Item>
-                            <Button
-                                className={styles.submitButton}
-                                htmlType="submit"
-                                type="primary"
+                            <Title
+                                className="mb-3"
+                                level={4}
+                                style={{ color: '#3C2415' }}
                             >
-                                Gửi tin nhắn
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Col>
-            </Row>
-        </Layout.Content>
+                                Hotline
+                            </Title>
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
+                                Gọi đến hotline chăm sóc khách hàng
+                                <br />
+                                <span
+                                    className="font-semibold"
+                                    style={{ color: '#C8965F' }}
+                                >
+                                    1900-1234 (miễn phí)
+                                </span>
+                                <br />
+                                Phục vụ 24/7
+                            </Text>
+                        </Col>
+
+                        <Col
+                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
+                            md={6}
+                            sm={12}
+                            style={{ backgroundColor: '#FAF6F0' }}
+                            xs={24}
+                        >
+                            <MailOutlined
+                                className="mb-6 text-5xl"
+                                style={{ color: '#C8965F' }}
+                            />
+                            <Title
+                                className="mb-3"
+                                level={4}
+                                style={{ color: '#3C2415' }}
+                            >
+                                Email
+                            </Title>
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
+                                Gửi email đến
+                                <br />
+                                <a
+                                    className="font-semibold"
+                                    href="mailto:info@somatea.vn"
+                                    style={{ color: '#C8965F' }}
+                                >
+                                    info@somatea.vn
+                                </a>
+                                <br />
+                                Phản hồi trong 24h
+                            </Text>
+                        </Col>
+
+                        <Col
+                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
+                            md={6}
+                            sm={12}
+                            style={{ backgroundColor: '#FAF6F0' }}
+                            xs={24}
+                        >
+                            <EnvironmentOutlined
+                                className="mb-6 text-5xl"
+                                style={{ color: '#C8965F' }}
+                            />
+                            <Title
+                                className="mb-3"
+                                level={4}
+                                style={{ color: '#3C2415' }}
+                            >
+                                Địa chỉ
+                            </Title>
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
+                                123 Đường Trà, Quận 1
+                                <br />
+                                TP. Hồ Chí Minh
+                                <br />
+                                Việt Nam
+                            </Text>
+                        </Col>
+
+                        <Col
+                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
+                            md={6}
+                            sm={12}
+                            style={{ backgroundColor: '#FAF6F0' }}
+                            xs={24}
+                        >
+                            <ClockCircleOutlined
+                                className="mb-6 text-5xl"
+                                style={{ color: '#C8965F' }}
+                            />
+                            <Title
+                                className="mb-3"
+                                level={4}
+                                style={{ color: '#3C2415' }}
+                            >
+                                Giờ làm việc
+                            </Title>
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
+                                Thứ 2 - Chủ nhật
+                                <br />
+                                <span
+                                    className="font-semibold"
+                                    style={{ color: '#C8965F' }}
+                                >
+                                    8:00 - 22:00
+                                </span>
+                                <br />
+                                Tất cả các ngày
+                            </Text>
+                        </Col>
+                    </Row>
+
+                    <Row className="flex justify-center">
+                        <Col md={18} sm={24} xs={24}>
+                            <Title
+                                className="mb-8 text-center text-3xl font-bold"
+                                level={3}
+                                style={{ color: '#3C2415' }}
+                            >
+                                Gửi tin nhắn cho chúng tôi
+                            </Title>
+                            <Form
+                                className="rounded-xl border p-8"
+                                style={{
+                                    backgroundColor: '#FAF6F0',
+                                    borderColor: '#E5DDD5',
+                                }}
+                            >
+                                <Form.Item
+                                    name="name"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                'Vui lòng nhập tên của bạn!',
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        className="h-12 rounded-lg border text-base"
+                                        placeholder="Tên của bạn"
+                                        style={{
+                                            borderColor: '#E5DDD5',
+                                            backgroundColor: '#F5F1E8',
+                                        }}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="email"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                'Vui lòng nhập email của bạn!',
+                                        },
+                                    ]}
+                                >
+                                    <Input
+                                        className="h-12 rounded-lg border text-base"
+                                        placeholder="Email của bạn"
+                                        style={{
+                                            borderColor: '#E5DDD5',
+                                            backgroundColor: '#F5F1E8',
+                                        }}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    name="message"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message:
+                                                'Vui lòng nhập tin nhắn của bạn!',
+                                        },
+                                    ]}
+                                >
+                                    <Input.TextArea
+                                        className="rounded-lg border text-base"
+                                        placeholder="Tin nhắn của bạn"
+                                        rows={6}
+                                        style={{
+                                            borderColor: '#E5DDD5',
+                                            backgroundColor: '#F5F1E8',
+                                        }}
+                                    />
+                                </Form.Item>
+                                <Form.Item>
+                                    <Button
+                                        className="h-12 w-full rounded-lg border-none text-lg font-bold text-white"
+                                        htmlType="submit"
+                                        style={{
+                                            backgroundColor: '#C8965F',
+                                        }}
+                                        type="primary"
+                                    >
+                                        Gửi tin nhắn
+                                    </Button>
+                                </Form.Item>
+                            </Form>
+                        </Col>
+                    </Row>
+                </div>
+            </div>
+        </div>
     );
 };
 

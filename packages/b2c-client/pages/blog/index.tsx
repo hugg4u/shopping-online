@@ -7,7 +7,6 @@ import { PAGE_SIZE_CLIENT_BLOG } from 'common/constant';
 import Sidebar from '../../components/blog/Sidebar';
 import HeaderBar from '../../components/blog/HeaderBar';
 import BlogContent from '../../components/blog/BlogContent';
-import styles from '~/styles/blog/Blogs.module.css';
 
 const { Content } = Layout;
 
@@ -112,73 +111,77 @@ const ListBlogPage: NextPage = () => {
     };
 
     return (
-        <Spin spinning={isLoading}>
-            <Layout className={styles.container}>
-                <Sidebar
-                    currentCategory={routerQuery.category as string}
-                    handleResetFilters={handleResetFilters}
-                    handleSearch={handleSearch}
-                    setCategory={(cat) => {
-                        handleSearch(
-                            1,
-                            routerQuery.sort as string,
-                            routerQuery.sortOrder as string,
-                            cat,
-                            routerQuery.search as string
-                        );
-                    }}
-                />
-                <Layout className={styles.mainLayout}>
-                    <HeaderBar
-                        currentSort={routerQuery.sort as string}
-                        currentSortOrder={routerQuery.sortOrder as string}
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+            <Spin spinning={isLoading}>
+                <Layout className="mx-[80px] flex gap-8 overflow-hidden rounded-lg bg-transparent shadow-lg">
+                    <Sidebar
+                        currentCategory={routerQuery.category as string}
+                        handleResetFilters={handleResetFilters}
                         handleSearch={handleSearch}
-                        setSort={(newSort) => {
-                            handleSearch(
-                                1,
-                                newSort,
-                                routerQuery.sortOrder as string,
-                                routerQuery.category as string,
-                                routerQuery.search as string
-                            );
-                        }}
-                        setSortOrder={(newSortOrder) => {
+                        setCategory={(cat) => {
                             handleSearch(
                                 1,
                                 routerQuery.sort as string,
-                                newSortOrder,
-                                routerQuery.category as string,
+                                routerQuery.sortOrder as string,
+                                cat,
                                 routerQuery.search as string
                             );
                         }}
                     />
-                    <div className="rounded-lg border px-10">
-                        <h1 className={styles.blogTitle}>Danh sách blog</h1>
-                        <Content className={styles.content}>
-                            <BlogContent
-                                blogs={blogs}
-                                currentPage={Number(routerQuery.page) || 1}
-                                onPageChange={(page, newPageSize) =>
-                                    handleSearch(
-                                        page,
-                                        routerQuery.sort as string,
-                                        routerQuery.sortOrder as string,
-                                        routerQuery.category as string,
-                                        routerQuery.search as string,
-                                        newPageSize
-                                    )
-                                }
-                                pageSize={
-                                    Number(routerQuery.pageSize) ||
-                                    PAGE_SIZE_CLIENT_BLOG
-                                }
-                                total={totalBlogs}
-                            />
-                        </Content>
-                    </div>
+                    <Layout className="flex-1 rounded-r-lg bg-white">
+                        <HeaderBar
+                            currentSort={routerQuery.sort as string}
+                            currentSortOrder={routerQuery.sortOrder as string}
+                            handleSearch={handleSearch}
+                            setSort={(newSort) => {
+                                handleSearch(
+                                    1,
+                                    newSort,
+                                    routerQuery.sortOrder as string,
+                                    routerQuery.category as string,
+                                    routerQuery.search as string
+                                );
+                            }}
+                            setSortOrder={(newSortOrder) => {
+                                handleSearch(
+                                    1,
+                                    routerQuery.sort as string,
+                                    newSortOrder,
+                                    routerQuery.category as string,
+                                    routerQuery.search as string
+                                );
+                            }}
+                        />
+                        <div className="rounded-lg border border-gray-100 px-10 py-6">
+                            <h1 className="mb-6 bg-gradient-to-r from-amber-500 to-amber-700 bg-clip-text text-center text-3xl font-bold text-transparent">
+                                Danh sách blog
+                            </h1>
+                            <Content className="min-h-[280px] bg-white">
+                                <BlogContent
+                                    blogs={blogs}
+                                    currentPage={Number(routerQuery.page) || 1}
+                                    onPageChange={(page, newPageSize) =>
+                                        handleSearch(
+                                            page,
+                                            routerQuery.sort as string,
+                                            routerQuery.sortOrder as string,
+                                            routerQuery.category as string,
+                                            routerQuery.search as string,
+                                            newPageSize
+                                        )
+                                    }
+                                    pageSize={
+                                        Number(routerQuery.pageSize) ||
+                                        PAGE_SIZE_CLIENT_BLOG
+                                    }
+                                    total={totalBlogs}
+                                />
+                            </Content>
+                        </div>
+                    </Layout>
                 </Layout>
-            </Layout>
-        </Spin>
+            </Spin>
+        </div>
     );
 };
 

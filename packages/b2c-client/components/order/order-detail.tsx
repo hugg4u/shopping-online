@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 
 import { copy } from 'common/utils/copy';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 import DeleteOrderAlert from './delete-order-alert';
 import EditOrderModal from './edit-order-modal';
 import FeedBackModal from '../modals/feedback-modal';
@@ -87,7 +88,7 @@ const OrderDetail = () => {
                                 </span>
                             </div>
                         </div>
-                        <div className=" flex items-center justify-between bg-rose-50 p-4">
+                        <div className=" flex items-center justify-between bg-amber-50 p-4">
                             <div>
                                 <span>
                                     Ngày đặt hàng:
@@ -99,10 +100,21 @@ const OrderDetail = () => {
                                 </span>
                             </div>
                             <div className="flex flex-col gap-2">
-                                {(orderDetail?.status === 'PENDING' ||
-                                    orderDetail?.status === 'PAYMENT_PENDING' ||
-                                    orderDetail?.status === 'PAID') && (
-                                    <div>
+                                {orderDetail?.status === 'PAYMENT_PENDING' && (
+                                    <div className="flex space-x-2">
+                                        {orderDetail?.status ===
+                                            'PAYMENT_PENDING' && (
+                                            <Link
+                                                href={`/cart-completion?orderId=${orderDetail?.id}`}
+                                            >
+                                                <Button
+                                                    color="primary"
+                                                    type="primary"
+                                                >
+                                                    Thanh toán đơn hàng
+                                                </Button>
+                                            </Link>
+                                        )}
                                         {orderDetail &&
                                             orderDetail.orderDetail && (
                                                 <DeleteOrderAlert
@@ -122,7 +134,7 @@ const OrderDetail = () => {
                                                             ) as string[]
                                                     }
                                                     reload={() => {}}
-                                                    width={200}
+                                                    width={150}
                                                 />
                                             )}
                                     </div>
@@ -173,9 +185,8 @@ const OrderDetail = () => {
                                     </p>
                                 </div>
                                 <div>
-                                    {(orderDetail?.status === 'PENDING' ||
-                                        orderDetail?.status ===
-                                            'PAYMENT_PENDING' ||
+                                    {(orderDetail?.status ===
+                                        'PAYMENT_PENDING' ||
                                         orderDetail?.status === 'PAID') && (
                                         <EditOrderModal
                                             address={orderDetail?.address ?? ''}

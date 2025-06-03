@@ -29,7 +29,7 @@ const InfoItem: React.FC<InfoItemProps> = ({
                                 alt=""
                                 className="rounded-md border object-cover"
                                 height={120}
-                                src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item?.url}`}
+                                src={`${item?.url}`}
                                 width={120}
                             />
                         ))}

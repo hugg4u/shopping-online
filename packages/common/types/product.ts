@@ -6,6 +6,7 @@ export type ProductFeatured = {
     briefInfo: string | null;
     original_price: number | null;
     discount_price: number | null;
+    quantity: number | null;
 };
 
 export type Brand = {

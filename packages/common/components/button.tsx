@@ -23,7 +23,7 @@ const Button: React.FC<Props> = ({
                 'relative w-full rounded-lg transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70',
                 outline
                     ? 'border-black bg-white text-black'
-                    : 'border-rose-500 bg-rose-500 text-white',
+                    : 'border-amber-600 bg-amber-600 text-white',
                 small
                     ? 'border-[1px] py-1 text-sm font-light'
                     : 'border-2 py-3 font-semibold'

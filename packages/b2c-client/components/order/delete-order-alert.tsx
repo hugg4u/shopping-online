@@ -43,7 +43,7 @@ const DeleteOrderAlert: React.FC<Props> = ({
                     e.stopPropagation();
                     setIsOpenModal(true);
                 }}
-                size="large"
+                size="middle"
                 style={{ width: `${width}px` }}
                 type="default"
             >
@@ -61,7 +61,7 @@ const DeleteOrderAlert: React.FC<Props> = ({
                 width={600}
             >
                 <div className="text-center">
-                    <div className="py-5 text-xl font-semibold text-rose-600">
+                    <div className="py-5 text-xl font-semibold text-amber-600">
                         Bạn có chắc chắn muốn huỷ đơn hàng?
                     </div>
                     <div>

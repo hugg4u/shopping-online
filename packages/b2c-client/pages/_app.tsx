@@ -80,22 +80,22 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             theme={{
                 components: {
                     Button: {
-                        colorPrimary: '#F43F5E',
+                        colorPrimary: '#D4A574',
                         algorithm: true,
                     },
                     Spin: {
-                        colorPrimary: '#F43F5E',
+                        colorPrimary: '#D4A574',
                     },
                     Pagination: {
-                        colorPrimary: '#F43F5E',
+                        colorPrimary: '#D4A574',
                         algorithm: true,
                     },
                     Radio: {
-                        colorPrimary: '#F43F5E',
+                        colorPrimary: '#D4A574',
                         algorithm: true,
                     },
                     Tabs: {
-                        colorPrimary: '#F43F5E',
+                        colorPrimary: '#D4A574',
                         algorithm: true,
                     },
                 },

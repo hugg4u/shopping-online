@@ -4,16 +4,16 @@ import Sidebar from '~/components/my-page/Sidebar';
 import ProfileForm from '~/components/my-page/ProfileForm';
 import MyOrder from './my-order/index';
 
-const { Sider, Content } = Layout;
+const { Content } = Layout;
 
 const MyPage = () => {
-    const [currentPage, setCurrentPage] = useState('1');
+    const [currentPage, setCurrentPage] = useState('profile');
 
     const renderContent = () => {
         switch (currentPage) {
-            case '1':
+            case 'profile':
                 return <ProfileForm />;
-            case '3':
+            case 'orders':
                 return <MyOrder />;
             default:
                 return <ProfileForm />;
@@ -21,16 +21,27 @@ const MyPage = () => {
     };
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <Sider className="site-layout-background" width={300}>
-                <Sidebar onMenuClick={setCurrentPage} />
-            </Sider>
-            <Layout style={{ padding: '24px' }}>
-                <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
-                    {renderContent()}
-                </Content>
+        <div className="min-h-screen" style={{ backgroundColor: '#FAF6F0' }}>
+            <Layout className="mx-auto max-w-7xl bg-transparent">
+                <div className="flex gap-8 p-8">
+                    <Sidebar
+                        onMenuClick={setCurrentPage}
+                        selectedKey={currentPage}
+                    />
+                    <div className="flex-1">
+                        <Content
+                            className="rounded-xl border p-6 shadow-sm"
+                            style={{
+                                backgroundColor: '#F5F1E8',
+                                borderColor: '#E5DDD5',
+                            }}
+                        >
+                            {renderContent()}
+                        </Content>
+                    </div>
+                </div>
             </Layout>
-        </Layout>
+        </div>
     );
 };
 

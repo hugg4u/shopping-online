@@ -47,7 +47,10 @@ const ForgotPasswordModal: React.FC = () => {
         <div className="flex flex-col gap-4">
             <div className="text-center">
                 {/* <div className="text-2xl font-bold">Login to your account!</div> */}
-                <div className="mt-2 font-light text-neutral-500">
+                <div
+                    className="mt-2 font-light text-neutral-500"
+                    style={{ color: '#6B5B4F' }}
+                >
                     Nhập email của bạn và chúng tôi sẽ gửi cho bạn email xác
                     nhận thay đổi mật khẩu.
                 </div>
@@ -60,19 +63,29 @@ const ForgotPasswordModal: React.FC = () => {
                 onFinish={onFinish}
             >
                 <Form.Item
-                    label="Email"
+                    label={<span style={{ color: '#3C2415' }}>Email</span>}
                     name="email"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your email!',
+                            message: 'Vui lòng nhập email',
+                        },
+                        {
+                            type: 'email',
+                            message: 'Email không hợp lệ',
                         },
                     ]}
                 >
-                    <Input size="large" />
+                    <Input
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item hidden>
-                    <Button htmlType="submit" />
+                    <Button htmlType="submit" style={{ color: '#C8965F' }} />
                 </Form.Item>
             </Form>
         </div>
@@ -93,11 +106,15 @@ const ForgotPasswordModal: React.FC = () => {
 
     return (
         <>
-            <Button onClick={showModal} type="link">
+            <Button
+                className=":hover:text-amber-700 cursor-pointer text-amber-600"
+                onClick={showModal}
+                type="link"
+            >
                 Quên mật khẩu?
             </Button>
             <Modal
-                actionLabel="Gửi thư xác nhận"
+                actionLabel="Gửi email"
                 body={bodyContent}
                 disabled={loading || verifyEmailIsPending}
                 footer={footerContent}

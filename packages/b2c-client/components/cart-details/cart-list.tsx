@@ -64,7 +64,7 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({
                                     className="shadow-lg"
                                     layout="fill"
                                     objectFit="cover"
-                                    src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${data?.data?.thumbnail}`}
+                                    src={`${data?.data?.thumbnail}`}
                                 />
                             </div>
                         </Col>

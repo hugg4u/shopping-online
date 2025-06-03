@@ -466,12 +466,12 @@ const CartContact = () => {
                                                             hàng(COD)
                                                         </div>
                                                     </Radio>
-                                                    {/* <Radio value="BANK_TRANSFER">
+                                                    <Radio value="BANK_TRANSFER">
                                                         <div className="font-semibold">
-                                                            Thanh toán qua
-                                                            ZaloPay
+                                                            Thanh toán với QR
+                                                            code
                                                         </div>
-                                                    </Radio> */}
+                                                    </Radio>
                                                 </Space>
                                             </Radio.Group>
                                         </Card>
@@ -699,11 +699,11 @@ const CartContact = () => {
                                                         hàng(COD)
                                                     </div>
                                                 </Radio>
-                                                {/* <Radio value="BANK_TRANSFER">
+                                                <Radio value="BANK_TRANSFER">
                                                     <div className="font-semibold">
-                                                        Thanh toán qua ZaloPay
+                                                        Thanh toán với QR code
                                                     </div>
-                                                </Radio> */}
+                                                </Radio>
                                             </Space>
                                         </Radio.Group>
                                     </Card>
@@ -736,7 +736,7 @@ const CartContact = () => {
                                                                         className="shadow-lg"
                                                                         layout="fill"
                                                                         objectFit="cover"
-                                                                        src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${item.product?.thumbnail}`}
+                                                                        src={`${item.product?.thumbnail}`}
                                                                     />
                                                                 </div>
                                                             </Col>

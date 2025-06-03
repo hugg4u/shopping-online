@@ -62,9 +62,9 @@ const DeleteCategoryAlert: React.FC<Props> = ({
                 title="Delete category"
             >
                 <div className="flex flex-col items-center gap-y-2">
-                    <p className="text-base text-rose-400">
+                    <p className="text-base text-amber-500">
                         <span>Do you want delete category </span>
-                        <span className="font-semibold text-rose-700">
+                        <span className="font-semibold text-amber-700">
                             {name}
                         </span>
                         ?
