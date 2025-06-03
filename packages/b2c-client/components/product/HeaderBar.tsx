@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, Layout, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import styles from '../../styles/HeaderBar.module.css';
 
 const { Header } = Layout;
 
@@ -61,18 +60,36 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     };
 
     return (
-        <Header className={styles.header}>
-            <div className={styles.sortSection}>
-                <span className={styles.sortText}>Sắp xếp theo</span>
+        <Header
+            className="flex h-16 items-center justify-between border-b px-6 shadow-sm"
+            style={{
+                backgroundColor: '#FAF6F0',
+                borderBottomColor: '#E5DDD5',
+            }}
+        >
+            <div className="flex flex-grow items-center">
+                <span
+                    className="mr-6 text-base font-semibold"
+                    style={{ color: '#3C2415' }}
+                >
+                    Sắp xếp theo
+                </span>
                 <Menu
-                    className={styles.menu}
+                    className="flex flex-grow items-center border-b-0 bg-transparent"
                     mode="horizontal"
                     overflowedIndicator={null}
                 >
                     <Menu.Item
-                        className={`${styles.menuItem} ${selectedItems.includes('2') ? styles.active : ''}`}
-                        key="2"
+                        className="rounded-md font-medium transition-all duration-300"
                         onClick={() => handleSortChange('updatedAt', 'desc')}
+                        style={{
+                            color: selectedItems.includes('2')
+                                ? '#C8965F'
+                                : '#6B5B4F',
+                            backgroundColor: selectedItems.includes('2')
+                                ? '#FAF6F0'
+                                : 'transparent',
+                        }}
                     >
                         Mới Nhất
                     </Menu.Item>
@@ -80,6 +97,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                     <Dropdown
                         overlay={
                             <Menu
+                                className="rounded-lg shadow-lg"
                                 onClick={(e) => {
                                     const sortOrder = e.key as string;
                                     handleSortChange(
@@ -87,18 +105,39 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                                         sortOrder
                                     );
                                 }}
+                                style={{ backgroundColor: '#F5F1E8' }}
                             >
-                                <Menu.Item key="asc">
+                                <Menu.Item
+                                    className="transition-colors"
+                                    key="asc"
+                                    style={{
+                                        color: '#3C2415',
+                                    }}
+                                >
                                     Giá thấp đến cao
                                 </Menu.Item>
-                                <Menu.Item key="desc">
+                                <Menu.Item
+                                    className="transition-colors"
+                                    key="desc"
+                                    style={{
+                                        color: '#3C2415',
+                                    }}
+                                >
                                     Giá cao đến thấp
                                 </Menu.Item>
                             </Menu>
                         }
                         trigger={['click']}
                     >
-                        <Menu.Item className={styles.menuItem} key="4">
+                        <Menu.Item
+                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none px-4 leading-10 shadow-sm transition-all duration-300"
+                            key="4"
+                            style={{
+                                backgroundColor: '#F5F1E8',
+                                color: '#6B5B4F',
+                                border: '1px solid #E5DDD5',
+                            }}
+                        >
                             Giá <DownOutlined />
                         </Menu.Item>
                     </Dropdown>

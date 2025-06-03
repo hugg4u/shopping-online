@@ -1,15 +1,14 @@
 /* eslint-disable react/no-danger */
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Layout, Spin } from 'antd';
+import { CalendarOutlined, TagOutlined, UserOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { get } from 'common/utils/http-request';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import Link from 'next/link';
 import { getBlogCategoryName } from 'common/utils/getBlogCategoryName';
-import Image from 'next/image';
-import { cn } from 'common/utils';
+
 import Sidebar from '../../components/blog/Sidebar';
-import styles from '~/styles/blog/BlogDetail.module.css';
 
 const { Content } = Layout;
 
@@ -51,10 +50,10 @@ const BlogDetailPage: React.FC = () => {
     }
 
     return (
-        <Layout className={styles.container}>
+        <Layout className="mx-[80px] flex gap-8 overflow-hidden rounded-lg bg-transparent shadow-lg">
             <Sidebar isDetailPage />
-            <Layout className={styles.mainLayout}>
-                <Content className={styles.content}>
+            <Layout className="flex-1 rounded-r-lg bg-white">
+                <Content className="min-h-[280px] bg-white p-8">
                     <Breadcrumb>
                         <Breadcrumb.Item>
                             <Link href="/">Trang chủ</Link>
@@ -75,35 +74,36 @@ const BlogDetailPage: React.FC = () => {
                     </Breadcrumb>
                     <hr />
                     <br />
-                    <h1 className={styles.blogTitle}>{blog?.title}</h1>
-                    <div className={styles.meta}>
-                        <span className={styles.author}>
-                            Tác giả: {blog?.user.name}
+                    <h1 className="mb-6 text-4xl font-bold text-gray-800">
+                        {blog?.title}
+                    </h1>
+                    <div className="mb-8 flex flex-wrap items-center gap-4 text-sm text-gray-600">
+                        <span className="flex items-center gap-2">
+                            <UserOutlined />
+                            {blog?.user.name || 'Admin'}
                         </span>
-                        <span className={styles.date}>
-                            Ngày đăng:{' '}
+                        <span className="flex items-center gap-2">
+                            <CalendarOutlined />
                             {blog?.createdAt
                                 ? new Date(blog.createdAt).toLocaleDateString()
                                 : ''}
                         </span>
-                        <span className={styles.category}>
-                            Danh mục:{' '}
+                        <span className="flex items-center gap-2">
+                            <TagOutlined />
                             {getBlogCategoryName(blog?.category, 'vi')}
                         </span>
                     </div>
+
                     {blog?.thumbnail && (
-                        <div className="flex justify-center">
-                            <Image
-                                alt={blog.title}
-                                className={cn(styles.thumbnail, 'w-full')}
-                                height={800}
-                                src={getImageUrl(blog.thumbnail)}
-                                width={600}
-                            />
-                        </div>
+                        <img
+                            alt={blog?.title}
+                            className="mb-8 w-full rounded-lg object-cover shadow-lg"
+                            src={getImageUrl(blog?.thumbnail)}
+                        />
                     )}
+
                     <div
-                        className={styles.postContent}
+                        className="prose prose-lg max-w-none"
                         dangerouslySetInnerHTML={{
                             __html: blog?.description || '',
                         }}

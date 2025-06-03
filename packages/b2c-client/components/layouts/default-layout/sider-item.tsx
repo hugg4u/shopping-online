@@ -1,3 +1,4 @@
+import { HomeOutlined } from '@ant-design/icons';
 import { cn } from 'common/utils';
 import Link from 'next/link';
 import React from 'react';
@@ -13,7 +14,11 @@ export const SiderItem: React.FC<SiderItemProps> = ({ title, href, query }) => {
             className={cn('font-semibold uppercase')}
             href={{ pathname: href, query }}
         >
-            {title}
+            {title === 'Trang chủ' ? (
+                <HomeOutlined style={{ fontSize: '1.2rem' }} />
+            ) : (
+                title
+            )}
         </Link>
     );
 };

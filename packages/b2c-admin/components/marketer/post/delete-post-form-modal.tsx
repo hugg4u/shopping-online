@@ -51,7 +51,7 @@ const DeletePostFormModal: React.FC<Props> = ({ postId, title, reload }) => {
                 width={800}
             >
                 <div className="text-center">
-                    <div className="py-5 text-xl font-semibold text-rose-600">
+                    <div className="py-5 text-xl font-semibold text-amber-700">
                         Do you want delete this post?
                     </div>
                     <div>

@@ -87,6 +87,9 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
         if (!data?.quantity) {
             return true;
         }
+        if (data?.quantity && data?.quantity <= 0) {
+            return true;
+        }
         return false;
     }, [data?.quantity]);
 
@@ -100,8 +103,10 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     quantity: buyQuantity,
                 });
                 if (response?.isOk) {
-                    toast.success('Thêm sản phẩm vào giỏ hàng thành công.');
+                    toast.success(response?.message);
                     reload();
+                } else {
+                    toast.error(response?.message);
                 }
             }
         }
@@ -111,7 +116,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
         if (data?.id) {
             if (!auth) {
                 addProduct({ productId: data?.id, quantity: buyQuantity });
-                router.push('/cart-details');
+                router.push(`/cart-details?itemKeys=${data?.id}`);
             } else {
                 const response = await addToCartTrigger({
                     productId: data?.id,
@@ -121,7 +126,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                 if (response?.isOk) {
                     toast.success('Thêm sản phẩm vào giỏ hàng thành công.');
                     reload();
-                    router.push('/cart-details');
+                    router.push(`/cart-details?itemKeys=${data?.id}`);
                 }
             }
         }

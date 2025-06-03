@@ -1,26 +1,41 @@
 import MainBanner from '~/components/home-page/main-banner';
 import { NextPageWithLayout } from './_app';
+import TeaExperienceSection from '~/components/home-page/tea-experience-section';
+import NaturalBackgroundSection from '~/components/home-page/natural-background-section';
 import ListProductFeatured from '~/components/home-page/product-featured';
-import ListLatestPost from '~/components/common/latest-post';
-import ListPostFeatured from '~/components/home-page/post-featured';
 
 const HomePage: NextPageWithLayout = () => {
     return (
-        <div className="space-y-10">
-            <MainBanner />
-            <div className="flex space-x-32 px-10">
-                <div className="sticky top-10 h-[90vh] w-[350px] min-w-[350px]">
-                    <ListLatestPost />
-                </div>
-                <div className="container flex-1 space-y-20">
-                    <ListPostFeatured />
-                    <ListProductFeatured />
-                </div>
-            </div>
+        <div
+            className="min-h-screen overflow-hidden"
+            style={{ backgroundColor: '#FAF6F0' }}
+        >
+            {/* Hero Banner Section */}
+            <section className="relative">
+                <MainBanner />
+            </section>
+
+            {/* Section "THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN" */}
+            <section
+                className="relative py-20"
+                style={{ backgroundColor: '#F5F1E8' }}
+            >
+                <TeaExperienceSection />
+            </section>
+
+            {/* Natural Background Section with Parallax */}
+            <section className="relative">
+                <NaturalBackgroundSection />
+            </section>
+
+            {/* Featured Products Section */}
+            <section className="relative">
+                <ListProductFeatured />
+            </section>
         </div>
     );
 };
 
-HomePage.title = 'Trang chủ';
+HomePage.title = 'Trang chủ - Trà Thanh Nhiệt Giải Độc';
 
 export default HomePage;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
-import styles from '../../styles/HeaderBar.module.css';
 
 const { Header } = Layout;
 
@@ -32,42 +31,47 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
         const selected: string[] = [];
         if (currentSort === 'updatedAt' && currentSortOrder === 'desc') {
             selected.push('desc');
-        } else if (currentSort === 'updatedAt' && currentSortOrder === 'asc') {
+        }
+        if (currentSort === 'updatedAt' && currentSortOrder === 'asc') {
             selected.push('asc');
         }
         setSelectedItems(selected);
     }, [currentSort, currentSortOrder]);
 
-    const handleSortChange = (sortOrder: string) => {
+    const handleSortChange = (sort: string, sortOrder: string) => {
         if (selectedItems.includes(sortOrder)) {
-            setSort('updatedAt');
-            setSortOrder('desc');
-            handleSearch(1, 'updatedAt', 'desc');
-            setSelectedItems(['desc']);
+            setSort('');
+            setSortOrder('');
+            handleSearch(1);
+            setSelectedItems([]);
         } else {
-            setSort('updatedAt');
+            setSort(sort);
             setSortOrder(sortOrder);
-            handleSearch(1, 'updatedAt', sortOrder);
+            handleSearch(1, sort, sortOrder);
             setSelectedItems([sortOrder]);
         }
     };
 
     return (
-        <Header className={styles.header}>
-            <div className={styles.sortSection}>
-                <span className={styles.sortText}>Sắp xếp theo</span>
-                <Menu className={styles.menu} mode="horizontal">
+        <Header className="flex h-16 items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-6 shadow-sm">
+            <div className="flex flex-grow items-center">
+                <span className="mr-6 text-base font-semibold text-gray-700">
+                    Sắp xếp theo
+                </span>
+                <Menu
+                    className="flex flex-grow items-center border-b-0 bg-transparent"
+                    mode="horizontal"
+                    overflowedIndicator={null}
+                >
                     <Menu.Item
-                        className={`${styles.menuItem} ${selectedItems.includes('desc') ? styles.active : ''}`}
-                        key="desc"
-                        onClick={() => handleSortChange('desc')}
+                        className={`ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-amber-500 hover:text-white hover:shadow-md ${selectedItems.includes('desc') ? 'bg-amber-500 text-white' : ''}`}
+                        onClick={() => handleSortChange('updatedAt', 'desc')}
                     >
                         Mới nhất
                     </Menu.Item>
                     <Menu.Item
-                        className={`${styles.menuItem} ${selectedItems.includes('asc') ? styles.active : ''}`}
-                        key="asc"
-                        onClick={() => handleSortChange('asc')}
+                        className={`ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-white px-4 leading-10 text-gray-600 shadow-sm transition-all duration-300 hover:bg-amber-500 hover:text-white hover:shadow-md ${selectedItems.includes('asc') ? 'bg-amber-500 text-white' : ''}`}
+                        onClick={() => handleSortChange('updatedAt', 'asc')}
                     >
                         Cũ nhất
                     </Menu.Item>

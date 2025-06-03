@@ -214,7 +214,7 @@ const OrderDetail = () => {
                                         </div>
                                         <div>
                                             <span>Total: </span>
-                                            <span className="text-lg font-semibold text-rose-500">
+                                            <span className="text-lg font-semibold text-amber-500">
                                                 {item?.totalPrice &&
                                                     currencyFormatter(
                                                         item.totalPrice

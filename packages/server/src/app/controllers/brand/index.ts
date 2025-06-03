@@ -16,7 +16,7 @@ export const getListBrand = async (req: Request, res: Response) => {
                 name: true,
             },
             orderBy: {
-                name: 'asc',
+                createdAt: 'asc',
             },
         });
 

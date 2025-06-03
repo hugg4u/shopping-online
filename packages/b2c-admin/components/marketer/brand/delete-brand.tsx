@@ -63,8 +63,8 @@ const DeleteBrand: React.FC<Props> = ({ brandId, brandName, reloadList }) => {
                 title="Delete brand"
             >
                 <div className="flex flex-col items-center justify-center">
-                    <p className="text-lg font-semibold text-rose-600">
-                        <span className="text-rose-400">
+                    <p className="text-lg font-semibold text-amber-700">
+                        <span className="text-amber-500">
                             Do you want delete brand
                         </span>{' '}
                         {brandName}?

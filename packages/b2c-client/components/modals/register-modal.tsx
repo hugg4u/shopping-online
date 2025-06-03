@@ -121,9 +121,14 @@ const RegisterModal = () => {
     const bodyContent = (
         <div className="flex flex-col gap-4">
             <div className="text-center">
-                <div className="text-2xl font-bold">Tạo tài khoản!</div>
-                <div className="mt-2 font-light text-neutral-500">
-                    Chào mừng bạn đến với Perfume Shop
+                <div
+                    className="text-2xl font-bold"
+                    style={{ color: '#3C2415' }}
+                >
+                    Tạo tài khoản!
+                </div>
+                <div className="mt-2 font-light" style={{ color: '#6B5B4F' }}>
+                    Chào mừng bạn đến với Somma Tea
                 </div>
             </div>
             <Form
@@ -136,7 +141,7 @@ const RegisterModal = () => {
                 onFinish={onFinish}
             >
                 <Form.Item
-                    label="Email"
+                    label={<span style={{ color: '#3C2415' }}>Email</span>}
                     name="email"
                     rules={[
                         {
@@ -149,11 +154,17 @@ const RegisterModal = () => {
                         },
                     ]}
                 >
-                    <Input size="large" />
+                    <Input
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
                     hasFeedback
-                    label="Mật khẩu"
+                    label={<span style={{ color: '#3C2415' }}>Mật khẩu</span>}
                     name="password"
                     rules={[
                         {
@@ -166,12 +177,22 @@ const RegisterModal = () => {
                         },
                     ]}
                 >
-                    <Input.Password size="large" />
+                    <Input.Password
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
                     dependencies={['password']}
                     hasFeedback
-                    label="Xác nhận mật khẩu"
+                    label={
+                        <span style={{ color: '#3C2415' }}>
+                            Xác nhận mật khẩu
+                        </span>
+                    }
                     name="confirmPassword"
                     rules={[
                         {
@@ -196,10 +217,16 @@ const RegisterModal = () => {
                         }),
                     ]}
                 >
-                    <Input.Password size="large" />
+                    <Input.Password
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
-                    label="Tên"
+                    label={<span style={{ color: '#3C2415' }}>Tên</span>}
                     name="name"
                     rules={[
                         {
@@ -208,10 +235,18 @@ const RegisterModal = () => {
                         },
                     ]}
                 >
-                    <Input size="large" />
+                    <Input
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
-                    label="Số điện thoại"
+                    label={
+                        <span style={{ color: '#3C2415' }}>Số điện thoại</span>
+                    }
                     name="phone"
                     rules={[
                         {
@@ -225,11 +260,25 @@ const RegisterModal = () => {
                         },
                     ]}
                 >
-                    <Input size="large" />
+                    <Input
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
 
-                <Form.Item label="Giới tính" name="gender">
-                    <Select size="large">
+                <Form.Item
+                    label={<span style={{ color: '#3C2415' }}>Giới tính</span>}
+                    name="gender"
+                >
+                    <Select
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                        }}
+                    >
                         {Object.values(genderOptions).map((item: string) => (
                             <Select.Option
                                 key={Object.values(genderOptions).indexOf(item)}
@@ -247,8 +296,17 @@ const RegisterModal = () => {
                     </Select>
                 </Form.Item>
 
-                <Form.Item label="Địa chỉ" name="address">
-                    <Input size="large" />
+                <Form.Item
+                    label={<span style={{ color: '#3C2415' }}>Địa chỉ</span>}
+                    name="address"
+                >
+                    <Input
+                        size="large"
+                        style={{
+                            borderColor: '#E5DDD5',
+                            backgroundColor: '#FAF6F0',
+                        }}
+                    />
                 </Form.Item>
 
                 <Form.Item hidden>
@@ -261,8 +319,11 @@ const RegisterModal = () => {
                         <>
                             <span>
                                 <button
-                                    className="focus:shadow-outline rounded font-bold text-blue-500 hover:text-blue-700 focus:outline-none"
+                                    className="focus:shadow-outline rounded font-bold focus:outline-none"
                                     onClick={handleResendEmail}
+                                    style={{
+                                        color: '#C8965F',
+                                    }}
                                     type="button"
                                 >
                                     Ấn vào đây
@@ -274,21 +335,29 @@ const RegisterModal = () => {
                         </>
                     }
                     message={`Chúng tôi đã gửi đến ${emailUser} email xác nhận để kích hoạt tài khoản.`}
+                    style={{
+                        backgroundColor: '#FAF6F0',
+                        borderColor: '#C8965F',
+                    }}
                     type="info"
                 />
             )}
 
             {secondsToGo > 0 && (
-                <Paragraph className="flex space-x-2 ">
+                <Paragraph className="flex space-x-2">
                     <Spin />
                     <div className="flex space-x-1">
-                        <span>Gửi email xác thực sau</span>
-                        <Text type="danger">
+                        <span style={{ color: '#6B5B4F' }}>
+                            Gửi email xác thực sau
+                        </span>
+                        <Text style={{ color: '#C8965F' }}>
                             {Math.floor(secondsToGo / 60)}
-                        </Text>{' '}
-                        <span>phút</span>
-                        <Text type="danger">{secondsToGo % 60}</Text>{' '}
-                        <span>giây</span>
+                        </Text>
+                        <span style={{ color: '#6B5B4F' }}>phút</span>
+                        <Text style={{ color: '#C8965F' }}>
+                            {secondsToGo % 60}
+                        </Text>
+                        <span style={{ color: '#6B5B4F' }}>giây</span>
                     </div>
                 </Paragraph>
             )}
@@ -297,14 +366,18 @@ const RegisterModal = () => {
 
     const footerContent = (
         <div className="mt-3 flex flex-col gap-4">
-            <hr />
-            <div className="mt-4 text-center font-light text-neutral-500">
+            <hr style={{ borderColor: '#E5DDD5' }} />
+            <div
+                className="mt-4 text-center font-light"
+                style={{ color: '#6B5B4F' }}
+            >
                 <div className="flex items-center justify-center gap-2">
                     <div>Bạn đã có tài khoản?</div>
                     <div
-                        className="cursor-pointer text-neutral-800 hover:underline"
+                        className="cursor-pointer hover:underline"
                         onClick={toggle}
                         role="presentation"
+                        style={{ color: '#C8965F' }}
                     >
                         Đăng nhập
                     </div>

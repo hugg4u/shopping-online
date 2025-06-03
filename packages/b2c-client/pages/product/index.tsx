@@ -8,7 +8,6 @@ import { PAGE_SIZE_CLIENT_PRODUCT } from 'common/constant';
 import Sidebar from '../../components/product/Sidebar';
 import HeaderBar from '../../components/product/HeaderBar';
 import ProductContent from '../../components/product/ProductContent';
-import styles from '~/styles/Products.module.css';
 
 const { Content } = Layout;
 
@@ -140,102 +139,153 @@ const Products: NextPage = () => {
     };
 
     return (
-        <Spin
-            spinning={
-                categoryLoading ||
-                latestProductsLoading ||
-                brandsLoading ||
-                isLoading
-            }
-        >
-            <Layout className={styles.container}>
-                <Sidebar
-                    brands={brands}
-                    categories={categories}
-                    currentBrand={(routerQuery.brand as string)?.split(',')}
-                    currentCategory={routerQuery.category as string}
-                    currentSort={routerQuery.sort as string}
-                    currentSortOrder={routerQuery.sortOrder as string}
-                    handleResetFilters={handleResetFilters}
-                    handleSearch={handleSearch}
-                    latestProducts={latestProducts}
-                    setBrand={(brand) => {
-                        handleSearch(
-                            1,
-                            routerQuery.sort as string,
-                            routerQuery.sortOrder as string,
-                            routerQuery.category as string,
-                            routerQuery.search as string,
-                            undefined,
-                            brand
-                        );
-                    }}
-                    setCategory={(cat) => {
-                        handleSearch(
-                            1,
-                            routerQuery.sort as string,
-                            routerQuery.sortOrder as string,
-                            cat,
-                            routerQuery.search as string,
-                            undefined,
-                            (routerQuery.brand as string)?.split(',')
-                        );
-                    }}
-                />
-                <Layout className={styles.mainLayout}>
-                    <HeaderBar
-                        currentSort={routerQuery.sort as string}
-                        currentSortOrder={routerQuery.sortOrder as string}
-                        handleSearch={handleSearch}
-                        setSort={(newSort) => {
-                            handleSearch(
-                                1,
-                                newSort,
-                                routerQuery.sortOrder as string,
-                                routerQuery.category as string,
-                                routerQuery.search as string,
-                                undefined,
-                                (routerQuery.brand as string)?.split(',')
-                            );
-                        }}
-                        setSortOrder={(newSortOrder) => {
-                            handleSearch(
-                                1,
-                                routerQuery.sort as string,
-                                newSortOrder,
-                                routerQuery.category as string,
-                                routerQuery.search as string,
-                                undefined,
-                                (routerQuery.brand as string)?.split(',')
-                            );
-                        }}
-                    />
-                    <h1 className={styles.productTitle}>Danh sách sản phẩm</h1>
-                    <Content className={styles.content}>
-                        <ProductContent
-                            currentPage={Number(routerQuery.page) || 1}
-                            onPageChange={(page, newPageSize) =>
-                                handleSearch(
-                                    page,
-                                    routerQuery.sort as string,
-                                    routerQuery.sortOrder as string,
-                                    routerQuery.category as string,
-                                    routerQuery.search as string,
-                                    newPageSize,
-                                    (routerQuery.brand as string)?.split(',')
-                                )
-                            }
-                            pageSize={
-                                Number(routerQuery.pageSize) ||
-                                PAGE_SIZE_CLIENT_PRODUCT
-                            }
-                            products={products}
-                            total={totalProducts}
-                        />
-                    </Content>
-                </Layout>
-            </Layout>
-        </Spin>
+        <div className="min-h-screen" style={{ backgroundColor: '#FAF6F0' }}>
+            {/* Main Content */}
+            <div className="container relative z-10 mx-auto py-8">
+                <Spin
+                    size="large"
+                    spinning={
+                        categoryLoading ||
+                        latestProductsLoading ||
+                        brandsLoading ||
+                        isLoading
+                    }
+                >
+                    <div className="grid grid-cols-12 gap-8">
+                        {/* Sidebar */}
+                        <div className="col-span-12 lg:col-span-3">
+                            <div className="sticky top-8">
+                                <Sidebar
+                                    brands={brands}
+                                    categories={categories}
+                                    currentBrand={(
+                                        routerQuery.brand as string
+                                    )?.split(',')}
+                                    currentCategory={
+                                        routerQuery.category as string
+                                    }
+                                    currentSort={routerQuery.sort as string}
+                                    currentSortOrder={
+                                        routerQuery.sortOrder as string
+                                    }
+                                    handleResetFilters={handleResetFilters}
+                                    handleSearch={handleSearch}
+                                    latestProducts={latestProducts}
+                                    setBrand={(brand) => {
+                                        handleSearch(
+                                            1,
+                                            routerQuery.sort as string,
+                                            routerQuery.sortOrder as string,
+                                            routerQuery.category as string,
+                                            routerQuery.search as string,
+                                            undefined,
+                                            brand
+                                        );
+                                    }}
+                                    setCategory={(cat) => {
+                                        handleSearch(
+                                            1,
+                                            routerQuery.sort as string,
+                                            routerQuery.sortOrder as string,
+                                            cat,
+                                            routerQuery.search as string,
+                                            undefined,
+                                            (
+                                                routerQuery.brand as string
+                                            )?.split(',')
+                                        );
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Main Content Area */}
+                        <div className="col-span-12 lg:col-span-9">
+                            <div className="space-y-6">
+                                {/* Header Bar */}
+                                <div
+                                    className="rounded-xl border shadow-sm"
+                                    style={{
+                                        backgroundColor: '#F5F1E8',
+                                        borderColor: '#E5DDD5',
+                                    }}
+                                >
+                                    <HeaderBar
+                                        currentSort={routerQuery.sort as string}
+                                        currentSortOrder={
+                                            routerQuery.sortOrder as string
+                                        }
+                                        handleSearch={handleSearch}
+                                        setSort={(newSort) => {
+                                            handleSearch(
+                                                1,
+                                                newSort,
+                                                routerQuery.sortOrder as string,
+                                                routerQuery.category as string,
+                                                routerQuery.search as string,
+                                                undefined,
+                                                (
+                                                    routerQuery.brand as string
+                                                )?.split(',')
+                                            );
+                                        }}
+                                        setSortOrder={(newSortOrder) => {
+                                            handleSearch(
+                                                1,
+                                                routerQuery.sort as string,
+                                                newSortOrder,
+                                                routerQuery.category as string,
+                                                routerQuery.search as string,
+                                                undefined,
+                                                (
+                                                    routerQuery.brand as string
+                                                )?.split(',')
+                                            );
+                                        }}
+                                    />
+                                </div>
+
+                                {/* Product Content */}
+                                <div
+                                    className="overflow-hidden rounded-xl border shadow-sm"
+                                    style={{
+                                        backgroundColor: '#F5F1E8',
+                                        borderColor: '#E5DDD5',
+                                    }}
+                                >
+                                    <Content className="min-h-[600px] p-6">
+                                        <ProductContent
+                                            currentPage={
+                                                Number(routerQuery.page) || 1
+                                            }
+                                            onPageChange={(page, newPageSize) =>
+                                                handleSearch(
+                                                    page,
+                                                    routerQuery.sort as string,
+                                                    routerQuery.sortOrder as string,
+                                                    routerQuery.category as string,
+                                                    routerQuery.search as string,
+                                                    newPageSize,
+                                                    (
+                                                        routerQuery.brand as string
+                                                    )?.split(',')
+                                                )
+                                            }
+                                            pageSize={
+                                                Number(routerQuery.pageSize) ||
+                                                PAGE_SIZE_CLIENT_PRODUCT
+                                            }
+                                            products={products}
+                                            total={totalProducts}
+                                        />
+                                    </Content>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Spin>
+            </div>
+        </div>
     );
 };
 

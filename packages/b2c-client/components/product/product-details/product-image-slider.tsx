@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { cn } from 'common/utils';
-import styles from './ProductImageSlider.module.scss';
 
 type Props = {
     listImage: ProductImage[];
@@ -91,7 +90,7 @@ const ProductImageSlider: React.FC<Props> = ({ listImage }) => {
             </div>
             <div className="mt-10">
                 <Swiper
-                    className={cn(styles.mySwiper)}
+                    className="[&_.swiper-slide-thumb-active_img]:border-primary [&_.swiper-slide-thumb-active]:opacity-100"
                     freeMode
                     modules={[FreeMode, Navigation, Thumbs]}
                     onSwiper={setThumbsSwiper}

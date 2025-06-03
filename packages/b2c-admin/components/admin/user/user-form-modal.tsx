@@ -160,7 +160,7 @@ const UserFormModal: React.FC<Props> = ({ type, title, reload, userId }) => {
                               uid: '-1',
                               name: userDetail?.data?.image ?? '',
                               status: 'done',
-                              url: `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${userDetail.data.image}`,
+                              url: `${userDetail.data.image}`,
                           },
                       ]
                     : undefined,

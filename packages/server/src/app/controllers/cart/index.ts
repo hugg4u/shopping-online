@@ -40,7 +40,7 @@ export const getListCart = async (req: Request, res: Response) => {
         return res.status(200).json({
             isOk: true,
             data: listCart,
-            message: 'Get list cart successfully!',
+            message: 'Lấy danh sách giỏ hàng thành công!',
         });
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error!' });
@@ -60,18 +60,17 @@ export const getContactUser = async (req: Request, res: Response) => {
         return res.status(200).json({
             isOk: true,
             data: user,
-            message: 'Get user  successfully!',
+            message: 'Lấy thông tin người dùng thành công!',
         });
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error!' });
+        return res.status(500).json({ message: 'Lỗi server!' });
     }
 };
 export const addToCart = async (req: Request, res: Response) => {
     const { productId, quantity }: CreateCartData = req.body;
     const accessToken = req.headers.authorization?.split(' ')[1];
-
     if (!accessToken) {
-        return res.status(401).json({ message: 'No access token provided' });
+        return res.status(401).json({ message: 'Không có token truy cập!' });
     }
 
     try {
@@ -88,19 +87,20 @@ export const addToCart = async (req: Request, res: Response) => {
 
         if (existingCartItem) {
             // Nếu sản phẩm đã tồn tại, cập nhật số lượng
-            const updatedCartItem: CartItem = await db.cart.update({
-                where: {
-                    id: existingCartItem.id,
-                },
-                data: {
-                    quantity: existingCartItem.quantity + quantity,
-                },
-            });
+            // const updatedCartItem: CartItem = await db.cart.update({
+            //     where: {
+            //         id: existingCartItem.id,
+            //     },
+            //     data: {
+            //         quantity: existingCartItem.quantity + quantity,
+            //     },
+            // });
 
+            // Có ròi thì không cập nhật nữa
             return res.status(200).json({
                 isOk: true,
-                data: updatedCartItem,
-                message: 'Product quantity updated in cart successfully!',
+                // data: updatedCartItem,
+                message: 'Thêm sản phẩm vào giỏ hàng thành công!',
             });
         }
 
@@ -116,12 +116,10 @@ export const addToCart = async (req: Request, res: Response) => {
         return res.status(201).json({
             isOk: true,
             data: newCartItem,
-            message: 'Product added to cart successfully!',
+            message: 'Thêm sản phẩm vào giỏ hàng thành công!',
         });
     } catch (error) {
-        return res
-            .status(500)
-            .json({ error: 'Internal Server Error', details: error });
+        return res.status(500).json({ message: 'Lỗi server!' });
     }
 };
 
@@ -162,7 +160,7 @@ export const updateQuantity = async (req: Request, res: Response) => {
         return res.status(200).json({
             isOk: true,
             data: cart,
-            message: 'Change quantity successfully!',
+            message: 'Cập nhật số lượng thành công!',
         });
     } catch (error) {
         return res.sendStatus(500);
@@ -206,9 +204,9 @@ export const getListCartLatest = async (req: Request, res: Response) => {
             pagination: {
                 total,
             },
-            message: 'Get list cart successfully!',
+            message: 'Lấy danh sách giỏ hàng thành công!',
         });
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error!' });
+        return res.status(500).json({ message: 'Lỗi server!' });
     }
 };

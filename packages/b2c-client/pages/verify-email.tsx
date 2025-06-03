@@ -35,13 +35,23 @@ export default function Home() {
     };
 
     return (
-        <div className="flex h-dvh w-full items-center justify-center bg-gray-100">
-            <div className="max-w-md rounded-lg bg-white p-4 text-center shadow-md">
+        <div
+            className="flex h-dvh w-full items-center justify-center"
+            style={{ backgroundColor: '#FAF6F0' }}
+        >
+            <div
+                className="max-w-md rounded-xl border p-6 text-center shadow-sm"
+                style={{
+                    backgroundColor: '#F5F1E8',
+                    borderColor: '#E5DDD5',
+                }}
+            >
                 {checkVerifyIsPending && (
                     <div>
                         <Spin size="large" />
-                        <p className="mt-4">
-                            We are verifying your email, please wait a moment...
+                        <p className="mt-4" style={{ color: '#6B5B4F' }}>
+                            Chúng tôi đang xác minh email của bạn, vui lòng
+                            đợi...
                         </p>
                     </div>
                 )}
@@ -49,32 +59,58 @@ export default function Home() {
                     <Result
                         extra={[
                             <Button
-                                className="bg-[#1677ff]"
+                                key="back"
                                 onClick={handleClick}
+                                style={{
+                                    backgroundColor: '#C8965F',
+                                    borderColor: '#C8965F',
+                                }}
                                 type="primary"
                             >
-                                Back to Home
+                                Về trang chủ
                             </Button>,
                         ]}
                         status="error"
-                        subTitle="We could not verify your email. Please try again later or contact support."
-                        title="Verification Failed"
+                        subTitle={
+                            <span style={{ color: '#6B5B4F' }}>
+                                Chúng tôi không thể xác minh email của bạn. Vui
+                                lòng thử lại sau hoặc liên hệ hỗ trợ.
+                            </span>
+                        }
+                        title={
+                            <span style={{ color: '#3C2415' }}>
+                                Xác minh thất bại
+                            </span>
+                        }
                     />
                 )}
                 {!checkVerifyIsPending && isSuccess && (
                     <Result
                         extra={[
                             <Button
-                                className="bg-[#1677ff]"
+                                key="back"
                                 onClick={handleClick}
+                                style={{
+                                    backgroundColor: '#C8965F',
+                                    borderColor: '#C8965F',
+                                }}
                                 type="primary"
                             >
-                                Back to Home
+                                Về trang chủ
                             </Button>,
                         ]}
                         status="success"
-                        subTitle="Your email has been successfully verified. Thank you for shopping with us!"
-                        title="Email Verified Successfully"
+                        subTitle={
+                            <span style={{ color: '#6B5B4F' }}>
+                                Email của bạn đã được xác minh thành công. Cảm
+                                ơn bạn đã mua sắm với chúng tôi!
+                            </span>
+                        }
+                        title={
+                            <span style={{ color: '#3C2415' }}>
+                                Xác minh email thành công
+                            </span>
+                        }
                     />
                 )}
             </div>

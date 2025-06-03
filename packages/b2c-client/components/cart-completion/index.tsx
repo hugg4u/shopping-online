@@ -15,7 +15,10 @@ import {
     orderPaymentMethod,
     orderStatus,
 } from 'common/types/order';
-import { ZLPayResponse } from 'common/types/payment';
+import {
+    CheckPaymentStatusResponse,
+    PaymentResponse,
+} from 'common/types/payment';
 import { currencyFormatter } from 'common/utils/formatter';
 import { getImageUrl } from 'common/utils/getImageUrl';
 import request from 'common/utils/http-request';
@@ -26,13 +29,14 @@ import { toast } from 'react-toastify';
 import { copy } from 'common/utils/copy';
 import { useAuth } from '~/hooks/useAuth';
 
-const { Title, Paragraph, Text } = Typography;
+const { Text } = Typography;
 
 const CartCompletion = () => {
     const router = useRouter();
     const [qrCode, setQRCode] = useState<string | undefined>();
-    const [appTransId, setAppTransId] = useState<string | undefined>('');
-    const [secondsToGo, setSecondsToGo] = useState(60);
+    const [paymentData, setPaymentData] = useState<
+        PaymentResponse | undefined
+    >();
     const auth = useAuth();
 
     const [visibleReceiverInformation, setVisibleReceiverInformation] =
@@ -51,28 +55,35 @@ const CartCompletion = () => {
                 .then((res) => res.data),
     });
 
-    const { mutateAsync: ZLCreateOrder } = useMutation({
-        mutationFn: (data: { orderId: string; amount: number }) =>
+    const { mutateAsync: createPaymentLink } = useMutation({
+        mutationFn: (data: { orderId: string }) =>
             request
-                .post('/zalo-pay/create-order', data)
+                .post('/payment/create-payment-link', data)
                 .then((res) => res.data)
                 .then((res) => res.data),
     });
 
-    const { mutateAsync: ZLCheckStatusOrder } = useMutation({
-        mutationFn: (order: { appTransId: string }) =>
+    const { mutateAsync: checkPaymentStatus } = useMutation<
+        CheckPaymentStatusResponse,
+        Error,
+        { paymentId: string }
+    >({
+        mutationFn: (order: { paymentId: string }) =>
             request
-                .post('/zalo-pay/check-status-order', order)
+                .get(`/payment/check-payment-status/${order.paymentId}`)
                 .then((res) => res.data)
                 .then((res) => res.data),
     });
 
     const { mutateAsync: updateStatusOrderAfterPayment } = useMutation({
-        mutationFn: (order: { id: string }) => {
-            return request.put(
-                `/order/update-status-after-payment/${order.id}`
-            );
-        },
+        mutationFn: (order: { id: string; paymentId: string }) =>
+            request
+                .post('/payment/update-order-status', {
+                    orderId: order.id,
+                    paymentId: order.paymentId,
+                })
+                .then((res) => res.data)
+                .then((res) => res.data),
     });
 
     const { data: isAcceptDetail, isLoading: isLoadingCheckAcceptDetail } =
@@ -94,56 +105,40 @@ const CartCompletion = () => {
                 orderDetail.paymentMethod === 'BANK_TRANSFER' &&
                 orderDetail.status === 'PAYMENT_PENDING'
             ) {
-                const res: ZLPayResponse = await ZLCreateOrder({
+                const res: PaymentResponse = await createPaymentLink({
                     orderId: orderDetail.id ?? '',
-                    amount: Number(orderDetail.totalAmount) ?? 0,
                 });
 
-                setQRCode(res?.orderUrl);
-                setAppTransId(res?.appTransId);
+                setQRCode(res?.qrCode);
+                setPaymentData(res);
             }
         })();
     }, [orderDetail]);
 
     useEffect(() => {
-        const checkPaymentStatus = setInterval(async () => {
+        const handleCheckPaymentStatus = setInterval(async () => {
             if (
                 orderDetail?.paymentMethod === 'BANK_TRANSFER' &&
-                orderDetail.status === 'PAYMENT_PENDING' &&
-                secondsToGo > 0
+                orderDetail.status === 'PAYMENT_PENDING'
             ) {
                 // interval query order ZLP status
-                const res = await ZLCheckStatusOrder({
-                    appTransId: appTransId ?? '',
+                const res = await checkPaymentStatus({
+                    paymentId: paymentData?.appTransId ?? '',
                 });
 
-                const returnCode = res?.data?.return_code;
-                if (returnCode === 1) {
+                if (res.status === 'PAID') {
                     await updateStatusOrderAfterPayment({
                         id: orderDetail?.id ?? '',
+                        paymentId: paymentData?.appTransId ?? '',
                     });
-                    toast.success('Thanh toán thành công');
-                    router.push('/my-page/my-order/');
+                    toast.success('Đơn hàng đã được thanh toán thành công');
+                    router.push(`/my-page/my-order/${orderDetail?.id}`);
                 }
             }
         }, 1000);
 
         return () => {
-            clearInterval(checkPaymentStatus);
-        };
-    });
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            if (secondsToGo > 0) {
-                setSecondsToGo(secondsToGo - 1);
-            }
-            if (secondsToGo === 0) {
-                clearInterval(timer);
-            }
-        }, 1000);
-        return () => {
-            clearInterval(timer);
+            clearInterval(handleCheckPaymentStatus);
         };
     });
 
@@ -241,7 +236,7 @@ const CartCompletion = () => {
                                         : 'max-h-0 opacity-0'
                                 } overflow-hidden`}
                             >
-                                <p>
+                                <p className="text-base text-gray-500">
                                     Phương thức thanh toán:{' '}
                                     {
                                         orderPaymentMethod[
@@ -249,133 +244,175 @@ const CartCompletion = () => {
                                         ]
                                     }
                                 </p>
+
+                                {/* Hiển thị QR và thông tin thanh toán */}
                                 {orderDetail?.paymentMethod ===
                                     'BANK_TRANSFER' &&
-                                    orderDetail?.status !==
+                                    orderDetail.status ===
                                         'PAYMENT_PENDING' && (
-                                        <p>Đã thanh toán</p>
+                                        <div className="my-4 flex w-full flex-col items-center justify-center gap-8 md:flex-row">
+                                            {/* QR Code bên trái */}
+                                            <div className="flex flex-col items-center">
+                                                <QRCode
+                                                    size={250}
+                                                    value={qrCode ?? ''}
+                                                />
+                                                <Text className="mt-2 text-gray-600">
+                                                    Quét mã QR để thanh toán
+                                                </Text>
+                                            </div>
+
+                                            {/* Thông tin thanh toán bên phải */}
+                                            <div className="flex w-full flex-col gap-3 md:w-1/2">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="flex flex-row items-center gap-2">
+                                                        <Image
+                                                            height={55}
+                                                            preview={false}
+                                                            src={getImageUrl(
+                                                                paymentData?.bankLogo
+                                                            )}
+                                                            width={100}
+                                                        />
+                                                        <div className="flex flex-col">
+                                                            <Text className="text-base text-gray-500">
+                                                                Ngân hàng
+                                                            </Text>
+                                                            <Text className="text-lg font-bold text-gray-800">
+                                                                {
+                                                                    paymentData?.bankName
+                                                                }
+                                                            </Text>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <Text className="text-sm text-gray-500">
+                                                        Chủ tài khoản:
+                                                    </Text>
+                                                    <Text className="text-sm font-bold text-gray-800">
+                                                        {paymentData?.accountName ||
+                                                            ''}
+                                                    </Text>
+                                                </div>
+
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <Text className="text-sm text-gray-500">
+                                                            Số tài khoản:
+                                                        </Text>
+                                                        <Text className="text-sm font-bold text-gray-800">
+                                                            {paymentData?.accountNumber ||
+                                                                ''}
+                                                        </Text>
+                                                    </div>
+                                                    <Button
+                                                        icon={<CopyOutlined />}
+                                                        onClick={() => {
+                                                            if (
+                                                                paymentData?.accountNumber
+                                                            ) {
+                                                                copy(
+                                                                    paymentData?.accountNumber
+                                                                );
+                                                                toast.success(
+                                                                    'Sao chép số tài khoản thành công.'
+                                                                );
+                                                            }
+                                                        }}
+                                                        type="text"
+                                                    />
+                                                </div>
+
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <Text className="text-sm text-gray-500">
+                                                            Số tiền:
+                                                        </Text>
+                                                        <Text className="text-sm font-bold text-gray-800">
+                                                            {currencyFormatter(
+                                                                Number(
+                                                                    paymentData?.amount
+                                                                )
+                                                            )}
+                                                        </Text>
+                                                    </div>
+                                                    <Button
+                                                        icon={<CopyOutlined />}
+                                                        onClick={() => {
+                                                            if (
+                                                                paymentData?.amount
+                                                            ) {
+                                                                copy(
+                                                                    paymentData?.amount?.toString()
+                                                                );
+                                                                toast.success(
+                                                                    'Sao chép số tiền thành công.'
+                                                                );
+                                                            }
+                                                        }}
+                                                        type="text"
+                                                    />
+                                                </div>
+
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex flex-col">
+                                                        <Text className="text-sm text-gray-500">
+                                                            Nội dung:
+                                                        </Text>
+                                                        <Text className="max-w-[200px] truncate text-sm font-bold text-gray-800">
+                                                            {paymentData?.description ??
+                                                                ''}
+                                                        </Text>
+                                                    </div>
+                                                    <Button
+                                                        icon={<CopyOutlined />}
+                                                        onClick={() => {
+                                                            if (
+                                                                paymentData?.description
+                                                            ) {
+                                                                copy(
+                                                                    paymentData?.description
+                                                                );
+                                                                toast.success(
+                                                                    'Sao chép nội dung chuyển khoản thành công.'
+                                                                );
+                                                            }
+                                                        }}
+                                                        type="text"
+                                                    />
+                                                </div>
+
+                                                <div className="mt-2 rounded-md bg-gray-100 p-3">
+                                                    <Text className="text-sm text-gray-700">
+                                                        Vui lòng không thay đổi
+                                                        nội dung chuyển khoản để
+                                                        đơn hàng được xử lý tự
+                                                        động.
+                                                    </Text>
+                                                </div>
+                                            </div>
+                                        </div>
                                     )}
 
-                                <div className=" flex w-full flex-col items-center space-y-2 pt-2">
-                                    {orderDetail?.paymentMethod ===
-                                        'BANK_TRANSFER' &&
-                                        orderDetail.status ===
-                                            'PAYMENT_PENDING' && (
-                                            <>
-                                                <Title
-                                                    className="flex items-center gap-2 text-3xl"
-                                                    level={4}
-                                                    type="secondary"
-                                                >
-                                                    Thanh toán với
-                                                    <img
-                                                        alt=""
-                                                        className="h-10"
-                                                        id="zlp-logo-image"
-                                                        src="/images/logozlp.png"
-                                                    />{' '}
-                                                </Title>
-                                                <Paragraph className="flex space-x-2 text-base">
-                                                    <Spin />
-                                                    <div className="flex space-x-1">
-                                                        <span>
-                                                            Thời gian quét mã QR
-                                                            để thanh toán
-                                                        </span>
-                                                        <Text type="danger">
-                                                            {Math.floor(
-                                                                secondsToGo / 60
-                                                            )}
-                                                        </Text>{' '}
-                                                        <span>phút</span>
-                                                        <Text type="danger">
-                                                            {secondsToGo % 60}
-                                                        </Text>{' '}
-                                                        <span>giây</span>
-                                                    </div>
-                                                </Paragraph>
-                                                {secondsToGo > 0 ? (
-                                                    <>
-                                                        <QRCode
-                                                            size={200}
-                                                            value={qrCode ?? ''}
-                                                        />
-                                                        <ul className="space-y-2 text-base">
-                                                            <Text
-                                                                className="-ml-8 text-base"
-                                                                strong
-                                                            >
-                                                                Cách thức thanh
-                                                                toán:{' '}
-                                                            </Text>
-                                                            <li>
-                                                                <p>
-                                                                    Bước 1: Mở
-                                                                    ứng dung{' '}
-                                                                    <Text
-                                                                        className="text-[#f43f5e]"
-                                                                        strong
-                                                                    >
-                                                                        ZaloPay
-                                                                    </Text>
-                                                                </p>
-                                                            </li>
-                                                            <li>
-                                                                <p className="flex w-full">
-                                                                    Bước 2: Chọn{' '}
-                                                                    <Text
-                                                                        className="text-[#f43f5e]"
-                                                                        strong
-                                                                    >
-                                                                        "Thanh
-                                                                        Toán"
-                                                                    </Text>
-                                                                    <img
-                                                                        alt=""
-                                                                        className="checkout-image"
-                                                                        src="/images/qr-scan-zlp.png"
-                                                                    />
-                                                                    và quét mã
-                                                                </p>
-                                                            </li>
-                                                            <li>
-                                                                <p>
-                                                                    Bước 3:{' '}
-                                                                    <Text
-                                                                        className="text-[#f43f5e]"
-                                                                        strong
-                                                                    >
-                                                                        Xác nhận
-                                                                        thanh
-                                                                        toán
-                                                                    </Text>{' '}
-                                                                    trên ứng
-                                                                    dụng Zalo
-                                                                </p>
-                                                            </li>
-                                                        </ul>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <p>
-                                                            Thời gian giao dịch
-                                                            hết hiệu lực.
-                                                        </p>
-                                                        <Button
-                                                            onClick={() =>
-                                                                setSecondsToGo(
-                                                                    60
-                                                                )
-                                                            }
-                                                            type="primary"
-                                                        >
-                                                            Tạo giao dịch mới
-                                                        </Button>
-                                                    </>
-                                                )}
-                                            </>
-                                        )}
-                                </div>
+                                {/* Hiển thị trạng thái cho COD */}
+                                {/* {orderDetail?.paymentMethod ===
+                                    'CASH_ON_DELIVERY' && (
+                                    <p className="text-base text-gray-500">
+                                        Đơn hàng thanh toán khi nhận hàng
+                                    </p>
+                                )} */}
+
+                                {/* Hiển thị trạng thái đã thanh toán */}
+                                {orderDetail?.paymentMethod ===
+                                    'BANK_TRANSFER' &&
+                                    orderDetail.status !==
+                                        'PAYMENT_PENDING' && (
+                                        <p className="text-base text-gray-500">
+                                            Đơn hàng đã được thanh toán thành
+                                            công
+                                        </p>
+                                    )}
                             </div>
                         </div>
                         {/* Thông tin nhận hàng */}

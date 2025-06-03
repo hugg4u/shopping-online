@@ -12,8 +12,11 @@
         "isolatedModules": true,
         "jsx": "preserve",
         "incremental": true,
+        "baseUrl": ".",
         "paths": {
-            "~/*": ["./*"]
+            "~/*": ["./*"],
+            "common/*": ["../common/*"],
+            "common": ["../common"]
         },
         "plugins": [
             {
@@ -26,7 +29,8 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "../common/types/cart.ts"
-, "../common/store/useUserStore.ts"    ],
+        "../common/**/*.ts",
+        "../common/**/*.tsx"
+    ],
     "exclude": ["node_modules"]
 }

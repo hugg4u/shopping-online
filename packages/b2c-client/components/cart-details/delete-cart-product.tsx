@@ -57,7 +57,7 @@ const DeleteCartProductFormModal: React.FC<Props> = ({
                 width={800}
             >
                 <div className="text-center">
-                    <div className="py-5 text-xl font-semibold text-rose-600">
+                    <div className="py-5 text-xl font-semibold text-amber-600">
                         Do you want delete this product?
                     </div>
                     <div>

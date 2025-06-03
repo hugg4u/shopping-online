@@ -90,7 +90,7 @@ const EditOrderModal: React.FC<Props> = ({
                 role="presentation"
                 style={{ width: '200px', zIndex: '20' }}
             >
-                <Button>Chỉnh sửa thông tin nhận hàng</Button>
+                <Button size="middle">Chỉnh sửa thông tin nhận hàng</Button>
             </div>
 
             <Modal
