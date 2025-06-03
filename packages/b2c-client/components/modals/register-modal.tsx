@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { Alert, Button, Form, Input, Select, Spin, Typography } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
-import Modal from 'common/components/modal';
-import * as request from 'common/utils/http-request';
+import Modal from '@shopping/common/components/modal';
+import * as request from '@shopping/common/utils/http-request';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import useLoginModal from '~/hooks/useLoginModal';

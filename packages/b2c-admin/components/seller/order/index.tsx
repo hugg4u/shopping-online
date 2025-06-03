@@ -3,7 +3,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { useMutation, useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import {
     Button,
     DatePicker,
@@ -18,25 +18,25 @@ import {
     TableProps,
     Tooltip,
 } from 'antd';
-import type { QueryResponseType, Sorts } from 'common/types';
-import type { OrderCms } from 'common/types/order';
+import type { QueryResponseType, Sorts } from '@shopping/common/types';
+import type { OrderCms } from '@shopping/common/types/order';
 
 import moment from 'moment';
-import { currencyFormatter } from 'common/utils/formatter';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 
-import { ORDER_STATUS, PAGE_SIZE } from 'common/constant';
+import { ORDER_STATUS, PAGE_SIZE } from '@shopping/common/constant';
 import { toast } from 'react-toastify';
-import { getSortOrder } from 'common/utils/getSortOrder';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { User } from 'common/types/customer';
-import Avatar from 'common/components/avatar';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import { User } from '@shopping/common/types/customer';
+import Avatar from '@shopping/common/components/avatar';
 import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
 import { useDebounceValue } from 'usehooks-ts';
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 import Link from 'next/link';
-import { useUserQueryStore } from 'common/store/useUserStore';
+import { useUserQueryStore } from '@shopping/common/store/useUserStore';
 import AssignSeller from './assign-seller';
 import { useAuthCms } from '~/hooks/useAuthCms';
 

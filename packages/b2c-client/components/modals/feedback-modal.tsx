@@ -15,8 +15,8 @@ import {
     UploadProps,
 } from 'antd';
 import { RcFile } from 'antd/es/upload';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import * as request from 'common/utils/http-request';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';

@@ -1,10 +1,10 @@
 import { SearchOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
 import { Input, Pagination, Spin, Tabs, TabsProps } from 'antd';
-import { PAGE_SIZE_CLIENT } from 'common/constant';
-import { QueryResponseType } from 'common/types';
-import { Order, orderStatus } from 'common/types/order';
-import * as request from 'common/utils/http-request';
+import { PAGE_SIZE_CLIENT } from '@shopping/common/constant';
+import { QueryResponseType } from '@shopping/common/types';
+import { Order, orderStatus } from '@shopping/common/types/order';
+import * as request from '@shopping/common/utils/http-request';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';

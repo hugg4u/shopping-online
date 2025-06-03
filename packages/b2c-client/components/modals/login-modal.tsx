@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { Alert, Button, Form, Input, Spin, Typography } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
-import Modal from 'common/components/modal';
-import request from 'common/utils/http-request';
+import Modal from '@shopping/common/components/modal';
+import request from '@shopping/common/utils/http-request';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';

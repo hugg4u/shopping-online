@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import Avatar from 'common/components/avatar';
-import { useUserQueryStore } from 'common/store/useUserStore';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import Avatar from '@shopping/common/components/avatar';
+import { useUserQueryStore } from '@shopping/common/store/useUserStore';
 import { useAuth } from '~/hooks/useAuth';
 import useLoginModal from '~/hooks/useLoginModal';
 // import useRegisterModal from '~/hooks/useRegisterModal';
@@ -97,13 +97,13 @@ const Header = () => {
                                 className="text-lg font-semibold leading-4"
                                 style={{ color: '#3C2415' }}
                             >
-                                Lá Trà
+                                Soma
                             </div>
                             <div
                                 className="text-2xl font-bold"
                                 style={{ color: '#C8965F' }}
                             >
-                                Ngon
+                                Tea
                             </div>
                         </div>
                     </Link>

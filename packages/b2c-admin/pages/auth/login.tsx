@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Button, Form, FormProps, Input, Spin } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
-import { post } from 'common/utils/http-request';
+import { post } from '@shopping/common/utils/http-request';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';

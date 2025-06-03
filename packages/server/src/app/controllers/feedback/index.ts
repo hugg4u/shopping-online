@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { PAGE_SIZE } from 'common/constant';
+import { PAGE_SIZE } from '@shopping/common/constant';
 import { Request, Response } from 'express';
 import { jwtDecode } from 'jwt-decode';
 import { TokenDecoded } from 'types';

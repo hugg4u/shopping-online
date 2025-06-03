@@ -15,17 +15,17 @@ import {
     Space,
     Spin,
 } from 'antd';
-import { QueryResponseType } from 'common/types';
-import { Cart } from 'common/types/cart';
-import { OrderDetail } from 'common/types/order';
-import { Product } from 'common/types/product';
-import { currencyFormatter } from 'common/utils/formatter';
+import { QueryResponseType } from '@shopping/common/types';
+import { Cart } from '@shopping/common/types/cart';
+import { OrderDetail } from '@shopping/common/types/order';
+import { Product } from '@shopping/common/types/product';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useAuth } from '~/hooks/useAuth';
 import useCartStore from '~/hooks/useCartStore';
 import CartContactItem from './cart-contact-list';

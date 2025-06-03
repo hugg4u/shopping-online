@@ -1,4 +1,4 @@
-import { PostCategoryType } from 'common/types/post';
+import { PostCategoryType } from '@shopping/common/types/post';
 
 export const getBlogCategoryName = (
     value: PostCategoryType | undefined,

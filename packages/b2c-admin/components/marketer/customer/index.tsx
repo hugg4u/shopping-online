@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import {
     Button,
     Form,
@@ -12,10 +12,10 @@ import {
     TableColumnsType,
     TableProps,
 } from 'antd';
-import { QueryResponseType } from 'common/types';
-import { Customer } from 'common/types/customer';
-import { CUSTOMER_STATUS, PAGE_SIZE } from 'common/constant';
-import { getSortOrder } from 'common/utils/getSortOrder';
+import { QueryResponseType } from '@shopping/common/types';
+import { Customer } from '@shopping/common/types/customer';
+import { CUSTOMER_STATUS, PAGE_SIZE } from '@shopping/common/constant';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import { SearchOutlined } from '@ant-design/icons';
 import { Sorts } from '~/types';
 import CustomerForm from './customer-form';

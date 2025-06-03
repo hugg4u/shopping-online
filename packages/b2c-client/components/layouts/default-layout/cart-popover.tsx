@@ -1,15 +1,15 @@
 import { Button, Popover } from 'antd';
-import { Cart } from 'common/types/cart';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { Cart } from '@shopping/common/types/cart';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import React, { useMemo } from 'react';
 import Image from 'next/image';
-import { currencyFormatter } from 'common/utils/formatter';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
-import { QueryResponseGetOneType } from 'common/types';
-import { Product } from 'common/types/product';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseGetOneType } from '@shopping/common/types';
+import { Product } from '@shopping/common/types/product';
 import { useAuth } from '~/hooks/useAuth';
 import useCartStore from '~/hooks/useCartStore';
 

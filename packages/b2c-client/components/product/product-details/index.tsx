@@ -1,8 +1,8 @@
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { Product } from 'common/types/product';
+import { Product } from '@shopping/common/types/product';
 import { Button, Rate, Space } from 'antd';
-import { currencyFormatter } from 'common/utils/formatter';
-import { cn } from 'common/utils';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { cn } from '@shopping/common/utils';
 import {
     MinusOutlined,
     PlusOutlined,
@@ -10,10 +10,10 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
-import { QueryResponseGetOneType } from 'common/types';
-import { Cart } from 'common/types/cart';
+import { QueryResponseGetOneType } from '@shopping/common/types';
+import { Cart } from '@shopping/common/types/cart';
 import ProductImageSlider from './product-image-slider';
 import useCartStore from '~/hooks/useCartStore';
 import { useAuth } from '~/hooks/useAuth';

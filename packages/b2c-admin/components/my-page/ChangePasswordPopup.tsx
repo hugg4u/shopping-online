@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 import { useMutation } from '@tanstack/react-query';
-import request from 'common/utils/http-request';
+import request from '@shopping/common/utils/http-request';
 
 interface ChangePasswordPopupProps {
     visible: boolean;

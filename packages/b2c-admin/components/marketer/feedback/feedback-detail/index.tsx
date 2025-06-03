@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import React from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
 import { Spin, Switch } from 'antd';
 import { AxiosError } from 'axios';

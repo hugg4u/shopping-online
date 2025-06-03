@@ -1,13 +1,17 @@
 import { Button, Card, Image } from 'antd';
-import { Order, orderPaymentMethod, orderStatus } from 'common/types/order';
-import { currencyFormatter } from 'common/utils/formatter';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import {
+    Order,
+    orderPaymentMethod,
+    orderStatus,
+} from '@shopping/common/types/order';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { CopyButton } from 'common/components/copy-button';
+import { CopyButton } from '@shopping/common/components/copy-button';
 import { useMutation } from '@tanstack/react-query';
-import request from 'common/utils/http-request';
+import request from '@shopping/common/utils/http-request';
 import Link from 'next/link';
 import DeleteOrderAlert from './delete-order-alert';
 // import FeedbackModal from '../modals/feedback-modal';

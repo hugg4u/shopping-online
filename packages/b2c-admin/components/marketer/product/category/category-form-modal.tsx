@@ -1,10 +1,10 @@
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, FormProps, Input, Modal, Spin, Tooltip } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { QueryResponseGetOneType } from 'common/types';
+import { QueryResponseGetOneType } from '@shopping/common/types';
 import { Category } from '~/types/product';
 
 type Props = {

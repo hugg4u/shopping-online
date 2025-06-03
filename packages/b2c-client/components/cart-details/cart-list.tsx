@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Card, Col, Layout, Row } from 'antd';
-import { Product } from 'common/types/cart';
+import { Product } from '@shopping/common/types/cart';
 import { useQuery } from '@tanstack/react-query';
-import request from 'common/utils/http-request';
-import { QueryResponseGetOneType } from 'common/types';
+import request from '@shopping/common/utils/http-request';
+import { QueryResponseGetOneType } from '@shopping/common/types';
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import Image from 'next/image';
-import { currencyFormatter } from 'common/utils/formatter';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import useCartStore from '~/hooks/useCartStore';
 
 type CartStoreItemProps = {

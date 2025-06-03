@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { create } from 'zustand';
-import * as request from 'common/utils/http-request';
-import { QueryResponseGetOneType } from 'common/types';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseGetOneType } from '@shopping/common/types';
 import { useEffect, useMemo } from 'react';
 import Cookies from 'js-cookie';
 import { useAuth } from 'b2c-client/hooks/useAuth';

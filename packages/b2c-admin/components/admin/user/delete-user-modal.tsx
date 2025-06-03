@@ -1,7 +1,7 @@
 import { DeleteOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { Button, Modal, Tooltip } from 'antd';
-import request from 'common/utils/http-request';
+import request from '@shopping/common/utils/http-request';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 

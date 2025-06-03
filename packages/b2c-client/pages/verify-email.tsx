@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { Button, Result, Spin } from 'antd';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 

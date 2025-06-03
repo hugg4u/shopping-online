@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { getImageUrl } from '~/../common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 
 type LatestBlogCardProps = {
     id: string;

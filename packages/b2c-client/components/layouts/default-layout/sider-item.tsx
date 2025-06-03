@@ -1,5 +1,5 @@
 import { HomeOutlined } from '@ant-design/icons';
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 import Link from 'next/link';
 import React from 'react';
 

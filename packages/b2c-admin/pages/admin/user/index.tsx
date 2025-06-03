@@ -13,8 +13,8 @@ import {
     Table,
     TableColumnsType,
 } from 'antd';
-import { PAGE_SIZE } from 'common/constant';
-import request from 'common/utils/http-request';
+import { PAGE_SIZE } from '@shopping/common/constant';
+import request from '@shopping/common/utils/http-request';
 import { useState } from 'react';
 import { Moment } from 'moment';
 import Header from '~/components/header';

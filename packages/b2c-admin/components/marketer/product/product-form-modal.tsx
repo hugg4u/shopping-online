@@ -18,10 +18,10 @@ import {
     UploadFile,
 } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 import { RcFile } from 'antd/es/upload';
-import { dropListFiles } from 'common/utils/dropListFiles';
+import { dropListFiles } from '@shopping/common/utils/dropListFiles';
 import { Brand, Category, ResponseProductById } from '~/types/product';
 
 type Props = {
@@ -321,8 +321,8 @@ const ProductFormModal: React.FC<Props> = ({
                 briefInfo,
                 thumbnail: newThumbnail?.[0] ?? '',
                 product_image: [
-                    ...(filesUploaded || []), 
-                    ...(newProductImageRequest || [])
+                    ...(filesUploaded || []),
+                    ...(newProductImageRequest || []),
                 ],
             };
 

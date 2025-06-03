@@ -18,8 +18,8 @@ import {
 } from 'antd';
 import { Color } from 'antd/es/color-picker';
 import { RcFile, UploadProps } from 'antd/es/upload';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import * as request from 'common/utils/http-request';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import * as request from '@shopping/common/utils/http-request';
 import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -377,7 +377,7 @@ const SliderFormModal: React.FC<Props> = ({
                             </div>
                             <Form.Item<FormType> label="Title" name="title">
                                 <Input
-                                    readOnly={type === 'VIEW' ?? false}
+                                    readOnly={type === 'VIEW'}
                                     size="large"
                                 />
                             </Form.Item>
@@ -397,7 +397,7 @@ const SliderFormModal: React.FC<Props> = ({
 
                             <Form.Item label="Backlink" name="backlink">
                                 <Input.TextArea
-                                    readOnly={type === 'VIEW' ?? false}
+                                    readOnly={type === 'VIEW'}
                                     rows={5}
                                     size="large"
                                     style={{ resize: 'none' }}
@@ -406,7 +406,7 @@ const SliderFormModal: React.FC<Props> = ({
 
                             <Form.Item label="Note" name="note">
                                 <Input.TextArea
-                                    readOnly={type === 'VIEW' ?? false}
+                                    readOnly={type === 'VIEW'}
                                     rows={5}
                                     size="large"
                                     style={{ resize: 'none' }}

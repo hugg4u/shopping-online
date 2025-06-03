@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import {
     Button,
     Form,
@@ -13,7 +13,7 @@ import {
     TableProps,
 } from 'antd';
 import moment from 'moment';
-import { getSortOrder } from 'common/utils/getSortOrder';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import { SearchOutlined } from '@ant-design/icons';
 import { Category } from '~/types/product';
 import { Pagination, QueryResponseType, Sorts } from '~/types';

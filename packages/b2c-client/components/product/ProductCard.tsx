@@ -5,12 +5,12 @@ import {
     ShoppingCartOutlined,
     ShoppingOutlined,
 } from '@ant-design/icons';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { toast } from 'react-toastify';
-import { currencyFormatter } from '~/../common/utils/formatter';
-import { getImageUrl } from '~/../common/utils/getImageUrl';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { useAuth } from '~/hooks/useAuth';
 import { Product } from '~/types/product';
 

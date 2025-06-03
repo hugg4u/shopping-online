@@ -2,11 +2,11 @@
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Button, Card, Checkbox, Col, Layout, Modal, Row } from 'antd';
-import { QueryResponseType } from 'common/types';
-import { Cart } from 'common/types/cart';
-import { Product } from 'common/types/product';
-import { currencyFormatter } from 'common/utils/formatter';
-import * as request from 'common/utils/http-request';
+import { QueryResponseType } from '@shopping/common/types';
+import { Cart } from '@shopping/common/types/cart';
+import { Product } from '@shopping/common/types/product';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import * as request from '@shopping/common/utils/http-request';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

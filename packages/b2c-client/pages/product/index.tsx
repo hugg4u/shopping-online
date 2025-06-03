@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Layout, Spin } from 'antd';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
-import { get } from 'common/utils/http-request';
-import { PAGE_SIZE_CLIENT_PRODUCT } from 'common/constant';
+import { get } from '@shopping/common/utils/http-request';
+import { PAGE_SIZE_CLIENT_PRODUCT } from '@shopping/common/constant';
 import Sidebar from '../../components/product/Sidebar';
 import HeaderBar from '../../components/product/HeaderBar';
 import ProductContent from '../../components/product/ProductContent';
@@ -28,26 +27,6 @@ const Products: NextPage = () => {
     const [products, setProducts] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const { data: categories, isLoading: categoryLoading } = useQuery({
-        queryKey: ['category'],
-        queryFn: () => get('category').then((res) => res.data.data),
-    });
-
-    const { data: brands, isLoading: brandsLoading } = useQuery({
-        queryKey: ['brands'],
-        queryFn: () => get('brand').then((res) => res.data.data),
-    });
-
-    const { data: latestProducts, isLoading: latestProductsLoading } = useQuery(
-        {
-            queryKey: ['latestProducts'],
-            queryFn: () =>
-                get('product/latest', {
-                    params: { limit: 3 },
-                }).then((res) => res.data.data),
-        }
-    );
 
     const fetchProducts = async (params: SearchParams) => {
         setIsLoading(true);
@@ -129,73 +108,16 @@ const Products: NextPage = () => {
         updateUrlAndFetchProducts(params);
     };
 
-    const handleResetFilters = () => {
-        const params: SearchParams = {
-            page: 1,
-            pageSize: PAGE_SIZE_CLIENT_PRODUCT,
-        };
-
-        updateUrlAndFetchProducts(params);
-    };
-
     return (
         <div className="min-h-screen" style={{ backgroundColor: '#FAF6F0' }}>
             {/* Main Content */}
             <div className="container relative z-10 mx-auto py-8">
-                <Spin
-                    size="large"
-                    spinning={
-                        categoryLoading ||
-                        latestProductsLoading ||
-                        brandsLoading ||
-                        isLoading
-                    }
-                >
+                <Spin size="large" spinning={isLoading}>
                     <div className="grid grid-cols-12 gap-8">
                         {/* Sidebar */}
                         <div className="col-span-12 lg:col-span-3">
                             <div className="sticky top-8">
-                                <Sidebar
-                                    brands={brands}
-                                    categories={categories}
-                                    currentBrand={(
-                                        routerQuery.brand as string
-                                    )?.split(',')}
-                                    currentCategory={
-                                        routerQuery.category as string
-                                    }
-                                    currentSort={routerQuery.sort as string}
-                                    currentSortOrder={
-                                        routerQuery.sortOrder as string
-                                    }
-                                    handleResetFilters={handleResetFilters}
-                                    handleSearch={handleSearch}
-                                    latestProducts={latestProducts}
-                                    setBrand={(brand) => {
-                                        handleSearch(
-                                            1,
-                                            routerQuery.sort as string,
-                                            routerQuery.sortOrder as string,
-                                            routerQuery.category as string,
-                                            routerQuery.search as string,
-                                            undefined,
-                                            brand
-                                        );
-                                    }}
-                                    setCategory={(cat) => {
-                                        handleSearch(
-                                            1,
-                                            routerQuery.sort as string,
-                                            routerQuery.sortOrder as string,
-                                            cat,
-                                            routerQuery.search as string,
-                                            undefined,
-                                            (
-                                                routerQuery.brand as string
-                                            )?.split(',')
-                                        );
-                                    }}
-                                />
+                                <Sidebar />
                             </div>
                         </div>
 

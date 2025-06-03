@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Button, Form, FormProps, Input, Modal, Select } from 'antd';
-import { genderType } from 'common/types/order';
-import * as request from 'common/utils/http-request';
+import { genderType } from '@shopping/common/types/order';
+import * as request from '@shopping/common/utils/http-request';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 

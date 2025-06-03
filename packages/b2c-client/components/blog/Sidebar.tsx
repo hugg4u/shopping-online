@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input, Layout, Menu } from 'antd';
 
 import { useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
-import { QueryResponseType } from 'common/types';
-import { Category } from 'common/types/product';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseType } from '@shopping/common/types';
+import { Category } from '@shopping/common/types/product';
 import LatestBlogCard from './LatestBlogCard';
 
 const { Sider } = Layout;

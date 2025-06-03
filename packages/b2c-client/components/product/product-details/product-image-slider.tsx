@@ -2,11 +2,11 @@ import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as TypeSwiper } from 'swiper';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { ProductImage } from 'common/types/product';
+import { ProductImage } from '@shopping/common/types/product';
 import Image from 'next/image';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { cn } from 'common/utils';
+import { cn } from '@shopping/common/utils';
 
 type Props = {
     listImage: ProductImage[];

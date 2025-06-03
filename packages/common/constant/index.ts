@@ -1,4 +1,4 @@
-import { PostCategoryType } from 'common/types/post';
+import { PostCategoryType } from '@shopping/common/types/post';
 
 export const RATING_LIST = [
     { id: 0, value: 0 },

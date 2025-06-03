@@ -1,8 +1,8 @@
 import React from 'react';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useQuery } from '@tanstack/react-query';
-import type { ProductFeatured } from 'common/types/product';
-import type { QueryResponseType } from 'common/types';
+import type { ProductFeatured } from '@shopping/common/types/product';
+import type { QueryResponseType } from '@shopping/common/types';
 import Link from 'next/link';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import ProductCard from '~/components/product/ProductCard';

@@ -1,7 +1,10 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-lines */
-import { orderPaymentMethod, OrderResponse } from 'common/types/order';
-import { currencyFormatter } from 'common/utils/formatter';
+import {
+    orderPaymentMethod,
+    OrderResponse,
+} from '@shopping/common/types/order';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
 import moment from 'moment';
 import nodemailer from 'nodemailer';
 

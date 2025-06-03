@@ -1,5 +1,5 @@
-import { LatestPost } from 'common/types/post';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { LatestPost } from '@shopping/common/types/post';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';

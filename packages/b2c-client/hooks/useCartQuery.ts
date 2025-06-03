@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { Cart } from 'common/types/cart';
+import { Cart } from '@shopping/common/types/cart';
 import { create } from 'zustand';
-import * as request from 'common/utils/http-request';
-import { QueryResponseType } from 'common/types';
+import * as request from '@shopping/common/utils/http-request';
+import { QueryResponseType } from '@shopping/common/types';
 import { useEffect } from 'react';
 import { useAuth } from './useAuth';
 

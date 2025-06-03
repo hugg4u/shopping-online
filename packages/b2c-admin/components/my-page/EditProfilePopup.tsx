@@ -10,7 +10,7 @@ import {
     Upload,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import Avatar from 'common/components/avatar';
+import Avatar from '@shopping/common/components/avatar';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import localeData from 'dayjs/plugin/localeData';
@@ -18,10 +18,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import request, { get } from 'common/utils/http-request';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import { useUserQueryStore } from 'common/store/useUserStore';
-import { PHONE_PATTERN } from 'common/constant/pattern';
+import request, { get } from '@shopping/common/utils/http-request';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import { useUserQueryStore } from '@shopping/common/store/useUserStore';
+import { PHONE_PATTERN } from '@shopping/common/constant/pattern';
 import styles from '~/styles/my-page/EditProfilePopup.module.css';
 
 dayjs.extend(weekday);

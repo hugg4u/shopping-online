@@ -20,13 +20,13 @@ import {
     Tooltip,
 } from 'antd';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
-import { PAGE_SIZE, RATING_LIST } from 'common/constant';
+import * as request from '@shopping/common/utils/http-request';
+import { PAGE_SIZE, RATING_LIST } from '@shopping/common/constant';
 import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { getSortOrder } from 'common/utils/getSortOrder';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import moment from 'moment';
 import Header from '~/components/header';
 import { Sorts } from '~/types';

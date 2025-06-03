@@ -14,19 +14,19 @@ import {
     Order,
     orderPaymentMethod,
     orderStatus,
-} from 'common/types/order';
+} from '@shopping/common/types/order';
 import {
     CheckPaymentStatusResponse,
     PaymentResponse,
-} from 'common/types/payment';
-import { currencyFormatter } from 'common/utils/formatter';
-import { getImageUrl } from 'common/utils/getImageUrl';
-import request from 'common/utils/http-request';
+} from '@shopping/common/types/payment';
+import { currencyFormatter } from '@shopping/common/utils/formatter';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import request from '@shopping/common/utils/http-request';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { copy } from 'common/utils/copy';
+import { copy } from '@shopping/common/utils/copy';
 import { useAuth } from '~/hooks/useAuth';
 
 const { Text } = Typography;

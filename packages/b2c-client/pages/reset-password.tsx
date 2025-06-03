@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input } from 'antd';
-import Button from 'common/components/button';
+import Button from '@shopping/common/components/button';
 import { useRouter } from 'next/router';
 import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
-import * as request from 'common/utils/http-request';
+import * as request from '@shopping/common/utils/http-request';
 import { useMutation } from '@tanstack/react-query';
 import { jwtDecode } from 'jwt-decode';
 

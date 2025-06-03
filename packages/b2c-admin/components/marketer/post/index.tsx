@@ -19,15 +19,15 @@ import {
     Tooltip,
 } from 'antd';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import * as request from 'common/utils/http-request';
-import { PAGE_SIZE, POST_CATEGORY } from 'common/constant';
+import * as request from '@shopping/common/utils/http-request';
+import { PAGE_SIZE, POST_CATEGORY } from '@shopping/common/constant';
 import { EyeOutlined, SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import Link from 'next/link';
-import { getImageUrl } from 'common/utils/getImageUrl';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { getSortOrder } from 'common/utils/getSortOrder';
+import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import PostFormModal from './post-form-modal';
 import DeletePostFormModal from './delete-post-form-modal';
 import { Post, User } from '~/types/post';
