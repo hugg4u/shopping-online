@@ -90,7 +90,7 @@ const Header = () => {
                 // borderBottom: '1px solid #365842',
             }}
         >
-            <div className="container flex h-[80px] min-w-full items-center justify-between">
+            <div className="container flex h-[80px] items-center justify-between">
                 <div className="mx-2 ml-8 flex max-w-md items-center space-x-10">
                     <Link className="flex items-center" href="/">
                         <div className="relative h-16 w-16">

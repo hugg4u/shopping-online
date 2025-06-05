@@ -15,7 +15,6 @@ import { Spin } from '@shopping/common/components/spin';
 import { ToastContainer, Zoom } from 'react-toastify';
 import Head from 'next/head';
 import { ConfigProvider } from 'antd';
-import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import ScrollToTopButton from '@shopping/common/components/scroll-to-top';
 import { DefaultLayout } from '~/components/layouts/default-layout';
 import LoginModal from '~/components/modals/login-modal';
@@ -115,8 +114,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     <title>
                         {Component.title ? Component.title : 'Soma Tea'}
                     </title>
+                    <meta charSet="utf-8" />
+                    <meta
+                        content="width=device-width, initial-scale=1"
+                        name="viewport"
+                    />
+                    <meta content="Soma Tea - Trà cao cấp" name="description" />
                     <link
-                        href={getImageUrl('/icon_web.png')}
+                        href="/images/logo.png"
                         rel="icon"
                         sizes="500x480"
                         type="image/png"

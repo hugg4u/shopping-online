@@ -2,6 +2,43 @@ import { Request, Response } from 'express';
 import { db } from '../../../lib/db';
 import { TAKE_HOT_SEARCH_CLIENT_DEFAULT } from '../../../constant';
 
+type ProductConditions = {
+    categoryId?: string;
+    name?: {
+        contains: string;
+    };
+    brandId?: {
+        in: string[];
+    };
+    isShow?: boolean;
+    AND?: Array<{
+        OR?: Array<{
+            discount_price?: {
+                gte?: number;
+                lte?: number;
+            };
+            AND?: Array<{
+                discount_price?: null;
+                original_price?: {
+                    gte?: number;
+                    lte?: number;
+                };
+            }>;
+        }>;
+    }>;
+};
+
+type OrderByField =
+    | 'views'
+    | 'rating'
+    | 'createdAt'
+    | 'discount_price'
+    | 'updatedAt';
+type SortOrder = 'asc' | 'desc';
+type OrderByConfig = {
+    [key in OrderByField]?: SortOrder;
+};
+
 export const getListProductSelect = async (req: Request, res: Response) => {
     try {
         const listProduct = await db.product.findMany({
@@ -57,19 +94,16 @@ export const getListProductFeatured = async (req: Request, res: Response) => {
     }
 };
 
-type ProductConditions = {
-    categoryId?: string;
-    name?: {
-        contains: string;
-    };
-    brandId?: {
-        in: string[];
-    };
-    isShow?: boolean;
-};
-
 export const searchProducts = async (req: Request, res: Response) => {
-    const { categoryId, search, sortBy, sortOrder, brandIds } = req.query;
+    const {
+        categoryId,
+        search,
+        sortBy,
+        sortOrder,
+        brandIds,
+        minPrice,
+        maxPrice,
+    } = req.query;
     const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
     const pageSize = req.query.pageSize
         ? parseInt(req.query.pageSize as string, 10)
@@ -93,11 +127,86 @@ export const searchProducts = async (req: Request, res: Response) => {
             conditions.brandId = { in: brandIdsArray };
         }
 
-        // Fetch products without sorting
+        // Add price range filter
+        if (minPrice || maxPrice) {
+            conditions.AND = [
+                {
+                    OR: [
+                        {
+                            discount_price: {
+                                gte: minPrice ? Number(minPrice) : undefined,
+                                lte: maxPrice ? Number(maxPrice) : undefined,
+                            },
+                        },
+                        {
+                            AND: [
+                                { discount_price: null },
+                                {
+                                    original_price: {
+                                        gte: minPrice
+                                            ? Number(minPrice)
+                                            : undefined,
+                                        lte: maxPrice
+                                            ? Number(maxPrice)
+                                            : undefined,
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ];
+        }
+
+        // Get price range
+        const priceStats = await db.product.aggregate({
+            where: {
+                isShow: true,
+            },
+            _min: {
+                discount_price: true,
+                original_price: true,
+            },
+            _max: {
+                discount_price: true,
+                original_price: true,
+            },
+        });
+
+        const minProductPrice = Math.min(
+            priceStats._min.discount_price || Infinity,
+            priceStats._min.original_price || Infinity
+        );
+
+        const maxProductPrice = Math.max(
+            priceStats._max.discount_price || 0,
+            priceStats._max.original_price || 0
+        );
+
+        // Build orderBy object based on sort parameters
+        const orderBy: OrderByConfig = {};
+        if (sortBy) {
+            switch (sortBy) {
+                case 'rating':
+                    orderBy.rating = (sortOrder as SortOrder) || 'desc';
+                    break;
+                case 'createdAt':
+                    orderBy.createdAt = (sortOrder as SortOrder) || 'desc';
+                    break;
+                case 'price':
+                    orderBy.discount_price = (sortOrder as SortOrder) || 'asc';
+                    break;
+                default:
+                    orderBy.updatedAt = 'desc';
+            }
+        }
+
+        // Fetch products with sorting
         const products = await db.product.findMany({
             where: conditions,
             skip: (page - 1) * pageSize,
             take: pageSize,
+            orderBy,
             select: {
                 id: true,
                 name: true,
@@ -108,28 +217,10 @@ export const searchProducts = async (req: Request, res: Response) => {
                 thumbnail: true,
                 updatedAt: true,
                 briefInfo: true,
+                rating: true,
+                createdAt: true,
             },
         });
-
-        // Manual sorting
-        if (sortBy) {
-            if (sortBy === 'discount_price') {
-                products.sort((a, b) => {
-                    const priceA = a.discount_price ?? a.original_price;
-                    const priceB = b.discount_price ?? b.original_price;
-                    return sortOrder === 'desc'
-                        ? priceB - priceA
-                        : priceA - priceB;
-                });
-            } else if (sortBy === 'name' || sortBy === 'updatedAt') {
-                products.sort((a, b) => {
-                    if (sortOrder === 'desc') {
-                        return a[sortBy] < b[sortBy] ? 1 : -1;
-                    }
-                    return a[sortBy] > b[sortBy] ? 1 : -1;
-                });
-            }
-        }
 
         // Count total products matching search conditions
         const totalProducts = await db.product.count({
@@ -145,6 +236,10 @@ export const searchProducts = async (req: Request, res: Response) => {
             total: totalProducts,
             currentPage: page,
             totalPages,
+            priceRange: {
+                min: minProductPrice,
+                max: maxProductPrice,
+            },
             message: 'Search products successfully!',
         });
     } catch (error) {

@@ -115,7 +115,7 @@ const LoginModal = () => {
             <div className="text-center">
                 <div
                     className="text-2xl font-bold"
-                    style={{ color: '#3C2415' }}
+                    style={{ color: '#365842' }}
                 >
                     Đăng nhập với tài khoản của bạn!
                 </div>
@@ -131,7 +131,7 @@ const LoginModal = () => {
                 onFinish={onFinish}
             >
                 <Form.Item
-                    label={<span style={{ color: '#3C2415' }}>Email</span>}
+                    label={<span style={{ color: '#365842' }}>Email</span>}
                     name="email"
                     rules={[
                         {
@@ -149,7 +149,7 @@ const LoginModal = () => {
                     />
                 </Form.Item>
                 <Form.Item
-                    label={<span style={{ color: '#3C2415' }}>Mật khẩu</span>}
+                    label={<span style={{ color: '#365842' }}>Mật khẩu</span>}
                     name="password"
                     rules={[
                         {
@@ -199,8 +199,8 @@ const LoginModal = () => {
                     }
                     message="Tài khoản của bạn chưa được xác thực."
                     style={{
-                        backgroundColor: '#FAF6F0',
-                        borderColor: '#C8965F',
+                        backgroundColor: '#dde8dc',
+                        borderColor: '#365842',
                     }}
                     type="info"
                 />
@@ -210,17 +210,17 @@ const LoginModal = () => {
                 <Paragraph className="flex space-x-2">
                     <Spin />
                     <div className="flex space-x-1">
-                        <span style={{ color: '#6B5B4F' }}>
+                        <span style={{ color: '#365842' }}>
                             Gửi email xác thực sau
                         </span>
                         <Text style={{ color: '#C8965F' }}>
                             {Math.floor(secondsToGo / 60)}
                         </Text>
-                        <span style={{ color: '#6B5B4F' }}>phút</span>
+                        <span style={{ color: '#365842' }}>phút</span>
                         <Text style={{ color: '#C8965F' }}>
                             {secondsToGo % 60}
                         </Text>
-                        <span style={{ color: '#6B5B4F' }}>giây</span>
+                        <span style={{ color: '#365842' }}>giây</span>
                     </div>
                 </Paragraph>
             )}
@@ -229,10 +229,10 @@ const LoginModal = () => {
 
     const footerContent = (
         <div className="mt-3 flex flex-col gap-4">
-            <hr style={{ borderColor: '#E5DDD5' }} />
+            <hr style={{ borderColor: '#365842' }} />
             <div
                 className="mt-4 text-center font-light"
-                style={{ color: '#6B5B4F' }}
+                style={{ color: '##dde8dc' }}
             >
                 <div className="flex flex-col items-center justify-center gap-2">
                     <div>
@@ -243,11 +243,11 @@ const LoginModal = () => {
                         className="cursor-pointer hover:underline"
                         onClick={toggle}
                         role="presentation"
-                        style={{ color: '#3C2415' }}
+                        style={{ color: '#365842' }}
                     >
                         <Button
                             style={{
-                                color: '#C8965F',
+                                color: '#365842',
                                 borderColor: 'transparent',
                             }}
                             type="link"

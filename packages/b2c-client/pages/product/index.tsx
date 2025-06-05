@@ -18,6 +18,8 @@ type SearchParams = {
     categoryId?: string;
     search?: string;
     brandIds?: string[];
+    minPrice?: number;
+    maxPrice?: number;
 };
 
 const Products: NextPage = () => {
@@ -48,9 +50,10 @@ const Products: NextPage = () => {
             category: params.categoryId ?? '',
             search: params.search ?? '',
             brand: params.brandIds?.join(',') ?? '',
+            minPrice: params.minPrice ?? '',
+            maxPrice: params.maxPrice ?? '',
         };
 
-        // Remove empty string values from query
         Object.keys(updatedQuery).forEach(
             (key) =>
                 (updatedQuery[key] === '' || updatedQuery[key] === undefined) &&
@@ -80,6 +83,8 @@ const Products: NextPage = () => {
             categoryId: routerQuery.category as string,
             search: routerQuery.search as string,
             brandIds: brandIds.length > 0 ? brandIds : undefined,
+            minPrice: Number(routerQuery.minPrice) || undefined,
+            maxPrice: Number(routerQuery.maxPrice) || undefined,
         };
         fetchProducts(params);
     }, [router.query]);
@@ -91,7 +96,9 @@ const Products: NextPage = () => {
         categoryParam?: string,
         searchParam?: string,
         pageSizeParam?: number,
-        brandParam?: string[]
+        brandParam?: string[],
+        minPriceParam?: number,
+        maxPriceParam?: number
     ) => {
         const params: SearchParams = {
             page,
@@ -103,37 +110,75 @@ const Products: NextPage = () => {
             categoryId: categoryParam ?? (routerQuery.category as string),
             search: searchParam ?? (routerQuery.search as string),
             brandIds: brandParam ?? (routerQuery.brand as string)?.split(','),
+            minPrice: minPriceParam ?? Number(routerQuery.minPrice),
+            maxPrice: maxPriceParam ?? Number(routerQuery.maxPrice),
         };
 
         updateUrlAndFetchProducts(params);
     };
 
+    const handleCategoryChange = (categoryId: string) => {
+        handleSearch(
+            1,
+            routerQuery.sort as string,
+            routerQuery.sortOrder as string,
+            categoryId,
+            routerQuery.search as string,
+            undefined,
+            (routerQuery.brand as string)?.split(','),
+            Number(routerQuery.minPrice),
+            Number(routerQuery.maxPrice)
+        );
+    };
+
+    const handlePriceRangeChange = (minPrice: number, maxPrice: number) => {
+        handleSearch(
+            1,
+            routerQuery.sort as string,
+            routerQuery.sortOrder as string,
+            routerQuery.category as string,
+            routerQuery.search as string,
+            undefined,
+            (routerQuery.brand as string)?.split(','),
+            minPrice,
+            maxPrice
+        );
+    };
+
+    const handleResetFilters = () => {
+        handleSearch(
+            1,
+            routerQuery.sort as string,
+            routerQuery.sortOrder as string,
+            '', // reset category
+            routerQuery.search as string,
+            undefined,
+            (routerQuery.brand as string)?.split(','),
+            undefined, // reset minPrice
+            undefined // reset maxPrice
+        );
+    };
+
     return (
-        <div className="min-h-screen">
-            {/* Main Content */}
-            <div className="container relative z-10 mx-auto py-8">
+        <div className="min-h-screen bg-white">
+            <div className="container mx-auto max-w-[1400px] px-4 py-8">
                 <Spin size="large" spinning={isLoading}>
                     <div className="grid grid-cols-12 gap-8">
-                        {/* Sidebar */}
-                        <div className="col-span-12 lg:col-span-3">
-                            <Sidebar />
+                        {/* Sidebar - Fixed width 280px */}
+                        <div className="col-span-12 w-[280px] lg:col-span-3">
+                            <Sidebar
+                                onCategoryChange={handleCategoryChange}
+                                onPriceRangeChange={handlePriceRangeChange}
+                                onResetFilters={handleResetFilters}
+                            />
                         </div>
 
                         {/* Main Content Area */}
                         <div className="col-span-12 lg:col-span-9">
                             <div className="space-y-6">
                                 {/* Header Bar */}
-                                <div
-                                    className="rounded-xl shadow-sm"
-                                    style={{
-                                        backgroundColor: '#dde8dc',
-                                    }}
-                                >
+                                <div className="bg-white">
                                     <HeaderBar
-                                        currentSort={routerQuery.sort as string}
-                                        currentSortOrder={
-                                            routerQuery.sortOrder as string
-                                        }
                                         handleSearch={handleSearch}
                                         setSort={(newSort) => {
                                             handleSearch(
@@ -145,7 +190,9 @@ const Products: NextPage = () => {
                                                 undefined,
                                                 (
                                                     routerQuery.brand as string
-                                                )?.split(',')
+                                                )?.split(','),
+                                                Number(routerQuery.minPrice),
+                                                Number(routerQuery.maxPrice)
                                             );
                                         }}
                                         setSortOrder={(newSortOrder) => {
@@ -158,20 +205,18 @@ const Products: NextPage = () => {
                                                 undefined,
                                                 (
                                                     routerQuery.brand as string
-                                                )?.split(',')
+                                                )?.split(','),
+                                                Number(routerQuery.minPrice),
+                                                Number(routerQuery.maxPrice)
                                             );
                                         }}
+                                        totalProducts={totalProducts}
                                     />
                                 </div>
 
                                 {/* Product Content */}
-                                <div
-                                    className="overflow-hidden rounded-xl shadow-sm"
-                                    style={{
-                                        backgroundColor: '#dde8dc',
-                                    }}
-                                >
-                                    <Content className="min-h-[600px] p-6">
+                                <div className="bg-white">
+                                    <Content className="min-h-[600px]">
                                         <ProductContent
                                             currentPage={
                                                 Number(routerQuery.page) || 1
@@ -186,7 +231,11 @@ const Products: NextPage = () => {
                                                     newPageSize,
                                                     (
                                                         routerQuery.brand as string
-                                                    )?.split(',')
+                                                    )?.split(','),
+                                                    Number(
+                                                        routerQuery.minPrice
+                                                    ),
+                                                    Number(routerQuery.maxPrice)
                                                 )
                                             }
                                             pageSize={

@@ -49,7 +49,7 @@ const ForgotPasswordModal: React.FC = () => {
                 {/* <div className="text-2xl font-bold">Login to your account!</div> */}
                 <div
                     className="mt-2 font-light text-neutral-500"
-                    style={{ color: '#6B5B4F' }}
+                    style={{ color: '#365842' }}
                 >
                     Nhập email của bạn và chúng tôi sẽ gửi cho bạn email xác
                     nhận thay đổi mật khẩu.
@@ -63,7 +63,7 @@ const ForgotPasswordModal: React.FC = () => {
                 onFinish={onFinish}
             >
                 <Form.Item
-                    label={<span style={{ color: '#3C2415' }}>Email</span>}
+                    label={<span style={{ color: '#365842' }}>Email</span>}
                     name="email"
                     rules={[
                         {
@@ -79,13 +79,13 @@ const ForgotPasswordModal: React.FC = () => {
                     <Input
                         size="large"
                         style={{
-                            borderColor: '#E5DDD5',
-                            backgroundColor: '#FAF6F0',
+                            borderColor: '#365842',
+                            backgroundColor: '#dde8dc',
                         }}
                     />
                 </Form.Item>
                 <Form.Item hidden>
-                    <Button htmlType="submit" style={{ color: '#C8965F' }} />
+                    <Button htmlType="submit" style={{ color: '#365842' }} />
                 </Form.Item>
             </Form>
         </div>
@@ -107,7 +107,7 @@ const ForgotPasswordModal: React.FC = () => {
     return (
         <>
             <Button
-                className=":hover:text-amber-700 cursor-pointer text-amber-600"
+                className=":hover:text-amber-700 cursor-pointer text-[#365842]"
                 onClick={showModal}
                 type="link"
             >

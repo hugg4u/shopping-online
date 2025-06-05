@@ -1,6 +1,5 @@
 import React from 'react';
 import BrandPopover from './brand-popover';
-import CategoryPopover from './category-popover';
 import { SiderItem } from './sider-item';
 
 const MainSider = () => {
@@ -10,7 +9,7 @@ const MainSider = () => {
                 <div className="flex items-center justify-center space-x-8">
                     <SiderItem href="/" title="Trang chủ" />
                     <SiderItem href="/product" title="Sản phẩm" />
-                    <CategoryPopover />
+                    {/* <CategoryPopover /> */}
                     <BrandPopover />
                     <SiderItem href="/contact" title="Liên hệ" />
                 </div>

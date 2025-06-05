@@ -89,10 +89,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     const imageUrl = thumbnail ? getImageUrl(thumbnail) : '/images/sp1.jpg';
     const isOutOfStock = quantity <= 0;
-    const hasDiscount =
+    const hasDiscount = !!(
         discount_price &&
         discount_price !== original_price &&
-        discount_price > 0;
+        discount_price > 0
+    );
+
     const finalPrice = hasDiscount ? discount_price : original_price;
 
     return (

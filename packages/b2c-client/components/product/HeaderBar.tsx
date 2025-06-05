@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Dropdown, Layout, Menu } from 'antd';
+import React, { useState } from 'react';
+import { Button, Dropdown, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-
-const { Header } = Layout;
+import type { MenuProps } from 'antd';
 
 type HeaderBarProps = {
     setSort: (sort: string) => void;
@@ -16,82 +15,96 @@ type HeaderBarProps = {
         pageSize?: number,
         brand?: string[]
     ) => void;
-    currentSort: string;
-    currentSortOrder: string;
+    totalProducts: number;
 };
+
+const sortOptions = [
+    { label: 'Thứ tự mặc định', value: 'default' },
+    { label: 'Thứ tự theo điểm đánh giá', value: 'rating' },
+    { label: 'Mới nhất', value: 'newest' },
+    { label: 'Thứ tự theo giá: thấp đến cao', value: 'price_asc' },
+    { label: 'Thứ tự theo giá: cao xuống thấp', value: 'price_desc' },
+];
 
 const HeaderBar: React.FC<HeaderBarProps> = ({
     setSort,
     setSortOrder,
     handleSearch,
-    currentSort,
-    currentSortOrder,
+    totalProducts,
 }) => {
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [selectedSort, setSelectedSort] = useState('default');
 
-    useEffect(() => {
-        const selected: string[] = [];
-        if (currentSort === 'updatedAt' && currentSortOrder === 'desc') {
-            selected.push('2');
-        }
-        if (currentSort === 'discount_price') {
-            selected.push(`discount_price-${currentSortOrder}`);
-        }
-        setSelectedItems(selected);
-    }, [currentSort, currentSortOrder]);
+    const handleSortChange = (value: string) => {
+        setSelectedSort(value);
+        let sort = '';
+        let order = '';
 
-    const handleSortChange = (sort: string, sortOrder: string) => {
-        if (
-            selectedItems.includes(`${sort}-${sortOrder}`) ||
-            (sort === 'updatedAt' &&
-                sortOrder === 'desc' &&
-                selectedItems.includes('2'))
-        ) {
-            setSort('');
-            setSortOrder('');
-            handleSearch(1);
-            setSelectedItems([]);
-        } else {
-            setSort(sort);
-            setSortOrder(sortOrder);
-            handleSearch(1, sort, sortOrder);
-            setSelectedItems([`${sort}-${sortOrder}`]);
+        switch (value) {
+            case 'rating':
+                sort = 'rating';
+                order = 'desc';
+                break;
+            case 'newest':
+                sort = 'createdAt';
+                order = 'desc';
+                break;
+            case 'price_asc':
+                sort = 'price';
+                order = 'asc';
+                break;
+            case 'price_desc':
+                sort = 'price';
+                order = 'desc';
+                break;
+            default:
+                sort = '';
+                order = '';
         }
+
+        setSort(sort);
+        setSortOrder(order);
+        handleSearch(1, sort, order);
     };
 
+    // const items = (
+    //     <Menu
+    //         onClick={({ key }) => handleSortChange(key)}
+    //         selectedKeys={[selectedSort]}
+    //     >
+    //         {sortOptions.map((option) => (
+    //             <Menu.Item key={option.value}>{option.label}</Menu.Item>
+    //         ))}
+    //     </Menu>
+    // );
+
+    const items: MenuProps['items'] = sortOptions.map((option) => ({
+        key: option.value,
+        label: option.label,
+        onClick: () => handleSortChange(option.value),
+        selected: option.value === selectedSort,
+    }));
+
     return (
-        <div
-            className="flex h-16 items-center justify-between border-b px-6"
-            style={{
-                backgroundColor: '#ffff',
-                borderBottomColor: '#ffff',
-            }}
-        >
-            <div className="flex flex-grow items-center">
-                <span className="mr-6 text-base font-semibold">
-                    Sắp xếp theo
-                </span>
-                <Menu
-                    className="flex flex-grow items-center border-b-0 bg-transparent"
-                    mode="horizontal"
-                    overflowedIndicator={null}
-                >
-                    <Menu.Item
-                        className="rounded-md font-medium transition-all duration-300"
-                        onClick={() => handleSortChange('updatedAt', 'desc')}
-                        style={{
-                            color: selectedItems.includes('2')
-                                ? '#C8965F'
-                                : '#6B5B4F',
-                            backgroundColor: selectedItems.includes('2')
-                                ? '#FAF6F0'
-                                : 'transparent',
-                        }}
-                    >
-                        Mới Nhất
-                    </Menu.Item>
-                </Menu>
+        <div className="flex items-center justify-between py-4">
+            <div className="text-sm text-gray-600">
+                Hiển thị {totalProducts} sản phẩm
             </div>
+            <Dropdown
+                menu={{ items }}
+                placement="bottomRight"
+                trigger={['click']}
+            >
+                <Button>
+                    <Space>
+                        {
+                            sortOptions.find(
+                                (opt) => opt.value === selectedSort
+                            )?.label
+                        }
+                        <DownOutlined className="ml-2" />
+                    </Space>
+                </Button>
+            </Dropdown>
         </div>
     );
 };

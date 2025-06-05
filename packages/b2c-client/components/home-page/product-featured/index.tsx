@@ -92,7 +92,7 @@ const ListProductFeatured = () => {
                                                 item.original_price || 0
                                             }
                                             quantity={item.quantity || 0}
-                                            rating={4.5}
+                                            rating={item.rating || 0}
                                             thumbnail={item.thumbnail || ''}
                                         />
                                     </div>

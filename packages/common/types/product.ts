@@ -7,6 +7,7 @@ export type ProductFeatured = {
     original_price: number | null;
     discount_price: number | null;
     quantity: number | null;
+    rating: number | null;
 };
 
 export type Brand = {

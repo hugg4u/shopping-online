@@ -75,14 +75,14 @@ const ResetPasswordForm: React.FC = () => {
     return (
         <div
             className="flex h-screen w-full items-center justify-center"
-            style={{ backgroundColor: '#FAF6F0' }}
+            style={{ backgroundColor: '#dde8dc' }}
         >
             {isTokenValid ? (
                 <div
                     className="max-w-lg rounded-xl border p-8 shadow-sm"
                     style={{
-                        backgroundColor: '#F5F1E8',
-                        borderColor: '#E5DDD5',
+                        backgroundColor: '#dde8dc',
+                        borderColor: '#365842',
                     }}
                 >
                     <h2
@@ -121,8 +121,8 @@ const ResetPasswordForm: React.FC = () => {
                             <Input.Password
                                 size="large"
                                 style={{
-                                    borderColor: '#E5DDD5',
-                                    backgroundColor: '#FAF6F0',
+                                    borderColor: '#365842',
+                                    backgroundColor: '#dde8dc',
                                 }}
                             />
                         </Form.Item>
@@ -160,8 +160,8 @@ const ResetPasswordForm: React.FC = () => {
                             <Input.Password
                                 size="large"
                                 style={{
-                                    borderColor: '#E5DDD5',
-                                    backgroundColor: '#FAF6F0',
+                                    borderColor: '#365842',
+                                    backgroundColor: '#dde8dc',
                                 }}
                             />
                         </Form.Item>
