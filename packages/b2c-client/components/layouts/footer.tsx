@@ -1,14 +1,11 @@
-import React from 'react';
-import { Col, Layout, Row, Space, Typography } from 'antd';
 import {
-    ClockCircleOutlined,
     EnvironmentOutlined,
     FacebookOutlined,
-    InstagramOutlined,
     MailOutlined,
     PhoneOutlined,
-    TwitterOutlined,
 } from '@ant-design/icons';
+import { Col, Layout, Row, Space, Typography } from 'antd';
+import Image from 'next/image';
 
 const { Footer: LayoutFooter } = Layout;
 const { Title, Text, Link } = Typography;
@@ -18,7 +15,7 @@ const Footer = () => {
         <LayoutFooter
             className="relative w-full py-16"
             style={{
-                background: 'linear-gradient(135deg, #3C2415 0%, #2A1810 100%)',
+                background: 'linear-gradient(135deg, #365842 0%, #2a4434 100%)',
             }}
         >
             {/* Tea leaf pattern background */}
@@ -38,17 +35,20 @@ const Footer = () => {
                     {/* Logo và Giới thiệu */}
                     <Col md={8} sm={12} xs={24}>
                         <div className="mb-6 flex items-center gap-3">
-                            <div
-                                className="flex h-16 w-16 items-center justify-center rounded-full text-3xl backdrop-blur-sm"
-                                style={{
-                                    background:
-                                        'linear-gradient(135deg, #C8965F 0%, #D4A574 50%)',
-                                    color: '#3C2415',
-                                }}
-                            >
-                                🍃
+                            <div className="relative h-16 w-16">
+                                <Image
+                                    alt="logo"
+                                    fill
+                                    priority
+                                    sizes="(max-width: 200px) 200vw"
+                                    src="/images/logo.png"
+                                    style={{
+                                        objectFit: 'contain',
+                                        borderRadius: '50%',
+                                    }}
+                                />
                             </div>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col justify-end">
                                 <div
                                     className="text-xl font-bold"
                                     style={{
@@ -93,7 +93,8 @@ const Footer = () => {
                                     }}
                                 />
                                 <Text style={{ color: '#B8A082' }}>
-                                    123 Đường Trà, Quận 1, TP.HCM
+                                    Chung cư Phenika, Thạch Hòa, Thạch Thất, TP.
+                                    Hà Nội
                                 </Text>
                             </div>
                             <div className="flex items-center gap-3">
@@ -104,7 +105,7 @@ const Footer = () => {
                                     }}
                                 />
                                 <Text style={{ color: '#B8A082' }}>
-                                    1900-1234 (miễn phí)
+                                    0912166969
                                 </Text>
                             </div>
                             <div className="flex items-center gap-3">
@@ -116,17 +117,6 @@ const Footer = () => {
                                 />
                                 <Text style={{ color: '#B8A082' }}>
                                     info@somatea.vn
-                                </Text>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <ClockCircleOutlined
-                                    style={{
-                                        color: '#C8965F',
-                                        fontSize: '16px',
-                                    }}
-                                />
-                                <Text style={{ color: '#B8A082' }}>
-                                    8:00 - 22:00 (Thứ 2 - CN)
                                 </Text>
                             </div>
                         </div>
@@ -142,7 +132,7 @@ const Footer = () => {
                             </Title>
                             <Space size="large">
                                 <Link
-                                    href="https://facebook.com"
+                                    href="https://www.facebook.com/people/Soma-Teas/61577044074416/"
                                     target="_blank"
                                 >
                                     <div
@@ -158,34 +148,18 @@ const Footer = () => {
                                     </div>
                                 </Link>
                                 <Link
-                                    href="https://instagram.com"
+                                    href="https://zalo.me/0912166969"
                                     target="_blank"
                                 >
                                     <div
                                         className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
                                         style={{ backgroundColor: '#C8965F' }}
                                     >
-                                        <InstagramOutlined
-                                            style={{
-                                                color: '#3C2415',
-                                                fontSize: '18px',
-                                            }}
-                                        />
-                                    </div>
-                                </Link>
-                                <Link
-                                    href="https://twitter.com"
-                                    target="_blank"
-                                >
-                                    <div
-                                        className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
-                                        style={{ backgroundColor: '#C8965F' }}
-                                    >
-                                        <TwitterOutlined
-                                            style={{
-                                                color: '#3C2415',
-                                                fontSize: '18px',
-                                            }}
+                                        <Image
+                                            alt="logo"
+                                            height={20}
+                                            src="/images/zalo-icon.png"
+                                            width={20}
                                         />
                                     </div>
                                 </Link>

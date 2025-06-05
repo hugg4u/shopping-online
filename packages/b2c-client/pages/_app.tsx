@@ -80,27 +80,32 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             theme={{
                 components: {
                     Button: {
-                        colorPrimary: '#D4A574',
+                        colorPrimary: '#365842',
                         algorithm: true,
                     },
                     Spin: {
-                        colorPrimary: '#D4A574',
+                        colorPrimary: '#365842',
                     },
                     Pagination: {
-                        colorPrimary: '#D4A574',
+                        colorPrimary: '#365842',
                         algorithm: true,
                     },
                     Radio: {
-                        colorPrimary: '#D4A574',
+                        colorPrimary: '#365842',
                         algorithm: true,
                     },
                     Tabs: {
-                        colorPrimary: '#D4A574',
+                        colorPrimary: '#365842',
                         algorithm: true,
                     },
                 },
                 token: {
                     fontSize: 12,
+                    colorPrimary: '#365842',
+                    colorBgContainer: '#dde8dc',
+                    colorBorder: '#365842',
+                    colorText: '#365842',
+                    colorTextSecondary: '#6B5B4F',
                 },
             }}
         >
@@ -108,7 +113,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                 <Spin spinning={loading} />
                 <Head>
                     <title>
-                        {Component.title ? Component.title : 'Perfume Shop'}
+                        {Component.title ? Component.title : 'Soma Tea'}
                     </title>
                     <link
                         href={getImageUrl('/icon_web.png')}

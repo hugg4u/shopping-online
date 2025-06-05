@@ -35,13 +35,13 @@ const TeaExperienceSection: React.FC = () => {
             <div className="mb-16 text-center">
                 <h2
                     className="mb-6 text-3xl font-bold tracking-widest md:text-4xl"
-                    style={{ color: '#3C2415' }}
+                    style={{ color: '#365842' }}
                 >
                     THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN
                 </h2>
                 <div
                     className="mx-auto h-1 w-24"
-                    style={{ backgroundColor: '#C8965F' }}
+                    style={{ backgroundColor: '#365842' }}
                 />
             </div>
 
@@ -79,7 +79,7 @@ const TeaExperienceSection: React.FC = () => {
                                 <h3
                                     className="mb-1 text-xl font-bold tracking-wider md:text-2xl"
                                     style={{
-                                        color: '#3C2415',
+                                        color: '#365842',
                                     }}
                                 >
                                     {experience.title}

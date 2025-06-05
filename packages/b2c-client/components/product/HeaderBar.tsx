@@ -60,18 +60,15 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     };
 
     return (
-        <Header
-            className="flex h-16 items-center justify-between border-b px-6 shadow-sm"
+        <div
+            className="flex h-16 items-center justify-between border-b px-6"
             style={{
-                backgroundColor: '#FAF6F0',
-                borderBottomColor: '#E5DDD5',
+                backgroundColor: '#ffff',
+                borderBottomColor: '#ffff',
             }}
         >
             <div className="flex flex-grow items-center">
-                <span
-                    className="mr-6 text-base font-semibold"
-                    style={{ color: '#3C2415' }}
-                >
+                <span className="mr-6 text-base font-semibold">
                     Sắp xếp theo
                 </span>
                 <Menu
@@ -93,57 +90,9 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                     >
                         Mới Nhất
                     </Menu.Item>
-
-                    <Dropdown
-                        overlay={
-                            <Menu
-                                className="rounded-lg shadow-lg"
-                                onClick={(e) => {
-                                    const sortOrder = e.key as string;
-                                    handleSortChange(
-                                        'discount_price',
-                                        sortOrder
-                                    );
-                                }}
-                                style={{ backgroundColor: '#F5F1E8' }}
-                            >
-                                <Menu.Item
-                                    className="transition-colors"
-                                    key="asc"
-                                    style={{
-                                        color: '#3C2415',
-                                    }}
-                                >
-                                    Giá thấp đến cao
-                                </Menu.Item>
-                                <Menu.Item
-                                    className="transition-colors"
-                                    key="desc"
-                                    style={{
-                                        color: '#3C2415',
-                                    }}
-                                >
-                                    Giá cao đến thấp
-                                </Menu.Item>
-                            </Menu>
-                        }
-                        trigger={['click']}
-                    >
-                        <Menu.Item
-                            className="ml-4 flex h-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-md border-none px-4 leading-10 shadow-sm transition-all duration-300"
-                            key="4"
-                            style={{
-                                backgroundColor: '#F5F1E8',
-                                color: '#6B5B4F',
-                                border: '1px solid #E5DDD5',
-                            }}
-                        >
-                            Giá <DownOutlined />
-                        </Menu.Item>
-                    </Dropdown>
                 </Menu>
             </div>
-        </Header>
+        </div>
     );
 };
 

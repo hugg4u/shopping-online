@@ -109,16 +109,14 @@ const Products: NextPage = () => {
     };
 
     return (
-        <div className="min-h-screen" style={{ backgroundColor: '#FAF6F0' }}>
+        <div className="min-h-screen">
             {/* Main Content */}
             <div className="container relative z-10 mx-auto py-8">
                 <Spin size="large" spinning={isLoading}>
                     <div className="grid grid-cols-12 gap-8">
                         {/* Sidebar */}
                         <div className="col-span-12 lg:col-span-3">
-                            <div className="sticky top-8">
-                                <Sidebar />
-                            </div>
+                            <Sidebar />
                         </div>
 
                         {/* Main Content Area */}
@@ -126,10 +124,9 @@ const Products: NextPage = () => {
                             <div className="space-y-6">
                                 {/* Header Bar */}
                                 <div
-                                    className="rounded-xl border shadow-sm"
+                                    className="rounded-xl shadow-sm"
                                     style={{
-                                        backgroundColor: '#F5F1E8',
-                                        borderColor: '#E5DDD5',
+                                        backgroundColor: '#dde8dc',
                                     }}
                                 >
                                     <HeaderBar
@@ -169,10 +166,9 @@ const Products: NextPage = () => {
 
                                 {/* Product Content */}
                                 <div
-                                    className="overflow-hidden rounded-xl border shadow-sm"
+                                    className="overflow-hidden rounded-xl shadow-sm"
                                     style={{
-                                        backgroundColor: '#F5F1E8',
-                                        borderColor: '#E5DDD5',
+                                        backgroundColor: '#dde8dc',
                                     }}
                                 >
                                     <Content className="min-h-[600px] p-6">

@@ -11,7 +11,7 @@ const Header: React.FC<Props> = ({ title, isBack }) => {
     const router = useRouter();
 
     return (
-        <div className="mb-10 flex items-center border-b-2 border-b-slate-700 py-5 text-xl font-bold uppercase">
+        <div className="mb-10 flex items-center py-5 text-xl font-bold uppercase">
             {isBack && (
                 <LeftOutlined
                     className="mr-5 cursor-pointer hover:text-blue-500"

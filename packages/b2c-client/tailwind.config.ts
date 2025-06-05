@@ -15,10 +15,15 @@ const config: Config = {
                 'gradient-conic':
                     'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
             },
-        },
-        colors: {
-            ...color,
-            primary: '#F43F5E',
+            colors: {
+                primary: '#365842',
+                secondary: '#dde8dc',
+                accent: '#C8965F',
+                text: {
+                    primary: '#365842',
+                    secondary: '#6B5B4F',
+                },
+            },
         },
         container: {
             center: true,

@@ -70,7 +70,7 @@ const CategoryPopover = () => {
     return (
         <Popover content={content} placement="bottom" title="" zIndex={50}>
             <Link className="font-semibold uppercase" href="/product">
-                Danh mục
+                <span className="text-primary font-bold">Danh mục</span>
             </Link>
         </Popover>
     );

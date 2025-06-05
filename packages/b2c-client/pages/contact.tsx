@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
 import {
-    ClockCircleOutlined,
     EnvironmentOutlined,
     MailOutlined,
     PhoneOutlined,
@@ -13,14 +12,14 @@ const Contact = () => {
     return (
         <div
             className="min-h-screen py-16"
-            style={{ backgroundColor: '#FAF6F0' }}
+            style={{ backgroundColor: '#dde8dc' }}
         >
             <div className="mx-auto max-w-[1200px] px-4">
                 <div
                     className="rounded-2xl p-12 shadow-sm"
                     style={{
-                        backgroundColor: '#F5F1E8',
-                        border: '1px solid #E5DDD5',
+                        backgroundColor: '#dde8dc',
+                        border: '1px solid #365842',
                     }}
                 >
                     <Title
@@ -33,33 +32,46 @@ const Contact = () => {
                         Liên hệ với chúng tôi
                     </Title>
 
-                    <Row className="mb-20" gutter={[32, 32]}>
+                    <Row className="mb-20" gutter={[32, 32]} justify="center">
                         <Col
                             className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            md={6}
+                            lg={7}
+                            md={8}
                             sm={12}
-                            style={{ backgroundColor: '#FAF6F0' }}
+                            style={{
+                                backgroundColor: '#dde8dc',
+                                minHeight: '280px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
                             xs={24}
                         >
-                            <PhoneOutlined
-                                className="mb-6 text-5xl"
-                                style={{ color: '#C8965F' }}
-                            />
+                            <div
+                                className="flex h-20 w-20 items-center justify-center rounded-full"
+                                style={{ backgroundColor: '#F5E6D3' }}
+                            >
+                                <PhoneOutlined
+                                    className="text-4xl"
+                                    style={{ color: '#C8965F' }}
+                                />
+                            </div>
                             <Title
-                                className="mb-3"
+                                className="mb-4 mt-6"
                                 level={4}
                                 style={{ color: '#3C2415' }}
                             >
                                 Hotline
                             </Title>
-                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.8 }}>
                                 Gọi đến hotline chăm sóc khách hàng
                                 <br />
                                 <span
-                                    className="font-semibold"
+                                    className="text-lg font-semibold"
                                     style={{ color: '#C8965F' }}
                                 >
-                                    1900-1234 (miễn phí)
+                                    0912166969
                                 </span>
                                 <br />
                                 Phục vụ 24/7
@@ -68,27 +80,40 @@ const Contact = () => {
 
                         <Col
                             className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            md={6}
+                            lg={7}
+                            md={8}
                             sm={12}
-                            style={{ backgroundColor: '#FAF6F0' }}
+                            style={{
+                                backgroundColor: '#dde8dc',
+                                minHeight: '280px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
                             xs={24}
                         >
-                            <MailOutlined
-                                className="mb-6 text-5xl"
-                                style={{ color: '#C8965F' }}
-                            />
+                            <div
+                                className="flex h-20 w-20 items-center justify-center rounded-full"
+                                style={{ backgroundColor: '#F5E6D3' }}
+                            >
+                                <MailOutlined
+                                    className="text-4xl"
+                                    style={{ color: '#C8965F' }}
+                                />
+                            </div>
                             <Title
-                                className="mb-3"
+                                className="mb-4 mt-6"
                                 level={4}
                                 style={{ color: '#3C2415' }}
                             >
                                 Email
                             </Title>
-                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.8 }}>
                                 Gửi email đến
                                 <br />
                                 <a
-                                    className="font-semibold"
+                                    className="text-lg font-semibold"
                                     href="mailto:info@somatea.vn"
                                     style={{ color: '#C8965F' }}
                                 >
@@ -101,60 +126,41 @@ const Contact = () => {
 
                         <Col
                             className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            md={6}
+                            lg={7}
+                            md={8}
                             sm={12}
-                            style={{ backgroundColor: '#FAF6F0' }}
+                            style={{
+                                backgroundColor: '#dde8dc',
+                                minHeight: '280px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
                             xs={24}
                         >
-                            <EnvironmentOutlined
-                                className="mb-6 text-5xl"
-                                style={{ color: '#C8965F' }}
-                            />
+                            <div
+                                className="flex h-20 w-20 items-center justify-center rounded-full"
+                                style={{ backgroundColor: '#F5E6D3' }}
+                            >
+                                <EnvironmentOutlined
+                                    className="text-4xl"
+                                    style={{ color: '#C8965F' }}
+                                />
+                            </div>
                             <Title
-                                className="mb-3"
+                                className="mb-4 mt-6"
                                 level={4}
                                 style={{ color: '#3C2415' }}
                             >
                                 Địa chỉ
                             </Title>
-                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
-                                123 Đường Trà, Quận 1
+                            <Text style={{ color: '#6B5B4F', lineHeight: 1.8 }}>
+                                Chung cư Phenika,
                                 <br />
-                                TP. Hồ Chí Minh
+                                Thạch Hòa, Thạch Thất,
                                 <br />
-                                Việt Nam
-                            </Text>
-                        </Col>
-
-                        <Col
-                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            md={6}
-                            sm={12}
-                            style={{ backgroundColor: '#FAF6F0' }}
-                            xs={24}
-                        >
-                            <ClockCircleOutlined
-                                className="mb-6 text-5xl"
-                                style={{ color: '#C8965F' }}
-                            />
-                            <Title
-                                className="mb-3"
-                                level={4}
-                                style={{ color: '#3C2415' }}
-                            >
-                                Giờ làm việc
-                            </Title>
-                            <Text style={{ color: '#6B5B4F', lineHeight: 1.6 }}>
-                                Thứ 2 - Chủ nhật
-                                <br />
-                                <span
-                                    className="font-semibold"
-                                    style={{ color: '#C8965F' }}
-                                >
-                                    8:00 - 22:00
-                                </span>
-                                <br />
-                                Tất cả các ngày
+                                TP. Hà Nội, Việt Nam
                             </Text>
                         </Col>
                     </Row>
@@ -171,8 +177,8 @@ const Contact = () => {
                             <Form
                                 className="rounded-xl border p-8"
                                 style={{
-                                    backgroundColor: '#FAF6F0',
-                                    borderColor: '#E5DDD5',
+                                    backgroundColor: '#dde8dc',
+                                    borderColor: '#365842',
                                 }}
                             >
                                 <Form.Item
@@ -189,8 +195,8 @@ const Contact = () => {
                                         className="h-12 rounded-lg border text-base"
                                         placeholder="Tên của bạn"
                                         style={{
-                                            borderColor: '#E5DDD5',
-                                            backgroundColor: '#F5F1E8',
+                                            borderColor: '#365842',
+                                            backgroundColor: '#dde8dc',
                                         }}
                                     />
                                 </Form.Item>
@@ -208,8 +214,8 @@ const Contact = () => {
                                         className="h-12 rounded-lg border text-base"
                                         placeholder="Email của bạn"
                                         style={{
-                                            borderColor: '#E5DDD5',
-                                            backgroundColor: '#F5F1E8',
+                                            borderColor: '#365842',
+                                            backgroundColor: '#dde8dc',
                                         }}
                                     />
                                 </Form.Item>
@@ -228,8 +234,8 @@ const Contact = () => {
                                         placeholder="Tin nhắn của bạn"
                                         rows={6}
                                         style={{
-                                            borderColor: '#E5DDD5',
-                                            backgroundColor: '#F5F1E8',
+                                            borderColor: '#365842',
+                                            backgroundColor: '#dde8dc',
                                         }}
                                     />
                                 </Form.Item>

@@ -4,13 +4,12 @@ const ManagerSite = () => {
     return (
         <div className="flex flex-col items-center gap-8 rounded-xl border-4 p-6">
             <div className="text-2xl font-semibold text-amber-600">
-                Welcome to The Perfume CMS
+                Welcome to The Soma Tea CMS
             </div>
             <div className="text-center">
                 <div className="text-xl ">Unleash Your Fragrance Vision</div>
                 <div>
-                    Create captivating online perfume stores with our intuitive
-                    CMS.
+                    Create captivating online Soma Tea with our intuitive CMS.
                 </div>
             </div>
             <div>

@@ -21,9 +21,6 @@ const MainBanner = () => {
     });
 
     const [currentSlice, setCurrentSlice] = useState<number>(1);
-    const [activeLeft, setActiveLeft] = useState<boolean>(false);
-    const [activeRight, setActiveRight] = useState<boolean>(false);
-
     const swiper1Ref = useRef<TypeSwiper>();
     const swiper2Ref = useRef<TypeSwiper>();
 
@@ -55,9 +52,7 @@ const MainBanner = () => {
             <div
                 className={cn(
                     'relative flex justify-center',
-                    data?.data && data?.data.length > 0
-                        ? 'min-h-[600px]'
-                        : 'min-h-[200px]'
+                    'h-[calc(100vh-80px)]' // Chiều cao = 100vh - header height
                 )}
                 onMouseLeave={() => {
                     swiper1Ref.current?.autoplay?.start();
@@ -75,7 +70,7 @@ const MainBanner = () => {
                         disableOnInteraction: false,
                         pauseOnMouseEnter: true,
                     }}
-                    className="!w-full !pb-6"
+                    className="w-full"
                     loop
                     modules={[Pagination, Controller, Navigation]}
                     onSlideChange={(e) => {
@@ -86,60 +81,52 @@ const MainBanner = () => {
                     onSwiper={(swiper) => {
                         swiper1Ref.current = swiper;
                     }}
+                    preventInteractionOnTransition
                     slidesPerView={1}
                     speed={1000}
-                    style={{ minWidth: 1340 }}
+                    style={{
+                        overflow: 'hidden',
+                        width: '100%',
+                        height: '100%',
+                    }}
                 >
                     {data?.data?.map((item) => (
                         <SwiperSlide
+                            className="h-full"
                             key={item?.id}
                             onClick={() => {
                                 redirectBackLink(item?.backlink ?? '/');
                             }}
                         >
-                            <div
-                                className="relative flex cursor-pointer justify-center"
-                                style={{
-                                    height: 'calc((982px + (100vw - 1200px) / 2) * 0.5224)',
-                                    maxHeight: 700,
-                                }}
-                            >
+                            <div className="relative flex h-full w-full cursor-pointer justify-center">
                                 <div
-                                    className="relative h-[calc(100%-20%)] max-h-[540px]"
+                                    className="relative h-full w-full"
                                     id="background-banner"
                                     role="presentation"
                                     style={{
-                                        width: '100%',
                                         backgroundColor:
                                             item?.backgroundSliderColor ??
                                             '#F5F1E8',
                                     }}
                                 >
-                                    <div className="absolute right-[0] z-10 h-full shadow-[-10px_10px_15px_rgba(60,36,21,0.2)]">
-                                        <div className="z-8 relative">
-                                            <div
-                                                className="w-[100vw] !max-w-[1340px]"
-                                                style={{
-                                                    height: 'calc((982px + (100vw - 1200px) / 2) * 0.5224)',
-                                                    maxHeight: 700,
-                                                }}
-                                            >
-                                                <Image
-                                                    alt={item.title ?? ''}
-                                                    className="shadow-lg"
-                                                    layout="fill"
-                                                    objectFit="fill"
-                                                    src={`${item.image}`}
-                                                />
-                                            </div>
-                                        </div>
+                                    <div className="absolute inset-0 z-10">
+                                        <Image
+                                            alt={item.title ?? ''}
+                                            className="shadow-lg"
+                                            layout="fill"
+                                            objectFit="fit"
+                                            priority
+                                            src={`${item.image}`}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <div className="absolute z-10 grid h-fit w-full max-w-[1200px]">
+
+                {/* Content Swiper */}
+                <div className="absolute z-10 grid h-full w-full max-w-[1200px]">
                     <Swiper
                         autoplay={{
                             delay: 6000,
@@ -161,14 +148,14 @@ const MainBanner = () => {
                                     redirectBackLink(item?.backlink ?? '/');
                                 }}
                             >
-                                <div className="animation-fade-in cursor-pointer">
+                                <div className="animation-fade-in h-full cursor-pointer">
                                     <div
-                                        className="flex h-[540px] w-full items-center"
+                                        className="flex h-full w-full items-center px-8"
                                         role="presentation"
                                     >
-                                        <div>
+                                        <div className="max-w-[800px]">
                                             <div
-                                                className="block max-w-[800px] text-[42px] font-bold uppercase leading-[45px]"
+                                                className="text-[42px] font-bold uppercase leading-[1.2]"
                                                 style={{
                                                     color:
                                                         item?.titleTextColor ??
@@ -178,7 +165,7 @@ const MainBanner = () => {
                                                 {item?.title}
                                             </div>
                                             <div
-                                                className="block text-[36px] font-bold leading-[45px]"
+                                                className="mt-4 text-[36px] font-bold leading-[1.2]"
                                                 style={{
                                                     color:
                                                         item?.noteTextColor ??
@@ -194,54 +181,41 @@ const MainBanner = () => {
                         ))}
                     </Swiper>
                 </div>
+
+                {/* Navigation Buttons */}
                 <div className="absolute bottom-[24px] left-[calc((100%-1200px)/2)] z-50 flex items-center">
                     <div className="mr-[50px] flex space-x-[8px]">
-                        <div
-                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border transition-all duration-300"
+                        <button
+                            aria-label="Previous slide"
+                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border bg-[#C8965F] transition-all duration-300 hover:bg-[#A67B4F]"
                             onClick={() => swiper1Ref.current?.slidePrev()}
-                            onKeyDown={() => swiper1Ref.current?.slidePrev()}
-                            onMouseEnter={() => setActiveLeft(true)}
-                            onMouseLeave={() => setActiveLeft(false)}
-                            role="presentation"
-                            style={{
-                                borderColor: '#C8965F',
-                                backgroundColor: '#C8965F',
-                            }}
+                            type="button"
                         >
                             <ArrowLeftSquare
                                 background="none"
                                 height="30px"
-                                iconColor={activeLeft ? '#fff' : '#fff'}
+                                iconColor="#fff"
                                 width="30px"
                             />
-                        </div>
+                        </button>
 
-                        <div
-                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border transition-all duration-300"
+                        <button
+                            aria-label="Next slide"
+                            className="z-[10] h-[32px] w-[32px] cursor-pointer rounded-full border bg-[#C8965F] transition-all duration-300 hover:bg-[#A67B4F]"
                             onClick={() => swiper1Ref.current?.slideNext()}
-                            onKeyDown={() => swiper1Ref.current?.slideNext()}
-                            onMouseEnter={() => setActiveRight(true)}
-                            onMouseLeave={() => setActiveRight(false)}
-                            role="presentation"
-                            style={{
-                                borderColor: '#C8965F',
-                                backgroundColor: '#C8965F',
-                            }}
+                            type="button"
                         >
                             <ArrowRightSquare
                                 background="none"
                                 height="30px"
-                                iconColor={activeRight ? '#fff' : '#fff'}
+                                iconColor="#fff"
                                 width="30px"
                             />
-                        </div>
+                        </button>
                     </div>
-                    <div
-                        className="space-x-1.5 text-lg leading-[19px]"
-                        style={{ color: '#3C2415' }}
-                    >
+                    <div className="text-lg leading-[19px] text-[#3C2415]">
                         <span>{currentSlice}</span>
-                        <span>/</span>
+                        <span className="mx-1.5">/</span>
                         <span>{data?.data?.length}</span>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ const ListProductFeatured = () => {
 
     if (isLoading) {
         return (
-            <div className="py-20" style={{ backgroundColor: '#F5F1E8' }}>
+            <div className="py-20" style={{ backgroundColor: '#dde8dc' }}>
                 <div className="container mx-auto px-4">
                     <div className="space-y-12">
                         {/* Header Skeleton */}
@@ -43,7 +43,7 @@ const ListProductFeatured = () => {
     }
 
     return (
-        <div className="py-20" style={{ backgroundColor: '#F5F1E8' }}>
+        <div className="py-20" style={{ backgroundColor: '#dde8dc' }}>
             <div className="container mx-auto px-4">
                 <div className="space-y-12">
                     {/* Enhanced Header Section */}

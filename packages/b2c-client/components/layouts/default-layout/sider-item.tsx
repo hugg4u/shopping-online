@@ -17,7 +17,7 @@ export const SiderItem: React.FC<SiderItemProps> = ({ title, href, query }) => {
             {title === 'Trang chủ' ? (
                 <HomeOutlined style={{ fontSize: '1.2rem' }} />
             ) : (
-                title
+                <span className="text-primary font-bold">{title}</span>
             )}
         </Link>
     );

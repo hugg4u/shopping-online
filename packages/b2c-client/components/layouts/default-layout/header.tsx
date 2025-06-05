@@ -1,21 +1,22 @@
-import { LoginOutlined, MenuOutlined } from '@ant-design/icons';
+import { MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, MenuProps, Skeleton, Tooltip } from 'antd';
 
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import Avatar from '@shopping/common/components/avatar';
 import { useUserQueryStore } from '@shopping/common/store/useUserStore';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
+import Cookies from 'js-cookie';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useAuth } from '~/hooks/useAuth';
 import useLoginModal from '~/hooks/useLoginModal';
 // import useRegisterModal from '~/hooks/useRegisterModal';
-import Search from './search';
-import CartIcon from './cart-icon';
-import EditProfilePopup from '~/components/my-page/EditProfilePopup';
 import ChangePasswordPopup from '~/components/my-page/ChangePasswordPopup';
+import EditProfilePopup from '~/components/my-page/EditProfilePopup';
+import CartIcon from './cart-icon';
 import MainSider from './main-sider';
+import Search from './search';
 
 const Header = () => {
     const auth = useAuth();
@@ -85,26 +86,25 @@ const Header = () => {
         <div
             className="shadow-sm"
             style={{
-                backgroundColor: '#FAF6F0',
-                borderBottom: '1px solid #E5DDD5',
+                backgroundColor: '#dde8dc',
+                // borderBottom: '1px solid #365842',
             }}
         >
             <div className="container flex h-[80px] min-w-full items-center justify-between">
-                <div className="mx-2 ml-8 flex max-w-md space-x-10">
-                    <Link href="/">
-                        <div className="flex select-none flex-col items-center gap-0 uppercase">
-                            <div
-                                className="text-lg font-semibold leading-4"
-                                style={{ color: '#3C2415' }}
-                            >
-                                Soma
-                            </div>
-                            <div
-                                className="text-2xl font-bold"
-                                style={{ color: '#C8965F' }}
-                            >
-                                Tea
-                            </div>
+                <div className="mx-2 ml-8 flex max-w-md items-center space-x-10">
+                    <Link className="flex items-center" href="/">
+                        <div className="relative h-16 w-16">
+                            <Image
+                                alt="logo"
+                                fill
+                                priority
+                                sizes="(max-width: 200px) 200vw"
+                                src="/images/logo.png"
+                                style={{
+                                    objectFit: 'contain',
+                                    borderRadius: '50%',
+                                }}
+                            />
                         </div>
                     </Link>
                     <Search />
@@ -172,12 +172,12 @@ const Header = () => {
                         ) : (
                             <div className="flex space-x-3">
                                 <Tooltip title="Đăng nhập">
-                                    <LoginOutlined
+                                    <UserOutlined
                                         className="cursor-pointer"
                                         onClick={openLoginModal}
                                         style={{
                                             fontSize: 24,
-                                            color: '#3C2415',
+                                            color: '#365842',
                                         }}
                                     />
                                 </Tooltip>

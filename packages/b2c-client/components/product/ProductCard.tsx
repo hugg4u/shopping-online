@@ -13,7 +13,6 @@ import { currencyFormatter } from '@shopping/common/utils/formatter';
 import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { useAuth } from '~/hooks/useAuth';
 import { Product } from '~/types/product';
-
 import { useCartQuery } from '~/hooks/useCartQuery';
 import useCartStore from '~/hooks/useCartStore';
 
@@ -26,12 +25,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
     original_price,
     quantity,
     thumbnail,
-    briefInfo,
     rating,
 }) => {
     const auth = useAuth();
     const router = useRouter();
-
     const { reload } = useCartQuery();
     const { addProduct } = useCartStore();
 
@@ -40,7 +37,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             if (!auth || !(auth as { access_token: string }).access_token) {
                 throw new Error('No access token available');
             }
-
             return request.post('/cart/add', data);
         },
         onSuccess: () => {
@@ -55,69 +51,42 @@ const ProductCard: React.FC<ProductCardProps> = ({
     });
 
     const handleAddToCart = async (
-        event:
-            | React.MouseEvent<HTMLDivElement>
-            | React.KeyboardEvent<HTMLDivElement>
+        event: React.MouseEvent<HTMLButtonElement>
     ) => {
         event.stopPropagation();
         if (quantity > 0) {
             const productData = { productId: id, quantity: 1 };
-
-            // Check if user is authenticated
             if (auth && (auth as { access_token: string }).access_token) {
                 addToCart.mutate(productData);
             } else {
-                // Add to Zustand store instead of localStorage
                 addProduct(productData);
                 toast.success('Sản phẩm được thêm vào giỏ hàng thành công!');
             }
         }
     };
 
-    const handleBuyNow = async (
-        event:
-            | React.MouseEvent<HTMLDivElement>
-            | React.KeyboardEvent<HTMLDivElement>
-    ) => {
+    const handleBuyNow = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         if (quantity > 0) {
             const productData = { productId: id, quantity: 1 };
-
-            // Check if user is authenticated
             if (auth && (auth as { access_token: string }).access_token) {
                 addToCart.mutate(productData);
             } else {
-                // Add to Zustand store instead of localStorage
                 addProduct(productData);
             }
-
             router.push(`/cart-details?itemKeys=${id}`);
         }
     };
 
-    const handleViewProduct = (
-        event:
-            | React.MouseEvent<HTMLDivElement>
-            | React.KeyboardEvent<HTMLDivElement>
-    ) => {
+    const handleViewProduct = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         router.push(`/product/${id}`);
-    };
-
-    const handleKeyDown = (
-        event: React.KeyboardEvent<HTMLDivElement>,
-        action: () => void
-    ) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-            action();
-        }
     };
 
     const handleCardClick = () => {
         router.push(`/product/${id}`);
     };
 
-    // Computed values
     const imageUrl = thumbnail ? getImageUrl(thumbnail) : '/images/sp1.jpg';
     const isOutOfStock = quantity <= 0;
     const hasDiscount =
@@ -125,154 +94,96 @@ const ProductCard: React.FC<ProductCardProps> = ({
         discount_price !== original_price &&
         discount_price > 0;
     const finalPrice = hasDiscount ? discount_price : original_price;
-    const discountPercentage = hasDiscount
-        ? Math.round(((original_price - discount_price) / original_price) * 100)
-        : 0;
-
-    // Stock status helper
-    const getStockStatus = () => {
-        if (isOutOfStock) {
-            return {
-                text: 'Hết hàng',
-                className: 'bg-red-100 text-red-600',
-            };
-        }
-        if (quantity <= 5) {
-            return {
-                text: `Chỉ còn ${quantity}`,
-                className: 'bg-yellow-100 text-yellow-700',
-            };
-        }
-        return {
-            text: `Còn ${quantity}`,
-            className: 'bg-green-100 text-green-600',
-        };
-    };
-
-    const stockStatus = getStockStatus();
 
     return (
         <Card
-            className="group relative mb-6 flex h-[440px] w-[260px] flex-col justify-between overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
-            cover={
-                <div className="relative h-[240px] overflow-hidden">
-                    <img
-                        alt={name}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        src={imageUrl}
-                    />
-
-                    {/* Discount badge */}
-                    {hasDiscount && !isOutOfStock && (
-                        <div className="absolute left-3 top-3 z-10">
-                            <span className="rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
-                                -{discountPercentage}%
-                            </span>
-                        </div>
-                    )}
-
-                    {/* Hover overlay with action icons */}
-                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-50">
-                        <div className="flex space-x-3 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                            {/* View Product Icon */}
-                            <div
-                                aria-label="Xem chi tiết sản phẩm"
-                                className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-gray-700 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-blue-500 hover:text-white"
-                                onClick={handleViewProduct}
-                                onKeyDown={(e) =>
-                                    handleKeyDown(e, () => handleViewProduct(e))
-                                }
-                                role="button"
-                                tabIndex={0}
-                                title="Xem chi tiết"
-                            >
-                                <EyeOutlined className="text-base" />
-                            </div>
-
-                            {/* Add to Cart Icon */}
-                            {!isOutOfStock && (
-                                <>
-                                    <div
-                                        aria-label="Thêm sản phẩm vào giỏ hàng"
-                                        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-gray-700 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-green-500 hover:text-white"
-                                        onClick={handleAddToCart}
-                                        onKeyDown={(e) =>
-                                            handleKeyDown(e, () =>
-                                                handleAddToCart(e)
-                                            )
-                                        }
-                                        role="button"
-                                        tabIndex={0}
-                                        title="Thêm vào giỏ hàng"
-                                    >
-                                        <ShoppingCartOutlined className="text-base" />
-                                    </div>
-
-                                    <div
-                                        aria-label="Mua ngay sản phẩm"
-                                        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-white text-gray-700 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-amber-500 hover:text-white"
-                                        onClick={handleBuyNow}
-                                        onKeyDown={(e) =>
-                                            handleKeyDown(e, () =>
-                                                handleBuyNow(e)
-                                            )
-                                        }
-                                        role="button"
-                                        tabIndex={0}
-                                        title="Mua ngay"
-                                    >
-                                        <ShoppingOutlined className="text-base" />
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            }
-            hoverable
+            bodyStyle={{ padding: '0px' }}
+            className="group relative h-[400px] w-[280px] cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"
             onClick={handleCardClick}
         >
-            <div className="flex h-full flex-col justify-between p-1">
-                {/* Product Info */}
-                <div className="space-y-2">
-                    <h3 className="line-clamp-2 text-base font-semibold text-gray-800 transition-colors duration-300 group-hover:text-amber-600">
-                        {name}
-                    </h3>
+            {/* Image Container */}
+            <div className="relative h-[280px] overflow-hidden">
+                <img
+                    alt={name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    src={imageUrl}
+                />
 
-                    {briefInfo && (
-                        <p className="line-clamp-2 text-sm leading-relaxed text-gray-600">
-                            {briefInfo}
-                        </p>
+                {/* Status Badge */}
+                <div className="absolute left-0 top-0">
+                    {isOutOfStock && (
+                        <div className="bg-red-500 px-3 py-1 text-sm font-semibold text-white">
+                            HẾT HÀNG
+                        </div>
+                    )}
+                    {!isOutOfStock && hasDiscount && (
+                        <div className="bg-[#D92D20] px-3 py-1 text-sm font-semibold text-white">
+                            SALE
+                        </div>
                     )}
                 </div>
 
-                {/* Price and Stock Info */}
-                <div className="mt-4 space-y-3">
-                    {/* Price Section */}
-                    <div className="space-y-1">
-                        {hasDiscount && (
-                            <div className="text-sm text-gray-400 line-through">
-                                {currencyFormatter(original_price)}
-                            </div>
-                        )}
-                        <div className="text-xl font-bold text-amber-600">
-                            {currencyFormatter(finalPrice)}
-                        </div>
-                    </div>
-
-                    {/* Stock Status */}
-                    <div className="flex items-center justify-between">
-                        <span
-                            className={`rounded-full px-3 py-1 text-xs font-medium ${stockStatus.className}`}
+                {/* Hover Actions */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="flex gap-3">
+                        <button
+                            aria-label="Xem chi tiết sản phẩm"
+                            className="text-primary hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full bg-white transition-all hover:text-white"
+                            onClick={handleViewProduct}
+                            type="button"
                         >
-                            {stockStatus.text}
-                        </span>
-
-                        {/* Rating placeholder - có thể thêm sau */}
-                        <div className="flex items-center space-x-1 text-yellow-400">
-                            <Rate disabled value={rating} />
-                        </div>
+                            <EyeOutlined className="text-lg" />
+                        </button>
+                        {!isOutOfStock && (
+                            <>
+                                <button
+                                    aria-label="Thêm vào giỏ hàng"
+                                    className="text-primary hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full bg-white transition-all hover:text-white"
+                                    onClick={handleAddToCart}
+                                    type="button"
+                                >
+                                    <ShoppingCartOutlined className="text-lg" />
+                                </button>
+                                <button
+                                    aria-label="Mua ngay"
+                                    className="text-primary hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full bg-white transition-all hover:text-white"
+                                    onClick={handleBuyNow}
+                                    type="button"
+                                >
+                                    <ShoppingOutlined className="text-lg" />
+                                </button>
+                            </>
+                        )}
                     </div>
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="mt-2 space-y-2">
+                {/* Rating */}
+                <div className="flex justify-center">
+                    <Rate
+                        className="text-sm text-yellow-400"
+                        defaultValue={rating}
+                        disabled
+                    />
+                </div>
+
+                {/* Product Name */}
+                <h3 className="line-clamp-2 text-center text-base font-medium text-gray-800">
+                    {name}
+                </h3>
+
+                {/* Price */}
+                <div className="text-center">
+                    {hasDiscount && (
+                        <span className="mr-2 text-sm text-gray-400 line-through">
+                            {currencyFormatter(original_price)}
+                        </span>
+                    )}
+                    <span className="text-lg font-bold text-[#D92D20]">
+                        {currencyFormatter(finalPrice)}
+                    </span>
                 </div>
             </div>
         </Card>

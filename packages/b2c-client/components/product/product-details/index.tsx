@@ -266,7 +266,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     </p>
                     <ProductSpecifications
                         name={data?.brand?.name ?? ''}
-                        title="Thương hiệu"
+                        title="Loại sản phẩm"
                     />
                     <ProductSpecifications
                         name={data?.category?.name ?? ''}
