@@ -242,7 +242,7 @@ const Products: NextPage = () => {
                                                 Number(routerQuery.pageSize) ||
                                                 PAGE_SIZE_CLIENT_PRODUCT
                                             }
-                                            products={products}
+                                            products={[...products]}
                                             total={totalProducts}
                                         />
                                     </Content>

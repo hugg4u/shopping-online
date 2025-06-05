@@ -26,10 +26,10 @@ const ProductContent: React.FC<ProductContentProps> = ({
                         Không có sản phẩm
                     </div>
                 ) : (
-                    <div className="flex flex-wrap gap-2.5">
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {products.map((product) => (
                             <div
-                                className="mb-4 box-border flex justify-center"
+                                className="flex justify-center"
                                 key={product.id}
                             >
                                 <ProductCard {...product} />

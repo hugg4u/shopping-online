@@ -43,7 +43,7 @@ const ListProductFeatured = () => {
     }
 
     return (
-        <div className="py-20" style={{ backgroundColor: '#dde8dc' }}>
+        <div className="py-20" style={{ backgroundColor: '#ffff' }}>
             <div className="container mx-auto px-4">
                 <div className="space-y-12">
                     {/* Enhanced Header Section */}

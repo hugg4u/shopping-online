@@ -3,6 +3,7 @@ import { NextPageWithLayout } from './_app';
 import TeaExperienceSection from '~/components/home-page/tea-experience-section';
 import NaturalBackgroundSection from '~/components/home-page/natural-background-section';
 import ListProductFeatured from '~/components/home-page/product-featured';
+import TeaIntro from '~/components/home-page/TeaIntro';
 
 const HomePage: NextPageWithLayout = () => {
     return (
@@ -14,6 +15,11 @@ const HomePage: NextPageWithLayout = () => {
             <section className="relative">
                 <MainBanner />
             </section>
+
+            {/* Tea Introduction Section */}
+            {/* <section className="relative">
+                <TeaIntro />
+            </section> */}
 
             {/* Section "THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN" */}
             <section
