@@ -8,7 +8,6 @@ import { Breadcrumb, Spin } from 'antd';
 import Link from 'next/link';
 import ProductDetail from '~/components/product/product-details';
 import { NextPageWithLayout } from '../_app';
-import Sidebar from '~/components/product/Sidebar';
 
 const ProductDetailPage: NextPageWithLayout = () => {
     const { query } = useRouter();
@@ -24,9 +23,6 @@ const ProductDetailPage: NextPageWithLayout = () => {
     return (
         <div>
             <div className="mt-20 flex px-10">
-                <div className="sticky top-10 hidden h-[90vh] w-[350px] min-w-[350px] xl:block">
-                    <Sidebar />
-                </div>
                 <div className="flex-1">
                     <div className="container mb-5">
                         <Breadcrumb
