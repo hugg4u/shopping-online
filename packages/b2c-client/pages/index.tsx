@@ -1,9 +1,8 @@
 import MainBanner from '~/components/home-page/main-banner';
-import { NextPageWithLayout } from './_app';
-import TeaExperienceSection from '~/components/home-page/tea-experience-section';
 import NaturalBackgroundSection from '~/components/home-page/natural-background-section';
 import ListProductFeatured from '~/components/home-page/product-featured';
-import TeaIntro from '~/components/home-page/TeaIntro';
+import TeaExperienceSection from '~/components/home-page/tea-experience-section';
+import { NextPageWithLayout } from './_app';
 
 const HomePage: NextPageWithLayout = () => {
     return (
