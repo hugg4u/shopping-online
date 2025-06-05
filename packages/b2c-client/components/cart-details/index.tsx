@@ -184,13 +184,13 @@ const CartDetails = () => {
 
     if (!auth) {
         return (
-            <Layout className="bg-[#f4f1e7]">
-                <Content className="bg-[#f4f1e7]" style={{ padding: '0 48px' }}>
+            <Layout className="bg-[#ffff]">
+                <Content className="bg-[#0000]" style={{ padding: '0 48px' }}>
                     <Layout
-                        className="bg-[#f4f1e7]"
+                        className="bg-[#ffff]"
                         style={{ padding: '24px 0' }}
                     >
-                        <Content className="bg-[#f4f1e7]">
+                        <Content className="bg-[#ffff]">
                             <Row gutter={16}>
                                 <Col span={16}>
                                     {listCartItemsStore?.data?.map((item) => (

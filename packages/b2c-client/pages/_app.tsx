@@ -101,7 +101,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                 token: {
                     fontSize: 12,
                     colorPrimary: '#365842',
-                    colorBgContainer: '#dde8dc',
+                    colorBgContainer: '#ffff',
                     colorBorder: '#365842',
                     colorText: '#365842',
                     colorTextSecondary: '#6B5B4F',
