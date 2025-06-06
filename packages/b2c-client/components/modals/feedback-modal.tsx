@@ -194,8 +194,7 @@ const FeedBackModal: React.FC<Props> = ({
                                                 </p>
                                                 <p className="text-base text-gray-500">
                                                     Phân loại hàng: {category},{' '}
-                                                    {size}
-                                                    ml
+                                                    {size} g
                                                 </p>
                                             </div>
                                         </div>

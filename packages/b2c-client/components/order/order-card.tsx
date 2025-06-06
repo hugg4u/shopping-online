@@ -131,8 +131,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                             <p className="text-base text-gray-500">
                                                 Phân loại hàng:{' '}
                                                 {orderDetail[0]?.category},{' '}
-                                                {orderDetail[0]?.size}
-                                                ml
+                                                {orderDetail[0]?.size} g
                                             </p>
                                             <p className="text-base ">
                                                 x {orderDetail[0]?.quantity}
