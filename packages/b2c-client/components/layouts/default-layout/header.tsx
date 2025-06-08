@@ -92,14 +92,30 @@ const Header = () => {
         >
             <div className="container flex h-[80px] items-center justify-between">
                 <div className="mx-2 ml-8 flex max-w-md items-center space-x-10">
-                    <Link className="flex items-center" href="/">
-                        <div className="relative h-16 w-16">
+                    <Link
+                        className="flex flex-1 flex-row items-center"
+                        href="/"
+                    >
+                        <div className="relative flex h-[60px] w-[50px] flex-1 flex-row items-center">
                             <Image
                                 alt="logo"
                                 fill
                                 priority
                                 sizes="(max-width: 200px) 200vw"
                                 src="/images/logo.png"
+                                style={{
+                                    objectFit: 'contain',
+                                    borderRadius: '50%',
+                                }}
+                            />
+                        </div>
+                        <div className="relative flex h-[60px] w-[100px] flex-1 flex-row items-center">
+                            <Image
+                                alt="logo"
+                                fill
+                                priority
+                                sizes="(max-width: 200px) 200vw"
+                                src="/images/soma-text.png"
                                 style={{
                                     objectFit: 'contain',
                                     borderRadius: '50%',

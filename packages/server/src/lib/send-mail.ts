@@ -323,7 +323,7 @@ const htmlSendMail = (
             <div class="content">
   
               <!-- START CENTERED WHITE CONTAINER -->
-              <span class="preheader">This is a email form Perfume Shop. Thank you!</span>
+              <span class="preheader">This is a email form Soma Tea. Thank you!</span>
               <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="main">
   
                 <!-- START MAIN CONTENT AREA -->
@@ -358,7 +358,7 @@ const htmlSendMail = (
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-block">
-                      <span class="apple-link">Perfume shop</span>
+                      <span class="apple-link">Soma Tea</span>
                     </td>
                   </tr>
                 </table>
@@ -681,7 +681,7 @@ const htmlSendMail = (
             <div class="content">
   
               <!-- START CENTERED WHITE CONTAINER -->
-              <span class="preheader">This is a email form Perfume Shop. Thank you!</span>
+              <span class="preheader">This is a email form Soma Tea. Thank you!</span>
               <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="main">
   
                 <!-- START MAIN CONTENT AREA -->
@@ -701,7 +701,7 @@ const htmlSendMail = (
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td class="content-block">
-                      <span class="apple-link">Perfume shop</span>
+                      <span class="apple-link">Soma Tea</span>
                     </td>
                   </tr>
                 </table>
@@ -874,7 +874,7 @@ const htmlBill = (order: OrderResponse) => {
         opacity: 0;
       "
     >
-      The Perfume đã nhận đơn hàng ${order?.id}
+      The Soma Tea đã nhận đơn hàng ${order?.id}
     </div>
 
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -922,7 +922,7 @@ const htmlBill = (order: OrderResponse) => {
                     line-height: 48px;
                   "
                 >
-				Cảm ơn bạn đã đặt hàng tại The Perfume!
+				Cảm ơn bạn đã đặt hàng tại Soma Tea!
                 </h1>
               </td>
             </tr>
@@ -1259,7 +1259,7 @@ const htmlBill = (order: OrderResponse) => {
                 "
               >
                 <p style="margin: 0">
-					The Perfume
+					Soma Tea
                 </p>
               </td>
             </tr>

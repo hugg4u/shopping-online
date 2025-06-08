@@ -190,7 +190,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                         )}
                     </div>
                     <div className="flex items-center gap-10 text-lg">
-                        <p className="text-slate-500">Dung tích</p>
+                        <p className="text-slate-500">Khối lượng</p>
                         <div className="border px-5 py-2">{data?.size}g</div>
                     </div>
                     <div className="flex items-center gap-10 text-lg">
@@ -274,7 +274,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     />
                     <ProductSpecifications
                         name={data?.size ? `${data?.size}g` : ''}
-                        title="Dung tích"
+                        title="Khối lượng"
                     />
                 </div>
                 <div className="flex flex-col gap-5">
