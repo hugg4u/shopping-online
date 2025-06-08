@@ -19,6 +19,7 @@ import ScrollToTopButton from '@shopping/common/components/scroll-to-top';
 import { DefaultLayout } from '~/components/layouts/default-layout';
 import LoginModal from '~/components/modals/login-modal';
 import RegisterModal from '~/components/modals/register-modal';
+import { ContactButtons } from '~/components/contact-buttons';
 
 const queryClient = new QueryClient();
 
@@ -134,6 +135,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                 <div className="fixed bottom-[40px] right-[40px] cursor-pointer">
                     <ScrollToTopButton />
                 </div>
+                <ContactButtons />
             </QueryClientProvider>
         </ConfigProvider>
     );
