@@ -11,6 +11,7 @@ import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { currencyFormatter } from '@shopping/common/utils/formatter';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import * as analytics from '~/lib/analytics';
 
 type ProductHotSearch = Omit<ProductFeatured, 'description'>;
 
@@ -45,8 +46,11 @@ const Search = () => {
     });
 
     useEffect(() => {
+        if (debouncedValue) {
+            analytics.trackSearch(debouncedValue, data?.data?.length || 0);
+        }
         refetch();
-    }, [debouncedValue]);
+    }, [debouncedValue, data?.data?.length]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleClickOutSide = (e: any) => {

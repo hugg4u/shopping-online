@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import CartDetails from '~/components/cart-details';
+import * as analytics from '~/lib/analytics';
 
 const CartDetailsPage = () => {
+    const router = useRouter();
+
+    useEffect(() => {
+        analytics.trackCheckoutStep(1, 'Cart Review');
+    }, []);
+
     return (
         <div className="min-h-screen py-8" style={{ backgroundColor: '#ffff' }}>
             <div className="container mx-auto px-4">

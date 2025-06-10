@@ -30,6 +30,7 @@ import { useAuth } from '~/hooks/useAuth';
 import useCartStore from '~/hooks/useCartStore';
 import CartContactItem from './cart-contact-list';
 import { useCartQuery } from '~/hooks/useCartQuery';
+import * as analytics from '~/lib/analytics';
 
 const { Content } = Layout;
 
@@ -291,6 +292,33 @@ const CartContact = () => {
 
     const handleBackToCart = () => {
         router.push(`/cart-details?itemKeys=${itemKeysQuery}`);
+    };
+
+    const onFinish = async (values: FormType) => {
+        try {
+            analytics.trackFormInteraction('Contact Form', 'start');
+
+            // ... existing form submission code ...
+
+            if (response?.isOk) {
+                analytics.trackFormInteraction('Contact Form', 'complete');
+                // ... success handling ...
+            } else {
+                analytics.trackFormInteraction(
+                    'Contact Form',
+                    'error',
+                    response?.message
+                );
+                // ... error handling ...
+            }
+        } catch (error) {
+            analytics.trackFormInteraction(
+                'Contact Form',
+                'error',
+                'Network error'
+            );
+            // ... error handling ...
+        }
     };
 
     if (!auth) {
