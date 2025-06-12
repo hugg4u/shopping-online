@@ -77,7 +77,8 @@ export const getListOrder = async (req: Request, res: Response) => {
             ...pagination,
         });
 
-        orders = orders.map((order) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        orders = orders.map((order: any) => ({
             ...order,
             // eslint-disable-next-line no-underscore-dangle
             count: order._count.orderDetail - 1,
@@ -246,7 +247,8 @@ export const deleteOrder = async (req: Request, res: Response) => {
             },
         });
 
-        orderDetail.orderDetail.map(async (detail) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        orderDetail.orderDetail.map(async (detail: any) => {
             await db.product.update({
                 where: {
                     id: detail.productId,

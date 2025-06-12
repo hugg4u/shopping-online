@@ -37,6 +37,7 @@ model User {
   order    Order[] @relation("customer")
   post     Post[]
   assignedOrders Order[] @relation("orderAssigned")
+  chatConversations ChatConversation[]
 }
 
 model Account {
@@ -328,6 +329,70 @@ enum ACTION {
   CREATE
   UPDATE
   DELETE
+}
+
+// Chatbot models
+model ChatConversation {
+  id        String   @id @default(uuid())
+  userId    String?
+  sessionId String   @unique // For anonymous users
+  isActive  Boolean  @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  user     User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+  
+  @@index([userId])
+  @@index([sessionId])
+}
+
+model ChatMessage {
+  id             String @id @default(uuid())
+  conversationId String
+  content        String @db.Text
+  role           ChatRole
+  isRead         Boolean @default(false)
+  metadata       Json?  // Store additional data like product suggestions, order info, etc.
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  conversation ChatConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  @@index([conversationId])
+}
+
+enum ChatRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+model ChatKnowledgeBase {
+  id          String @id @default(uuid())
+  question    String @db.Text
+  answer      String @db.Text
+  category    ChatCategory
+  keywords    String @db.Text // Comma-separated keywords for search
+  isActive    Boolean @default(true)
+  priority    Int     @default(1) // Higher priority = more likely to be selected
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([category])
+}
+
+enum ChatCategory {
+  PRODUCT_INFO
+  ORDER_STATUS
+  SHIPPING
+  PAYMENT
+  RETURN_POLICY
+  GENERAL
+  TECHNICAL_SUPPORT
 }
 
 
