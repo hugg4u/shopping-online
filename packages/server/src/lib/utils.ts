@@ -24,7 +24,7 @@ export const getSellerToAssignOrder = async () => {
         const sellerOrderCount: Record<string, number> = {};
 
         await Promise.all(
-            sellerList.map(async (seller) => {
+            sellerList.map(async (seller: { id: string }) => {
                 const pendingOrderCount = await db.order.count({
                     where: {
                         sellerId: seller.id,
@@ -39,10 +39,11 @@ export const getSellerToAssignOrder = async () => {
         );
 
         const selectedSellerId = sellerList.reduce(
-            (selectedId, seller) => {
+            (selectedId: string | null, seller: { id: string }) => {
                 const currentSellerCount = sellerOrderCount[seller.id];
                 if (
-                    currentSellerCount < sellerOrderCount[selectedId] ||
+                    currentSellerCount <
+                        sellerOrderCount[selectedId as string] ||
                     selectedId === null
                 ) {
                     return seller.id;

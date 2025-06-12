@@ -260,7 +260,8 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
         });
 
         if (status === 'CANCELED') {
-            order.orderDetail.map(async (detail) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            order.orderDetail.map(async (detail: any) => {
                 await db.product.update({
                     where: {
                         id: detail.productId,

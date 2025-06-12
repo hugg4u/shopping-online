@@ -34,7 +34,8 @@ export const zaloPayCreateOrder = async (req: Request, res: Response) => {
 
         const transID = Math.floor(Math.random() * 1000000);
         const appTransId = `${moment().format('YYMMDD')}_${transID}`;
-        const items = orderInfo.orderDetail.map((e) => e.productName);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const items = orderInfo.orderDetail.map((e: any) => e.productName);
         const order = {
             app_id: config.app_id,
             app_trans_id: appTransId,

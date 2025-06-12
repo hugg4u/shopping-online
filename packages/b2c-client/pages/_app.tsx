@@ -21,6 +21,7 @@ import LoginModal from '~/components/modals/login-modal';
 import RegisterModal from '~/components/modals/register-modal';
 import { ContactButtons } from '~/components/contact-buttons';
 import * as gtag from '~/lib/gtag';
+import ChatBot from '~/components/ChatBot/ChatBot';
 
 const queryClient = new QueryClient();
 
@@ -149,6 +150,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                     <ScrollToTopButton />
                 </div>
                 <ContactButtons />
+                <ChatBot />
             </QueryClientProvider>
         </ConfigProvider>
     );

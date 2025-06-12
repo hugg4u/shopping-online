@@ -13,6 +13,7 @@ import feedback from './feedback';
 import payment from './payment';
 import customer from './customer';
 import comment from './comment';
+import chatbot from './chatbot';
 
 const router = Router();
 
@@ -31,5 +32,6 @@ export default (): Router => {
     payment(router);
     customer(router);
     comment(router);
+    chatbot(router);
     return router;
 };
