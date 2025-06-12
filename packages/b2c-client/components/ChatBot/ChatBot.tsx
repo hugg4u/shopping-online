@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Avatar, Button, Card, Input, Spin } from 'antd';
+/* eslint-disable max-lines */
 import {
     CloseOutlined,
     MessageOutlined,
@@ -7,12 +6,12 @@ import {
     SendOutlined,
     WechatOutlined,
 } from '@ant-design/icons';
-import { useMutation } from '@tanstack/react-query';
 import * as request from '@shopping/common/utils/http-request';
+import { useMutation } from '@tanstack/react-query';
+import { Avatar, Button, Spin } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import styles from './ChatBot.module.scss';
-
-const { TextArea } = Input;
 
 interface Message {
     id: string;
@@ -159,12 +158,12 @@ const ChatBot: React.FC = () => {
     };
 
     return (
-        <>
+        <div>
             {/* Chat Toggle Button */}
             <div className={styles.chatToggle}>
                 <Button
                     className={styles.toggleButton}
-                    icon={<MessageOutlined />}
+                    icon={<MessageOutlined className="text-4xl" />}
                     onClick={handleOpenChat}
                     shape="circle"
                     size="large"
@@ -175,7 +174,7 @@ const ChatBot: React.FC = () => {
             {/* Chat Window */}
             {isOpen && (
                 <div className={styles.chatWindow}>
-                    <Card className={styles.chatCard}>
+                    <div className={styles.chatCard}>
                         {/* Header */}
                         <div className={styles.chatHeader}>
                             <div className={styles.headerContent}>
@@ -194,6 +193,7 @@ const ChatBot: React.FC = () => {
                                     </div>
                                 </div>
                                 <button
+                                    aria-label="Close chat"
                                     className={styles.closeButton}
                                     onClick={handleCloseChat}
                                     type="button"
@@ -388,7 +388,7 @@ const ChatBot: React.FC = () => {
                                     {quickActions.map((action, index) => (
                                         <button
                                             className={styles.actionButton}
-                                            key={`action-${index}`}
+                                            key={action.text}
                                             onClick={() =>
                                                 handleQuickAction(action.action)
                                             }
@@ -431,10 +431,10 @@ const ChatBot: React.FC = () => {
                                 />
                             </div>
                         </div>
-                    </Card>
+                    </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

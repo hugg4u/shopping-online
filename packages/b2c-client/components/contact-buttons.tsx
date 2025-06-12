@@ -14,17 +14,17 @@ export const ContactButtons = () => {
 
     return (
         <div className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 flex-col items-end">
-            <Button
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6B5B4F] text-white shadow-lg transition-all duration-300 hover:bg-[#4b2a13]"
+            <button
+                className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#6B5B4F] text-center text-white"
                 onClick={() => setIsOpen(!isOpen)}
-                type="text"
+                type="button"
             >
                 {isOpen ? (
                     <CloseOutlined className="text-lg" />
                 ) : (
                     <MenuOutlined className="text-lg" />
                 )}
-            </Button>
+            </button>
 
             <div
                 className={classNames(

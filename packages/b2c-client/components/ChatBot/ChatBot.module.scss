@@ -70,8 +70,8 @@ $gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 
     bottom: 110px;
     right: 32px;
     z-index: 1001;
-    width: 380px;
-    height: 500px;
+    width: 400px;
+    height: 600px;
     max-height: calc(100vh - 140px); // Ensure it fits viewport
     animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
@@ -85,10 +85,18 @@ $gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     box-shadow: $shadow-2xl !important;
     backdrop-filter: blur(20px);
-    overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
     box-sizing: border-box;
+    z-index: 1001;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
     
     .ant-card-body {
         padding: 0 !important;
@@ -581,7 +589,7 @@ $gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 
         height: 56px !important;
         
         .anticon {
-            font-size: 20px;
+            font-size: 40px !important;
         }
     }
     

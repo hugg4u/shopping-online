@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Request, Response } from 'express';
 import { jwtDecode } from 'jwt-decode';
 import { db } from '../../../lib/db';
 import { getToken } from '../../../lib/utils';
