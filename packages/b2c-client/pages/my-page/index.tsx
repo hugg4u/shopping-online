@@ -21,7 +21,7 @@ const MyPage = () => {
     };
 
     return (
-        <div className="min-h-screen" style={{ backgroundColor: '#FAF6F0' }}>
+        <div className="min-h-screen" style={{ backgroundColor: '#dde8dc' }}>
             <Layout className="mx-auto max-w-7xl bg-transparent">
                 <div className="flex gap-8 p-8">
                     <Sidebar
@@ -32,8 +32,8 @@ const MyPage = () => {
                         <Content
                             className="rounded-xl border p-6 shadow-sm"
                             style={{
-                                backgroundColor: '#F5F1E8',
-                                borderColor: '#E5DDD5',
+                                backgroundColor: '#dde8dc',
+                                borderColor: '#365842',
                             }}
                         >
                             {renderContent()}

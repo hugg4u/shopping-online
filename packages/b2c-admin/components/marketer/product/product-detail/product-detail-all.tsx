@@ -78,7 +78,7 @@ const ProductDetailAll: React.FC<Props> = ({ data }) => {
             <InfoItem title="Name" value={data?.name} />
             <InfoItem title="Brand" value={data?.brand?.name} />
             <InfoItem title="Category" value={data?.category?.name} />
-            <InfoItem title="Size" value={data?.size && `${data?.size} ML`} />
+            <InfoItem title="Size" value={data?.size && `${data?.size} g`} />
             <InfoItem
                 title="Price"
                 value={

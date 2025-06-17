@@ -462,7 +462,7 @@ const ProductFormModal: React.FC<Props> = ({
                                     ]}
                                 >
                                     <InputNumber
-                                        addonAfter="ML"
+                                        addonAfter="g"
                                         min={0}
                                         style={{
                                             width: '100%',
