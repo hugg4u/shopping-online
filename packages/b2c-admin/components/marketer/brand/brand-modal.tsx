@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Form, FormProps, Input, Modal, Spin } from 'antd';
+import { Button, Form, FormProps, Input, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 
 type Props = {
     button: JSX.Element;
@@ -94,43 +95,42 @@ const BrandModal: React.FC<Props> = ({
                 open={isOpenModal}
                 title={title}
             >
-                <Spin spinning={isLoading}>
-                    {error ? (
-                        <div>Something went wrong!</div>
-                    ) : (
-                        <Form
-                            className="flex flex-col gap-2"
-                            disabled={updateBrandPending || createBrandPending}
-                            form={form}
-                            layout="vertical"
-                            onFinish={onFinish}
+                <Spin spinning={isLoading} />
+                {error ? (
+                    <div>Something went wrong!</div>
+                ) : (
+                    <Form
+                        className="flex flex-col gap-2"
+                        disabled={updateBrandPending || createBrandPending}
+                        form={form}
+                        layout="vertical"
+                        onFinish={onFinish}
+                    >
+                        <Form.Item<FormType>
+                            label="Name"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Brand name must be required!',
+                                },
+                            ]}
                         >
-                            <Form.Item<FormType>
-                                label="Name"
-                                name="name"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Brand name must be required!',
-                                    },
-                                ]}
+                            <Input />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                htmlType="submit"
+                                loading={
+                                    updateBrandPending || createBrandPending
+                                }
+                                type="primary"
                             >
-                                <Input />
-                            </Form.Item>
-                            <Form.Item>
-                                <Button
-                                    htmlType="submit"
-                                    loading={
-                                        updateBrandPending || createBrandPending
-                                    }
-                                    type="primary"
-                                >
-                                    Submit
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    )}
-                </Spin>
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                )}
             </Modal>
         </>
     );

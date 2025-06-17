@@ -7,7 +7,6 @@ import {
     FormProps,
     Input,
     Select,
-    Spin,
     Table,
     TableColumnsType,
     TableProps,
@@ -17,6 +16,7 @@ import { Customer } from '@shopping/common/types/customer';
 import { CUSTOMER_STATUS, PAGE_SIZE } from '@shopping/common/constant';
 import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import { SearchOutlined } from '@ant-design/icons';
+import { Spin } from '@shopping/common/components/spin';
 import { Sorts } from '~/types';
 import CustomerForm from './customer-form';
 
@@ -149,7 +149,8 @@ const CustomerList = () => {
     };
 
     return (
-        <Spin spinning={isFetching}>
+        <>
+            <Spin spinning={isFetching} />
             <div>
                 <div>
                     <Form
@@ -229,7 +230,7 @@ const CustomerList = () => {
                     rowKey="id"
                 />
             </div>
-        </Spin>
+        </>
     );
 };
 

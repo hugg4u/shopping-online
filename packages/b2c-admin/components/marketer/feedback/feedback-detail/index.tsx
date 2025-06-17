@@ -2,9 +2,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import React from 'react';
 import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
-import { Spin, Switch } from 'antd';
+import { Switch } from 'antd';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 import Header from '~/components/header';
 import FeedbackDetailAll from './feeback-detail-all';
 import { Feedback } from '~/types/feedback';
@@ -58,7 +59,8 @@ const FeedbackDetail = () => {
         },
     });
     return (
-        <Spin spinning={isLoading}>
+        <>
+            <Spin spinning={isLoading} />
             <div>
                 <Header isBack title="Feedback detail" />
                 <div>
@@ -85,7 +87,7 @@ const FeedbackDetail = () => {
                     </div>
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

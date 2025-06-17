@@ -1,10 +1,11 @@
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Form, FormProps, Input, Modal, Spin, Tooltip } from 'antd';
+import { Button, Form, FormProps, Input, Modal, Tooltip } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import * as request from '@shopping/common/utils/http-request';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { QueryResponseGetOneType } from '@shopping/common/types';
+import { Spin } from '@shopping/common/components/spin';
 import { Category } from '~/types/product';
 
 type Props = {
@@ -139,38 +140,33 @@ const CategoryFormModal: React.FC<Props> = ({
                 open={isOpen}
                 title={title}
             >
-                <Spin spinning={isFetching}>
-                    <Form
-                        disabled={
-                            createCategoryPending || updateCategoryPending
-                        }
-                        form={form}
-                        layout="vertical"
-                        onFinish={onFinish}
-                    >
-                        {type === 'UPDATE' && categoryId && (
-                            <div className="mb-4 text-slate-500">
-                                <span>ID: </span>
-                                <span className="font-semibold">
-                                    {categoryId}
-                                </span>
-                            </div>
-                        )}
+                <Spin spinning={isFetching} />
+                <Form
+                    disabled={createCategoryPending || updateCategoryPending}
+                    form={form}
+                    layout="vertical"
+                    onFinish={onFinish}
+                >
+                    {type === 'UPDATE' && categoryId && (
+                        <div className="mb-4 text-slate-500">
+                            <span>ID: </span>
+                            <span className="font-semibold">{categoryId}</span>
+                        </div>
+                    )}
 
-                        <Form.Item<FieldType>
-                            label="Category name"
-                            name="name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please enter category name.',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Form>
-                </Spin>
+                    <Form.Item<FieldType>
+                        label="Category name"
+                        name="name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please enter category name.',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                </Form>
             </Modal>
         </div>
     );

@@ -9,13 +9,13 @@ import {
     Radio,
     RadioChangeEvent,
     Rate,
-    Spin,
 } from 'antd';
 import Image from 'next/image';
 import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
 import { PAGE_SIZE, RATING_LIST_CLIENT } from '@shopping/common/constant';
 import Avatar from '@shopping/common/components/avatar';
+import { Spin } from '@shopping/common/components/spin';
 
 type Props = {
     productId: string;
@@ -47,7 +47,8 @@ const Feedback: React.FC<Props> = ({ productId, productRate }) => {
     };
 
     return (
-        <Spin spinning={isFetching}>
+        <>
+            <Spin spinning={isFetching} />
             <div className="rounded-lg border p-5">
                 <div className="text-xl uppercase underline underline-offset-4">
                     Đánh giá
@@ -175,7 +176,7 @@ const Feedback: React.FC<Props> = ({ productId, productRate }) => {
                     </div>
                 ) : null}
             </div>
-        </Spin>
+        </>
     );
 };
 

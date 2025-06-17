@@ -4,8 +4,9 @@ import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
 import { QueryResponseGetOneType } from '@shopping/common/types';
 import { Product } from '@shopping/common/types/product';
-import { Breadcrumb, Spin } from 'antd';
+import { Breadcrumb } from 'antd';
 import Link from 'next/link';
+import { Spin } from '@shopping/common/components/spin';
 import ProductDetail from '~/components/product/product-details';
 import { NextPageWithLayout } from '../_app';
 
@@ -67,9 +68,8 @@ const ProductDetailPage: NextPageWithLayout = () => {
                             ]}
                         />
                     </div>
-                    <Spin spinning={isFetching}>
-                        <ProductDetail data={data?.data} />
-                    </Spin>
+                    <Spin spinning={isFetching} />
+                    <ProductDetail data={data?.data} />
                 </div>
             </div>
         </div>

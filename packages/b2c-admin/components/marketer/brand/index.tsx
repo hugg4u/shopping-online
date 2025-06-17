@@ -7,11 +7,11 @@ import {
     Pagination,
     Select,
     Space,
-    Spin,
     Table,
     TableColumnsType,
     Tooltip,
 } from 'antd';
+import { Spin } from '@shopping/common/components/spin';
 import { useQuery } from '@tanstack/react-query';
 import * as request from '@shopping/common/utils/http-request';
 import { EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
@@ -151,7 +151,8 @@ const ListBrand = () => {
     };
 
     return (
-        <Spin spinning={isLoading}>
+        <>
+            <Spin spinning={isLoading} />
             <Header title="Manage brand" />
             <div className="mb-5 flex justify-end">
                 <Form
@@ -245,7 +246,7 @@ const ListBrand = () => {
                     ) : null}
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

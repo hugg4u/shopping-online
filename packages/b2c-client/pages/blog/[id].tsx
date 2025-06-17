@@ -1,13 +1,13 @@
 /* eslint-disable react/no-danger */
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Layout, Spin } from 'antd';
+import { Breadcrumb, Layout } from 'antd';
 import { CalendarOutlined, TagOutlined, UserOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { get } from '@shopping/common/utils/http-request';
 import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import Link from 'next/link';
 import { getBlogCategoryName } from '@shopping/common/utils/getBlogCategoryName';
-
+import { Spin } from '@shopping/common/components/spin';
 import Sidebar from '../../components/blog/Sidebar';
 
 const { Content } = Layout;

@@ -17,7 +17,7 @@ const storage = new CloudinaryStorage({
     params: {
         folder: 'shopping-online',
         allowed_formats: ['jpg', 'jpeg', 'png'],
-        transformation: [{ width: 1000, height: 1000, crop: 'limit' }],
+        // transformation: [{ width: 1000, height: 1000, crop: 'limit' }],
     } as any,
 });
 

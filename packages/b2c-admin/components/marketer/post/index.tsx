@@ -10,7 +10,6 @@ import {
     Pagination,
     Select,
     Space,
-    Spin,
     Switch,
     Table,
     TableColumnsType,
@@ -28,6 +27,7 @@ import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { getSortOrder } from '@shopping/common/utils/getSortOrder';
+import { Spin } from '@shopping/common/components/spin';
 import PostFormModal from './post-form-modal';
 import DeletePostFormModal from './delete-post-form-modal';
 import { Post, User } from '~/types/post';
@@ -315,7 +315,8 @@ const PostList = () => {
     };
 
     return (
-        <Spin spinning={postLoading || userLoading}>
+        <>
+            <Spin spinning={postLoading || userLoading} />
             <Header title="Manage Post" />
             <div>
                 <Form
@@ -427,7 +428,7 @@ const PostList = () => {
                     ) : null}
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

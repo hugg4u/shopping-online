@@ -1,21 +1,13 @@
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-    Button,
-    Form,
-    FormProps,
-    Input,
-    Modal,
-    Select,
-    Spin,
-    Tooltip,
-} from 'antd';
+import { Button, Form, FormProps, Input, Modal, Select, Tooltip } from 'antd';
 import { CUSTOMER_STATUS, USER_GENDER } from '@shopping/common/constant';
 import { Customer, CustomerStatus } from '@shopping/common/types/customer';
 import React, { useEffect, useMemo, useState } from 'react';
 import * as request from '@shopping/common/utils/http-request';
 import { QueryResponseGetOneType } from '@shopping/common/types';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 
 type Props = {
     type: 'CREATE' | 'UPDATE';
@@ -153,114 +145,107 @@ const CustomerForm: React.FC<Props> = ({ type, customerId, reloadList }) => {
                 open={isOpen}
                 title={title}
             >
-                <Spin spinning={isFetching}>
-                    <Form
-                        disabled={
-                            createCustomerPending || updateCustomerPending
-                        }
-                        form={form}
-                        initialValues={{
-                            status: CUSTOMER_STATUS?.[0].value,
-                        }}
-                        layout="vertical"
-                        onFinish={onFinish}
+                <Spin spinning={isFetching} />
+                <Form
+                    disabled={createCustomerPending || updateCustomerPending}
+                    form={form}
+                    initialValues={{
+                        status: CUSTOMER_STATUS?.[0].value,
+                    }}
+                    layout="vertical"
+                    onFinish={onFinish}
+                >
+                    <Form.Item<FieldType>
+                        label="Customer Email"
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input customer email!',
+                            },
+                            {
+                                type: 'email',
+                                message: 'Please enter a valid email!',
+                            },
+                        ]}
                     >
+                        <Input />
+                    </Form.Item>
+                    {type === 'CREATE' && (
                         <Form.Item<FieldType>
-                            label="Customer Email"
-                            name="email"
+                            label="Password"
+                            name="password"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input customer email!',
-                                },
-                                {
-                                    type: 'email',
-                                    message: 'Please enter a valid email!',
+                                    message: 'Please input customer password!',
                                 },
                             ]}
                         >
-                            <Input />
+                            <Input.Password />
                         </Form.Item>
-                        {type === 'CREATE' && (
-                            <Form.Item<FieldType>
-                                label="Password"
-                                name="password"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message:
-                                            'Please input customer password!',
-                                    },
-                                ]}
-                            >
-                                <Input.Password />
-                            </Form.Item>
-                        )}
+                    )}
 
-                        <Form.Item<FieldType>
-                            label="Customer name"
-                            name="name"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input customer name!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item<FieldType>
-                            label="Customer phone"
-                            name="phone"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input customer phone!',
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                        <Form.Item<FieldType>
-                            label="Customer status"
-                            name="status"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input customer status!',
-                                },
-                            ]}
-                        >
-                            <Select
-                                options={CUSTOMER_STATUS.map((item) => ({
-                                    value: item.value,
-                                    label: item.value,
-                                }))}
-                                placeholder="Select a status..."
-                                showSearch
-                            />
-                        </Form.Item>
-                        <Form.Item<FieldType>
-                            label="Customer Gender"
-                            name="gender"
-                        >
-                            <Select
-                                options={USER_GENDER.map((item) => ({
-                                    value: item.value,
-                                    label: item.value,
-                                }))}
-                                placeholder="Select a status..."
-                                showSearch
-                            />
-                        </Form.Item>
-                        <Form.Item<FieldType>
-                            label="Customer Address"
-                            name="address"
-                        >
-                            <Input />
-                        </Form.Item>
-                    </Form>
-                </Spin>
+                    <Form.Item<FieldType>
+                        label="Customer name"
+                        name="name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input customer name!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Customer phone"
+                        name="phone"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input customer phone!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Customer status"
+                        name="status"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input customer status!',
+                            },
+                        ]}
+                    >
+                        <Select
+                            options={CUSTOMER_STATUS.map((item) => ({
+                                value: item.value,
+                                label: item.value,
+                            }))}
+                            placeholder="Select a status..."
+                            showSearch
+                        />
+                    </Form.Item>
+                    <Form.Item<FieldType> label="Customer Gender" name="gender">
+                        <Select
+                            options={USER_GENDER.map((item) => ({
+                                value: item.value,
+                                label: item.value,
+                            }))}
+                            placeholder="Select a status..."
+                            showSearch
+                        />
+                    </Form.Item>
+                    <Form.Item<FieldType>
+                        label="Customer Address"
+                        name="address"
+                    >
+                        <Input />
+                    </Form.Item>
+                </Form>
             </Modal>
         </div>
     );

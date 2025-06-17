@@ -1,10 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
-import { Button, Form, FormProps, Input, Spin } from 'antd';
+import { Button, Form, FormProps, Input } from 'antd';
 import { AxiosError, AxiosResponse } from 'axios';
 import { post } from '@shopping/common/utils/http-request';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 
 const Login = () => {
     const router = useRouter();
@@ -42,10 +43,7 @@ const Login = () => {
 
     return (
         <div>
-            <Spin
-                fullscreen
-                spinning={(mutation as { isPending: boolean }).isPending}
-            />
+            <Spin spinning={(mutation as { isPending: boolean }).isPending} />
             <div className="flex h-dvh w-dvw flex-col items-center justify-center">
                 <div className="w-[450px] items-center justify-center space-y-10 rounded-lg border p-10 shadow-2xl">
                     <div className="text-center text-2xl font-semibold uppercase">

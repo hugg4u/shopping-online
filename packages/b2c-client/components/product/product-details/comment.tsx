@@ -3,13 +3,14 @@ import * as request from '@shopping/common/utils/http-request';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { QueryResponseType } from '@shopping/common/types';
 import type { FeedbackType } from '@shopping/common/types/feedback';
-import { Button, Form, FormProps, Input, Pagination, Rate, Spin } from 'antd';
+import { Button, Form, FormProps, Input, Pagination, Rate } from 'antd';
 import Image from 'next/image';
 import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
 import { PAGE_SIZE } from '@shopping/common/constant';
 import { SendOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 import useLoginModal from '~/hooks/useLoginModal';
 import { useAuth } from '~/hooks/useAuth';
 
@@ -69,7 +70,8 @@ const Comment: React.FC<Props> = ({ productId }) => {
     };
 
     return (
-        <Spin spinning={isFetching}>
+        <>
+            <Spin spinning={isFetching} />
             <div className="rounded-lg border p-5">
                 <div className="text-xl uppercase underline underline-offset-4">
                     Bình luận
@@ -211,7 +213,7 @@ const Comment: React.FC<Props> = ({ productId }) => {
                     </div>
                 ) : null}
             </div>
-        </Spin>
+        </>
     );
 };
 

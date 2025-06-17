@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import * as request from '@shopping/common/utils/http-request';
 import { QueryResponseType } from '@shopping/common/types';
 import { Slider } from '@shopping/common/types/slider';
-import { Spin } from 'antd';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { cn } from '@shopping/common/utils';
@@ -11,6 +10,7 @@ import { Autoplay, Controller, Navigation, Pagination } from 'swiper/modules';
 import type { Swiper as TypeSwiper } from 'swiper';
 import { ArrowLeftSquare, ArrowRightSquare } from '@shopping/common/icons';
 import { useRouter } from 'next/router';
+import { Spin } from '@shopping/common/components/spin';
 
 const MainBanner = () => {
     const router = useRouter();
@@ -48,7 +48,8 @@ const MainBanner = () => {
     }
 
     return (
-        <Spin spinning={isLoading}>
+        <>
+            <Spin spinning={isLoading} />
             <div
                 className={cn(
                     'relative flex justify-center',
@@ -225,7 +226,7 @@ const MainBanner = () => {
                     </div>
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

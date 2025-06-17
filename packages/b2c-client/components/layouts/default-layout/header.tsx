@@ -125,9 +125,9 @@ const Header = () => {
                     </Link>
                     <Search />
                 </div>
-                <div className="mr-8 flex items-center space-x-10">
+                <div className="flex items-center">
                     <MainSider />
-                    <div className="flex flex-1 items-center space-x-8">
+                    <div className="ml-8 flex flex-1 items-center space-x-8">
                         <CartIcon />
                         {auth ? (
                             <div>
@@ -147,16 +147,17 @@ const Header = () => {
                                         }}
                                     >
                                         {isFetching ? (
-                                            <Skeleton.Avatar
-                                                active
-                                                className=""
-                                            />
+                                            <Skeleton.Avatar active />
                                         ) : (
                                             <Avatar
                                                 height={40}
-                                                src={getImageUrl(
-                                                    user?.data?.image ?? ''
-                                                )}
+                                                src={
+                                                    user?.data?.image
+                                                        ? getImageUrl(
+                                                              user?.data?.image
+                                                          )
+                                                        : undefined
+                                                }
                                                 width={40}
                                             />
                                         )}

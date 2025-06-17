@@ -6,7 +6,7 @@ import {
     QueryErrorType,
     QueryResponseGetOneType,
 } from '@shopping/common/types';
-import { Button, Image, Select, Spin } from 'antd';
+import { Button, Image, Select } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import { copy } from '@shopping/common/utils/copy';
 import { toast } from 'react-toastify';
@@ -16,6 +16,7 @@ import { useUserQueryStore } from '@shopping/common/store/useUserStore';
 import { ORDER_STATUS } from '@shopping/common/constant';
 import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { cn } from '@shopping/common/utils';
+import { Spin } from '@shopping/common/components/spin';
 import { Order } from '~/types/order';
 import OrderDetailItem from './order-detail-item';
 import AssignSeller from '../assign-seller';
@@ -68,7 +69,8 @@ const OrderDetail = () => {
     }
 
     return (
-        <Spin spinning={isFetching}>
+        <>
+            <Spin spinning={isFetching} />
             <div>
                 <div className="border-t-2 border-t-black">
                     <OrderDetailItem title="ID">
@@ -249,7 +251,7 @@ const OrderDetail = () => {
                     />
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

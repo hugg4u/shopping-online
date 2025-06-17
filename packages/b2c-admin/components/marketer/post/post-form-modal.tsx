@@ -10,7 +10,6 @@ import {
     Input,
     Modal,
     Select,
-    Spin,
     Tooltip,
     Upload,
     UploadFile,
@@ -20,6 +19,7 @@ import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 import { RcFile } from 'antd/es/upload';
 import { POST_CATEGORY } from '@shopping/common/constant';
+import { Spin } from '@shopping/common/components/spin';
 import { ResponsePostById } from '~/types/post';
 
 type Props = {
@@ -283,134 +283,127 @@ const PostFormModal: React.FC<Props> = ({ type, title, reload, postId }) => {
                 title={title}
                 width={800}
             >
-                <Spin spinning={getPostInfoLoading}>
-                    <div className="max-h-[75vh] overflow-auto px-5">
-                        <Form
-                            disabled={
-                                uploadFileIsPending ||
-                                createPostIsPending ||
-                                updatePostPending
-                            }
-                            form={form}
-                            initialValues={{
-                                isShow: true,
-                                discount_price: null,
-                                description: null,
-                            }}
-                            layout="vertical"
-                            onFinish={onFinish}
+                <Spin spinning={getPostInfoLoading} />
+                <div className="max-h-[75vh] overflow-auto px-5">
+                    <Form
+                        disabled={
+                            uploadFileIsPending ||
+                            createPostIsPending ||
+                            updatePostPending
+                        }
+                        form={form}
+                        initialValues={{
+                            isShow: true,
+                            discount_price: null,
+                            description: null,
+                        }}
+                        layout="vertical"
+                        onFinish={onFinish}
+                    >
+                        <Form.Item<FormType>
+                            label="Title"
+                            name="title"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Title must be required!',
+                                },
+                            ]}
                         >
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="isShow" valuePropName="checked">
+                            <Checkbox>Show post on client page</Checkbox>
+                        </Form.Item>
+                        <Form.Item name="isFeatured" valuePropName="checked">
+                            <Checkbox>Featured Post</Checkbox>
+                        </Form.Item>
+                        <div className="grid grid-cols-2 gap-x-10">
                             <Form.Item<FormType>
-                                label="Title"
-                                name="title"
+                                label="Category"
+                                name="categoryId"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Title must be required!',
+                                        message: 'Product must be required!',
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Select
+                                    allowClear
+                                    filterOption={filterOption}
+                                    options={POST_CATEGORY?.map((item) => ({
+                                        value: item.id,
+                                        label: item.value,
+                                    }))}
+                                    showSearch
+                                />
                             </Form.Item>
-                            <Form.Item name="isShow" valuePropName="checked">
-                                <Checkbox>Show post on client page</Checkbox>
-                            </Form.Item>
-                            <Form.Item
-                                name="isFeatured"
-                                valuePropName="checked"
+                        </div>
+                        <Form.Item<FormType>
+                            label="Brief Infomation"
+                            name="briefInfo"
+                            rules={[
+                                {
+                                    max: 1000,
+                                    message:
+                                        'Brief Infomation must be less than 100 characters!',
+                                },
+                            ]}
+                        >
+                            <Input.TextArea rows={5} />
+                        </Form.Item>
+                        <Form.Item<FormType>
+                            label="Description"
+                            name="description"
+                            rules={[
+                                {
+                                    max: 10000,
+                                    message:
+                                        'Description must be less than 1000 characters!',
+                                },
+                            ]}
+                        >
+                            <Input.TextArea rows={5} />
+                        </Form.Item>
+                        <Form.Item<FormType>
+                            getValueFromEvent={normFile}
+                            label="Thumbnail"
+                            name="thumbnailList"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Thumbnail must be required!',
+                                },
+                            ]}
+                            valuePropName="fileList"
+                        >
+                            <Upload
+                                accept=".png, .jpg, .jpeg"
+                                beforeUpload={() => false}
+                                listType="picture-card"
+                                maxCount={1}
                             >
-                                <Checkbox>Featured Post</Checkbox>
-                            </Form.Item>
-                            <div className="grid grid-cols-2 gap-x-10">
-                                <Form.Item<FormType>
-                                    label="Category"
-                                    name="categoryId"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                'Product must be required!',
-                                        },
-                                    ]}
+                                <button
+                                    style={{
+                                        border: 0,
+                                        background: 'none',
+                                    }}
+                                    type="button"
                                 >
-                                    <Select
-                                        allowClear
-                                        filterOption={filterOption}
-                                        options={POST_CATEGORY?.map((item) => ({
-                                            value: item.id,
-                                            label: item.value,
-                                        }))}
-                                        showSearch
-                                    />
-                                </Form.Item>
-                            </div>
-                            <Form.Item<FormType>
-                                label="Brief Infomation"
-                                name="briefInfo"
-                                rules={[
-                                    {
-                                        max: 1000,
-                                        message:
-                                            'Brief Infomation must be less than 100 characters!',
-                                    },
-                                ]}
-                            >
-                                <Input.TextArea rows={5} />
-                            </Form.Item>
-                            <Form.Item<FormType>
-                                label="Description"
-                                name="description"
-                                rules={[
-                                    {
-                                        max: 10000,
-                                        message:
-                                            'Description must be less than 1000 characters!',
-                                    },
-                                ]}
-                            >
-                                <Input.TextArea rows={5} />
-                            </Form.Item>
-                            <Form.Item<FormType>
-                                getValueFromEvent={normFile}
-                                label="Thumbnail"
-                                name="thumbnailList"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Thumbnail must be required!',
-                                    },
-                                ]}
-                                valuePropName="fileList"
-                            >
-                                <Upload
-                                    accept=".png, .jpg, .jpeg"
-                                    beforeUpload={() => false}
-                                    listType="picture-card"
-                                    maxCount={1}
-                                >
-                                    <button
-                                        style={{
-                                            border: 0,
-                                            background: 'none',
-                                        }}
-                                        type="button"
-                                    >
-                                        <PlusOutlined />
-                                        <div style={{ marginTop: 8 }}>
-                                            Upload
-                                        </div>
-                                    </button>
-                                </Upload>
-                            </Form.Item>
+                                    <PlusOutlined />
+                                    <div style={{ marginTop: 8 }}>Upload</div>
+                                </button>
+                            </Upload>
+                        </Form.Item>
 
-                            <Form.Item>
-                                <Button htmlType="submit" type="primary">
-                                    Submit
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    </div>
-                </Spin>
+                        <Form.Item>
+                            <Button htmlType="submit" type="primary">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </div>
             </Modal>
         </div>
     );

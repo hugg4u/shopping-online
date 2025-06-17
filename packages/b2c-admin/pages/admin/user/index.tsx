@@ -9,7 +9,6 @@ import {
     Input,
     Pagination,
     Select,
-    Spin,
     Table,
     TableColumnsType,
 } from 'antd';
@@ -17,6 +16,7 @@ import { PAGE_SIZE } from '@shopping/common/constant';
 import request from '@shopping/common/utils/http-request';
 import { useState } from 'react';
 import { Moment } from 'moment';
+import { Spin } from '@shopping/common/components/spin';
 import Header from '~/components/header';
 import { User } from '~/types/user';
 import DeleteUserModal from '../../../components/admin/user/delete-user-modal';
@@ -335,7 +335,8 @@ const ListUser = () => {
     };
 
     return (
-        <Spin spinning={isLoading}>
+        <>
+            <Spin spinning={isLoading} />
             <Header title="Manage User" />
             <div className="">
                 <Form
@@ -486,7 +487,7 @@ const ListUser = () => {
                     ) : null}
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

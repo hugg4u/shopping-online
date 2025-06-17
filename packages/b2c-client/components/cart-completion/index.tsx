@@ -8,7 +8,7 @@ import {
     MailOutlined,
 } from '@ant-design/icons';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, Card, Image, QRCode, Spin, Typography } from 'antd';
+import { Button, Card, Image, QRCode, Typography } from 'antd';
 import {
     genderType,
     Order,
@@ -27,6 +27,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { copy } from '@shopping/common/utils/copy';
+import { Spin } from '@shopping/common/components/spin';
 import { useAuth } from '~/hooks/useAuth';
 
 const { Text } = Typography;
@@ -143,7 +144,8 @@ const CartCompletion = () => {
     });
 
     return (
-        <Spin spinning={isLoadingOrder || isLoadingCheckAcceptDetail}>
+        <>
+            <Spin spinning={isLoadingOrder || isLoadingCheckAcceptDetail} />
             <div className="w-full text-base">
                 <div className="flex  w-full justify-center">
                     <div className="flex w-[1000px] min-w-[500px] max-w-[1000px] flex-col items-center space-y-4">
@@ -579,7 +581,7 @@ const CartCompletion = () => {
                     </div>
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

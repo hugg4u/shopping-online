@@ -7,7 +7,6 @@ import {
     FormProps,
     Input,
     Space,
-    Spin,
     Table,
     TableColumnsType,
     TableProps,
@@ -15,6 +14,7 @@ import {
 import moment from 'moment';
 import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import { SearchOutlined } from '@ant-design/icons';
+import { Spin } from '@shopping/common/components/spin';
 import { Category } from '~/types/product';
 import { Pagination, QueryResponseType, Sorts } from '~/types';
 import CategoryFormModal from './category-form-modal';
@@ -123,7 +123,8 @@ const ListCategory = () => {
     };
 
     return (
-        <Spin spinning={isLoading}>
+        <>
+            <Spin spinning={isLoading} />
             <div className="space-y-4">
                 <div className="flex justify-end">
                     <Form layout="inline" onFinish={onFinish}>
@@ -167,7 +168,7 @@ const ListCategory = () => {
                     }}
                 />
             </div>
-        </Spin>
+        </>
     );
 };
 

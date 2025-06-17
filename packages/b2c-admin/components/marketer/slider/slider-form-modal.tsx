@@ -11,7 +11,6 @@ import {
     Image,
     Input,
     Modal,
-    Spin,
     Tooltip,
     Upload,
     UploadFile,
@@ -22,6 +21,7 @@ import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import * as request from '@shopping/common/utils/http-request';
 import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 
 type Props = {
     type: 'CREATE' | 'UPDATE' | 'VIEW';
@@ -312,177 +312,159 @@ const SliderFormModal: React.FC<Props> = ({
                         getSliderIsPending ||
                         updateSliderIsPending
                     }
-                >
-                    <div className="max-h-[75vh] overflow-auto px-5">
-                        <Form
-                            disabled={
-                                uploadFileIsPending ||
-                                createSliderIsPending ||
-                                getSliderIsPending ||
-                                updateSliderIsPending
-                            }
-                            form={form}
-                            layout="vertical"
-                            onFinish={onFinish}
+                />
+                <div className="max-h-[75vh] overflow-auto px-5">
+                    <Form
+                        disabled={
+                            uploadFileIsPending ||
+                            createSliderIsPending ||
+                            getSliderIsPending ||
+                            updateSliderIsPending
+                        }
+                        form={form}
+                        layout="vertical"
+                        onFinish={onFinish}
+                    >
+                        <Form.Item
+                            getValueFromEvent={normFile}
+                            label="Image"
+                            name="imageList"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Slider image must be required!',
+                                },
+                            ]}
+                            valuePropName="fileList"
                         >
-                            <Form.Item
-                                getValueFromEvent={normFile}
-                                label="Image"
-                                name="imageList"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message:
-                                            'Slider image must be required!',
-                                    },
-                                ]}
-                                valuePropName="fileList"
+                            <Upload
+                                accept=".png, .jpg, .jpeg"
+                                beforeUpload={() => false}
+                                disabled={type === 'VIEW'}
+                                listType="picture-card"
+                                maxCount={1}
+                                onChange={({ fileList }) =>
+                                    setIsUploadedImage(fileList.length > 0)
+                                }
+                                onPreview={handlePreview}
+                                onRemove={() => setIsUploadedImage(false)}
                             >
-                                <Upload
-                                    accept=".png, .jpg, .jpeg"
-                                    beforeUpload={() => false}
-                                    disabled={type === 'VIEW'}
-                                    listType="picture-card"
-                                    maxCount={1}
-                                    onChange={({ fileList }) =>
-                                        setIsUploadedImage(fileList.length > 0)
-                                    }
-                                    onPreview={handlePreview}
-                                    onRemove={() => setIsUploadedImage(false)}
-                                >
-                                    {isUploadedImage ? null : (
-                                        <div>
-                                            <PlusOutlined />
-                                            <div style={{ marginTop: 8 }}>
-                                                Upload
-                                            </div>
+                                {isUploadedImage ? null : (
+                                    <div>
+                                        <PlusOutlined />
+                                        <div style={{ marginTop: 8 }}>
+                                            Upload
                                         </div>
-                                    )}
-                                </Upload>
-                            </Form.Item>
-                            <div>
-                                {previewImage && (
-                                    <Image
-                                        preview={{
-                                            visible: previewOpen,
-                                            onVisibleChange: (visible) =>
-                                                setPreviewOpen(visible),
-                                            afterOpenChange: (visible) =>
-                                                !visible && setPreviewImage(''),
-                                        }}
-                                        src={previewImage}
-                                        wrapperStyle={{ display: 'none' }}
-                                    />
+                                    </div>
                                 )}
+                            </Upload>
+                        </Form.Item>
+                        <div>
+                            {previewImage && (
+                                <Image
+                                    preview={{
+                                        visible: previewOpen,
+                                        onVisibleChange: (visible) =>
+                                            setPreviewOpen(visible),
+                                        afterOpenChange: (visible) =>
+                                            !visible && setPreviewImage(''),
+                                    }}
+                                    src={previewImage}
+                                    wrapperStyle={{ display: 'none' }}
+                                />
+                            )}
+                        </div>
+                        <Form.Item<FormType> label="Title" name="title">
+                            <Input readOnly={type === 'VIEW'} size="large" />
+                        </Form.Item>
+
+                        <Form.Item<FormType>
+                            getValueFromEvent={(color) => {
+                                return color.toHexString();
+                            }}
+                            label="Title text color"
+                            name="titleTextColor"
+                        >
+                            <ColorPicker disabled={type === 'VIEW'} showText />
+                        </Form.Item>
+
+                        <Form.Item label="Backlink" name="backlink">
+                            <Input.TextArea
+                                readOnly={type === 'VIEW'}
+                                rows={5}
+                                size="large"
+                                style={{ resize: 'none' }}
+                            />
+                        </Form.Item>
+
+                        <Form.Item label="Note" name="note">
+                            <Input.TextArea
+                                readOnly={type === 'VIEW'}
+                                rows={5}
+                                size="large"
+                                style={{ resize: 'none' }}
+                            />
+                        </Form.Item>
+                        <Form.Item<FormType>
+                            getValueFromEvent={(color) => {
+                                return color.toHexString();
+                            }}
+                            label="Note text color"
+                            name="noteTextColor"
+                        >
+                            <ColorPicker disabled={type === 'VIEW'} showText />
+                        </Form.Item>
+
+                        <Form.Item<FormType>
+                            getValueFromEvent={(color: Color) => {
+                                return color.toHexString();
+                            }}
+                            label="Back ground color"
+                            name="backgroundSliderColor"
+                        >
+                            <ColorPicker disabled={type === 'VIEW'} showText />
+                        </Form.Item>
+
+                        <Form.Item name="isShow" valuePropName="checked">
+                            {type === 'VIEW' ? (
+                                <Checkbox
+                                    checked={form.getFieldValue('isShow')}
+                                    style={{ pointerEvents: 'none' }}
+                                >
+                                    Show slider on client page
+                                </Checkbox>
+                            ) : (
+                                <Checkbox>Show slider on client page</Checkbox>
+                            )}
+                        </Form.Item>
+
+                        <Form.Item>
+                            <div className="flex gap-4">
+                                <Button
+                                    loading={
+                                        createSliderIsPending ||
+                                        updateSliderIsPending
+                                    }
+                                    onClick={() => setIsOpenModal(false)}
+                                    type="default"
+                                >
+                                    Return
+                                </Button>
+                                <Button
+                                    hidden={type === 'VIEW'}
+                                    htmlType="submit"
+                                    loading={
+                                        createSliderIsPending ||
+                                        updateSliderIsPending
+                                    }
+                                    type="primary"
+                                >
+                                    {type === 'CREATE' ? 'Create' : 'Update'}
+                                </Button>
                             </div>
-                            <Form.Item<FormType> label="Title" name="title">
-                                <Input
-                                    readOnly={type === 'VIEW'}
-                                    size="large"
-                                />
-                            </Form.Item>
-
-                            <Form.Item<FormType>
-                                getValueFromEvent={(color) => {
-                                    return color.toHexString();
-                                }}
-                                label="Title text color"
-                                name="titleTextColor"
-                            >
-                                <ColorPicker
-                                    disabled={type === 'VIEW'}
-                                    showText
-                                />
-                            </Form.Item>
-
-                            <Form.Item label="Backlink" name="backlink">
-                                <Input.TextArea
-                                    readOnly={type === 'VIEW'}
-                                    rows={5}
-                                    size="large"
-                                    style={{ resize: 'none' }}
-                                />
-                            </Form.Item>
-
-                            <Form.Item label="Note" name="note">
-                                <Input.TextArea
-                                    readOnly={type === 'VIEW'}
-                                    rows={5}
-                                    size="large"
-                                    style={{ resize: 'none' }}
-                                />
-                            </Form.Item>
-                            <Form.Item<FormType>
-                                getValueFromEvent={(color) => {
-                                    return color.toHexString();
-                                }}
-                                label="Note text color"
-                                name="noteTextColor"
-                            >
-                                <ColorPicker
-                                    disabled={type === 'VIEW'}
-                                    showText
-                                />
-                            </Form.Item>
-
-                            <Form.Item<FormType>
-                                getValueFromEvent={(color: Color) => {
-                                    return color.toHexString();
-                                }}
-                                label="Back ground color"
-                                name="backgroundSliderColor"
-                            >
-                                <ColorPicker
-                                    disabled={type === 'VIEW'}
-                                    showText
-                                />
-                            </Form.Item>
-
-                            <Form.Item name="isShow" valuePropName="checked">
-                                {type === 'VIEW' ? (
-                                    <Checkbox
-                                        checked={form.getFieldValue('isShow')}
-                                        style={{ pointerEvents: 'none' }}
-                                    >
-                                        Show slider on client page
-                                    </Checkbox>
-                                ) : (
-                                    <Checkbox>
-                                        Show slider on client page
-                                    </Checkbox>
-                                )}
-                            </Form.Item>
-
-                            <Form.Item>
-                                <div className="flex gap-4">
-                                    <Button
-                                        loading={
-                                            createSliderIsPending ||
-                                            updateSliderIsPending
-                                        }
-                                        onClick={() => setIsOpenModal(false)}
-                                        type="default"
-                                    >
-                                        Return
-                                    </Button>
-                                    <Button
-                                        hidden={type === 'VIEW'}
-                                        htmlType="submit"
-                                        loading={
-                                            createSliderIsPending ||
-                                            updateSliderIsPending
-                                        }
-                                        type="primary"
-                                    >
-                                        {type === 'CREATE'
-                                            ? 'Create'
-                                            : 'Update'}
-                                    </Button>
-                                </div>
-                            </Form.Item>
-                        </Form>
-                    </div>
-                </Spin>
+                        </Form.Item>
+                    </Form>
+                </div>
             </Modal>
         </div>
     );

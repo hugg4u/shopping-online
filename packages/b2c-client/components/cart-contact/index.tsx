@@ -13,7 +13,6 @@ import {
     Row,
     Select,
     Space,
-    Spin,
 } from 'antd';
 import { QueryResponseType } from '@shopping/common/types';
 import { Cart } from '@shopping/common/types/cart';
@@ -26,11 +25,11 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import * as request from '@shopping/common/utils/http-request';
+import { Spin } from '@shopping/common/components/spin';
 import { useAuth } from '~/hooks/useAuth';
 import useCartStore from '~/hooks/useCartStore';
 import CartContactItem from './cart-contact-list';
 import { useCartQuery } from '~/hooks/useCartQuery';
-import * as analytics from '~/lib/analytics';
 
 const { Content } = Layout;
 
@@ -294,33 +293,6 @@ const CartContact = () => {
         router.push(`/cart-details?itemKeys=${itemKeysQuery}`);
     };
 
-    const onFinish = async (values: FormType) => {
-        try {
-            analytics.trackFormInteraction('Contact Form', 'start');
-
-            // ... existing form submission code ...
-
-            if (response?.isOk) {
-                analytics.trackFormInteraction('Contact Form', 'complete');
-                // ... success handling ...
-            } else {
-                analytics.trackFormInteraction(
-                    'Contact Form',
-                    'error',
-                    response?.message
-                );
-                // ... error handling ...
-            }
-        } catch (error) {
-            analytics.trackFormInteraction(
-                'Contact Form',
-                'error',
-                'Network error'
-            );
-            // ... error handling ...
-        }
-    };
-
     if (!auth) {
         return (
             <Layout>
@@ -329,254 +301,7 @@ const CartContact = () => {
                         createOrderForGuestIsPending ||
                         createOrderForUserIsPending
                     }
-                >
-                    <Content style={{ padding: '0 48px' }}>
-                        <Layout style={{ padding: '24px 0' }}>
-                            <Content>
-                                <Row gutter={16}>
-                                    <Col span={10}>
-                                        <div>
-                                            <Card
-                                                bordered={false}
-                                                title={
-                                                    <div className="font-bold">
-                                                        Thông tin mua hàng
-                                                    </div>
-                                                }
-                                            >
-                                                <div className="max-h-[75vh] overflow-auto px-5">
-                                                    <Form
-                                                        form={form}
-                                                        layout="vertical"
-                                                    >
-                                                        <Form.Item
-                                                            label="Họ và tên"
-                                                            name="name"
-                                                            rules={[
-                                                                {
-                                                                    required:
-                                                                        true,
-                                                                    message:
-                                                                        'Họ và tên không được để trống!',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input />
-                                                        </Form.Item>
-
-                                                        <Form.Item
-                                                            label="Email"
-                                                            name="email"
-                                                            rules={[
-                                                                {
-                                                                    required:
-                                                                        true,
-                                                                    message:
-                                                                        'Email không được để trống!',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input />
-                                                        </Form.Item>
-
-                                                        <Form.Item
-                                                            label="Giới tính"
-                                                            name="gender"
-                                                            rules={[
-                                                                {
-                                                                    required:
-                                                                        true,
-                                                                    message:
-                                                                        'Giới tính không được để trống!',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Select size="large">
-                                                                {Object.values(
-                                                                    genderOptions
-                                                                ).map(
-                                                                    (
-                                                                        item: string
-                                                                    ) => (
-                                                                        <Select.Option
-                                                                            key={
-                                                                                item
-                                                                            }
-                                                                            value={
-                                                                                item
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item
-                                                                            }
-                                                                        </Select.Option>
-                                                                    )
-                                                                )}
-                                                            </Select>
-                                                        </Form.Item>
-
-                                                        <Form.Item
-                                                            label="Số điện thoại"
-                                                            name="phone"
-                                                            rules={[
-                                                                {
-                                                                    required:
-                                                                        true,
-                                                                    message:
-                                                                        'Số điện thoại không được để trống!',
-                                                                },
-                                                                {
-                                                                    pattern:
-                                                                        /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
-                                                                    message:
-                                                                        'Please enter a valid phone number!',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input size="large" />
-                                                        </Form.Item>
-
-                                                        <Form.Item
-                                                            label="Địa chỉ"
-                                                            name="address"
-                                                            rules={[
-                                                                {
-                                                                    required:
-                                                                        true,
-                                                                    message:
-                                                                        'Địa chỉ không được để trống!',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input />
-                                                        </Form.Item>
-
-                                                        <Form.Item
-                                                            label="Ghi chú"
-                                                            name="notes"
-                                                            rules={[
-                                                                {
-                                                                    max: 1000,
-                                                                    message:
-                                                                        'Ghi chú phải ít hơn 1000 ký tự!',
-                                                                },
-                                                            ]}
-                                                        >
-                                                            <Input.TextArea
-                                                                rows={5}
-                                                            />
-                                                        </Form.Item>
-                                                    </Form>
-                                                </div>
-                                            </Card>
-                                        </div>
-                                    </Col>
-                                    <Col span={6}>
-                                        <Card
-                                            bordered={false}
-                                            title={
-                                                <div className="font-bold">
-                                                    Hình thức thanh toán
-                                                </div>
-                                            }
-                                        >
-                                            <Radio.Group
-                                                onChange={onChange}
-                                                value={selectedPaymentMethod}
-                                            >
-                                                <Space direction="vertical">
-                                                    <Radio
-                                                        className="mb-2"
-                                                        value="CASH_ON_DELIVERY"
-                                                    >
-                                                        <div className="font-semibold ">
-                                                            Thanh toán khi nhận
-                                                            hàng(COD)
-                                                        </div>
-                                                    </Radio>
-                                                    <Radio value="BANK_TRANSFER">
-                                                        <div className="font-semibold">
-                                                            Thanh toán với QR
-                                                            code
-                                                        </div>
-                                                    </Radio>
-                                                </Space>
-                                            </Radio.Group>
-                                        </Card>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Card
-                                            bordered={false}
-                                            title={
-                                                <div className="font-bold">
-                                                    Đơn hàng
-                                                </div>
-                                            }
-                                        >
-                                            {cartItems?.map((item) => (
-                                                <CartContactItem
-                                                    key={item?.productId}
-                                                    productId={
-                                                        item.productId ?? ''
-                                                    }
-                                                    quantity={
-                                                        item.quantity ?? 0
-                                                    }
-                                                />
-                                            ))}
-
-                                            <div className="text-end text-xl font-bold">
-                                                Tổng đơn hàng:{' '}
-                                                {currencyFormatter(
-                                                    totalCartPrice
-                                                )}
-                                            </div>
-                                            <div className="m-10 flex justify-evenly">
-                                                <div>
-                                                    <Button
-                                                        block
-                                                        onClick={
-                                                            handleBackToCart
-                                                        }
-                                                        size="large"
-                                                        style={{
-                                                            marginBottom: 20,
-                                                        }}
-                                                        type="primary"
-                                                    >
-                                                        Quay về giỏ hàng
-                                                    </Button>
-                                                </div>
-                                                <div>
-                                                    <Button
-                                                        block
-                                                        onClick={
-                                                            handleCreateOrder
-                                                        }
-                                                        size="large"
-                                                        type="primary"
-                                                    >
-                                                        Thanh toán
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        </Card>
-                                    </Col>
-                                </Row>
-                            </Content>
-                        </Layout>
-                    </Content>
-                </Spin>
-            </Layout>
-        );
-    }
-    return (
-        <Layout>
-            <Spin
-                spinning={
-                    createOrderForGuestIsPending || createOrderForUserIsPending
-                }
-            >
+                />
                 <Content style={{ padding: '0 48px' }}>
                     <Layout style={{ padding: '24px 0' }}>
                         <Content>
@@ -694,6 +419,13 @@ const CartContact = () => {
                                                     <Form.Item
                                                         label="Ghi chú"
                                                         name="notes"
+                                                        rules={[
+                                                            {
+                                                                max: 1000,
+                                                                message:
+                                                                    'Ghi chú phải ít hơn 1000 ký tự!',
+                                                            },
+                                                        ]}
                                                     >
                                                         <Input.TextArea
                                                             rows={5}
@@ -745,68 +477,17 @@ const CartContact = () => {
                                             </div>
                                         }
                                     >
-                                        <Spin spinning={isCartLoading}>
-                                            {cartItems?.map((item) => (
-                                                <Card className="m-2">
-                                                    <Content>
-                                                        <Row gutter={16}>
-                                                            <Col span={6}>
-                                                                <div
-                                                                    style={{
-                                                                        height: 50,
-                                                                    }}
-                                                                >
-                                                                    <Image
-                                                                        alt={
-                                                                            item.id ??
-                                                                            ''
-                                                                        }
-                                                                        className="shadow-lg"
-                                                                        layout="fill"
-                                                                        objectFit="cover"
-                                                                        src={`${item.product?.thumbnail}`}
-                                                                    />
-                                                                </div>
-                                                            </Col>
-                                                            <Col span={6}>
-                                                                <div className="text-lg font-semibold">
-                                                                    {
-                                                                        item
-                                                                            .product
-                                                                            ?.name
-                                                                    }
-                                                                </div>
-                                                            </Col>
-                                                            <Col span={6}>
-                                                                <div className="font-semibol mx-6 text-lg">
-                                                                    x
-                                                                    {
-                                                                        item.quantity
-                                                                    }
-                                                                </div>
-                                                            </Col>
-                                                            <Col span={6}>
-                                                                <div className="font-semibol text-lg">
-                                                                    {currencyFormatter(
-                                                                        item
-                                                                            .product
-                                                                            ?.discount_price ??
-                                                                            item
-                                                                                .product
-                                                                                ?.original_price ??
-                                                                            0
-                                                                    )}
-                                                                </div>
-                                                            </Col>
-                                                        </Row>
-                                                    </Content>
-                                                </Card>
-                                            ))}
-                                        </Spin>
+                                        {cartItems?.map((item) => (
+                                            <CartContactItem
+                                                key={item?.productId}
+                                                productId={item.productId ?? ''}
+                                                quantity={item.quantity ?? 0}
+                                            />
+                                        ))}
 
                                         <div className="text-end text-xl font-bold">
                                             Tổng đơn hàng:{' '}
-                                            {currencyFormatter(totalPrice)}
+                                            {currencyFormatter(totalCartPrice)}
                                         </div>
                                         <div className="m-10 flex justify-evenly">
                                             <div>
@@ -839,7 +520,262 @@ const CartContact = () => {
                         </Content>
                     </Layout>
                 </Content>
-            </Spin>
+            </Layout>
+        );
+    }
+    return (
+        <Layout>
+            <Spin
+                spinning={
+                    createOrderForGuestIsPending || createOrderForUserIsPending
+                }
+            />
+            <Content style={{ padding: '0 48px' }}>
+                <Layout style={{ padding: '24px 0' }}>
+                    <Content>
+                        <Row gutter={16}>
+                            <Col span={10}>
+                                <div>
+                                    <Card
+                                        bordered={false}
+                                        title={
+                                            <div className="font-bold">
+                                                Thông tin mua hàng
+                                            </div>
+                                        }
+                                    >
+                                        <div className="max-h-[75vh] overflow-auto px-5">
+                                            <Form form={form} layout="vertical">
+                                                <Form.Item
+                                                    label="Họ và tên"
+                                                    name="name"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message:
+                                                                'Họ và tên không được để trống!',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                    label="Email"
+                                                    name="email"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message:
+                                                                'Email không được để trống!',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                    label="Giới tính"
+                                                    name="gender"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message:
+                                                                'Giới tính không được để trống!',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Select size="large">
+                                                        {Object.values(
+                                                            genderOptions
+                                                        ).map(
+                                                            (item: string) => (
+                                                                <Select.Option
+                                                                    key={item}
+                                                                    value={item}
+                                                                >
+                                                                    {item}
+                                                                </Select.Option>
+                                                            )
+                                                        )}
+                                                    </Select>
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                    label="Số điện thoại"
+                                                    name="phone"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message:
+                                                                'Số điện thoại không được để trống!',
+                                                        },
+                                                        {
+                                                            pattern:
+                                                                /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/,
+                                                            message:
+                                                                'Please enter a valid phone number!',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input size="large" />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                    label="Địa chỉ"
+                                                    name="address"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message:
+                                                                'Địa chỉ không được để trống!',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                    label="Ghi chú"
+                                                    name="notes"
+                                                >
+                                                    <Input.TextArea rows={5} />
+                                                </Form.Item>
+                                            </Form>
+                                        </div>
+                                    </Card>
+                                </div>
+                            </Col>
+                            <Col span={6}>
+                                <Card
+                                    bordered={false}
+                                    title={
+                                        <div className="font-bold">
+                                            Hình thức thanh toán
+                                        </div>
+                                    }
+                                >
+                                    <Radio.Group
+                                        onChange={onChange}
+                                        value={selectedPaymentMethod}
+                                    >
+                                        <Space direction="vertical">
+                                            <Radio
+                                                className="mb-2"
+                                                value="CASH_ON_DELIVERY"
+                                            >
+                                                <div className="font-semibold ">
+                                                    Thanh toán khi nhận
+                                                    hàng(COD)
+                                                </div>
+                                            </Radio>
+                                            <Radio value="BANK_TRANSFER">
+                                                <div className="font-semibold">
+                                                    Thanh toán với QR code
+                                                </div>
+                                            </Radio>
+                                        </Space>
+                                    </Radio.Group>
+                                </Card>
+                            </Col>
+                            <Col span={8}>
+                                <Card
+                                    bordered={false}
+                                    title={
+                                        <div className="font-bold">
+                                            Đơn hàng
+                                        </div>
+                                    }
+                                >
+                                    <Spin spinning={isCartLoading}>
+                                        {cartItems?.map((item) => (
+                                            <Card className="m-2">
+                                                <Content>
+                                                    <Row gutter={16}>
+                                                        <Col span={6}>
+                                                            <div
+                                                                style={{
+                                                                    height: 50,
+                                                                }}
+                                                            >
+                                                                <Image
+                                                                    alt={
+                                                                        item.id ??
+                                                                        ''
+                                                                    }
+                                                                    className="shadow-lg"
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    src={`${item.product?.thumbnail}`}
+                                                                />
+                                                            </div>
+                                                        </Col>
+                                                        <Col span={6}>
+                                                            <div className="text-lg font-semibold">
+                                                                {
+                                                                    item.product
+                                                                        ?.name
+                                                                }
+                                                            </div>
+                                                        </Col>
+                                                        <Col span={6}>
+                                                            <div className="font-semibol mx-6 text-lg">
+                                                                x{item.quantity}
+                                                            </div>
+                                                        </Col>
+                                                        <Col span={6}>
+                                                            <div className="font-semibol text-lg">
+                                                                {currencyFormatter(
+                                                                    item.product
+                                                                        ?.discount_price ??
+                                                                        item
+                                                                            .product
+                                                                            ?.original_price ??
+                                                                        0
+                                                                )}
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                </Content>
+                                            </Card>
+                                        ))}
+                                    </Spin>
+
+                                    <div className="text-end text-xl font-bold">
+                                        Tổng đơn hàng:{' '}
+                                        {currencyFormatter(totalPrice)}
+                                    </div>
+                                    <div className="m-10 flex justify-evenly">
+                                        <div>
+                                            <Button
+                                                block
+                                                onClick={handleBackToCart}
+                                                size="large"
+                                                style={{
+                                                    marginBottom: 20,
+                                                }}
+                                                type="primary"
+                                            >
+                                                Quay về giỏ hàng
+                                            </Button>
+                                        </div>
+                                        <div>
+                                            <Button
+                                                block
+                                                onClick={handleCreateOrder}
+                                                size="large"
+                                                type="primary"
+                                            >
+                                                Thanh toán
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Content>
+                </Layout>
+            </Content>
         </Layout>
     );
 };

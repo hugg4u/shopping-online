@@ -4,7 +4,6 @@ import {
     Form,
     Input,
     message,
-    Spin,
     Typography,
     Upload,
     UploadFile,
@@ -18,6 +17,7 @@ import { RcFile, UploadProps } from 'antd/es/upload';
 import { toast } from 'react-toastify';
 import { useUserQueryStore } from '@shopping/common/store/useUserStore';
 import Avatar from '@shopping/common/components/avatar';
+import { Spin } from '@shopping/common/components/spin';
 import EditProfilePopup from './EditProfilePopup';
 
 const { Title } = Typography;
@@ -201,7 +201,8 @@ const ProfileForm = () => {
     };
 
     return (
-        <Spin spinning={loading}>
+        <>
+            <Spin spinning={loading} />
             <div className="mx-auto max-w-6xl rounded-lg bg-white p-8 shadow-lg">
                 <Title className="mb-6 text-center text-gray-800" level={3}>
                     Hồ Sơ Của Tôi
@@ -357,7 +358,7 @@ const ProfileForm = () => {
                     visible={isModalVisible}
                 />
             </div>
-        </Spin>
+        </>
     );
 };
 

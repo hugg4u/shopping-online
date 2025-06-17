@@ -4,7 +4,6 @@ import {
     Form,
     Input,
     message,
-    Spin,
     Typography,
     Upload,
     UploadFile,
@@ -18,6 +17,7 @@ import { RcFile, UploadProps } from 'antd/es/upload';
 import { toast } from 'react-toastify';
 import Avatar from '@shopping/common/components/avatar';
 import { useUserQueryStore } from '@shopping/common/store/useUserStore';
+import { Spin } from '@shopping/common/components/spin';
 import EditProfilePopup from './EditProfilePopup';
 import styles from '~/styles/my-page/ProfileForm.module.css';
 
@@ -198,7 +198,8 @@ const ProfileForm = () => {
     };
 
     return (
-        <Spin spinning={loading}>
+        <>
+            <Spin spinning={loading} />
             <div className={styles.profileFormContainer}>
                 <Title level={3}>My Profile</Title>
 
@@ -328,7 +329,7 @@ const ProfileForm = () => {
                     visible={isModalVisible}
                 />
             </div>
-        </Spin>
+        </>
     );
 };
 

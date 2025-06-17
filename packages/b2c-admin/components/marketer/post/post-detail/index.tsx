@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import * as request from '@shopping/common/utils/http-request';
 import { useRouter } from 'next/router';
-import { Spin } from 'antd';
 import { AxiosError } from 'axios';
+import { Spin } from '@shopping/common/components/spin';
 import Header from '~/components/header';
 import { Post } from '~/types/post';
 import PostDetailAll from './post-detail-all';
@@ -39,7 +39,8 @@ const PostDetail = () => {
         );
     }
     return (
-        <Spin spinning={isLoading}>
+        <>
+            <Spin spinning={isLoading} />
             <div>
                 <Header isBack title="Post detail" />
                 <div>
@@ -58,7 +59,7 @@ const PostDetail = () => {
                     </div>
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

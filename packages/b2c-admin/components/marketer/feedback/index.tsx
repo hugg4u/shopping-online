@@ -11,7 +11,6 @@ import {
     Rate,
     Select,
     Space,
-    Spin,
     Switch,
     Table,
     TableColumnsType,
@@ -28,6 +27,7 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import moment from 'moment';
+import { Spin } from '@shopping/common/components/spin';
 import Header from '~/components/header';
 import { Sorts } from '~/types';
 import { Feedback, Product, User } from '~/types/feedback';
@@ -221,7 +221,8 @@ const FeedbackList = () => {
     };
 
     return (
-        <Spin spinning={feedbackLoading || productLoading}>
+        <>
+            <Spin spinning={feedbackLoading || productLoading} />
             <Header title="Manage Feedback" />
             <div>
                 <Form
@@ -348,7 +349,7 @@ const FeedbackList = () => {
                     ) : null}
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

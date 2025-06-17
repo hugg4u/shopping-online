@@ -11,7 +11,6 @@ import {
     FormProps,
     Input,
     Select,
-    Spin,
     Switch,
     Table,
     TableColumnsType,
@@ -20,7 +19,7 @@ import {
 } from 'antd';
 import type { QueryResponseType, Sorts } from '@shopping/common/types';
 import type { OrderCms } from '@shopping/common/types/order';
-
+import { Spin } from '@shopping/common/components/spin';
 import moment from 'moment';
 import { currencyFormatter } from '@shopping/common/utils/formatter';
 
@@ -303,7 +302,8 @@ const OrderList = () => {
     };
 
     return (
-        <Spin spinning={isFetching}>
+        <>
+            <Spin spinning={isFetching} />
             <div>
                 <Form
                     labelCol={{ span: 5 }}
@@ -428,7 +428,7 @@ const OrderList = () => {
                     rowKey="id"
                 />
             </div>
-        </Spin>
+        </>
     );
 };
 

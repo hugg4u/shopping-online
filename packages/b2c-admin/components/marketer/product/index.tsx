@@ -11,7 +11,6 @@ import {
     Rate,
     Select,
     Space,
-    Spin,
     Switch,
     Table,
     TableColumnsType,
@@ -29,6 +28,7 @@ import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { getSortOrder } from '@shopping/common/utils/getSortOrder';
+import { Spin } from '@shopping/common/components/spin';
 import ProductFormModal from './product-form-modal';
 import { Brand, Category, Product } from '~/types/product';
 import Header from '~/components/header';
@@ -355,7 +355,10 @@ const ProductList = () => {
     };
 
     return (
-        <Spin spinning={categoryLoading || brandLoading || productLoading}>
+        <>
+            <Spin
+                spinning={categoryLoading || brandLoading || productLoading}
+            />
             <Header title="Manage Product" />
             <div>
                 <Form
@@ -483,7 +486,7 @@ const ProductList = () => {
                     ) : null}
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 

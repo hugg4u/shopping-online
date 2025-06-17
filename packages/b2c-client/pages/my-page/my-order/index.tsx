@@ -1,6 +1,6 @@
 import { SearchOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
-import { Input, Pagination, Spin, Tabs, TabsProps } from 'antd';
+import { Input, Pagination, Tabs, TabsProps } from 'antd';
 import { PAGE_SIZE_CLIENT } from '@shopping/common/constant';
 import { QueryResponseType } from '@shopping/common/types';
 import { Order, orderStatus } from '@shopping/common/types/order';
@@ -8,6 +8,7 @@ import * as request from '@shopping/common/utils/http-request';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
+import { Spin } from '@shopping/common/components/spin';
 import { OrderCard } from '~/components/order/order-card';
 
 const items: TabsProps['items'] = Object.entries(orderStatus).map(
@@ -58,76 +59,73 @@ const MyOrder: NextPage = () => {
     return (
         <div className="container">
             <div>
-                <Spin spinning={isLoading}>
-                    <Tabs
-                        centered
-                        defaultActiveKey="1"
-                        items={items}
-                        onChange={(key: string) => {
-                            setSearchParams({
-                                ...searchParams,
-                                status: key,
-                            });
+                <Spin spinning={isLoading} />
+                <Tabs
+                    centered
+                    defaultActiveKey="1"
+                    items={items}
+                    onChange={(key: string) => {
+                        setSearchParams({
+                            ...searchParams,
+                            status: key,
+                        });
+                    }}
+                    size="large"
+                />
+                <div className="flex w-full justify-center">
+                    <Input
+                        allowClear
+                        className=" rounded-full"
+                        onChange={(e) => {
+                            setSearchValue(e.target.value);
+                            setSearchDebounce(e.target.value);
                         }}
+                        placeholder="Nhập mã đơn hàng hoặc tên sản phẩm..."
+                        prefix={<SearchOutlined className="text-slate-400" />}
                         size="large"
+                        style={{ width: 800 }}
                     />
+                </div>
+                {listOrder?.data && listOrder?.data?.length > 0 ? (
                     <div className="flex w-full justify-center">
-                        <Input
-                            allowClear
-                            className=" rounded-full"
-                            onChange={(e) => {
-                                setSearchValue(e.target.value);
-                                setSearchDebounce(e.target.value);
-                            }}
-                            placeholder="Nhập mã đơn hàng hoặc tên sản phẩm..."
-                            prefix={
-                                <SearchOutlined className="text-slate-400" />
-                            }
-                            size="large"
-                            style={{ width: 800 }}
-                        />
-                    </div>
-                    {listOrder?.data && listOrder?.data?.length > 0 ? (
-                        <div className="flex w-full justify-center">
-                            <div className="w-full">
-                                {listOrder?.data?.map((order) => (
-                                    <OrderCard
-                                        order={order as Order}
-                                        reload={() => refetch()}
-                                    />
-                                ))}
+                        <div className="w-full">
+                            {listOrder?.data?.map((order) => (
+                                <OrderCard
+                                    order={order as Order}
+                                    reload={() => refetch()}
+                                />
+                            ))}
 
-                                <div className="mb-8 flex w-full justify-end">
-                                    {listOrder?.pagination?.total ? (
-                                        <Pagination
-                                            current={searchParams?.currentPage}
-                                            defaultCurrent={1}
-                                            onChange={(page, pageSize) => {
-                                                setSearchParams((prev) => ({
-                                                    ...prev,
-                                                    currentPage: page,
-                                                    pageSize,
-                                                }));
-                                                setTimeout(() => {
-                                                    refetch();
-                                                });
-                                            }}
-                                            pageSize={searchParams?.pageSize}
-                                            total={listOrder?.pagination?.total}
-                                        />
-                                    ) : null}
-                                </div>
+                            <div className="mb-8 flex w-full justify-end">
+                                {listOrder?.pagination?.total ? (
+                                    <Pagination
+                                        current={searchParams?.currentPage}
+                                        defaultCurrent={1}
+                                        onChange={(page, pageSize) => {
+                                            setSearchParams((prev) => ({
+                                                ...prev,
+                                                currentPage: page,
+                                                pageSize,
+                                            }));
+                                            setTimeout(() => {
+                                                refetch();
+                                            });
+                                        }}
+                                        pageSize={searchParams?.pageSize}
+                                        total={listOrder?.pagination?.total}
+                                    />
+                                ) : null}
                             </div>
                         </div>
-                    ) : (
-                        <div className="flex h-[400px] w-full flex-col items-center justify-center space-y-4">
-                            <div>
-                                <ShoppingOutlined className="text-8xl text-slate-400" />
-                            </div>
-                            <div className="text-lg">Chưa có đơn hàng nào.</div>
+                    </div>
+                ) : (
+                    <div className="flex h-[400px] w-full flex-col items-center justify-center space-y-4">
+                        <div>
+                            <ShoppingOutlined className="text-8xl text-slate-400" />
                         </div>
-                    )}
-                </Spin>
+                        <div className="text-lg">Chưa có đơn hàng nào.</div>
+                    </div>
+                )}
             </div>
         </div>
     );

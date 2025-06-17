@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { get } from '@shopping/common/utils/http-request';
 import { PAGE_SIZE_CLIENT_PRODUCT } from '@shopping/common/constant';
+import { Spin } from '@shopping/common/components/spin';
 import Sidebar from '../../components/product/Sidebar';
 import HeaderBar from '../../components/product/HeaderBar';
 import ProductContent from '../../components/product/ProductContent';
@@ -162,95 +163,92 @@ const Products: NextPage = () => {
     return (
         <div className="min-h-screen bg-white">
             <div className="container mx-auto max-w-[1400px] px-4 py-8">
-                <Spin size="large" spinning={isLoading}>
-                    <div className="grid grid-cols-12 gap-8">
-                        {/* Sidebar - Fixed width 280px */}
-                        <div className="col-span-12 w-[280px] lg:col-span-3">
-                            <Sidebar
-                                onCategoryChange={handleCategoryChange}
-                                onPriceRangeChange={handlePriceRangeChange}
-                                onResetFilters={handleResetFilters}
-                            />
-                        </div>
+                <Spin spinning={isLoading} />
+                <div className="grid grid-cols-12 gap-8">
+                    {/* Sidebar - Fixed width 280px */}
+                    <div className="col-span-12 w-[280px] lg:col-span-3">
+                        <Sidebar
+                            onCategoryChange={handleCategoryChange}
+                            onPriceRangeChange={handlePriceRangeChange}
+                            onResetFilters={handleResetFilters}
+                        />
+                    </div>
 
-                        {/* Main Content Area */}
-                        <div className="col-span-12 lg:col-span-9">
-                            <div className="space-y-6">
-                                {/* Header Bar */}
-                                <div className="bg-white">
-                                    <HeaderBar
-                                        handleSearch={handleSearch}
-                                        setSort={(newSort) => {
+                    {/* Main Content Area */}
+                    <div className="col-span-12 lg:col-span-9">
+                        <div className="space-y-6">
+                            {/* Header Bar */}
+                            <div className="bg-white">
+                                <HeaderBar
+                                    handleSearch={handleSearch}
+                                    setSort={(newSort) => {
+                                        handleSearch(
+                                            1,
+                                            newSort,
+                                            routerQuery.sortOrder as string,
+                                            routerQuery.category as string,
+                                            routerQuery.search as string,
+                                            undefined,
+                                            (
+                                                routerQuery.brand as string
+                                            )?.split(','),
+                                            Number(routerQuery.minPrice),
+                                            Number(routerQuery.maxPrice)
+                                        );
+                                    }}
+                                    setSortOrder={(newSortOrder) => {
+                                        handleSearch(
+                                            1,
+                                            routerQuery.sort as string,
+                                            newSortOrder,
+                                            routerQuery.category as string,
+                                            routerQuery.search as string,
+                                            undefined,
+                                            (
+                                                routerQuery.brand as string
+                                            )?.split(','),
+                                            Number(routerQuery.minPrice),
+                                            Number(routerQuery.maxPrice)
+                                        );
+                                    }}
+                                    totalProducts={totalProducts}
+                                />
+                            </div>
+
+                            {/* Product Content */}
+                            <div className="bg-white">
+                                <Content className="min-h-[600px]">
+                                    <ProductContent
+                                        currentPage={
+                                            Number(routerQuery.page) || 1
+                                        }
+                                        onPageChange={(page, newPageSize) =>
                                             handleSearch(
-                                                1,
-                                                newSort,
+                                                page,
+                                                routerQuery.sort as string,
                                                 routerQuery.sortOrder as string,
                                                 routerQuery.category as string,
                                                 routerQuery.search as string,
-                                                undefined,
+                                                newPageSize,
                                                 (
                                                     routerQuery.brand as string
                                                 )?.split(','),
                                                 Number(routerQuery.minPrice),
                                                 Number(routerQuery.maxPrice)
-                                            );
-                                        }}
-                                        setSortOrder={(newSortOrder) => {
-                                            handleSearch(
-                                                1,
-                                                routerQuery.sort as string,
-                                                newSortOrder,
-                                                routerQuery.category as string,
-                                                routerQuery.search as string,
-                                                undefined,
-                                                (
-                                                    routerQuery.brand as string
-                                                )?.split(','),
-                                                Number(routerQuery.minPrice),
-                                                Number(routerQuery.maxPrice)
-                                            );
-                                        }}
-                                        totalProducts={totalProducts}
+                                            )
+                                        }
+                                        pageSize={
+                                            Number(routerQuery.pageSize) ||
+                                            PAGE_SIZE_CLIENT_PRODUCT
+                                        }
+                                        products={[...products]}
+                                        total={totalProducts}
                                     />
-                                </div>
-
-                                {/* Product Content */}
-                                <div className="bg-white">
-                                    <Content className="min-h-[600px]">
-                                        <ProductContent
-                                            currentPage={
-                                                Number(routerQuery.page) || 1
-                                            }
-                                            onPageChange={(page, newPageSize) =>
-                                                handleSearch(
-                                                    page,
-                                                    routerQuery.sort as string,
-                                                    routerQuery.sortOrder as string,
-                                                    routerQuery.category as string,
-                                                    routerQuery.search as string,
-                                                    newPageSize,
-                                                    (
-                                                        routerQuery.brand as string
-                                                    )?.split(','),
-                                                    Number(
-                                                        routerQuery.minPrice
-                                                    ),
-                                                    Number(routerQuery.maxPrice)
-                                                )
-                                            }
-                                            pageSize={
-                                                Number(routerQuery.pageSize) ||
-                                                PAGE_SIZE_CLIENT_PRODUCT
-                                            }
-                                            products={[...products]}
-                                            total={totalProducts}
-                                        />
-                                    </Content>
-                                </div>
+                                </Content>
                             </div>
                         </div>
                     </div>
-                </Spin>
+                </div>
             </div>
         </div>
     );

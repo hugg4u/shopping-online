@@ -1,11 +1,11 @@
 import React, { useImperativeHandle } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import * as request from '@shopping/common/utils/http-request';
-import { Spin } from 'antd';
 import { QueryResponseType } from '@shopping/common/types';
 import Avatar from '@shopping/common/components/avatar';
 import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import moment from 'moment';
+import { Spin } from '@shopping/common/components/spin';
 import { Activity } from '~/types/activity';
 
 type Props = {
@@ -38,7 +38,8 @@ const OrderActivity = React.forwardRef<OrderActivityHandle, Props>(
         });
 
         return (
-            <Spin spinning={isFetching}>
+            <>
+                <Spin spinning={isFetching} />
                 <div>
                     <div className="border-b-2 py-3 text-xl font-semibold">
                         Activities
@@ -91,7 +92,7 @@ const OrderActivity = React.forwardRef<OrderActivityHandle, Props>(
                         ))}
                     </div>
                 </div>
-            </Spin>
+            </>
         );
     }
 );

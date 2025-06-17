@@ -9,7 +9,6 @@ import {
     Input,
     Pagination,
     Select,
-    Spin,
     Switch,
     Table,
     TableColumnsType,
@@ -23,6 +22,7 @@ import { getSortOrder } from '@shopping/common/utils/getSortOrder';
 import * as request from '@shopping/common/utils/http-request';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Spin } from '@shopping/common/components/spin';
 import Header from '~/components/header';
 import { Slider } from '~/types/slider';
 import DeleteSliderAlert from './delete-slider-alert';
@@ -223,7 +223,8 @@ const SliderList = () => {
     };
 
     return (
-        <Spin spinning={listSliderLoading}>
+        <>
+            <Spin spinning={listSliderLoading} />
             <Header title="Manage Slider" />
             <div>
                 <Form
@@ -330,7 +331,7 @@ const SliderList = () => {
                     ) : null}
                 </div>
             </div>
-        </Spin>
+        </>
     );
 };
 
