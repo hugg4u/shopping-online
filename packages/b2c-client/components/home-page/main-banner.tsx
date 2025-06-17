@@ -52,7 +52,7 @@ const MainBanner = () => {
             <div
                 className={cn(
                     'relative flex justify-center',
-                    'h-[calc(100vh-80px)]' // Chiều cao = 100vh - header height
+                    'h-[calc(100vh-80px)] max-h-[800px] min-h-[400px]' // Thêm min-height và max-height
                 )}
                 onMouseLeave={() => {
                     swiper1Ref.current?.autoplay?.start();
@@ -113,10 +113,15 @@ const MainBanner = () => {
                                         <Image
                                             alt={item.title ?? ''}
                                             className="shadow-lg"
-                                            layout="fill"
-                                            objectFit="fit"
+                                            fill
                                             priority
+                                            quality={85}
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
                                             src={`${item.image}`}
+                                            style={{
+                                                objectFit: 'fill',
+                                                objectPosition: 'center',
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -126,7 +131,7 @@ const MainBanner = () => {
                 </Swiper>
 
                 {/* Content Swiper */}
-                <div className="absolute z-10 grid h-full w-full max-w-[1200px]">
+                <div className="absolute z-10 grid h-full w-full max-w-[1200px] px-4 md:px-8">
                     <Swiper
                         autoplay={{
                             delay: 6000,
@@ -150,12 +155,12 @@ const MainBanner = () => {
                             >
                                 <div className="animation-fade-in h-full cursor-pointer">
                                     <div
-                                        className="flex h-full w-full items-center px-8"
+                                        className="flex h-full w-full items-center"
                                         role="presentation"
                                     >
                                         <div className="max-w-[800px]">
                                             <div
-                                                className="text-[42px] font-bold uppercase leading-[1.2]"
+                                                className="text-2xl font-bold uppercase leading-[1.2] md:text-[32px] lg:text-[42px]"
                                                 style={{
                                                     color:
                                                         item?.titleTextColor ??
@@ -165,7 +170,7 @@ const MainBanner = () => {
                                                 {item?.title}
                                             </div>
                                             <div
-                                                className="mt-4 text-[36px] font-bold leading-[1.2]"
+                                                className="mt-4 text-xl font-bold leading-[1.2] md:text-[28px] lg:text-[36px]"
                                                 style={{
                                                     color:
                                                         item?.noteTextColor ??
@@ -183,7 +188,7 @@ const MainBanner = () => {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="absolute bottom-[24px] left-[calc((100%-1200px)/2)] z-50 flex items-center">
+                <div className="absolute bottom-[24px] left-4 z-50 flex items-center md:left-[calc((100%-1200px)/2)]">
                     <div className="mr-[50px] flex space-x-[8px]">
                         <button
                             aria-label="Previous slide"

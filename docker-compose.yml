@@ -28,9 +28,9 @@ services:
       context: .
       dockerfile: packages/server/Dockerfile
     container_name: shopping_server
-    restart: unless-stopped
+    restart: always
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=8080
       - DATABASE_URL=mysql://root:root123@mysql:3306/shopping_online
     ports:
@@ -39,7 +39,10 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - ./packages/server/public:/app/packages/server/public
+      - ./packages/server:/app/packages/server
+      - ./packages/common:/app/packages/common
+      - /app/packages/server/node_modules
+      - /app/packages/common/node_modules
     networks:
       - shopping_network
 
@@ -50,11 +53,17 @@ services:
     container_name: shopping_client
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=3000
       - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
     ports:
       - "1114:3000"
+    volumes:
+      - ./packages/b2c-client:/app/packages/b2c-client
+      - ./packages/common:/app/packages/common
+      - /app/packages/b2c-client/node_modules
+      - /app/packages/common/node_modules
+      - /app/packages/b2c-client/.next
     networks:
       - shopping_network
 
@@ -65,11 +74,17 @@ services:
     container_name: shopping_admin
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=3001
       - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
     ports:
       - "1115:3001"
+    volumes:
+      - ./packages/b2c-admin:/app/packages/b2c-admin
+      - ./packages/common:/app/packages/common
+      - /app/packages/b2c-admin/node_modules
+      - /app/packages/common/node_modules
+      - /app/packages/b2c-admin/.next
     networks:
       - shopping_network
 
@@ -83,6 +98,23 @@ services:
       - shopping_network
     depends_on:
       - mysql
+
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: shopping_nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "1113:80"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - shopping_network
+  #   environment:
+  #     - NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx
+  #     - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.conf
+  #     - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
 
 volumes:
   mysql_data:

@@ -109,7 +109,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
     const label = 'Click here to verify';
     const secondContent = `If you did not request this verification, you can safely ignore this email. Your account will not be affected.<br>
         Best regards,<br>
-        Perfume shop.`;
+        Soma Tea.`;
     await sendMail({
         to: email,
         subject,
@@ -296,7 +296,7 @@ export const senMailResetPassword = async (req: Request, res: Response) => {
     const label = 'Nhấn vào đây để đặt lại mật khẩu';
     const secondContent = `Nếu bạn không yêu cầu xác minh này, bạn có thể bỏ qua email này một cách an toàn. Tài khoản của bạn sẽ không bị ảnh hưởng.<br>
             Trân trọng,<br>
-            The Perfume.`;
+            Soma Tea.`;
 
     await sendMail({
         to: email,

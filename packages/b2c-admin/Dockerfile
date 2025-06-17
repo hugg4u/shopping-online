@@ -13,13 +13,13 @@ COPY . .
 RUN yarn install --frozen-lockfile
 
 # Build ứng dụng
-RUN cd packages/b2c-admin && yarn build
+# RUN cd packages/b2c-admin && yarn build
 
-# Chuyển đến thư mục b2c-admin
-WORKDIR /app/packages/b2c-admin
+# # Chuyển đến thư mục b2c-admin
+# WORKDIR /app/packages/b2c-admin
 
 # Expose port 3001
 EXPOSE 3001
 
 # Start ứng dụng
-CMD ["yarn", "start"] 
+CMD ["yarn", "admin:dev"] 

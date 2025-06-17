@@ -30,140 +30,159 @@ const Footer = () => {
                 />
             </div> */}
 
-            <div className="relative z-10 mx-auto max-w-[1200px] px-4">
-                <Row gutter={[32, 32]}>
-                    {/* Logo và Giới thiệu */}
-                    <Col md={8} sm={12} xs={24}>
-                        <div className="mb-6 flex items-center gap-3">
-                            <div className="relative h-16 w-16">
-                                <Image
-                                    alt="logo"
-                                    fill
-                                    priority
-                                    sizes="(max-width: 200px) 200vw"
-                                    src="/images/logo.png"
-                                    style={{
-                                        objectFit: 'contain',
-                                        borderRadius: '50%',
-                                    }}
-                                />
-                            </div>
-                            <div className="flex flex-col justify-end">
+            <div className="container mx-auto">
+                <Row gutter={[48, 48]} justify="space-between">
+                    {/* Cột 1: Logo và Thông tin cơ bản */}
+                    <Col md={4} sm={12} xs={24}>
+                        <div className="flex flex-col">
+                            <div className="mb-4 flex flex-col">
+                                <div className="relative mb-6 h-32 w-32">
+                                    <Image
+                                        alt="logo"
+                                        fill
+                                        priority
+                                        sizes="(max-width: 200px) 200vw"
+                                        src="/images/logo.png"
+                                        style={{
+                                            objectFit: 'contain',
+                                            borderRadius: '50%',
+                                        }}
+                                    />
+                                </div>
                                 <div
-                                    className="text-xl font-bold"
+                                    className="text-2xl font-bold"
                                     style={{
                                         color: '#D4A574',
                                     }}
                                 >
                                     Soma Tea
                                 </div>
-                                <div style={{ color: '#C8965F' }}>
+                                <div
+                                    className="mt-2"
+                                    style={{ color: '#C8965F' }}
+                                >
                                     Trà Thượng Hạng
                                 </div>
                             </div>
                         </div>
-                        <Text style={{ color: '#B8A082', lineHeight: '1.6' }}>
-                            Soma Tea tự hào mang đến những sản phẩm trà cao cấp
-                            với hương vị đậm đà, thuần khiết từ những vùng đất
-                            trồng trà nổi tiếng nhất Việt Nam.
-                        </Text>
                     </Col>
 
-                    {/* Liên kết nhanh */}
-                    <Col md={5} sm={12} xs={24} />
-
-                    {/* Chính sách */}
-                    <Col md={5} sm={12} xs={24} />
-
-                    {/* Thông tin liên hệ */}
-                    <Col md={6} xs={24}>
-                        <Title
-                            className="mb-6"
-                            level={4}
-                            style={{ color: '#D4A574' }}
-                        >
-                            Liên Hệ
-                        </Title>
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                                <EnvironmentOutlined
-                                    style={{
-                                        color: '#C8965F',
-                                        fontSize: '16px',
-                                    }}
-                                />
-                                <Text style={{ color: '#B8A082' }}>
-                                    Chung cư Phenika, Thạch Hòa, Thạch Thất, TP.
-                                    Hà Nội
-                                </Text>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <PhoneOutlined
-                                    style={{
-                                        color: '#C8965F',
-                                        fontSize: '16px',
-                                    }}
-                                />
-                                <Text style={{ color: '#B8A082' }}>
-                                    0912166969
-                                </Text>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <MailOutlined
-                                    style={{
-                                        color: '#C8965F',
-                                        fontSize: '16px',
-                                    }}
-                                />
-                                <Text style={{ color: '#B8A082' }}>
-                                    info@somatea.vn
-                                </Text>
-                            </div>
-                        </div>
-
-                        {/* Social Media */}
-                        <div className="mt-6">
-                            <Title
-                                className="mb-4"
-                                level={5}
-                                style={{ color: '#D4A574' }}
+                    {/* Cột 2: Mô tả */}
+                    <Col md={8} sm={12} xs={24}>
+                        <div className="flex flex-col">
+                            <Text
+                                style={{
+                                    color: '#B8A082',
+                                    lineHeight: '1.6',
+                                }}
                             >
-                                Theo Dõi
-                            </Title>
-                            <Space size="large">
-                                <Link
-                                    href="https://www.facebook.com/people/Soma-Teas/61577044074416/"
-                                    target="_blank"
+                                Soma Tea tự hào mang đến những sản phẩm trà cao
+                                cấp với hương vị đậm đà, thuần khiết từ những
+                                vùng đất trồng trà nổi tiếng nhất Việt Nam.
+                            </Text>
+                        </div>
+                    </Col>
+
+                    {/* Cột 3: Thông tin liên hệ và mạng xã hội */}
+                    <Col md={8} xs={24}>
+                        <div className="flex flex-col">
+                            {/* Thông tin liên hệ */}
+                            <div className="w-full">
+                                <Title
+                                    className="mb-6"
+                                    level={4}
+                                    style={{ color: '#D4A574' }}
                                 >
-                                    <div
-                                        className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
-                                        style={{ backgroundColor: '#C8965F' }}
-                                    >
-                                        <FacebookOutlined
+                                    Liên Hệ
+                                </Title>
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-3">
+                                        <EnvironmentOutlined
                                             style={{
-                                                color: '#3C2415',
-                                                fontSize: '18px',
+                                                color: '#C8965F',
+                                                fontSize: '16px',
                                             }}
                                         />
+                                        <Text style={{ color: '#B8A082' }}>
+                                            Chung cư Phenika, Thạch Hòa, Thạch
+                                            Thất, TP. Hà Nội
+                                        </Text>
                                     </div>
-                                </Link>
-                                <Link
-                                    href="https://zalo.me/0912166969"
-                                    target="_blank"
-                                >
-                                    <div
-                                        className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
-                                        style={{ backgroundColor: '#C8965F' }}
-                                    >
-                                        <Image
-                                            alt="logo"
-                                            height={20}
-                                            src="/images/zalo-icon.png"
-                                            width={20}
+                                    <div className="flex items-center gap-3">
+                                        <PhoneOutlined
+                                            style={{
+                                                color: '#C8965F',
+                                                fontSize: '16px',
+                                            }}
                                         />
+                                        <Text style={{ color: '#B8A082' }}>
+                                            0912166969
+                                        </Text>
                                     </div>
-                                </Link>
-                            </Space>
+                                    <div className="flex items-center gap-3">
+                                        <MailOutlined
+                                            style={{
+                                                color: '#C8965F',
+                                                fontSize: '16px',
+                                            }}
+                                        />
+                                        <Text style={{ color: '#B8A082' }}>
+                                            info@somatea.vn
+                                        </Text>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Mạng xã hội */}
+                            <div className="mt-8 w-full">
+                                <Title
+                                    className="mb-4"
+                                    level={4}
+                                    style={{ color: '#D4A574' }}
+                                >
+                                    Theo Dõi
+                                </Title>
+                                <div className="flex">
+                                    <Space size="middle">
+                                        <Link
+                                            href="https://www.facebook.com/people/Soma-Teas/61577044074416/"
+                                            target="_blank"
+                                        >
+                                            <div
+                                                className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
+                                                style={{
+                                                    backgroundColor: '#C8965F',
+                                                }}
+                                            >
+                                                <FacebookOutlined
+                                                    style={{
+                                                        color: '#3C2415',
+                                                        fontSize: '18px',
+                                                    }}
+                                                />
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="https://zalo.me/0912166969"
+                                            target="_blank"
+                                        >
+                                            <div
+                                                className="flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110"
+                                                style={{
+                                                    backgroundColor: '#C8965F',
+                                                }}
+                                            >
+                                                <Image
+                                                    alt="logo"
+                                                    height={20}
+                                                    src="/images/zalo-icon.png"
+                                                    width={20}
+                                                />
+                                            </div>
+                                        </Link>
+                                    </Space>
+                                </div>
+                            </div>
                         </div>
                     </Col>
                 </Row>

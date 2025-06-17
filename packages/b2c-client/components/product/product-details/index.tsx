@@ -14,6 +14,7 @@ import * as request from '@shopping/common/utils/http-request';
 import { toast } from 'react-toastify';
 import { QueryResponseGetOneType } from '@shopping/common/types';
 import { Cart } from '@shopping/common/types/cart';
+import * as analytics from '~/lib/analytics';
 import ProductImageSlider from './product-image-slider';
 import useCartStore from '~/hooks/useCartStore';
 import { useAuth } from '~/hooks/useAuth';
@@ -52,6 +53,17 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
     const auth = useAuth();
     const { addProduct } = useCartStore();
     const { reload } = useCartQuery();
+
+    useEffect(() => {
+        if (data) {
+            analytics.trackProductView({
+                id: data.id,
+                name: data.name,
+                price: data.discount_price || data.original_price || 0,
+                category: data.category?.name,
+            });
+        }
+    }, [data]);
 
     const { mutateAsync: addToCartTrigger } = useMutation({
         mutationFn: ({
@@ -95,6 +107,12 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
 
     const handleAddToCard = async () => {
         if (data?.id) {
+            analytics.trackButtonClick(
+                'Add to Cart',
+                'Product Detail',
+                `${data.name} (${data.id})`
+            );
+
             if (!auth) {
                 addProduct({ productId: data?.id, quantity: buyQuantity });
             } else {
@@ -114,6 +132,12 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
 
     const handleBuyNow = async () => {
         if (data?.id) {
+            analytics.trackButtonClick(
+                'Buy Now',
+                'Product Detail',
+                `${data.name} (${data.id})`
+            );
+
             if (!auth) {
                 addProduct({ productId: data?.id, quantity: buyQuantity });
                 router.push(`/cart-details?itemKeys=${data?.id}`);
@@ -190,7 +214,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                         )}
                     </div>
                     <div className="flex items-center gap-10 text-lg">
-                        <p className="text-slate-500">Dung tích</p>
+                        <p className="text-slate-500">Khối lượng</p>
                         <div className="border px-5 py-2">{data?.size}g</div>
                     </div>
                     <div className="flex items-center gap-10 text-lg">
@@ -274,7 +298,7 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     />
                     <ProductSpecifications
                         name={data?.size ? `${data?.size}g` : ''}
-                        title="Dung tích"
+                        title="Khối lượng"
                     />
                 </div>
                 <div className="flex flex-col gap-5">

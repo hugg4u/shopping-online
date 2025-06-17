@@ -32,7 +32,8 @@ export const createPaymentLink = async (req: Request, res: Response) => {
         // const orderCode = Number(orderId);
 
         // Danh sách sản phẩm
-        const items = order.orderDetail.map((item) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const items = order.orderDetail.map((item: any) => ({
             name: item.productName,
             quantity: item.quantity,
             price: Math.round(item.totalPrice / item.quantity),

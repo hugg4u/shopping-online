@@ -311,7 +311,7 @@ export const createUser = async (req: Request, res: Response) => {
         const secondContent = `Email: ${email}<br>
         Password: ${phone}<br>
         Best regards,<br>
-        Perfume shop.`;
+        Soma Tea.`;
 
         await sendMail({
             to: user.email,

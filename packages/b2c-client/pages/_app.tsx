@@ -19,6 +19,9 @@ import ScrollToTopButton from '@shopping/common/components/scroll-to-top';
 import { DefaultLayout } from '~/components/layouts/default-layout';
 import LoginModal from '~/components/modals/login-modal';
 import RegisterModal from '~/components/modals/register-modal';
+import { ContactButtons } from '~/components/contact-buttons';
+import * as gtag from '~/lib/gtag';
+import ChatBot from '~/components/ChatBot/ChatBot';
 
 const queryClient = new QueryClient();
 
@@ -40,6 +43,18 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     const loadingRef = useRef<unknown | undefined>(undefined);
 
     const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        const handleRouteChange = (url: string) => {
+            gtag.pageview(url);
+        };
+
+        router.events.on('routeChangeComplete', handleRouteChange);
+
+        return () => {
+            router.events.off('routeChangeComplete', handleRouteChange);
+        };
+    }, [router.events]);
 
     useEffect(() => {
         const start = () => {
@@ -134,6 +149,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
                 <div className="fixed bottom-[40px] right-[40px] cursor-pointer">
                     <ScrollToTopButton />
                 </div>
+                <ContactButtons />
+                <ChatBot />
             </QueryClientProvider>
         </ConfigProvider>
     );
