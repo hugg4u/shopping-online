@@ -17,7 +17,6 @@ import {
 } from 'antd';
 import { Color } from 'antd/es/color-picker';
 import { RcFile, UploadProps } from 'antd/es/upload';
-import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 import * as request from '@shopping/common/utils/http-request';
 import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -127,7 +126,9 @@ const SliderFormModal: React.FC<Props> = ({
             mutationFn: (files: RcFile[]) => {
                 const formData = new FormData();
                 files.forEach((file) => formData.append('files', file));
-                return request.post('upload', formData).then((res) => res.data);
+                return request
+                    .post('upload-public', formData)
+                    .then((res) => res.data);
             },
             onError: () => {
                 toast.error('Upload file failed!');
@@ -212,7 +213,7 @@ const SliderFormModal: React.FC<Props> = ({
                               uid: '-1',
                               name: sliderDetail?.data?.image ?? '',
                               status: 'done',
-                              url: getImageUrl(sliderDetail?.data?.image),
+                              url: sliderDetail?.data?.image,
                           },
                       ]
                     : undefined,
@@ -247,16 +248,12 @@ const SliderFormModal: React.FC<Props> = ({
                 (imageList as RcFile[]) ?? []
             )?.then((res) => res.imageUrls);
 
-            const imageRequest = imageResponse?.map((image: string) => ({
-                url: image,
-            }));
-
             createSlider({
                 title,
                 note,
                 backlink,
                 isShow,
-                image: imageRequest?.[0].url ?? '',
+                image: imageResponse?.[0] ?? '',
                 backgroundSliderColor,
                 noteTextColor,
                 titleTextColor,
@@ -264,21 +261,31 @@ const SliderFormModal: React.FC<Props> = ({
         }
 
         if (type === 'UPDATE' && sliderId) {
-            const newImage =
-                values?.imageList?.[0]?.status === 'done'
-                    ? [values?.imageList?.[0]?.name]
-                    : await uploadFileTrigger(
-                          values?.imageList?.map(
-                              (item) => item.originFileObj as RcFile
-                          ) ?? []
-                      ).then((res) => res?.imageUrls);
+            let newImage = '';
+
+            if (
+                values?.imageList?.[0]?.status === 'done' &&
+                values?.imageList?.[0]?.url
+            ) {
+                // Nếu ảnh đã tồn tại và không thay đổi
+                newImage = values?.imageList?.[0]?.url;
+            } else if (values?.imageList && values?.imageList.length > 0) {
+                // Nếu có ảnh mới được upload
+                const imageResponse = await uploadFileTrigger(
+                    values?.imageList?.map(
+                        (item) => item.originFileObj as RcFile
+                    ) ?? []
+                ).then((res) => res?.imageUrls);
+
+                newImage = imageResponse?.[0] ?? '';
+            }
 
             const submitObj = {
                 title,
                 note,
                 backlink,
                 isShow,
-                image: newImage?.[0] ?? '',
+                image: newImage,
                 backgroundSliderColor,
                 noteTextColor,
                 titleTextColor,

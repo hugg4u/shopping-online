@@ -11,6 +11,7 @@ import type { Swiper as TypeSwiper } from 'swiper';
 import { ArrowLeftSquare, ArrowRightSquare } from '@shopping/common/icons';
 import { useRouter } from 'next/router';
 import { Spin } from '@shopping/common/components/spin';
+import { getImageUrl } from '@shopping/common/utils/getImageUrl';
 
 const MainBanner = () => {
     const router = useRouter();
@@ -118,7 +119,7 @@ const MainBanner = () => {
                                             priority
                                             quality={85}
                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-                                            src={`${item.image}`}
+                                            src={getImageUrl(item.image)}
                                             style={{
                                                 objectFit: 'fill',
                                                 objectPosition: 'center',

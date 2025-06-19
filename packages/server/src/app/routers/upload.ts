@@ -3,6 +3,9 @@ import { Router } from 'express';
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import path from 'path';
+import fs from 'fs';
+import { deleteFromPublic, uploadToPublic } from '../controllers/upload';
 
 // Cấu hình Cloudinary
 cloudinary.config({
@@ -12,7 +15,7 @@ cloudinary.config({
 });
 
 // Cấu hình storage cho Cloudinary
-const storage = new CloudinaryStorage({
+const cloudinaryStorage = new CloudinaryStorage({
     cloudinary,
     params: {
         folder: 'shopping-online',
@@ -21,11 +24,33 @@ const storage = new CloudinaryStorage({
     } as any,
 });
 
-const upload = multer({ storage });
+// Cấu hình storage cho local
+const publicUploadsDir = path.join(process.cwd(), 'public', 'uploads');
+
+// Tạo thư mục uploads nếu chưa tồn tại
+if (!fs.existsSync(publicUploadsDir)) {
+    fs.mkdirSync(publicUploadsDir, { recursive: true });
+}
+
+const localStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, publicUploadsDir);
+    },
+    filename: (req, file, cb) => {
+        // Tạo tên file duy nhất bằng cách thêm timestamp
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+        const ext = path.extname(file.originalname);
+        cb(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+    },
+});
+
+const uploadCloud = multer({ storage: cloudinaryStorage });
+const uploadLocal = multer({ storage: localStorage });
 
 export default (router: Router) => {
+    // Upload lên Cloudinary
     // eslint-disable-next-line consistent-return
-    router.post('/upload', upload.array('files'), (req, res) => {
+    router.post('/upload', uploadCloud.array('files'), (req, res) => {
         try {
             const uploadedFiles = req.files as Express.Multer.File[]; // Type casting
 
@@ -46,4 +71,10 @@ export default (router: Router) => {
             res.status(500).json({ message: 'Internal server error' });
         }
     });
+
+    // Upload vào thư mục public
+    router.post('/upload-public', uploadLocal.array('files'), uploadToPublic);
+
+    // Xóa file từ thư mục public
+    router.delete('/delete-public/:filename', deleteFromPublic);
 };
