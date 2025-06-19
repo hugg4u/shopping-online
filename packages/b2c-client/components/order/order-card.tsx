@@ -55,35 +55,41 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
     return (
         <div className="my-4">
             <Card>
-                <div className="text-base">
-                    <div className="space-y-2 border-b-2 border-b-gray-200 pb-4">
-                        <div className="flex justify-between">
-                            <div className="space-y-2">
-                                <div>
+                <div className="text-sm sm:text-base">
+                    <div className="space-y-3 border-b-2 border-b-gray-200 pb-4 sm:space-y-2">
+                        <div className="flex flex-col gap-4 lg:flex-row lg:justify-between">
+                            <div className="flex-1 space-y-2">
+                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                                     <span className="font-medium">
                                         Mã đơn hàng:
-                                    </span>{' '}
-                                    {id}
-                                    <CopyButton
-                                        toastInfo="Sao chép mã đơn hàng thành công"
-                                        value={id ?? ''}
-                                    />
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="break-all">{id}</span>
+                                        <CopyButton
+                                            toastInfo="Sao chép mã đơn hàng thành công"
+                                            value={id ?? ''}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-4 ">
-                                    <span>
+                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                                    <span className="flex flex-col sm:flex-row sm:items-center">
                                         <span className="font-medium">
                                             Ngày đặt hàng:
                                         </span>
-                                        <span className="text-primary ml-1">
+                                        <span className="text-primary sm:ml-1">
                                             {moment(createdAt).format(
                                                 'DD-MM-YYYY'
                                             )}
                                         </span>
                                     </span>
-                                    <span className=" text-gray-400">|</span>
-                                    <span>
-                                        Trạng thái đơn hàng:
-                                        <span className="text-primary ml-1">
+                                    <span className="hidden text-gray-400 sm:inline">
+                                        |
+                                    </span>
+                                    <span className="flex flex-col sm:flex-row sm:items-center">
+                                        <span className="font-medium sm:font-normal">
+                                            Trạng thái đơn hàng:
+                                        </span>
+                                        <span className="text-primary sm:ml-1">
                                             {
                                                 orderStatus[
                                                     status as keyof typeof orderStatus
@@ -93,59 +99,82 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                     </span>
                                 </div>
                             </div>
-                            <div className="space-x-2">
+                            <div className="flex flex-col gap-2 sm:flex-row lg:flex-shrink-0">
                                 {status === 'PAYMENT_PENDING' && (
                                     <Link
                                         href={`/cart-completion?orderId=${id}`}
                                     >
-                                        <Button color="primary" type="primary">
-                                            Thanh toán đơn hàng
+                                        <Button
+                                            className="w-full sm:w-auto"
+                                            color="primary"
+                                            size="small"
+                                            type="primary"
+                                        >
+                                            <span className="hidden sm:inline">
+                                                Thanh toán đơn hàng
+                                            </span>
+                                            <span className="sm:hidden">
+                                                Thanh toán
+                                            </span>
                                         </Button>
                                     </Link>
                                 )}
                                 <Link href={`/my-page/my-order/${id}`}>
-                                    <Button>Chi tiết đơn hàng</Button>
+                                    <Button
+                                        className="w-full sm:w-auto"
+                                        size="small"
+                                    >
+                                        <span className="hidden sm:inline">
+                                            Chi tiết đơn hàng
+                                        </span>
+                                        <span className="sm:hidden">
+                                            Chi tiết
+                                        </span>
+                                    </Button>
                                 </Link>
                             </div>
                         </div>
                     </div>
                     {orderDetail && (
                         <div>
-                            <div className="flex-wrap border-b-2 border-b-gray-200 py-4">
-                                <div className="flex h-full items-center">
-                                    <Image
-                                        className="pr-4"
-                                        height={80}
-                                        preview={false}
-                                        src={getImageUrl(
-                                            orderDetail[0]?.thumbnail
-                                                ? orderDetail[0]?.thumbnail
-                                                : ''
-                                        )}
-                                    />
-                                    <div className="flex h-full w-full justify-between">
-                                        <div className="flex-col gap-8">
-                                            <p className="text-xl">
+                            <div className="border-b-2 border-b-gray-200 py-4">
+                                <div className="flex gap-3 sm:gap-4">
+                                    <div className="flex-shrink-0">
+                                        <Image
+                                            className="sm:!h-20 sm:!w-20"
+                                            height={60}
+                                            preview={false}
+                                            src={getImageUrl(
+                                                orderDetail[0]?.thumbnail
+                                                    ? orderDetail[0]?.thumbnail
+                                                    : ''
+                                            )}
+                                            width={60}
+                                        />
+                                    </div>
+                                    <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:justify-between">
+                                        <div className="flex-1 space-y-1 sm:space-y-2">
+                                            <p className="line-clamp-2 text-base font-medium sm:text-lg lg:text-xl">
                                                 {orderDetail[0]?.productName}
                                             </p>
-                                            <p className="text-base text-gray-500">
+                                            <p className="text-sm text-gray-500 sm:text-base">
                                                 Phân loại hàng:{' '}
                                                 {orderDetail[0]?.category},{' '}
                                                 {orderDetail[0]?.size} g
                                             </p>
-                                            <p className="text-base ">
+                                            <p className="text-sm sm:text-base">
                                                 x {orderDetail[0]?.quantity}
                                             </p>
                                         </div>
-                                        <div className="flex items-center gap-4">
-                                            <div className="flex gap-2">
+                                        <div className="flex items-center justify-end sm:justify-start">
+                                            <div className="flex flex-col gap-1 text-right sm:flex-row sm:gap-2 sm:text-left">
                                                 <span
-                                                    className={
+                                                    className={`text-sm sm:text-base ${
                                                         orderDetail[0]
                                                             ?.discountPrice
                                                             ? 'text-gray-400 line-through'
                                                             : ''
-                                                    }
+                                                    }`}
                                                 >
                                                     {orderDetail[0]
                                                         ?.originalPrice &&
@@ -156,16 +185,17 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                                             )
                                                         )}
                                                 </span>
-                                                <span>
-                                                    {orderDetail[0]
-                                                        ?.discountPrice &&
-                                                        currencyFormatter(
+                                                {orderDetail[0]
+                                                    ?.discountPrice && (
+                                                    <span className="text-sm font-medium sm:text-base">
+                                                        {currencyFormatter(
                                                             Number(
                                                                 orderDetail[0]
                                                                     ?.discountPrice
                                                             )
                                                         )}
-                                                </span>
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -174,83 +204,67 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, reload }) => {
                                 {order.count !== undefined &&
                                     order.count !== null &&
                                     order.count > 0 && (
-                                        <div className="mt-2 text-base">
+                                        <div className="mt-3 text-sm text-gray-600 sm:text-base">
                                             {orderDetail[0]?.productName} và{' '}
                                             {order.count} sản phẩm khác
                                         </div>
                                     )}
                             </div>
-                            <div className="flex items-center">
-                                <div
-                                    className="flex gap-4"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                    }}
-                                    role="presentation"
-                                >
+                            <div className="flex flex-col gap-4 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                                <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
                                     {(order.status === 'DELIVERED' ||
                                         order.status === 'CANCELED') && (
                                         <Button
+                                            className="w-full sm:w-auto"
                                             onClick={handleBuyAgain}
-                                            size="middle"
-                                            style={{
-                                                width: '100px',
-                                            }}
+                                            size="small"
                                             type="primary"
                                         >
                                             Mua lại
                                         </Button>
                                     )}
 
-                                    <div
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                        }}
-                                        role="presentation"
-                                    >
-                                        {(order &&
-                                            order.status === 'PENDING') ||
-                                            (order.status ===
-                                                'PAYMENT_PENDING' && (
-                                                <DeleteOrderAlert
-                                                    orderId={order.id ?? ''}
-                                                    productName={
-                                                        order.orderDetail
-                                                            ?.map(
-                                                                (e) =>
-                                                                    e.productName
-                                                            )
-                                                            .filter(
-                                                                (name) =>
-                                                                    name !==
-                                                                    null
-                                                            ) as string[]
-                                                    }
-                                                    reload={() => reload()}
-                                                    width={100}
-                                                />
-                                            ))}
-                                    </div>
+                                    {((order && order.status === 'PENDING') ||
+                                        order.status === 'PAYMENT_PENDING') && (
+                                        <div className="w-full sm:w-auto">
+                                            <DeleteOrderAlert
+                                                orderId={order.id ?? ''}
+                                                productName={
+                                                    order.orderDetail
+                                                        ?.map(
+                                                            (e) => e.productName
+                                                        )
+                                                        .filter(
+                                                            (name) =>
+                                                                name !== null
+                                                        ) as string[]
+                                                }
+                                                reload={() => reload()}
+                                                width={100}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="w-full flex-col">
-                                    <p className="mt-2 flex w-full justify-end ">
-                                        Thành tiền:
-                                        <span className="text-primary ml-1">
+
+                                <div className="flex flex-col items-end space-y-1 text-sm sm:text-base">
+                                    <div className="flex items-center gap-2">
+                                        <span>Thành tiền:</span>
+                                        <span className="text-primary font-semibold">
                                             {currencyFormatter(
                                                 Number(totalAmount)
                                             )}
                                         </span>
-                                    </p>
-                                    <p className="mt-2 flex w-full justify-end">
-                                        Hình thức thanh toán:{' '}
-                                        <span className="text-primary ml-1">
+                                    </div>
+                                    <div className="flex items-center gap-2 text-xs text-gray-600 sm:text-sm">
+                                        <span>Hình thức thanh toán:</span>
+                                        <span className="text-primary">
                                             {
                                                 orderPaymentMethod[
                                                     paymentMethod as keyof typeof orderPaymentMethod
                                                 ]
                                             }
                                         </span>
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -27,6 +27,7 @@ const Header = () => {
     const [isProfilePopupVisible, setIsProfilePopupVisible] = useState(false);
     const [isChangePasswordPopupVisible, setIsChangePasswordPopupVisible] =
         useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const logOut = async () => {
         await Cookies.remove('accessTokenClient');
@@ -84,24 +85,22 @@ const Header = () => {
 
     return (
         <div
-            className="shadow-sm"
+            className="relative shadow-sm"
             style={{
                 backgroundColor: '#dde8dc',
-                // borderBottom: '1px solid #365842',
+                // borderColor: '1px solid #365842',
             }}
         >
-            <div className="container flex h-[80px] items-center justify-between">
-                <div className="mx-2 ml-8 flex max-w-md items-center space-x-10">
-                    <Link
-                        className="flex flex-1 flex-row items-center"
-                        href="/"
-                    >
-                        <div className="relative flex h-[60px] w-[50px] flex-1 flex-row items-center">
+            <div className="container mx-auto flex h-[80px] items-center justify-between px-4">
+                {/* Logo Section */}
+                <div className="flex items-center space-x-4">
+                    <Link className="flex flex-row items-center" href="/">
+                        <div className="relative flex h-[40px] w-[35px] items-center md:h-[60px] md:w-[50px]">
                             <Image
                                 alt="logo"
                                 fill
                                 priority
-                                sizes="(max-width: 200px) 200vw"
+                                sizes="(max-width: 768px) 35px, 50px"
                                 src="/images/logo.png"
                                 style={{
                                     objectFit: 'contain',
@@ -109,12 +108,12 @@ const Header = () => {
                                 }}
                             />
                         </div>
-                        <div className="relative flex h-[60px] w-[100px] flex-1 flex-row items-center">
+                        <div className="relative flex h-[40px] w-[70px] items-center md:h-[60px] md:w-[100px]">
                             <Image
                                 alt="logo"
                                 fill
                                 priority
-                                sizes="(max-width: 200px) 200vw"
+                                sizes="(max-width: 768px) 70px, 100px"
                                 src="/images/soma-text.png"
                                 style={{
                                     objectFit: 'contain',
@@ -123,34 +122,115 @@ const Header = () => {
                             />
                         </div>
                     </Link>
-                    <Search />
+
+                    {/* Search - Hidden on mobile, visible from md up */}
+                    <div className="hidden md:block">
+                        <Search />
+                    </div>
                 </div>
-                <div className="flex items-center">
+
+                {/* Desktop Navigation - Hidden on mobile */}
+                <div className="hidden items-center space-x-6 md:flex">
                     <MainSider />
-                    <div className="ml-8 flex flex-1 items-center space-x-8">
-                        <CartIcon />
-                        {auth ? (
-                            <div>
-                                <Dropdown
-                                    menu={{ items }}
-                                    overlayStyle={{
-                                        width: 250,
+                    <CartIcon />
+                    {auth ? (
+                        <div>
+                            <Dropdown
+                                menu={{ items }}
+                                overlayStyle={{
+                                    width: 250,
+                                }}
+                                placement="bottomRight"
+                            >
+                                <div
+                                    className="flex cursor-pointer space-x-3 rounded-full border px-4 py-2"
+                                    onClick={() => router.push('/my-page')}
+                                    role="presentation"
+                                    style={{
+                                        borderColor: '#C8965F',
                                     }}
-                                    placement="bottomRight"
                                 >
+                                    {isFetching ? (
+                                        <Skeleton.Avatar active />
+                                    ) : (
+                                        <Avatar
+                                            height={40}
+                                            src={
+                                                user?.data?.image
+                                                    ? getImageUrl(
+                                                          user?.data?.image
+                                                      )
+                                                    : undefined
+                                            }
+                                            width={40}
+                                        />
+                                    )}
+
+                                    <MenuOutlined
+                                        style={{ color: '#3C2415' }}
+                                    />
+                                </div>
+                            </Dropdown>
+                        </div>
+                    ) : (
+                        <div className="flex space-x-3">
+                            <Tooltip title="Đăng nhập">
+                                <UserOutlined
+                                    className="cursor-pointer"
+                                    onClick={openLoginModal}
+                                    style={{
+                                        fontSize: 24,
+                                        color: '#365842',
+                                    }}
+                                />
+                            </Tooltip>
+                        </div>
+                    )}
+                </div>
+
+                {/* Mobile Menu Toggle */}
+                <div className="flex items-center space-x-3 md:hidden">
+                    <CartIcon />
+                    <button
+                        aria-label="Toggle mobile menu"
+                        className="rounded-md p-2"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        style={{ color: '#365842' }}
+                        type="button"
+                    >
+                        <MenuOutlined style={{ fontSize: 20 }} />
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Search - Below header on mobile */}
+            <div className="block px-4 pb-3 md:hidden">
+                <Search />
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            {isMobileMenuOpen && (
+                <div className="absolute left-0 right-0 top-full z-50 border-t bg-white shadow-lg md:hidden">
+                    <div className="px-4 py-4">
+                        <div className="space-y-4">
+                            {/* Navigation Items */}
+                            <div className="border-b pb-4">
+                                <MainSider />
+                            </div>
+
+                            {/* User Section */}
+                            {auth ? (
+                                <div className="space-y-3">
                                     <div
-                                        className="flex cursor-pointer space-x-3 rounded-full border px-4 py-2"
+                                        className="flex items-center space-x-3 rounded-lg bg-gray-50 p-3"
                                         onClick={() => router.push('/my-page')}
                                         role="presentation"
-                                        style={{
-                                            borderColor: '#C8965F',
-                                        }}
                                     >
                                         {isFetching ? (
-                                            <Skeleton.Avatar active />
+                                            <Skeleton.Avatar active size={32} />
                                         ) : (
                                             <Avatar
-                                                height={40}
+                                                height={32}
                                                 src={
                                                     user?.data?.image
                                                         ? getImageUrl(
@@ -158,62 +238,90 @@ const Header = () => {
                                                           )
                                                         : undefined
                                                 }
-                                                width={40}
+                                                width={32}
                                             />
                                         )}
-
-                                        <MenuOutlined
-                                            style={{ color: '#3C2415' }}
-                                        />
+                                        <span className="font-medium text-gray-700">
+                                            {user?.data?.name || 'Tài khoản'}
+                                        </span>
                                     </div>
-                                </Dropdown>
-                                {user && (
-                                    <EditProfilePopup
-                                        onClose={() =>
-                                            setIsProfilePopupVisible(false)
-                                        }
-                                        visible={isProfilePopupVisible}
-                                    />
-                                )}
-                                {user && (
-                                    <ChangePasswordPopup
-                                        onClose={() =>
-                                            setIsChangePasswordPopupVisible(
-                                                false
-                                            )
-                                        }
-                                        visible={isChangePasswordPopupVisible}
-                                    />
-                                )}
-                            </div>
-                        ) : (
-                            <div className="flex space-x-3">
-                                <Tooltip title="Đăng nhập">
-                                    <UserOutlined
-                                        className="cursor-pointer"
-                                        onClick={openLoginModal}
-                                        style={{
-                                            fontSize: 24,
-                                            color: '#365842',
+
+                                    <button
+                                        className="w-full rounded-lg p-3 text-left text-gray-700 hover:bg-gray-50"
+                                        onClick={() => {
+                                            setIsProfilePopupVisible(true);
+                                            setIsMobileMenuOpen(false);
                                         }}
-                                    />
-                                </Tooltip>
-                                {/* <Button
-                                    className="h-10 border px-6 font-medium"
-                                    onClick={openRegisterModal}
-                                    style={{
-                                        borderColor: '#C8965F',
-                                        color: '#3C2415',
+                                        type="button"
+                                    >
+                                        Thông tin người dùng
+                                    </button>
+
+                                    <button
+                                        className="w-full rounded-lg p-3 text-left text-gray-700 hover:bg-gray-50"
+                                        onClick={() => {
+                                            setIsChangePasswordPopupVisible(
+                                                true
+                                            );
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        type="button"
+                                    >
+                                        Đổi mật khẩu
+                                    </button>
+
+                                    <button
+                                        className="w-full rounded-lg p-3 text-left text-gray-700 hover:bg-gray-50"
+                                        onClick={() => {
+                                            router.push('/my-page/my-order');
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        type="button"
+                                    >
+                                        Đơn mua
+                                    </button>
+
+                                    <button
+                                        className="w-full rounded-lg p-3 text-left text-red-500 hover:bg-red-50"
+                                        onClick={() => {
+                                            logOut();
+                                            setIsMobileMenuOpen(false);
+                                        }}
+                                        type="button"
+                                    >
+                                        Đăng xuất
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    className="w-full rounded-lg bg-[#365842] p-3 font-medium text-white"
+                                    onClick={() => {
+                                        openLoginModal();
+                                        setIsMobileMenuOpen(false);
                                     }}
-                                    type="default"
+                                    type="button"
                                 >
-                                    Đăng ký
-                                </Button> */}
-                            </div>
-                        )}
+                                    Đăng nhập
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
+
+            {/* Popups */}
+            {user && (
+                <EditProfilePopup
+                    onClose={() => setIsProfilePopupVisible(false)}
+                    visible={isProfilePopupVisible}
+                />
+            )}
+            {user && (
+                <ChangePasswordPopup
+                    onClose={() => setIsChangePasswordPopupVisible(false)}
+                    visible={isChangePasswordPopupVisible}
+                />
+            )}
         </div>
     );
 };

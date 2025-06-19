@@ -17,8 +17,11 @@ const ListProductFeatured = () => {
 
     if (isLoading) {
         return (
-            <div className="py-20" style={{ backgroundColor: '#dde8dc' }}>
-                <div className="container mx-auto px-4">
+            <div
+                className="py-12 sm:py-16 lg:py-20"
+                style={{ backgroundColor: '#dde8dc' }}
+            >
+                <div className="responsive-container">
                     <div className="space-y-12">
                         {/* Header Skeleton */}
                         <div className="text-center">
@@ -43,14 +46,17 @@ const ListProductFeatured = () => {
     }
 
     return (
-        <div className="py-20" style={{ backgroundColor: '#ffff' }}>
-            <div className="container mx-auto px-4">
+        <div
+            className="py-12 sm:py-16 lg:py-20"
+            style={{ backgroundColor: '#ffff' }}
+        >
+            <div className="responsive-container">
                 <div className="space-y-12">
                     {/* Enhanced Header Section */}
                     <div className="text-center">
                         <div className="mx-auto max-w-3xl">
                             <h2
-                                className="mb-6 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl"
+                                className="responsive-title mb-4 leading-tight sm:mb-6"
                                 style={{
                                     color: '#3C2415',
                                     letterSpacing: '0.05em',
@@ -59,7 +65,7 @@ const ListProductFeatured = () => {
                                 SẢN PHẨM NỔI BẬT
                             </h2>
                             <p
-                                className="mb-8 text-lg leading-relaxed md:text-xl"
+                                className="mb-6 text-base leading-relaxed sm:mb-8 sm:text-lg md:text-xl"
                                 style={{ color: '#6B5B4F' }}
                             >
                                 Những dòng trà cao cấp được khách hàng yêu thích
@@ -71,7 +77,7 @@ const ListProductFeatured = () => {
                     {/* Products Grid với enhanced styling */}
                     {data?.data && data.data.length > 0 ? (
                         <>
-                            <div className="grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            <div className="responsive-grid justify-items-center">
                                 {data.data.map((item) => (
                                     <div
                                         className="group transform transition-all duration-300 hover:scale-105"

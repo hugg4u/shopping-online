@@ -132,7 +132,7 @@ const MainBanner = () => {
                 </Swiper>
 
                 {/* Content Swiper */}
-                <div className="absolute z-10 grid h-full w-full max-w-[1200px] px-4 md:px-8">
+                <div className="responsive-container absolute z-10 grid h-full w-full">
                     <Swiper
                         autoplay={{
                             delay: 6000,
@@ -161,7 +161,7 @@ const MainBanner = () => {
                                     >
                                         <div className="max-w-[800px]">
                                             <div
-                                                className="text-2xl font-bold uppercase leading-[1.2] md:text-[32px] lg:text-[42px]"
+                                                className="text-lg font-bold uppercase leading-[1.2] sm:text-xl md:text-2xl lg:text-[32px] xl:text-[42px]"
                                                 style={{
                                                     color:
                                                         item?.titleTextColor ??
@@ -171,7 +171,7 @@ const MainBanner = () => {
                                                 {item?.title}
                                             </div>
                                             <div
-                                                className="mt-4 text-xl font-bold leading-[1.2] md:text-[28px] lg:text-[36px]"
+                                                className="mt-2 text-base font-bold leading-[1.2] sm:mt-4 sm:text-lg md:text-xl lg:text-[28px] xl:text-[36px]"
                                                 style={{
                                                     color:
                                                         item?.noteTextColor ??
@@ -189,7 +189,7 @@ const MainBanner = () => {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="absolute bottom-[24px] left-4 z-50 flex items-center md:left-[calc((100%-1200px)/2)]">
+                <div className="absolute bottom-[24px] left-4 z-50 flex items-center lg:left-[calc((100%-1200px)/2)]">
                     <div className="mr-[50px] flex space-x-[8px]">
                         <button
                             aria-label="Previous slide"

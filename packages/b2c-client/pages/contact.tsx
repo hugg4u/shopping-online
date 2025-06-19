@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Form, Input, Row, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import {
     EnvironmentOutlined,
     MailOutlined,
@@ -11,19 +11,19 @@ const { Title, Text } = Typography;
 const Contact = () => {
     return (
         <div
-            className="min-h-screen py-16"
+            className="min-h-screen py-8 sm:py-12 lg:py-16"
             style={{ backgroundColor: '#dde8dc' }}
         >
-            <div className="mx-auto max-w-[1200px] px-4">
+            <div className="responsive-container">
                 <div
-                    className="rounded-2xl p-12 shadow-sm"
+                    className="rounded-xl p-6 shadow-sm sm:rounded-2xl sm:p-8 lg:p-12"
                     style={{
                         backgroundColor: '#dde8dc',
                         border: '1px solid #365842',
                     }}
                 >
                     <Title
-                        className="mb-12 text-center text-4xl font-bold md:text-5xl"
+                        className="responsive-title mb-8 text-center sm:mb-12"
                         style={{
                             color: '#3C2415',
                             letterSpacing: '0.05em',
@@ -32,33 +32,25 @@ const Contact = () => {
                         Liên hệ với chúng tôi
                     </Title>
 
-                    <Row className="mb-20" gutter={[32, 32]} justify="center">
-                        <Col
-                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            lg={7}
-                            md={8}
-                            sm={12}
+                    <div className="mb-12 grid grid-cols-1 gap-6 sm:mb-16 sm:grid-cols-2 sm:gap-8 lg:mb-20 lg:grid-cols-3">
+                        <div
+                            className="flex flex-col items-center justify-center rounded-xl p-6 text-center transition-all duration-300 hover:shadow-md sm:p-8"
                             style={{
                                 backgroundColor: '#dde8dc',
-                                minHeight: '280px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
+                                minHeight: '240px',
                             }}
-                            xs={24}
                         >
                             <div
-                                className="flex h-20 w-20 items-center justify-center rounded-full"
+                                className="flex h-16 w-16 items-center justify-center rounded-full sm:h-20 sm:w-20"
                                 style={{ backgroundColor: '#F5E6D3' }}
                             >
                                 <PhoneOutlined
-                                    className="text-4xl"
+                                    className="text-2xl sm:text-3xl lg:text-4xl"
                                     style={{ color: '#C8965F' }}
                                 />
                             </div>
                             <Title
-                                className="mb-4 mt-6"
+                                className="mb-3 mt-4 sm:mb-4 sm:mt-6"
                                 level={4}
                                 style={{ color: '#3C2415' }}
                             >
@@ -68,7 +60,7 @@ const Contact = () => {
                                 Gọi đến hotline chăm sóc khách hàng
                                 <br />
                                 <span
-                                    className="text-lg font-semibold"
+                                    className="text-base font-semibold sm:text-lg"
                                     style={{ color: '#C8965F' }}
                                 >
                                     0912166969
@@ -76,34 +68,26 @@ const Contact = () => {
                                 <br />
                                 Phục vụ 24/7
                             </Text>
-                        </Col>
+                        </div>
 
-                        <Col
-                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            lg={7}
-                            md={8}
-                            sm={12}
+                        <div
+                            className="flex flex-col items-center justify-center rounded-xl p-6 text-center transition-all duration-300 hover:shadow-md sm:p-8"
                             style={{
                                 backgroundColor: '#dde8dc',
-                                minHeight: '280px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
+                                minHeight: '240px',
                             }}
-                            xs={24}
                         >
                             <div
-                                className="flex h-20 w-20 items-center justify-center rounded-full"
+                                className="flex h-16 w-16 items-center justify-center rounded-full sm:h-20 sm:w-20"
                                 style={{ backgroundColor: '#F5E6D3' }}
                             >
                                 <MailOutlined
-                                    className="text-4xl"
+                                    className="text-2xl sm:text-3xl lg:text-4xl"
                                     style={{ color: '#C8965F' }}
                                 />
                             </div>
                             <Title
-                                className="mb-4 mt-6"
+                                className="mb-3 mt-4 sm:mb-4 sm:mt-6"
                                 level={4}
                                 style={{ color: '#3C2415' }}
                             >
@@ -113,7 +97,7 @@ const Contact = () => {
                                 Gửi email đến
                                 <br />
                                 <a
-                                    className="text-lg font-semibold"
+                                    className="text-base font-semibold sm:text-lg"
                                     href="mailto:info@somatea.vn"
                                     style={{ color: '#C8965F' }}
                                 >
@@ -122,34 +106,26 @@ const Contact = () => {
                                 <br />
                                 Phản hồi trong 24h
                             </Text>
-                        </Col>
+                        </div>
 
-                        <Col
-                            className="rounded-xl p-8 text-center transition-all duration-300 hover:shadow-md"
-                            lg={7}
-                            md={8}
-                            sm={12}
+                        <div
+                            className="flex flex-col items-center justify-center rounded-xl p-6 text-center transition-all duration-300 hover:shadow-md sm:col-span-2 sm:p-8 lg:col-span-1"
                             style={{
                                 backgroundColor: '#dde8dc',
-                                minHeight: '280px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
+                                minHeight: '240px',
                             }}
-                            xs={24}
                         >
                             <div
-                                className="flex h-20 w-20 items-center justify-center rounded-full"
+                                className="flex h-16 w-16 items-center justify-center rounded-full sm:h-20 sm:w-20"
                                 style={{ backgroundColor: '#F5E6D3' }}
                             >
                                 <EnvironmentOutlined
-                                    className="text-4xl"
+                                    className="text-2xl sm:text-3xl lg:text-4xl"
                                     style={{ color: '#C8965F' }}
                                 />
                             </div>
                             <Title
-                                className="mb-4 mt-6"
+                                className="mb-3 mt-4 sm:mb-4 sm:mt-6"
                                 level={4}
                                 style={{ color: '#3C2415' }}
                             >
@@ -162,20 +138,20 @@ const Contact = () => {
                                 <br />
                                 TP. Hà Nội, Việt Nam
                             </Text>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
 
-                    <Row className="flex justify-center">
-                        <Col md={18} sm={24} xs={24}>
+                    <div className="flex justify-center">
+                        <div className="w-full max-w-2xl">
                             <Title
-                                className="mb-8 text-center text-3xl font-bold"
+                                className="responsive-subtitle mb-6 text-center sm:mb-8"
                                 level={3}
                                 style={{ color: '#3C2415' }}
                             >
                                 Gửi tin nhắn cho chúng tôi
                             </Title>
                             <Form
-                                className="rounded-xl border p-8"
+                                className="rounded-xl border p-6 sm:p-8"
                                 style={{
                                     backgroundColor: '#dde8dc',
                                     borderColor: '#365842',
@@ -192,7 +168,7 @@ const Contact = () => {
                                     ]}
                                 >
                                     <Input
-                                        className="h-12 rounded-lg border text-base"
+                                        className="h-10 rounded-lg border text-sm sm:h-12 sm:text-base"
                                         placeholder="Tên của bạn"
                                         style={{
                                             borderColor: '#365842',
@@ -211,7 +187,7 @@ const Contact = () => {
                                     ]}
                                 >
                                     <Input
-                                        className="h-12 rounded-lg border text-base"
+                                        className="h-10 rounded-lg border text-sm sm:h-12 sm:text-base"
                                         placeholder="Email của bạn"
                                         style={{
                                             borderColor: '#365842',
@@ -230,7 +206,7 @@ const Contact = () => {
                                     ]}
                                 >
                                     <Input.TextArea
-                                        className="rounded-lg border text-base"
+                                        className="rounded-lg border text-sm sm:text-base"
                                         placeholder="Tin nhắn của bạn"
                                         rows={6}
                                         style={{
@@ -241,7 +217,7 @@ const Contact = () => {
                                 </Form.Item>
                                 <Form.Item>
                                     <Button
-                                        className="h-12 w-full rounded-lg border-none text-lg font-bold text-white"
+                                        className="h-10 w-full rounded-lg border-none text-base font-bold text-white sm:h-12 sm:text-lg"
                                         htmlType="submit"
                                         style={{
                                             backgroundColor: '#C8965F',
@@ -252,8 +228,8 @@ const Contact = () => {
                                     </Button>
                                 </Form.Item>
                             </Form>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

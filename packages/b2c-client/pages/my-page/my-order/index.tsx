@@ -57,11 +57,12 @@ const MyOrder: NextPage = () => {
     });
 
     return (
-        <div className="container">
+        <div className="w-full">
             <div>
                 <Spin spinning={isLoading} />
                 <Tabs
                     centered
+                    className="mb-4 sm:mb-6"
                     defaultActiveKey="1"
                     items={items}
                     onChange={(key: string) => {
@@ -72,10 +73,10 @@ const MyOrder: NextPage = () => {
                     }}
                     size="large"
                 />
-                <div className="flex w-full justify-center">
+                <div className="mb-6 flex w-full justify-center">
                     <Input
                         allowClear
-                        className=" rounded-full"
+                        className="max-w-full rounded-full"
                         onChange={(e) => {
                             setSearchValue(e.target.value);
                             setSearchDebounce(e.target.value);
@@ -83,47 +84,52 @@ const MyOrder: NextPage = () => {
                         placeholder="Nhập mã đơn hàng hoặc tên sản phẩm..."
                         prefix={<SearchOutlined className="text-slate-400" />}
                         size="large"
-                        style={{ width: 800 }}
+                        style={{ width: '100%', maxWidth: '800px' }}
                     />
                 </div>
                 {listOrder?.data && listOrder?.data?.length > 0 ? (
-                    <div className="flex w-full justify-center">
-                        <div className="w-full">
+                    <div className="w-full">
+                        <div className="space-y-4">
                             {listOrder?.data?.map((order) => (
                                 <OrderCard
+                                    key={order.id}
                                     order={order as Order}
                                     reload={() => refetch()}
                                 />
                             ))}
+                        </div>
 
-                            <div className="mb-8 flex w-full justify-end">
-                                {listOrder?.pagination?.total ? (
-                                    <Pagination
-                                        current={searchParams?.currentPage}
-                                        defaultCurrent={1}
-                                        onChange={(page, pageSize) => {
-                                            setSearchParams((prev) => ({
-                                                ...prev,
-                                                currentPage: page,
-                                                pageSize,
-                                            }));
-                                            setTimeout(() => {
-                                                refetch();
-                                            });
-                                        }}
-                                        pageSize={searchParams?.pageSize}
-                                        total={listOrder?.pagination?.total}
-                                    />
-                                ) : null}
-                            </div>
+                        <div className="mt-6 flex w-full justify-center sm:mt-8 sm:justify-end">
+                            {listOrder?.pagination?.total ? (
+                                <Pagination
+                                    className="sm:size-default"
+                                    current={searchParams?.currentPage}
+                                    defaultCurrent={1}
+                                    onChange={(page, pageSize) => {
+                                        setSearchParams((prev) => ({
+                                            ...prev,
+                                            currentPage: page,
+                                            pageSize,
+                                        }));
+                                        setTimeout(() => {
+                                            refetch();
+                                        });
+                                    }}
+                                    pageSize={searchParams?.pageSize}
+                                    size="small"
+                                    total={listOrder?.pagination?.total}
+                                />
+                            ) : null}
                         </div>
                     </div>
                 ) : (
-                    <div className="flex h-[400px] w-full flex-col items-center justify-center space-y-4">
+                    <div className="flex h-[300px] w-full flex-col items-center justify-center space-y-4 sm:h-[400px]">
                         <div>
-                            <ShoppingOutlined className="text-8xl text-slate-400" />
+                            <ShoppingOutlined className="text-6xl text-slate-400 sm:text-8xl" />
                         </div>
-                        <div className="text-lg">Chưa có đơn hàng nào.</div>
+                        <div className="px-4 text-center text-base sm:text-lg">
+                            Chưa có đơn hàng nào.
+                        </div>
                     </div>
                 )}
             </div>

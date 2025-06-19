@@ -49,12 +49,12 @@ const NaturalBackgroundSection: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
 
             {/* Content chính */}
-            <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-20">
-                <div className="container mx-auto text-center">
+            <div className="relative z-10 flex min-h-screen items-center justify-center py-12 sm:py-16 lg:py-20">
+                <div className="responsive-container text-center">
                     <div className="mx-auto max-w-5xl">
                         {/* Main title */}
                         <h2
-                            className="mb-8 text-4xl font-bold leading-tight tracking-wide text-white drop-shadow-2xl md:text-5xl lg:text-6xl xl:text-7xl"
+                            className="mb-6 text-2xl font-bold leading-tight tracking-wide text-white drop-shadow-2xl sm:mb-8 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
                             style={{
                                 textShadow: '0 4px 8px rgba(0,0,0,0.8)',
                             }}
@@ -74,9 +74,9 @@ const NaturalBackgroundSection: React.FC = () => {
                         </div>
 
                         {/* Description */}
-                        <div className="mx-auto max-w-5xl rounded-lg bg-black/30 p-8 backdrop-blur-sm">
+                        <div className="mx-auto max-w-5xl rounded-lg bg-black/30 p-4 backdrop-blur-sm sm:p-6 lg:p-8">
                             <p
-                                className="mx-auto max-w-4xl text-lg leading-relaxed text-gray-200 md:text-xl lg:text-2xl"
+                                className="mx-auto max-w-4xl text-base leading-relaxed text-gray-200 sm:text-lg md:text-xl lg:text-2xl"
                                 style={{
                                     textShadow: '0 2px 4px rgba(0,0,0,0.8)',
                                 }}
@@ -90,9 +90,9 @@ const NaturalBackgroundSection: React.FC = () => {
                         </div>
 
                         {/* Quote */}
-                        <div className="mt-12">
+                        <div className="mt-8 sm:mt-12">
                             <blockquote
-                                className="text-xl italic text-amber-200 md:text-2xl lg:text-3xl"
+                                className="text-lg italic text-amber-200 sm:text-xl md:text-2xl lg:text-3xl"
                                 style={{
                                     textShadow: '0 2px 4px rgba(0,0,0,0.8)',
                                 }}
@@ -103,9 +103,9 @@ const NaturalBackgroundSection: React.FC = () => {
                         </div>
 
                         {/* Call to Action */}
-                        <div className="mt-16">
+                        <div className="mt-12 sm:mt-16">
                             <button
-                                className="group relative overflow-hidden rounded-full border-2 border-amber-400 bg-transparent px-10 py-5 text-lg font-semibold text-amber-400 shadow-2xl transition-all duration-500 hover:border-amber-300 hover:text-stone-900 hover:shadow-amber-400/50"
+                                className="group relative overflow-hidden rounded-full border-2 border-amber-400 bg-transparent px-6 py-3 text-base font-semibold text-amber-400 shadow-2xl transition-all duration-500 hover:border-amber-300 hover:text-stone-900 hover:shadow-amber-400/50 sm:px-8 sm:py-4 sm:text-lg lg:px-10 lg:py-5"
                                 onClick={() => {
                                     router.push('/product');
                                 }}

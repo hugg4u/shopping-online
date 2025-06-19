@@ -43,11 +43,11 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedKey, onMenuClick }) => {
     ];
 
     return (
-        <div className="w-64 rounded-lg bg-white p-6 shadow-lg">
-            <div className="mb-6 flex items-center space-x-3 rounded-lg bg-gradient-to-r from-amber-50 to-amber-50 p-4">
-                <UserOutlined className="text-2xl text-amber-600" />
+        <div className="w-full rounded-lg bg-white p-4 shadow-lg sm:p-6 lg:w-64">
+            <div className="mb-4 flex items-center space-x-3 rounded-lg bg-gradient-to-r from-amber-50 to-amber-50 p-3 sm:mb-6 sm:p-4">
+                <UserOutlined className="text-xl text-amber-600 sm:text-2xl" />
                 <div className="flex flex-col">
-                    <span className="text-lg font-semibold text-gray-800">
+                    <span className="text-base font-semibold text-gray-800 sm:text-lg">
                         Tài khoản của tôi
                     </span>
                 </div>
@@ -61,11 +61,14 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedKey, onMenuClick }) => {
             >
                 {menuItems.map((item) => (
                     <Menu.Item
-                        className="mb-2 rounded-lg font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-600"
+                        className="mb-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-amber-50 hover:text-amber-600 sm:text-base"
                         icon={item.icon}
                         key={item.key}
                     >
-                        {item.label}
+                        <span className="hidden sm:inline">{item.label}</span>
+                        <span className="sm:hidden">
+                            {item.label.split(' ')[0]}
+                        </span>
                     </Menu.Item>
                 ))}
             </Menu>

@@ -19,27 +19,29 @@ const ProductContent: React.FC<ProductContentProps> = ({
     pageSize,
 }) => {
     return (
-        <div className="bg-[#ffff]">
-            <div className="min-h-[calc(100vh-64px)] bg-[#ffff]">
+        <div className="bg-white">
+            <div className="min-h-[calc(100vh-200px)] bg-white">
                 {products.length === 0 ? (
-                    <div className="mt-[30%] text-center text-2xl text-gray-500">
-                        Không có sản phẩm
+                    <div className="py-20 text-center">
+                        <div className="mb-4 text-6xl opacity-20">🍵</div>
+                        <h3 className="mb-2 text-lg font-medium text-gray-600 sm:text-xl">
+                            Không tìm thấy sản phẩm
+                        </h3>
+                        <p className="text-sm text-gray-500 sm:text-base">
+                            Hãy thử thay đổi bộ lọc hoặc từ khóa tìm kiếm
+                        </p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    <div className="responsive-grid justify-items-center">
                         {products.map((product) => (
-                            <div
-                                className="flex justify-center"
-                                key={product.id}
-                            >
-                                <ProductCard {...product} />
-                            </div>
+                            <ProductCard key={product.id} {...product} />
                         ))}
                     </div>
                 )}
-                <div className="mt-5 flex justify-end">
+                <div className="mt-6 flex justify-center sm:mt-8 sm:justify-end">
                     {total > 0 && (
                         <Pagination
+                            className="sm:size-default"
                             current={currentPage}
                             defaultCurrent={1}
                             hideOnSinglePage
@@ -47,6 +49,7 @@ const ProductContent: React.FC<ProductContentProps> = ({
                             pageSize={pageSize}
                             pageSizeOptions={[pageSize]}
                             showSizeChanger={false}
+                            size="small"
                             total={total}
                         />
                     )}

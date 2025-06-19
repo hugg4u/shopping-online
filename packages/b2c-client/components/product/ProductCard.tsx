@@ -100,11 +100,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return (
         <Card
             bodyStyle={{ padding: '0px' }}
-            className="group relative h-[400px] w-[280px] cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"
+            className="group relative mx-auto h-[350px] w-full max-w-[280px] cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl sm:h-[380px] lg:h-[400px]"
             onClick={handleCardClick}
         >
             {/* Image Container */}
-            <div className="relative h-[280px] overflow-hidden">
+            <div className="relative h-[240px] overflow-hidden sm:h-[260px] lg:h-[280px]">
                 <img
                     alt={name}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -172,18 +172,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </div>
 
                 {/* Product Name */}
-                <h3 className="line-clamp-2 text-center text-base font-medium text-gray-800">
+                <h3 className="line-clamp-2 px-2 text-center text-sm font-medium text-gray-800 sm:text-base">
                     {name}
                 </h3>
 
                 {/* Price */}
-                <div className="text-center">
+                <div className="px-2 text-center">
                     {hasDiscount && (
-                        <span className="mr-2 text-sm text-gray-400 line-through">
+                        <span className="mr-2 text-xs text-gray-400 line-through sm:text-sm">
                             {currencyFormatter(original_price)}
                         </span>
                     )}
-                    <span className="text-lg font-bold text-[#D92D20]">
+                    <span className="text-base font-bold text-[#D92D20] sm:text-lg">
                         {currencyFormatter(finalPrice)}
                     </span>
                 </div>

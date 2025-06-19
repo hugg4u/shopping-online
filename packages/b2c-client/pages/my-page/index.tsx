@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
 import Sidebar from '~/components/my-page/Sidebar';
 import ProfileForm from '~/components/my-page/ProfileForm';
 import MyOrder from './my-order/index';
-
-const { Content } = Layout;
 
 const MyPage = () => {
     const [currentPage, setCurrentPage] = useState('profile');
@@ -22,25 +19,27 @@ const MyPage = () => {
 
     return (
         <div className="min-h-screen" style={{ backgroundColor: '#dde8dc' }}>
-            <Layout className="mx-auto max-w-7xl bg-transparent">
-                <div className="flex gap-8 p-8">
-                    <Sidebar
-                        onMenuClick={setCurrentPage}
-                        selectedKey={currentPage}
-                    />
-                    <div className="flex-1">
-                        <Content
-                            className="rounded-xl border p-6 shadow-sm"
+            <div className="responsive-container">
+                <div className="flex flex-col gap-6 p-4 sm:p-6 lg:flex-row lg:gap-8 lg:p-8">
+                    <div className="lg:w-64 lg:flex-shrink-0">
+                        <Sidebar
+                            onMenuClick={setCurrentPage}
+                            selectedKey={currentPage}
+                        />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <div
+                            className="rounded-xl border p-4 shadow-sm sm:p-6"
                             style={{
                                 backgroundColor: '#dde8dc',
                                 borderColor: '#365842',
                             }}
                         >
                             {renderContent()}
-                        </Content>
+                        </div>
                     </div>
                 </div>
-            </Layout>
+            </div>
         </div>
     );
 };

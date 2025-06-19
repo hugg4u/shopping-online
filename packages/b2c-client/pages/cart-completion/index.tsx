@@ -33,12 +33,18 @@ const CartCompletionPage = () => {
     }, [data?.data]);
 
     return (
-        <div className="mt-20 flex px-10">
-            <div className="sticky top-10 hidden h-[90vh] w-[350px] min-w-[350px] xl:block">
-                <Sidebar />
-            </div>
-            <div className="flex-1">
-                <CartCompletion />
+        <div className="min-h-screen bg-white">
+            <div className="responsive-container py-4 sm:py-6 lg:py-8">
+                <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
+                    <div className="hidden lg:block lg:w-[350px] lg:flex-shrink-0">
+                        <div className="sticky top-4">
+                            <Sidebar />
+                        </div>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <CartCompletion />
+                    </div>
+                </div>
             </div>
         </div>
     );

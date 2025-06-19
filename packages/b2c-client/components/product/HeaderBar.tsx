@@ -85,8 +85,8 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
     }));
 
     return (
-        <div className="flex items-center justify-between py-4">
-            <div className="text-sm text-gray-600">
+        <div className="flex flex-col items-start justify-between gap-3 py-3 sm:flex-row sm:items-center sm:gap-0 sm:py-4">
+            <div className="text-xs text-gray-600 sm:text-sm">
                 Hiển thị {totalProducts} sản phẩm
             </div>
             <Dropdown
@@ -94,14 +94,17 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
                 placement="bottomRight"
                 trigger={['click']}
             >
-                <Button>
+                <Button className="sm:size-default" size="small">
                     <Space>
-                        {
-                            sortOptions.find(
-                                (opt) => opt.value === selectedSort
-                            )?.label
-                        }
-                        <DownOutlined className="ml-2" />
+                        <span className="hidden sm:inline">
+                            {
+                                sortOptions.find(
+                                    (opt) => opt.value === selectedSort
+                                )?.label
+                            }
+                        </span>
+                        <span className="sm:hidden">Sắp xếp</span>
+                        <DownOutlined className="ml-1 sm:ml-2" />
                     </Space>
                 </Button>
             </Dropdown>

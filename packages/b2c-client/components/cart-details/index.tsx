@@ -427,10 +427,13 @@ const CartDetails = () => {
                                 <Col span={8}>
                                     <Card
                                         bordered={false}
+                                        className="shadow-lg"
                                         title={
-                                            <div>
-                                                Tổng đơn hàng:{' '}
-                                                <span>
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-xl font-semibold">
+                                                    Tổng đơn hàng:
+                                                </span>
+                                                <span className="text-primary text-2xl font-bold">
                                                     {currencyFormatter(
                                                         totalCartPrice
                                                     )}
@@ -438,26 +441,59 @@ const CartDetails = () => {
                                             </div>
                                         }
                                     >
-                                        <Link href="/product">
+                                        <div className="space-y-4">
+                                            <div className="rounded-lg bg-gray-50 p-4">
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-base text-gray-600">
+                                                        Tạm tính:
+                                                    </span>
+                                                    <span className="text-lg font-semibold">
+                                                        {currencyFormatter(
+                                                            totalCartPrice
+                                                        )}
+                                                    </span>
+                                                </div>
+                                                <div className="mt-2 flex items-center justify-between">
+                                                    <span className="text-base text-gray-600">
+                                                        Phí vận chuyển:
+                                                    </span>
+                                                    <span className="text-base">
+                                                        Miễn phí
+                                                    </span>
+                                                </div>
+                                                <hr className="my-3 border-gray-200" />
+                                                <div className="flex items-center justify-between">
+                                                    <span className="text-lg font-semibold">
+                                                        Tổng cộng:
+                                                    </span>
+                                                    <span className="text-primary text-xl font-bold">
+                                                        {currencyFormatter(
+                                                            totalCartPrice
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <Link href="/product">
+                                                <Button
+                                                    block
+                                                    className="h-12 text-base font-medium"
+                                                    size="large"
+                                                    type="default"
+                                                >
+                                                    Tiếp tục mua sắm
+                                                </Button>
+                                            </Link>
                                             <Button
                                                 block
+                                                className="bg-primary hover:bg-primary/90 h-12 text-base font-semibold"
+                                                onClick={handlePurchase}
                                                 size="large"
-                                                style={{
-                                                    marginBottom: 20,
-                                                }}
                                                 type="primary"
                                             >
-                                                Tiếp tục mua sắm
+                                                Thanh toán đơn hàng
                                             </Button>
-                                        </Link>
-                                        <Button
-                                            block
-                                            onClick={handlePurchase}
-                                            size="large"
-                                            type="primary"
-                                        >
-                                            Thanh toán đơn hàng
-                                        </Button>
+                                        </div>
                                     </Card>
                                 </Col>
                             </Row>
@@ -468,207 +504,237 @@ const CartDetails = () => {
         );
     }
     return (
-        <Layout>
-            <Content style={{ padding: '0 48px' }}>
-                <Layout style={{ padding: '24px 0' }}>
-                    <Content>
-                        <Row gutter={16}>
-                            <Col span={16}>
-                                {cartItems?.map((item) => (
-                                    <Layout key={item.id}>
-                                        <Card
-                                            bordered={false}
-                                            extra={
-                                                <DeleteCartProductFormModal
-                                                    cartId={item.id ?? ''}
-                                                    productId={
-                                                        item.product?.id ?? ''
-                                                    }
-                                                    reload={refetchCart}
-                                                />
-                                            }
-                                            style={{
-                                                marginBottom: 10,
-                                                marginLeft: 10,
-                                            }}
-                                            title={
-                                                <div className="flex items-center gap-2">
-                                                    <Checkbox
-                                                        checked={selectedItems.some(
-                                                            (e) =>
-                                                                e.id ===
-                                                                item.product?.id
-                                                        )}
-                                                        onChange={(e) =>
-                                                            handleCheckboxChange(
-                                                                item.product
-                                                                    ?.id ?? '',
-                                                                e.target.checked
-                                                            )
-                                                        }
-                                                        value={item.product?.id}
-                                                    />
-                                                    {` Mã sản phẩm: ${auth ? item.product?.id : item.productId}`}
-                                                </div>
-                                            }
-                                        >
-                                            <Content>
-                                                <Row gutter={16}>
-                                                    <Col span={6}>
-                                                        <div
-                                                            style={{
-                                                                height: 150,
-                                                            }}
-                                                        >
-                                                            <Image
-                                                                alt={
-                                                                    item.id ??
-                                                                    ''
-                                                                }
-                                                                className="shadow-lg"
-                                                                layout="fill"
-                                                                objectFit="cover"
-                                                                src={`${item.product?.thumbnail}`}
-                                                            />
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={8}>
-                                                        <div className="relative flex justify-center text-xl font-semibold">
-                                                            {item.product?.name}
-                                                        </div>
-                                                        <div className="relative top-2 flex justify-center">
-                                                            <div>
-                                                                <div className="text-center">
-                                                                    Số lượng
-                                                                </div>
-                                                                <div
-                                                                    className="max-sm: relative top-1 flex border-spacing-2 justify-evenly backdrop-brightness-90"
-                                                                    style={{
-                                                                        borderRadius: 10,
-                                                                        width: 100,
-                                                                    }}
-                                                                >
-                                                                    <Button
-                                                                        block
-                                                                        icon={
-                                                                            <MinusOutlined />
-                                                                        }
-                                                                        onClick={() =>
-                                                                            updateCartQuantity(
-                                                                                item.id ??
-                                                                                    '',
-                                                                                'minus'
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                    <span className="mx-2 flex items-center">
-                                                                        {item.quantity ??
-                                                                            0}
-                                                                    </span>
-                                                                    <Button
-                                                                        block
-                                                                        icon={
-                                                                            <PlusOutlined />
-                                                                        }
-                                                                        onClick={() =>
-                                                                            updateCartQuantity(
-                                                                                item.id ??
-                                                                                    '',
-                                                                                'plus'
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </Col>
-                                                    <Col span={8}>
-                                                        <div
-                                                            style={{
-                                                                marginTop: 38,
-                                                            }}
-                                                        >
-                                                            <div className="flex justify-evenly">
-                                                                <div>
-                                                                    <div>
-                                                                        Giá
-                                                                    </div>
-                                                                    <div className="text-lg font-semibold">
-                                                                        {currencyFormatter(
-                                                                            item
-                                                                                .product
-                                                                                ?.discount_price ??
-                                                                                item
-                                                                                    .product
-                                                                                    ?.original_price ??
-                                                                                0
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                                <div>
-                                                                    <div>
-                                                                        Tổng
-                                                                    </div>
-                                                                    <div className="text-lg font-semibold">
-                                                                        {currencyFormatter(
-                                                                            (item.quantity ??
-                                                                                0) *
-                                                                                (item
-                                                                                    .product
-                                                                                    ?.discount_price ??
-                                                                                    item
-                                                                                        .product
-                                                                                        ?.original_price ??
-                                                                                    0)
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </Col>
-                                                </Row>
-                                            </Content>
-                                        </Card>
-                                    </Layout>
-                                ))}
-                            </Col>
-                            <Col span={8}>
-                                <Card
-                                    bordered={false}
-                                    title={
-                                        <div>
-                                            Tổng đơn hàng:
-                                            <span>
-                                                {currencyFormatter(totalPrice)}
-                                            </span>
+        <div className="w-full">
+            <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
+                <div className="flex-1 space-y-4 lg:w-2/3">
+                    {cartItems?.map((item) => (
+                        <Card
+                            bordered={false}
+                            className="mb-4"
+                            extra={
+                                <DeleteCartProductFormModal
+                                    cartId={item.id ?? ''}
+                                    productId={item.product?.id ?? ''}
+                                    reload={refetchCart}
+                                />
+                            }
+                            key={item.id}
+                            title={
+                                <div className="flex items-center gap-2">
+                                    <Checkbox
+                                        checked={selectedItems.some(
+                                            (e) => e.id === item.product?.id
+                                        )}
+                                        onChange={(e) =>
+                                            handleCheckboxChange(
+                                                item.product?.id ?? '',
+                                                e.target.checked
+                                            )
+                                        }
+                                        value={item.product?.id}
+                                    />
+                                    <span className="text-sm sm:text-base">
+                                        {`Mã sản phẩm: ${auth ? item.product?.id : item.productId}`}
+                                    </span>
+                                </div>
+                            }
+                        >
+                            <div className="flex flex-col gap-4 sm:flex-row">
+                                {/* Product Image */}
+                                <div className="relative h-32 w-full flex-shrink-0 sm:w-32 lg:h-40 lg:w-40">
+                                    <Image
+                                        alt={item.id ?? ''}
+                                        className="rounded-lg shadow-lg"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        src={`${item.product?.thumbnail}`}
+                                    />
+                                </div>
+
+                                {/* Product Info */}
+                                <div className="flex flex-1 flex-col justify-between gap-4 sm:flex-row">
+                                    {/* Product Name & Quantity */}
+                                    <div className="flex-1">
+                                        <div className="mb-4 text-base font-semibold sm:text-lg lg:text-xl">
+                                            {item.product?.name}
                                         </div>
-                                    }
-                                >
-                                    <Link href="/product">
-                                        <Button
-                                            block
-                                            size="large"
-                                            style={{ marginBottom: 20 }}
-                                            type="primary"
-                                        >
-                                            Tiêp tục mua sắm
-                                        </Button>
-                                    </Link>
+                                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                                            <span className="text-sm sm:text-base">
+                                                Số lượng:
+                                            </span>
+                                            <div className="flex w-fit items-center gap-2 rounded-lg bg-gray-50 p-1">
+                                                <Button
+                                                    icon={<MinusOutlined />}
+                                                    onClick={() =>
+                                                        updateCartQuantity(
+                                                            item.id ?? '',
+                                                            'minus'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                />
+                                                <span className="min-w-[40px] text-center font-medium">
+                                                    {item.quantity ?? 0}
+                                                </span>
+                                                <Button
+                                                    icon={<PlusOutlined />}
+                                                    onClick={() =>
+                                                        updateCartQuantity(
+                                                            item.id ?? '',
+                                                            'plus'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Price Info */}
+                                    <div className="flex min-w-0 flex-row justify-between gap-4 sm:min-w-[120px] sm:flex-col sm:justify-start sm:gap-2 sm:text-right">
+                                        <div>
+                                            <div className="text-sm text-gray-600">
+                                                Giá
+                                            </div>
+                                            <div className="text-sm font-semibold sm:text-base lg:text-lg">
+                                                {currencyFormatter(
+                                                    item.product
+                                                        ?.discount_price ??
+                                                        item.product
+                                                            ?.original_price ??
+                                                        0
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="text-sm text-gray-600">
+                                                Tổng
+                                            </div>
+                                            <div className="text-primary text-sm font-semibold sm:text-base lg:text-lg">
+                                                {currencyFormatter(
+                                                    (item.quantity ?? 0) *
+                                                        (item.product
+                                                            ?.discount_price ??
+                                                            item.product
+                                                                ?.original_price ??
+                                                            0)
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+
+                {/* Order Summary */}
+                <div className="w-full lg:w-1/3 lg:flex-shrink-0">
+                    {/* Mobile Summary - Simple Box */}
+                    <div className="lg:hidden">
+                        <div className="mb-4 rounded-lg border bg-white p-4 shadow-sm">
+                            <div className="mb-4 flex items-center justify-between">
+                                <span className="text-lg font-semibold">
+                                    Tổng đơn hàng
+                                </span>
+                                <span className="text-primary text-xl font-bold">
+                                    {currencyFormatter(totalPrice)}
+                                </span>
+                            </div>
+                            <div className="space-y-3">
+                                <Link href="/product">
                                     <Button
                                         block
-                                        onClick={handlePurchase}
+                                        className="h-11 text-sm font-medium"
                                         size="large"
-                                        type="primary"
+                                        type="default"
                                     >
-                                        Thanh toán đơn hàng
+                                        Tiếp tục mua sắm
                                     </Button>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Content>
-                </Layout>
-            </Content>
-        </Layout>
+                                </Link>
+                                <Button
+                                    block
+                                    className="h-11 text-sm font-semibold"
+                                    onClick={handlePurchase}
+                                    size="large"
+                                    type="primary"
+                                >
+                                    Thanh toán đơn hàng
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Desktop Summary - Full Card */}
+                    <div className="hidden lg:block">
+                        <Card
+                            bordered={false}
+                            className="sticky top-4 shadow-lg"
+                            title={
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xl font-semibold">
+                                        Tổng đơn hàng:
+                                    </span>
+                                    <span className="text-primary text-2xl font-bold">
+                                        {currencyFormatter(totalPrice)}
+                                    </span>
+                                </div>
+                            }
+                        >
+                            <div className="space-y-4">
+                                <div className="rounded-lg bg-gray-50 p-4">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-base text-gray-600">
+                                            Tạm tính:
+                                        </span>
+                                        <span className="text-lg font-semibold">
+                                            {currencyFormatter(totalPrice)}
+                                        </span>
+                                    </div>
+                                    <div className="mt-2 flex items-center justify-between">
+                                        <span className="text-base text-gray-600">
+                                            Phí vận chuyển:
+                                        </span>
+                                        <span className="text-base">
+                                            Miễn phí
+                                        </span>
+                                    </div>
+                                    <hr className="my-3 border-gray-200" />
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-lg font-semibold">
+                                            Tổng cộng:
+                                        </span>
+                                        <span className="text-primary text-xl font-bold">
+                                            {currencyFormatter(totalPrice)}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <Link href="/product">
+                                    <Button
+                                        block
+                                        className="h-12 text-base font-medium"
+                                        size="large"
+                                        type="default"
+                                    >
+                                        Tiếp tục mua sắm
+                                    </Button>
+                                </Link>
+                                <Button
+                                    block
+                                    className="bg-primary hover:bg-primary/90 h-12 text-base font-semibold"
+                                    onClick={handlePurchase}
+                                    size="large"
+                                    type="primary"
+                                >
+                                    Thanh toán đơn hàng
+                                </Button>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 

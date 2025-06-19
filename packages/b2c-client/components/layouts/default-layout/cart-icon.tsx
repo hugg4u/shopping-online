@@ -26,14 +26,16 @@ const CartIcon = () => {
                 }
             >
                 <Badge
+                    className="sm:badge-default"
                     count={
                         auth
                             ? cartQueryData?.pagination?.total
                             : cartStoreData?.length
                     }
+                    size="small"
                 >
                     <ShoppingCartOutlined
-                        className="cursor-pointer text-3xl text-slate-500"
+                        className="cursor-pointer text-2xl text-slate-500 transition-colors hover:text-slate-700 sm:text-3xl"
                         onClick={() => router.push('/cart-details')}
                     />
                 </Badge>
