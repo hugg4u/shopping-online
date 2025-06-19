@@ -76,7 +76,7 @@ const AboutPage: NextPage = () => {
                                     <div className="flex items-center">
                                         <div className="flex-1">
                                             <div className="mb-4 text-6xl">
-                                                "
+                                                &quot;
                                             </div>
                                             <blockquote className="text-lg font-medium leading-relaxed">
                                                 Muốn có sản phẩm đi đầu trên thị
@@ -87,7 +87,7 @@ const AboutPage: NextPage = () => {
                                                 </span>
                                             </blockquote>
                                             <div className="mt-4 text-right text-6xl">
-                                                "
+                                                &quot;
                                             </div>
                                         </div>
 
@@ -134,7 +134,7 @@ const AboutPage: NextPage = () => {
 
                                         <div className="flex-1">
                                             <div className="mb-4 text-6xl">
-                                                "
+                                                &quot;
                                             </div>
                                             <blockquote className="text-lg font-medium leading-relaxed">
                                                 Chúng tôi cam kết mang đến cho
@@ -145,7 +145,7 @@ const AboutPage: NextPage = () => {
                                                 cuộc sống con người và xã hội.
                                             </blockquote>
                                             <div className="mt-4 text-right text-6xl">
-                                                "
+                                                &quot;
                                             </div>
                                         </div>
                                     </div>
@@ -312,8 +312,8 @@ const AboutPage: NextPage = () => {
                                     Nam Văn Bằng
                                 </h3>
                                 <p className="text-sm italic leading-relaxed text-gray-600">
-                                    "Sự ngưỡng mộ của tôi với bát đầu từ lòng tự
-                                    hào của chúng ta"
+                                    &quot;Sự ngưỡng mộ của tôi với bát đầu từ
+                                    lòng tự hào của chúng ta&quot;
                                 </p>
                             </div>
 
@@ -337,9 +337,9 @@ const AboutPage: NextPage = () => {
                                     Đào Quý Hưng
                                 </h3>
                                 <p className="text-sm italic leading-relaxed text-gray-600">
-                                    "Trong trà có cả sự trăng nghiêm của Khổng
-                                    Tử, cái ung dung của Lão Tử và cả tinh thần
-                                    thiết pha của Thích Ca"
+                                    &quot;Trong trà có cả sự trăng nghiêm của
+                                    Khổng Tử, cái ung dung của Lão Tử và cả tinh
+                                    thần thiết pha của Thích Ca&quot;
                                 </p>
                             </div>
 
@@ -363,8 +363,8 @@ const AboutPage: NextPage = () => {
                                     Đào Bình An
                                 </h3>
                                 <p className="text-sm italic leading-relaxed text-gray-600">
-                                    "Về quyển rũ kinh điển bắt đầu từ bộ cục và
-                                    cảm xúc chất lõi"
+                                    &quot;Về quyển rũ kinh điển bắt đầu từ bộ
+                                    cục và cảm xúc chất lõi&quot;
                                 </p>
                             </div>
 
@@ -388,8 +388,8 @@ const AboutPage: NextPage = () => {
                                     Trần Duy Đức
                                 </h3>
                                 <p className="text-sm italic leading-relaxed text-gray-600">
-                                    "Tôi muốn "nhìn" thấy hương vị trà trong vần
-                                    hạng của mình"
+                                    &quot;Tôi muốn &quot;nhìn&quot; thấy hương
+                                    vị trà trong vần hạng của mình&quot;
                                 </p>
                             </div>
                         </div>
