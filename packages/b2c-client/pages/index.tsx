@@ -20,12 +20,9 @@ const HomePage: NextPageWithLayout = () => {
                 <TeaIntro />
             </section> */}
 
-            {/* Section "THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN" */}
-            <section
-                className="relative py-20"
-                style={{ backgroundColor: '#F5F1E8' }}
-            >
-                <TeaExperienceSection />
+            {/* Featured Products Section */}
+            <section className="relative">
+                <ListProductFeatured />
             </section>
 
             {/* Natural Background Section with Parallax */}
@@ -33,9 +30,12 @@ const HomePage: NextPageWithLayout = () => {
                 <NaturalBackgroundSection />
             </section>
 
-            {/* Featured Products Section */}
-            <section className="relative">
-                <ListProductFeatured />
+            {/* Section "THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN" */}
+            <section
+                className="relative py-20"
+                style={{ backgroundColor: '#F5F1E8' }}
+            >
+                <TeaExperienceSection />
             </section>
         </div>
     );

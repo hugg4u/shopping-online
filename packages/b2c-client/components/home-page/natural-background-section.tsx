@@ -40,7 +40,7 @@ const NaturalBackgroundSection: React.FC = () => {
                     backgroundImage: 'url(/images/bg-tea.jpeg)',
                     transform: `translate3d(0, ${parallaxOffset}px, 0)`,
                     height: '150%',
-                    top: '-100%',
+                    top: '-150%',
                     width: '100%',
                 }}
             />
