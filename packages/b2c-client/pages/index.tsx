@@ -60,12 +60,12 @@ const HomePage: NextPageWithLayout = () => {
             </section>
 
             {/* Section "THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN" */}
-            <section
+            {/* <section
                 className="relative py-12 sm:py-16 lg:py-20"
                 style={{ backgroundColor: '#F5F1E8' }}
             >
                 <TeaExperienceSection />
-            </section>
+            </section> */}
 
             {/* News Preview Section */}
             <section className="relative py-12">
