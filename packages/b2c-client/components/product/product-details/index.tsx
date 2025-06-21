@@ -41,9 +41,11 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({
     name,
 }) => {
     return (
-        <div className="grid grid-cols-10 text-base">
-            <div className="col-span-2 text-slate-500">{title}</div>
-            <div className="col-span-6">{name}</div>
+        <div className="flex flex-col gap-1 text-sm sm:grid sm:grid-cols-10 sm:gap-0 sm:text-base">
+            <div className="font-medium text-slate-500 sm:col-span-2 sm:font-normal">
+                {title}
+            </div>
+            <div className="sm:col-span-6">{name}</div>
         </div>
     );
 };
@@ -161,44 +163,48 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
     }
 
     return (
-        <div className="container">
-            <div className="flex gap-10">
-                <ProductImageSlider listImage={data?.product_image ?? []} />
-                <div className="flex flex-1 flex-col gap-10">
+        <div className="w-full">
+            <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
+                <div className="w-full lg:w-1/2">
+                    <ProductImageSlider listImage={data?.product_image ?? []} />
+                </div>
+                <div className="flex flex-1 flex-col gap-6 lg:gap-10">
                     <div>
-                        <div className="text-2xl font-semibold">
+                        <div className="line-clamp-2 text-xl font-semibold sm:text-2xl">
                             {data?.name}
                         </div>
-                        <div className="mt-3 flex items-center gap-8">
+                        <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
                             {data?.rating ? (
                                 <div className="text-primary flex items-center gap-2">
-                                    <span className="text-xl underline underline-offset-4">
+                                    <span className="text-lg underline underline-offset-4 sm:text-xl">
                                         {data?.rating}
                                     </span>
                                     <span>
                                         <Rate
                                             allowHalf
-                                            className="text-primary"
+                                            className="text-primary text-sm"
                                             disabled
                                             value={data?.rating ?? 0}
                                         />
                                     </span>
                                 </div>
                             ) : (
-                                <div className="text-lg text-slate-500">
+                                <div className="text-base text-slate-500 sm:text-lg">
                                     Chưa có đánh giá
                                 </div>
                             )}
 
                             <div className="flex items-center gap-2">
-                                <span className="text-xl">
+                                <span className="text-lg sm:text-xl">
                                     {data?.sold_quantity}
                                 </span>
-                                <span className="text-slate-500">Đã bán</span>
+                                <span className="text-sm text-slate-500 sm:text-base">
+                                    Đã bán
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div className="text-primary flex items-center gap-5 bg-slate-100 p-5 text-3xl">
+                    <div className="text-primary flex items-center gap-3 bg-slate-100 p-3 text-xl sm:gap-5 sm:p-5 sm:text-2xl lg:text-3xl">
                         {data?.original_price && (
                             <div
                                 className={cn(
@@ -213,12 +219,17 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                             <div>{currencyFormatter(data?.discount_price)}</div>
                         )}
                     </div>
-                    <div className="flex items-center gap-10 text-lg">
-                        <p className="text-slate-500">Khối lượng</p>
-                        <div className="border px-5 py-2">{data?.size}g</div>
+                    <div className="flex flex-col gap-3 text-base sm:flex-row sm:items-center sm:gap-10 sm:text-lg">
+                        <p className="font-medium text-slate-500 sm:font-normal">
+                            Khối lượng
+                        </p>
+                        <div className="w-fit border px-3 py-2 sm:px-5">
+                            {data?.size}g
+                        </div>
                     </div>
-                    <div className="flex items-center gap-10 text-lg">
-                        <p className="text-slate-500">Số lượng</p>
+                    <div className="flex flex-col gap-3 text-base sm:flex-row sm:items-center sm:gap-10 sm:text-lg">
+                        <p className="text-slate-500 font-medium sm:font-normal">Số lượng</p>
+                        <div className="flex w-fit items-center">
                         <div className="flex border border-slate-300">
                             <div
                                 className={cn(
@@ -252,34 +263,35 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                                 <PlusOutlined />
                             </div>
                         </div>
-                        <div className="text-slate-500">
+                        </div>
+                        <div className="text-slate-500 text-sm sm:text-base mt-2 sm:mt-0">
                             {data?.quantity && data?.quantity > 0
                                 ? data?.quantity
                                 : 0}{' '}
                             sản phẩm có sẵn
                         </div>
+                        </div>
                     </div>
-                    <div>
-                        <Space size="large">
-                            <Button
-                                className="border-primary text-primary w-[200px]"
-                                disabled={disable}
-                                icon={<ShoppingCartOutlined />}
-                                onClick={handleAddToCard}
-                                size="large"
-                            >
-                                Thêm vào giỏ hàng
-                            </Button>
-                            <Button
-                                className="w-[200px]"
-                                disabled={disable}
-                                onClick={handleBuyNow}
-                                size="large"
-                                type="primary"
-                            >
-                                Mua ngay
-                            </Button>
-                        </Space>
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <Button
+                            className="border-primary text-primary w-full sm:w-[200px] order-2 sm:order-1"
+                            disabled={disable}
+                            icon={<ShoppingCartOutlined />}
+                            onClick={handleAddToCard}
+                            size="large"
+                        >
+                            <span className="hidden sm:inline">Thêm vào giỏ hàng</span>
+                            <span className="sm:hidden">Thêm vào giỏ</span>
+                        </Button>
+                        <Button
+                            className="w-full sm:w-[200px] order-1 sm:order-2"
+                            disabled={disable}
+                            onClick={handleBuyNow}
+                            size="large"
+                            type="primary"
+                        >
+                            Mua ngay
+                        </Button>
                     </div>
                 </div>
             </div>

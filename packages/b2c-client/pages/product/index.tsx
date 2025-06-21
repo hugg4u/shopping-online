@@ -162,11 +162,11 @@ const Products: NextPage = () => {
 
     return (
         <div className="min-h-screen bg-white">
-            <div className="container mx-auto max-w-[1400px] px-4 py-8">
+            <div className="responsive-container py-4 sm:py-6 lg:py-8">
                 <Spin spinning={isLoading} />
-                <div className="grid grid-cols-12 gap-8">
-                    {/* Sidebar - Fixed width 280px */}
-                    <div className="col-span-12 w-[280px] lg:col-span-3">
+                <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-8">
+                    {/* Sidebar - Responsive */}
+                    <div className="lg:w-[280px] lg:flex-shrink-0">
                         <Sidebar
                             onCategoryChange={handleCategoryChange}
                             onPriceRangeChange={handlePriceRangeChange}
@@ -175,8 +175,8 @@ const Products: NextPage = () => {
                     </div>
 
                     {/* Main Content Area */}
-                    <div className="col-span-12 lg:col-span-9">
-                        <div className="space-y-6">
+                    <div className="min-w-0 flex-1">
+                        <div className="space-y-4 sm:space-y-6">
                             {/* Header Bar */}
                             <div className="bg-white">
                                 <HeaderBar

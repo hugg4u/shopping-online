@@ -31,34 +31,29 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({
     const { deleteProduct, updateProductQuantity } = useCartStore();
 
     return (
-        <Layout key={data?.data?.id}>
+        <div key={data?.data?.id} className="mb-4">
             <Card
                 bordered={false}
+                className="shadow-sm"
                 extra={
                     <Button
                         danger
                         icon={<DeleteOutlined />}
                         onClick={() => deleteProduct(data?.data?.id ?? '')}
+                        size="small"
+                        className="sm:size-default"
                     />
                 }
-                style={{
-                    marginBottom: 10,
-                    marginLeft: 10,
-                }}
                 title={
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-sm sm:text-base">
                         {` Mã sản phẩm: ${data?.data?.id}`}
                     </div>
                 }
             >
-                <Content>
-                    <Row gutter={16}>
-                        <Col span={6}>
-                            <div
-                                style={{
-                                    height: 150,
-                                }}
-                            >
+                <div className="space-y-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="w-full sm:w-32 md:w-40 flex-shrink-0">
+                            <div className="relative h-32 sm:h-36 md:h-40 rounded-lg overflow-hidden">
                                 <Image
                                     alt=""
                                     className="shadow-lg"
@@ -67,8 +62,8 @@ const CartStoreItem: React.FC<CartStoreItemProps> = ({
                                     src={`${data?.data?.thumbnail}`}
                                 />
                             </div>
-                        </Col>
-                        <Col span={8}>
+                        </div>
+                        <div className="flex-1 space-y-3 sm:space-y-4">
                             <div className="relative flex justify-center text-xl font-semibold">
                                 {data?.data?.name}
                             </div>

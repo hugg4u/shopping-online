@@ -22,55 +22,56 @@ const ProductDetailPage: NextPageWithLayout = () => {
         enabled: !!query?.id,
     });
     return (
-        <div>
-            <div className="mt-20 flex px-10">
-                <div className="flex-1">
-                    <div className="container mb-5">
-                        <Breadcrumb
-                            items={[
-                                {
-                                    title: <Link href="/">Trang chủ</Link>,
-                                },
-                                {
-                                    title: (
-                                        <Link
-                                            href={{
-                                                pathname: '/product',
-                                                query: {
-                                                    category:
-                                                        data?.data?.category
-                                                            ?.id,
-                                                },
-                                            }}
-                                        >
-                                            {data?.data?.category?.name}
-                                        </Link>
-                                    ),
-                                },
-                                {
-                                    title: (
-                                        <Link
-                                            href={{
-                                                pathname: '/product',
-                                                query: {
-                                                    brand: data?.data?.brand
-                                                        ?.id,
-                                                },
-                                            }}
-                                        >
-                                            {data?.data?.brand?.name}
-                                        </Link>
-                                    ),
-                                },
-                                {
-                                    title: data?.data?.name,
-                                },
-                            ]}
-                        />
-                    </div>
-                    <Spin spinning={isFetching} />
-                    <ProductDetail data={data?.data} />
+        <div className="min-h-screen bg-white">
+            <div className="responsive-container py-4 sm:py-6 lg:py-8">
+                <div className="mb-4 sm:mb-6">
+                    <Breadcrumb
+                        className="text-xs sm:text-sm"
+                        items={[
+                            {
+                                title: <Link href="/">Trang chủ</Link>,
+                            },
+                            {
+                                title: (
+                                    <Link
+                                        href={{
+                                            pathname: '/product',
+                                            query: {
+                                                category:
+                                                    data?.data?.category?.id,
+                                            },
+                                        }}
+                                    >
+                                        {data?.data?.category?.name}
+                                    </Link>
+                                ),
+                            },
+                            {
+                                title: (
+                                    <Link
+                                        href={{
+                                            pathname: '/product',
+                                            query: {
+                                                brand: data?.data?.brand?.id,
+                                            },
+                                        }}
+                                    >
+                                        {data?.data?.brand?.name}
+                                    </Link>
+                                ),
+                            },
+                            {
+                                title: (
+                                    <span className="line-clamp-1">
+                                        {data?.data?.name}
+                                    </span>
+                                ),
+                            },
+                        ]}
+                    />
                 </div>
+                <Spin spinning={isFetching} />
+                <ProductDetail data={data?.data} />
             </div>
         </div>
     );

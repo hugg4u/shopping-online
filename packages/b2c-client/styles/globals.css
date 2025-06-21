@@ -81,6 +81,117 @@ body,
     .btn-primary {
         @apply bg-gradient-to-r from-[#365842] to-[#dde8dc] text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all duration-300 hover:from-[#2a4434] hover:to-[#c5d0c4] hover:shadow-xl hover:scale-105;
     }
+
+    /* Responsive Container System */
+    .responsive-container {
+        @apply w-full mx-auto px-4;
+        max-width: 100%;
+    }
+    
+    @media (min-width: 640px) {
+        .responsive-container {
+            @apply px-6;
+            max-width: 640px;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        .responsive-container {
+            @apply px-8;
+            max-width: 768px;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .responsive-container {
+            max-width: 1024px;
+        }
+    }
+    
+    @media (min-width: 1280px) {
+        .responsive-container {
+            max-width: 1200px;
+        }
+    }
+
+    /* Responsive Grid System */
+    .responsive-grid {
+        @apply grid gap-4;
+        grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 640px) {
+        .responsive-grid {
+            @apply gap-6;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .responsive-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    /* Responsive Text Utilities */
+    .responsive-title {
+        @apply text-xl font-bold;
+    }
+    
+    @media (min-width: 640px) {
+        .responsive-title {
+            @apply text-2xl;
+        }
+    }
+    
+    @media (min-width: 768px) {
+        .responsive-title {
+            @apply text-3xl;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .responsive-title {
+            @apply text-4xl;
+        }
+    }
+
+    .responsive-subtitle {
+        @apply text-lg font-semibold;
+    }
+    
+    @media (min-width: 768px) {
+        .responsive-subtitle {
+            @apply text-xl;
+        }
+    }
+    
+    @media (min-width: 1024px) {
+        .responsive-subtitle {
+            @apply text-2xl;
+        }
+    }
+
+    /* Mobile Utilities */
+    .mobile-only {
+        @apply block;
+    }
+    
+    @media (min-width: 768px) {
+        .mobile-only {
+            @apply hidden;
+        }
+    }
+
+    .desktop-only {
+        @apply hidden;
+    }
+    
+    @media (min-width: 768px) {
+        .desktop-only {
+            @apply block;
+        }
+    }
 }
 
 .customScroll {

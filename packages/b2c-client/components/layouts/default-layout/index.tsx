@@ -8,12 +8,12 @@ type Props = {
 
 export const DefaultLayout: React.FC<Props> = ({ children }) => {
     return (
-        <div className="min-w-[1200px] bg-gradient-to-br from-gray-50 to-white">
+        <div className="w-full bg-gradient-to-br from-gray-50 to-white">
             <div className="bg-white shadow-sm">
                 <Header />
                 {/* <MainSider /> */}
             </div>
-            <div className="min-h-[70vh] bg-gradient-to-br from-gray-50 to-white">
+            <div className="min-h-[70vh] w-full bg-gradient-to-br from-gray-50 to-white">
                 {children}
             </div>
             <div className="">

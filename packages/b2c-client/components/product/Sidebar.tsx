@@ -76,11 +76,13 @@ const Sidebar: React.FC<SidebarProps> = ({
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 rounded-lg bg-gray-50 p-4 sm:space-y-6 lg:space-y-8 lg:rounded-none lg:bg-transparent lg:p-0">
             {/* Lọc theo danh mục */}
             <div>
-                <div className="mb-4 flex items-center justify-between">
-                    <h3 className="text-lg font-medium">Lọc theo danh mục</h3>
+                <div className="mb-3 flex items-center justify-between sm:mb-4">
+                    <h3 className="text-base font-medium sm:text-lg">
+                        Lọc theo danh mục
+                    </h3>
                     {currentCategory && (
                         <Button
                             icon={<ReloadOutlined />}
@@ -101,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     handleCategoryChange(e, category.id)
                                 }
                             >
-                                <span className="text-sm text-gray-700">
+                                <span className="text-xs text-gray-700 sm:text-sm">
                                     {category.name}
                                 </span>
                             </Checkbox>
@@ -112,7 +114,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
             {/* Lọc theo khoảng giá */}
             <div>
-                <h3 className="mb-4 text-lg font-medium">
+                <h3 className="mb-3 text-base font-medium sm:mb-4 sm:text-lg">
                     Lọc trong khoảng giá
                 </h3>
                 <div className="px-2">
@@ -126,7 +128,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                         step={1000}
                         value={priceRange}
                     />
-                    <div className="mt-2 flex items-center justify-between text-sm text-gray-600">
+                    <div className="mt-2 flex items-center justify-between text-xs text-gray-600 sm:text-sm">
                         <span>{priceRange[0].toLocaleString('vi-VN')} VND</span>
                         <span>-</span>
                         <span>{priceRange[1].toLocaleString('vi-VN')} VND</span>

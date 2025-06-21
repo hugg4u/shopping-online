@@ -32,7 +32,7 @@ const HomePage: NextPageWithLayout = () => {
 
             {/* Section "THƯỞNG TRÀ THEO CÁCH CỦA RIÊNG BẠN" */}
             <section
-                className="relative py-20"
+                className="relative py-12 sm:py-16 lg:py-20"
                 style={{ backgroundColor: '#F5F1E8' }}
             >
                 <TeaExperienceSection />

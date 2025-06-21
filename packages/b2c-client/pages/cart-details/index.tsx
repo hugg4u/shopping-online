@@ -1,29 +1,27 @@
 import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import CartDetails from '~/components/cart-details';
 import * as analytics from '~/lib/analytics';
 
 const CartDetailsPage = () => {
-    const router = useRouter();
-
     useEffect(() => {
         analytics.trackCheckoutStep(1, 'Cart Review');
     }, []);
 
     return (
-        <div className="min-h-screen py-8" style={{ backgroundColor: '#ffff' }}>
-            <div className="container mx-auto px-4">
-                <div className="flex gap-8">
-                    <div className="flex-1">
-                        <div
-                            className="rounded-xl border p-6 shadow-sm"
-                            style={{
-                                backgroundColor: '#ffff',
-                                borderColor: '#ffff',
-                            }}
-                        >
-                            <CartDetails />
-                        </div>
+        <div
+            className="min-h-screen py-4 sm:py-6 lg:py-8"
+            style={{ backgroundColor: '#ffff' }}
+        >
+            <div className="responsive-container">
+                <div className="w-full">
+                    <div
+                        className="rounded-lg border p-4 shadow-sm sm:rounded-xl sm:p-6"
+                        style={{
+                            backgroundColor: '#ffff',
+                            borderColor: '#ffff',
+                        }}
+                    >
+                        <CartDetails />
                     </div>
                 </div>
             </div>

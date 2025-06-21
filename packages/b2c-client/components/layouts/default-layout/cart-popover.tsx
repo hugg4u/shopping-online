@@ -39,21 +39,23 @@ const CartStorePopoverItem: React.FC<CartStorePopoverItemProps> = ({
 
     return (
         <div
-            className="cursor-pointer"
+            className="cursor-pointer rounded-md p-2 transition-colors hover:bg-gray-50"
             key={data?.data?.id}
             onClick={() => router.push(`/product/${data?.data?.id}`)}
             role="presentation"
         >
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
                 <Image
                     alt=""
-                    className="rounded-md border object-cover"
-                    height={50}
+                    className="flex-shrink-0 rounded-md border object-cover"
+                    height={40}
                     src={getImageUrl(data?.data?.thumbnail ?? '')}
-                    width={50}
+                    width={40}
                 />
-                <div className="line-clamp-1 flex-1">{data?.data?.name}</div>
-                <div className="text-primary w-[100px] text-end text-base">
+                <div className="line-clamp-1 flex-1 pr-2 text-sm sm:text-base">
+                    {data?.data?.name}
+                </div>
+                <div className="text-primary min-w-[60px] text-right text-xs font-medium sm:min-w-[80px] sm:text-sm">
                     {data?.data?.discount_price
                         ? currencyFormatter(data?.data?.discount_price)
                         : currencyFormatter(data?.data?.original_price ?? 0)}
@@ -72,7 +74,7 @@ const CartPopover: React.FC<Props> = ({ children, data, total }) => {
     const content = useMemo(() => {
         if (!total) {
             return (
-                <div className="text-primary py-5 text-center text-lg">
+                <div className="text-primary py-4 text-center text-sm sm:py-5 sm:text-base">
                     Chưa có sản phẩm!
                 </div>
             );
@@ -86,9 +88,18 @@ const CartPopover: React.FC<Props> = ({ children, data, total }) => {
                             productId={item.productId}
                         />
                     ))}
-                    <div className="flex justify-end py-2">
+                    <div className="mt-2 flex justify-end border-t border-gray-100 py-3">
                         <Link href="/cart-details">
-                            <Button type="primary">Xem giỏ hàng</Button>
+                            <Button
+                                className="sm:size-default"
+                                size="small"
+                                type="primary"
+                            >
+                                <span className="hidden sm:inline">
+                                    Xem giỏ hàng
+                                </span>
+                                <span className="sm:hidden">Giỏ hàng</span>
+                            </Button>
                         </Link>
                     </div>
                 </div>
@@ -98,27 +109,27 @@ const CartPopover: React.FC<Props> = ({ children, data, total }) => {
             <div className="mt-5 grid grid-cols-1 gap-2">
                 {data?.map((item) => (
                     <div
-                        className="cursor-pointer"
+                        className="cursor-pointer rounded-md p-2 transition-colors hover:bg-gray-50"
                         key={item.id}
                         onClick={() =>
                             router.push(`/product/${item?.product?.id}`)
                         }
                         role="presentation"
                     >
-                        <div className="flex gap-2">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <Image
                                 alt=""
-                                className="rounded-md border object-cover"
-                                height={50}
+                                className="flex-shrink-0 rounded-md border object-cover"
+                                height={40}
                                 src={getImageUrl(
                                     item?.product?.thumbnail ?? ''
                                 )}
-                                width={50}
+                                width={40}
                             />
-                            <div className="line-clamp-1 flex-1">
+                            <div className="line-clamp-1 flex-1 pr-2 text-sm sm:text-base">
                                 {item?.product?.name}
                             </div>
-                            <div className="text-primary w-[100px] text-end text-base">
+                            <div className="text-primary min-w-[60px] text-right text-xs font-medium sm:min-w-[80px] sm:text-sm">
                                 {item?.product?.discount_price
                                     ? currencyFormatter(
                                           item?.product?.discount_price
@@ -130,9 +141,18 @@ const CartPopover: React.FC<Props> = ({ children, data, total }) => {
                         </div>
                     </div>
                 ))}
-                <div className="flex justify-end py-2">
+                <div className="mt-2 flex justify-end border-t border-gray-100 py-3">
                     <Link href="/cart-details">
-                        <Button type="primary">Xem giỏ hàng</Button>
+                        <Button
+                            className="sm:size-default"
+                            size="small"
+                            type="primary"
+                        >
+                            <span className="hidden sm:inline">
+                                Xem giỏ hàng
+                            </span>
+                            <span className="sm:hidden">Giỏ hàng</span>
+                        </Button>
                     </Link>
                 </div>
             </div>
@@ -141,12 +161,18 @@ const CartPopover: React.FC<Props> = ({ children, data, total }) => {
 
     return (
         <Popover
-            content={<div className="w-[350px]">{content}</div>}
+            content={
+                <div className="w-[280px] max-w-[calc(100vw-40px)] sm:w-[350px]">
+                    {content}
+                </div>
+            }
+            placement="bottomRight"
             title={
                 <div className="font-normal text-slate-500">
                     Sản phẩm mới thêm
                 </div>
             }
+            trigger="click"
         >
             {children}
         </Popover>
