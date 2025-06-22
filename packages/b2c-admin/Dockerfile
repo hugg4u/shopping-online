@@ -9,6 +9,8 @@ WORKDIR /app
 # Copy toàn bộ source code vào container
 COPY . .
 
+RUN yarn corepack enable
+
 # Cài đặt dependencies
 RUN yarn install --frozen-lockfile
 

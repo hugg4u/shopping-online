@@ -23,68 +23,117 @@ services:
       interval: 10s
       start_period: 40s
 
-  server:
-    build:
-      context: .
-      dockerfile: packages/server/Dockerfile
+  # server:
+  #   build:
+  #     context: .
+  #     dockerfile: packages/server/Dockerfile
+  #   container_name: shopping_server
+  #   restart: always
+  #   environment:
+  #     - NODE_ENV=development
+  #     - PORT=8080
+  #     - DATABASE_URL=mysql://root:root123@mysql:3306/shopping_online
+  #   ports:
+  #     - "1113:8080"
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./packages/server:/app/packages/server
+  #     - ./packages/common:/app/packages/common
+  #     - /app/packages/server/node_modules
+  #     - /app/packages/common/node_modules
+  #   networks:
+  #     - shopping_network
+
+  server: 
+    # build:
+    #   context: .
+    #   dockerfile: packages/b2c-admin/Dockerfile
+    image: node:22
+    working_dir: /app
     container_name: shopping_server
-    restart: always
+    restart: unless-stopped
     environment:
       - NODE_ENV=development
       - PORT=8080
       - DATABASE_URL=mysql://root:root123@mysql:3306/shopping_online
+      # - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
     ports:
       - "1113:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
     volumes:
-      - ./packages/server:/app/packages/server
-      - ./packages/common:/app/packages/common
-      - /app/packages/server/node_modules
-      - /app/packages/common/node_modules
+      - ./:/app
+      # - /app/packages/b2c-admin/node_modules
+      # - /app/packages/common/node_modules
+      # - /app/packages/b2c-admin/.next
+    command: sh -c "cd packages/server && yarn && yarn server:dev"
     networks:
       - shopping_network
 
+  # client:
+  #   # build:
+  #   #   context: .
+  #   #   dockerfile: packages/b2c-client/Dockerfile
+  #   image: node:22
+  #   container_name: shopping_client
+  #   restart: unless-stopped
+  #   environment:
+  #     - NODE_ENV=development
+  #     - PORT=3000
+  #     # - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
+  #   ports:
+  #     - "1114:3000"
+  #   volumes:
+  #     - ./:/app
+  #   command: sh -c "yarn && yarn client:dev" 
+  #   networks:
+  #     - shopping_network
+
   client:
-    build:
-      context: .
-      dockerfile: packages/b2c-client/Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: packages/b2c-admin/Dockerfile
+    image: node:22
+    working_dir: /app
     container_name: shopping_client
     restart: unless-stopped
     environment:
       - NODE_ENV=development
       - PORT=3000
-      - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
+      # - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
     ports:
       - "1114:3000"
     volumes:
-      - ./packages/b2c-client:/app/packages/b2c-client
-      - ./packages/common:/app/packages/common
-      - /app/packages/b2c-client/node_modules
-      - /app/packages/common/node_modules
-      - /app/packages/b2c-client/.next
+      - ./:/app
+      # - /app/packages/b2c-admin/node_modules
+      # - /app/packages/common/node_modules
+      # - /app/packages/b2c-admin/.next
+    command: sh -c "cd packages/b2c-client && yarn && yarn client:dev"
     networks:
       - shopping_network
 
   admin:
-    build:
-      context: .
-      dockerfile: packages/b2c-admin/Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: packages/b2c-admin/Dockerfile
+    image: node:22
+    working_dir: /app
     container_name: shopping_admin
     restart: unless-stopped
     environment:
-      - NODE_ENV=development
-      - PORT=3001
-      - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
+    - NODE_ENV=development
+    - PORT=3001
+    - NEXT_PUBLIC_API_BASE_URL=http://server:8080
+    - NEXT_PUBLIC_SITE=CMS
+      # - NEXT_PUBLIC_API_BASE_URL=https://1113--main--hungpc--hung.coder1.hirogo-dev.com/
     ports:
       - "1115:3001"
     volumes:
-      - ./packages/b2c-admin:/app/packages/b2c-admin
-      - ./packages/common:/app/packages/common
-      - /app/packages/b2c-admin/node_modules
-      - /app/packages/common/node_modules
-      - /app/packages/b2c-admin/.next
+      - ./:/app
+      # - /app/packages/b2c-admin/node_modules
+      # - /app/packages/common/node_modules
+      # - /app/packages/b2c-admin/.next
+    command: sh -c "cd packages/b2c-admin && yarn && yarn admin:dev"
     networks:
       - shopping_network
 

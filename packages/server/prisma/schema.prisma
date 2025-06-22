@@ -82,6 +82,9 @@ model Product {
   sold_quantity  Int     @default(0)
   briefInfo      String? @db.Text
   description    String? @db.Text
+  ingredients    String? @db.Text
+  benefits       String? @db.Text
+  usage          String? @db.Text
   size           Int?
   categoryId     String
   thumbnail      String? @db.Text

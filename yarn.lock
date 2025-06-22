@@ -2396,12 +2396,12 @@ __metadata:
   linkType: hard
 
 "cloudinary@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "cloudinary@npm:2.6.1"
+  version: 2.7.0
+  resolution: "cloudinary@npm:2.7.0"
   dependencies:
     lodash: "npm:^4.17.21"
     q: "npm:^1.5.1"
-  checksum: 148693dfe8fb1ba918f1e2c3e7bfd6f46224b00f157978b7919260a31e6db7e17dd8d3416360253c1125aa9dbd1fb08913962e10b9c2b5e083597814a2c2f875
+  checksum: 8c6d262d057d5c56f3b0b3666fd520ff11d3cabde23fddfa54d96c50b6634592a7aca18849347d0f03b035e09ef2faf0cdfbba3c71d2697acdd0e857e9cd9ed8
   languageName: node
   linkType: hard
 
@@ -4244,9 +4244,9 @@ __metadata:
   linkType: hard
 
 "hls.js@npm:^1.2.7":
-  version: 1.5.7
-  resolution: "hls.js@npm:1.5.7"
-  checksum: 779882be5e282df9418838615582a11cb8ca46928c4f5209f5809dedb6a9e2611320d830658e027b50d051f829a202f43e88e58693099c8214e1d9626ad3c6d5
+  version: 1.6.5
+  resolution: "hls.js@npm:1.6.5"
+  checksum: b156c31c1050b5be0d135b81c149d06656667d4d6f5de666a4ee41f7ee99e779c7cbd43e8a90ff5d0c7ab1c74e0d06cba52cfc10b8c2ccc2b49cbce67b0072ad
   languageName: node
   linkType: hard
 

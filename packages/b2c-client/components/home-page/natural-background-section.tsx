@@ -40,7 +40,7 @@ const NaturalBackgroundSection: React.FC = () => {
                     backgroundImage: 'url(/images/bg-tea.jpeg)',
                     transform: `translate3d(0, ${parallaxOffset}px, 0)`,
                     height: '150%',
-                    top: '-150%',
+                    top: '-100%',
                     width: '100%',
                 }}
             />
@@ -134,9 +134,6 @@ const NaturalBackgroundSection: React.FC = () => {
                     animation: 'float 12s ease-in-out infinite',
                 }}
             >
-                <div className="text-4xl text-amber-300 drop-shadow-lg md:text-5xl">
-                    🌿
-                </div>
             </div>
 
             <div
@@ -146,7 +143,6 @@ const NaturalBackgroundSection: React.FC = () => {
                     animation: 'float 10s ease-in-out infinite reverse',
                 }}
             >
-                <div className="text-3xl text-amber-400 drop-shadow-lg">☘️</div>
             </div>
         </div>
     );

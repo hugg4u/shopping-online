@@ -230,46 +230,45 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     <div className="flex flex-col gap-3 text-base sm:flex-row sm:items-center sm:gap-10 sm:text-lg">
                         <p className="text-slate-500 font-medium sm:font-normal">Số lượng</p>
                         <div className="flex w-fit items-center">
-                        <div className="flex border border-slate-300">
-                            <div
-                                className={cn(
-                                    'flex h-[30px] w-[30px] cursor-pointer select-none items-center justify-center border-r border-r-slate-300',
-                                    disable && 'cursor-not-allowed'
-                                )}
-                                onClick={() =>
-                                    disable
-                                        ? null
-                                        : setByQuantity((prev) => prev - 1)
-                                }
-                                role="presentation"
-                            >
-                                <MinusOutlined />
+                            <div className="flex border border-slate-300">
+                                <div
+                                    className={cn(
+                                        'flex h-[30px] w-[30px] cursor-pointer select-none items-center justify-center border-r border-r-slate-300',
+                                        disable && 'cursor-not-allowed'
+                                    )}
+                                    onClick={() =>
+                                        disable
+                                            ? null
+                                            : setByQuantity((prev) => prev - 1)
+                                    }
+                                    role="presentation"
+                                >
+                                    <MinusOutlined />
+                                </div>
+                                <div className="flex w-[60px] items-center justify-center">
+                                    {buyQuantity}
+                                </div>
+                                <div
+                                    className={cn(
+                                        'flex h-[30px] w-[30px] cursor-pointer select-none items-center justify-center border-l border-l-slate-300',
+                                        disable && 'cursor-not-allowed'
+                                    )}
+                                    onClick={() =>
+                                        disable
+                                            ? null
+                                            : setByQuantity((prev) => prev + 1)
+                                    }
+                                    role="presentation"
+                                >
+                                    <PlusOutlined />
+                                </div>
                             </div>
-                            <div className="flex w-[60px] items-center justify-center">
-                                {buyQuantity}
-                            </div>
-                            <div
-                                className={cn(
-                                    'flex h-[30px] w-[30px] cursor-pointer select-none items-center justify-center border-l border-l-slate-300',
-                                    disable && 'cursor-not-allowed'
-                                )}
-                                onClick={() =>
-                                    disable
-                                        ? null
-                                        : setByQuantity((prev) => prev + 1)
-                                }
-                                role="presentation"
-                            >
-                                <PlusOutlined />
-                            </div>
-                        </div>
                         </div>
                         <div className="text-slate-500 text-sm sm:text-base mt-2 sm:mt-0">
                             {data?.quantity && data?.quantity > 0
                                 ? data?.quantity
                                 : 0}{' '}
                             sản phẩm có sẵn
-                        </div>
                         </div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -281,7 +280,6 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                             size="large"
                         >
                             <span className="hidden sm:inline">Thêm vào giỏ hàng</span>
-                            <span className="sm:hidden">Thêm vào giỏ</span>
                         </Button>
                         <Button
                             className="w-full sm:w-[200px] order-1 sm:order-2"
@@ -319,6 +317,33 @@ const ProductDetail: React.FC<Props> = ({ data }) => {
                     </p>
                     <div>{data?.description}</div>
                 </div>
+                
+                {data?.ingredients && (
+                    <div className="flex flex-col gap-5">
+                        <p className="text-xl uppercase underline underline-offset-4">
+                            Thành phần
+                        </p>
+                        <div>{data?.ingredients}</div>
+                    </div>
+                )}
+                
+                {data?.benefits && (
+                    <div className="flex flex-col gap-5">
+                        <p className="text-xl uppercase underline underline-offset-4">
+                            Công dụng
+                        </p>
+                        <div>{data?.benefits}</div>
+                    </div>
+                )}
+                
+                {data?.usage && (
+                    <div className="flex flex-col gap-5">
+                        <p className="text-xl uppercase underline underline-offset-4">
+                            Hướng dẫn sử dụng
+                        </p>
+                        <div>{data?.usage}</div>
+                    </div>
+                )}
             </div>
             <div className="mt-10">
                 <Feedback

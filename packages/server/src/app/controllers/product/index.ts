@@ -352,6 +352,9 @@ export const getProductPublicInfoById = async (req: Request, res: Response) => {
                 size: true,
                 sold_quantity: true,
                 description: true,
+                ingredients: true,
+                benefits: true,
+                usage: true,
                 thumbnail: true,
             },
         });

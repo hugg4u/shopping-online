@@ -29,6 +29,14 @@ const nextConfig = withTM(
         webpack(config) {
             return config;
         },
+        async rewrites() {
+            return [
+                {
+                    source: '/api/:path*',
+                    destination: 'http://server:8080/:path*',
+                },
+            ];
+        },
     })
 );
 

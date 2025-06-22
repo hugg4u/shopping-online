@@ -16,7 +16,7 @@ if (process.env.NEXT_PUBLIC_SITE === 'CMS') {
 }
 
 const request = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    baseURL: '/api',
     headers: {
         common: { Authorization: `Bearer ${token}` },
     },

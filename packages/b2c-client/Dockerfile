@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . .
 
 # Cài đặt dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # # Build ứng dụng
 # RUN cd packages/b2c-client && yarn build

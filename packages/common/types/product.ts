@@ -35,6 +35,9 @@ export type Product = {
     quantity?: number | null;
     sold_quantity?: number | null;
     description?: string | null;
+    ingredients?: string | null;
+    benefits?: string | null;
+    usage?: string | null;
     size?: number | null;
     category?: Category | null;
     thumbnail?: string | null;

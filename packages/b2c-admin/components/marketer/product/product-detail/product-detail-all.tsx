@@ -109,6 +109,9 @@ const ProductDetailAll: React.FC<Props> = ({ data }) => {
             />
 
             <InfoItem title="Description" value={data?.description} />
+            <InfoItem title="Ingredients" value={data?.ingredients} />
+            <InfoItem title="Benefits" value={data?.benefits} />
+            <InfoItem title="Usage" value={data?.usage} />
             <InfoItem
                 render="IMAGE"
                 title="Thumbnail"

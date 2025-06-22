@@ -106,6 +106,7 @@ const Header = () => {
                                     objectFit: 'contain',
                                     borderRadius: '50%',
                                 }}
+                                className='pb-2'
                             />
                         </div>
                         <div className="relative flex h-[40px] w-[70px] items-center md:h-[60px] md:w-[100px]">

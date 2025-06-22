@@ -40,6 +40,9 @@ type FormType = {
     discount_price?: number | null;
     quantity: number | null;
     description?: string | null;
+    ingredients?: string | null;
+    benefits?: string | null;
+    usage?: string | null;
     isShow: boolean | null;
     thumbnailList?: UploadFile[];
     productImageList?: UploadFile[];
@@ -56,6 +59,9 @@ type ProductRequestType = {
     discount_price?: number | null;
     quantity: number | null;
     description?: string | null;
+    ingredients?: string | null;
+    benefits?: string | null;
+    usage?: string | null;
     isShow: boolean | null;
     thumbnail: string | null;
     product_image: string[];
@@ -159,6 +165,9 @@ const ProductFormModal: React.FC<Props> = ({
                 discount_price: productInfo?.data?.discount_price,
                 briefInfo: productInfo?.data?.briefInfo,
                 description: productInfo?.data?.description,
+                ingredients: productInfo?.data?.ingredients,
+                benefits: productInfo?.data?.benefits,
+                usage: productInfo?.data?.usage,
                 thumbnailList: productInfo?.data?.thumbnail
                     ? [
                           {
@@ -238,6 +247,9 @@ const ProductFormModal: React.FC<Props> = ({
             original_price,
             discount_price,
             description,
+            ingredients,
+            benefits,
+            usage,
             isFeatured,
             briefInfo,
         } = values;
@@ -273,6 +285,9 @@ const ProductFormModal: React.FC<Props> = ({
                 original_price,
                 discount_price,
                 description,
+                ingredients,
+                benefits,
+                usage,
                 isFeatured,
                 thumbnail: thumbnailListResponse?.[0] ?? '',
                 product_image: productImageListRequest ?? [],
@@ -317,6 +332,9 @@ const ProductFormModal: React.FC<Props> = ({
                 original_price,
                 discount_price,
                 description,
+                ingredients,
+                benefits,
+                usage,
                 isFeatured,
                 briefInfo,
                 thumbnail: newThumbnail?.[0] ?? '',
@@ -561,6 +579,45 @@ const ProductFormModal: React.FC<Props> = ({
                                         max: 2000,
                                         message:
                                             'Description must be less than 2000 characters!',
+                                    },
+                                ]}
+                            >
+                                <Input.TextArea rows={5} />
+                            </Form.Item>
+                            <Form.Item<FormType>
+                                label="Ingredients"
+                                name="ingredients"
+                                rules={[
+                                    {
+                                        max: 2000,
+                                        message:
+                                            'Ingredients must be less than 2000 characters!',
+                                    },
+                                ]}
+                            >
+                                <Input.TextArea rows={5} />
+                            </Form.Item>
+                            <Form.Item<FormType>
+                                label="Benefits"
+                                name="benefits"
+                                rules={[
+                                    {
+                                        max: 2000,
+                                        message:
+                                            'Benefits must be less than 2000 characters!',
+                                    },
+                                ]}
+                            >
+                                <Input.TextArea rows={5} />
+                            </Form.Item>
+                            <Form.Item<FormType>
+                                label="Usage"
+                                name="usage"
+                                rules={[
+                                    {
+                                        max: 2000,
+                                        message:
+                                            'Usage must be less than 2000 characters!',
                                     },
                                 ]}
                             >

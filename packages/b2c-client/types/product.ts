@@ -5,6 +5,9 @@ export type Product = {
     original_price: number;
     quantity: number;
     description: string;
+    ingredients?: string;
+    benefits?: string;
+    usage?: string;
     thumbnail: string;
     updatedAt: string;
     briefInfo: string;
