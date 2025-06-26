@@ -7,122 +7,117 @@ import type { NextPageWithLayout } from '../_app';
 const blogPosts = {
     '1': {
         id: '1',
-        title: 'Tác dụng của trà oolong với hệ tiêu hóa',
-        category: 'Sức khỏe',
-        date: '12/12/2024',
-        image: '/images/bg-tea.jpeg',
+        title: 'Thả lỏng cơ thể và tâm trí với 1 tách trà thảo mộc mỗi ngày',
+        category: 'Lối sống',
+        date: '20/06/2025',
+        image: '/images/thalong.jpg',
         content: `
-            <p>Trà oolong là một loại trà truyền thống có nguồn gốc từ Trung Quốc và Đài Loan, được biết đến với khả năng hỗ trợ tiêu hóa tuyệt vời. Với quy trình chế biến đặc biệt, trà oolong giữ được nhiều hoạt chất có lợi cho sức khỏe.</p>
+            <p>Trong nhịp sống hối hả hiện đại, ai trong chúng ta cũng đôi lúc cảm thấy căng thẳng, mệt mỏi và cần một khoảnh khắc bình yên để "hít thở lại". Thay vì chạy theo các phương pháp chăm sóc sức khỏe phức tạp hay đắt đỏ, đôi khi chỉ cần một tách trà thảo mộc mỗi ngày cũng đủ để tạo nên sự khác biệt lớn cho cả cơ thể lẫn tâm trí.</p>
             
-            <h2>Lợi ích của trà oolong đối với hệ tiêu hóa</h2>
+            <h2><strong>Trà thảo mộc – món quà từ thiên nhiên</strong></h2>
+            <p>Trà thảo mộc không chỉ là một thức uống đơn thuần. Được pha chế từ các loại lá, hoa, vỏ cây và rễ thiên nhiên như hoa cúc, bạc hà, gừng, cam thảo hay lavender, mỗi tách trà mang trong mình những lợi ích trị liệu riêng biệt: giúp thư giãn hệ thần kinh, hỗ trợ tiêu hóa, cải thiện giấc ngủ, giảm viêm, giải độc… Tùy theo nhu cầu cá nhân, bạn có thể chọn loại trà phù hợp nhất với cơ thể mình.</p>
             
-            <h3>1. Hỗ trợ tiêu hóa chất béo</h3>
-            <p>Trà oolong chứa polyphenol và catechin, những hợp chất giúp kích thích enzyme tiêu hóa và hỗ trợ phân hủy chất béo hiệu quả hơn.</p>
+            <h2><strong>Khoảnh khắc thiền trong từng ngụm trà</strong></h2>
+            <p>Khi pha trà, bạn không chỉ đơn thuần chuẩn bị một thức uống – bạn đang tạo ra một nghi lễ chăm sóc bản thân. Từng bước đun nước, chọn lá trà, chờ đợi nước rút hương… là quá trình bạn quay về với chính mình, tạm rời xa những lo toan bộn bề. Chỉ cần 10 phút mỗi ngày để nhâm nhi một tách trà ấm, tâm trí bạn sẽ được làm mới, tĩnh tại và sáng suốt hơn.</p>
             
-            <h3>2. Cải thiện chức năng ruột</h3>
-            <p>Các chất chống oxy hóa trong trà oolong giúp duy trì sự cân bằng vi sinh vật đường ruột, từ đó cải thiện quá trình hấp thụ chất dinh dưỡng.</p>
+            <h2><strong>Một thói quen nhỏ – Một sự thay đổi lớn</strong></h2>
+            <p>Duy trì thói quen uống trà thảo mộc mỗi ngày không chỉ giúp cải thiện sức khỏe thể chất mà còn nâng cao sức khỏe tinh thần. Đó là lời nhắc nhở nhẹ nhàng rằng: bạn xứng đáng có một khoảng thời gian để chăm sóc chính mình – dù là giữa guồng quay công việc hay sau một ngày dài mệt nhoài.</p>
             
-            <h3>3. Giảm viêm dạ dày</h3>
-            <p>Tính chất chống viêm của trà oolong có thể giúp làm dịu niêm mạc dạ dày và giảm các triệu chứng khó tiêu.</p>
-            
-            <h2>Cách uống trà oolong đúng cách</h2>
-            <ul>
-                <li>Uống 2-3 tách trà oolong mỗi ngày</li>
-                <li>Uống sau bữa ăn 30-60 phút để hỗ trợ tiêu hóa tốt nhất</li>
-                <li>Pha trà với nước nhiệt độ 85-95°C</li>
-                <li>Thời gian ngâm 3-5 phút</li>
-            </ul>
-            
-            <p>Trà oolong không chỉ mang lại hương vị thơm ngon mà còn là người bạn đồng hành tuyệt vời cho hệ tiêu hóa khỏe mạnh của bạn.</p>
+            <p>Hãy bắt đầu từ hôm nay. Một tách trà, một khoảnh khắc lặng yên, và một phiên bản bạn khỏe mạnh, an yên hơn đang chờ đón.</p>
         `,
     },
     '2': {
         id: '2',
-        title: 'Cách pha trà đúng cách để giữ nguyên hương vị',
-        category: 'Kiến thức',
-        date: '10/12/2024',
-        image: '/images/bg-tea.jpeg',
+        title: 'Bí Quyết Ngủ Ngon, Da Đẹp, Cơ Thể Nhẹ Nhàng Nhờ Trà Thảo Mộc',
+        category: 'Sức khỏe',
+        date: '20/06/2025',
+        image: '/images/biquyet.jpg',
         content: `
-            <p>Pha trà là một nghệ thuật tinh tế đòi hỏi sự am hiểu về từng loại trà và kỹ thuật pha chế phù hợp. Mỗi loại trà có đặc điểm riêng và cần được đối xử một cách đặc biệt để tỏa ra hương vị tuyệt vời nhất.</p>
+            <p>Bạn có biết, giấc ngủ chất lượng không chỉ giúp tái tạo năng lượng mà còn là yếu tố then chốt trong việc cải thiện làn da và thanh lọc cơ thể? Trong nhiều năm làm việc trong lĩnh vực sức khỏe tự nhiên, tôi nhận thấy một giải pháp đơn giản nhưng cực kỳ hiệu quả – đó chính là trà thảo mộc.</p>
             
-            <h2>Các yếu tố quan trọng khi pha trà</h2>
+            <h2><strong>Vì sao trà thảo mộc lại được ưa chuộng đến vậy?</strong></h2>
+            <p>Không chỉ đơn thuần là một loại thức uống, trà thảo mộc là sự kết hợp của các loại dược liệu tự nhiên có tác dụng hỗ trợ giấc ngủ, làm đẹp da và cân bằng cơ thể. Các loại thảo mộc như hoa cúc, bạc hà, tâm sen, lạc tiên, hoặc atiso đều đã được nghiên cứu và sử dụng trong y học cổ truyền lẫn hiện đại.</p>
             
-            <h3>1. Nhiệt độ nước</h3>
+            <h3><strong>1. Ngủ ngon nhờ cơ chế thư giãn tự nhiên</strong></h3>
+            <p>Các hoạt chất trong hoa cúc và lạc tiên giúp an thần, làm dịu hệ thần kinh, hỗ trợ cơ thể đi vào giấc ngủ một cách tự nhiên mà không gây nghiện hay mệt mỏi vào sáng hôm sau – điều mà nhiều loại thuốc ngủ tổng hợp không làm được.</p>
+            
+            <h3><strong>2. Da đẹp hơn mỗi sáng nhờ giấc ngủ sâu</strong></h3>
+            <p>Một giấc ngủ sâu và đủ sẽ thúc đẩy quá trình sản sinh collagen và hormone tăng trưởng – yếu tố then chốt giúp làn da phục hồi, sáng mịn và giảm mụn. Trà thảo mộc cũng có khả năng chống oxy hóa, giúp cơ thể loại bỏ gốc tự do – "kẻ thù" gây lão hóa da.</p>
+            
+            <h3><strong>3. Thanh lọc cơ thể, giảm cảm giác nặng nề</strong></h3>
+            <p>Một số loại trà như atiso, rễ bồ công anh hoặc gừng hỗ trợ giải độc gan, lợi tiểu nhẹ và thúc đẩy quá trình trao đổi chất. Điều này không chỉ giúp cơ thể nhẹ nhàng hơn mà còn hỗ trợ kiểm soát cân nặng và cải thiện hệ tiêu hóa.</p>
+            
+            <h2><strong>Cách sử dụng hiệu quả</strong></h2>
             <ul>
-                <li><strong>Trà xanh:</strong> 70-80°C</li>
-                <li><strong>Trà oolong:</strong> 85-95°C</li>
-                <li><strong>Trà đen:</strong> 95-100°C</li>
-                <li><strong>Trà trắng:</strong> 75-85°C</li>
+                <li>Uống 1 tách trà ấm trước khi ngủ khoảng 30–60 phút</li>
+                <li>Duy trì thói quen hàng ngày để đạt hiệu quả tối ưu</li>
+                <li>Kết hợp cùng chế độ ăn lành mạnh và lối sống khoa học</li>
             </ul>
             
-            <h3>2. Tỷ lệ trà và nước</h3>
-            <p>Tỷ lệ lý tưởng là 1 gram trà cho 50-100ml nước, tùy thuộc vào độ đậm đà mong muốn và loại trà sử dụng.</p>
-            
-            <h3>3. Thời gian ngâm</h3>
-            <ul>
-                <li><strong>Trà xanh:</strong> 1-3 phút</li>
-                <li><strong>Trà oolong:</strong> 3-5 phút</li>
-                <li><strong>Trà đen:</strong> 3-5 phút</li>
-                <li><strong>Trà trắng:</strong> 4-6 phút</li>
-            </ul>
-            
-            <h2>Bí quyết pha trà ngon</h2>
-            
-            <h3>Chuẩn bị dụng cụ</h3>
-            <p>Sử dụng ấm trà bằng gốm hoặc thủy tinh, tránh dùng kim loại để không ảnh hưởng đến hương vị trà.</p>
-            
-            <h3>Quy trình pha trà</h3>
-            <ol>
-                <li>Đun nước đến nhiệt độ phù hợp</li>
-                <li>Làm nóng ấm trà bằng cách rót nước nóng vào rồi đổ ra</li>
-                <li>Cho trà vào ấm và rót nước nóng</li>
-                <li>Đậy nắp và ngâm theo thời gian quy định</li>
-                <li>Lọc trà và thưởng thức ngay</li>
-            </ol>
-            
-            <p>Với những bí quyết này, bạn sẽ có thể pha được những tách trà thơm ngon, giữ nguyên được hương vị đặc trưng của từng loại trà.</p>
+            <h2><strong>Kết luận</strong></h2>
+            <p>Trà thảo mộc không chỉ là một thức uống thư giãn, mà còn là liệu pháp tự nhiên hỗ trợ giấc ngủ, làm đẹp và cải thiện sức khỏe tổng thể. Hãy bắt đầu từ một tách trà mỗi tối – đơn giản, nhẹ nhàng, nhưng hiệu quả lâu dài.</p>
         `,
     },
     '3': {
         id: '3',
-        title: 'Văn hóa uống trà Việt Nam qua các thế hệ',
-        category: 'Lối sống',
-        date: '08/12/2024',
-        image: '/images/bg-tea.jpeg',
+        title: 'Trà thảo mộc: Liệu pháp tự nhiên giúp bạn cân bằng lại cuộc sống',
+        category: 'Liệu pháp',
+        date: '20/06/2025',
+        image: '/images/trathaomoc.jpg',
         content: `
-            <p>Trà không chỉ là thức uống quen thuộc mà còn là một phần không thể thiếu trong văn hóa Việt Nam. Từ những tách trà đơn giản trong gia đình đến những buổi đàm đạo bên ấm trà, văn hóa trà đã gắn bó với người Việt qua bao thế hệ.</p>
+            <p>Trong nhịp sống hiện đại đầy áp lực, việc tìm kiếm sự cân bằng giữa công việc, gia đình và sức khỏe cá nhân đang trở thành ưu tiên của nhiều người. Với hơn 10 năm nghiên cứu và thực hành trong lĩnh vực dược liệu và liệu pháp tự nhiên, tôi nhận thấy trà thảo mộc không chỉ đơn thuần là một loại đồ uống – mà còn là một liệu pháp tinh thần và thể chất sâu sắc.</p>
             
-            <h2>Lịch sử trà tại Việt Nam</h2>
+            <h2><strong>Trà thảo mộc – không chỉ là thức uống, mà là nghệ thuật chăm sóc bản thân</strong></h2>
+            <p>Trà thảo mộc có nguồn gốc từ thiên nhiên, được chiết xuất từ hoa, lá, rễ hoặc vỏ cây – mỗi loại mang trong mình một dược tính riêng biệt. Chẳng hạn, hoa cúc giúp an thần và cải thiện giấc ngủ; lá bạc hà hỗ trợ tiêu hóa; gừng tăng cường hệ miễn dịch và giảm viêm. Việc lựa chọn đúng loại trà theo nhu cầu cơ thể không chỉ cải thiện sức khỏe thể chất mà còn nuôi dưỡng tinh thần một cách tự nhiên và an toàn.</p>
             
-            <h3>Thời kỳ phong kiến</h3>
-            <p>Trà được du nhập vào Việt Nam từ thời phong kiến, ban đầu chỉ phổ biến trong hoàng gia và tầng lớp quý tộc. Các nghi lễ uống trà được thực hiện theo cung cách trang trọng với nhiều quy tắc phức tạp.</p>
+            <h2><strong>Cân bằng cơ thể – bắt đầu từ những thói quen nhỏ</strong></h2>
+            <p>Là một chuyên gia trong lĩnh vực trị liệu tự nhiên, tôi thường khuyên khách hàng bắt đầu hành trình chữa lành bằng những thay đổi nhỏ – như uống một ly trà thảo mộc mỗi ngày. Thói quen này có thể giúp cơ thể dần phục hồi nhịp sinh học, giải độc gan, giảm căng thẳng và cải thiện tâm trạng.</p>
             
-            <h3>Thời kỳ hiện đại</h3>
-            <p>Trà dần trở nên phổ biến trong dân gian, mỗi vùng miền phát triển những cách pha và thưởng thức trà riêng biệt, tạo nên sự đa dạng trong văn hóa trà Việt Nam.</p>
+            <p>Hãy tưởng tượng sau một ngày dài làm việc, bạn ngồi bên cửa sổ, tay cầm ly trà hoa nhài ấm áp, hít thở hương thơm dịu nhẹ. Khoảnh khắc đó chính là liệu pháp – một khoảng lặng quý giá giúp bạn kết nối lại với chính mình.</p>
             
-            <h2>Đặc trưng văn hóa trà các vùng miền</h2>
+            <h2><strong>Lời khuyên từ chúng tôi</strong></h2>
+            <p>Nếu bạn đang tìm kiếm một phương pháp đơn giản để cải thiện chất lượng sống mà không cần dùng đến thuốc, trà thảo mộc là lựa chọn lý tưởng. Tuy nhiên, điều quan trọng là sự kiên trì và hiểu đúng về từng loại thảo mộc. Không phải loại trà nào cũng phù hợp với tất cả mọi người, và việc sử dụng cần được cá nhân hóa theo thể trạng và lối sống.</p>
             
-            <h3>Miền Bắc</h3>
-            <p>Trà sen, trà tôm, trà tim... với cách pha tinh tế, thưởng thức chậm rãi trong không gian yên tĩnh.</p>
+            <h2><strong>Kết luận</strong></h2>
+            <p>Trà thảo mộc không chỉ là xu hướng nhất thời – đó là sự trở về với tự nhiên, là cách để chúng ta tự chữa lành, tái tạo năng lượng và giữ vững sự bình an trong tâm hồn. Hãy để mỗi tách trà là một bước nhỏ trên hành trình tìm lại sự cân bằng và khỏe mạnh thực sự.</p>
+        `,
+    },
+    '4': {
+        id: '4',
+        title: "Thức uống 'vàng' cho người bận rộn: Trà thảo mộc thanh lọc và thư giãn",
+        category: 'Tiết kiệm thời gian',
+        date: '20/06/2025',
+        image: '/images/thucuongvang.jpg',
+        content: `
+            <p>Trong nhịp sống hiện đại hối hả, việc chăm sóc sức khỏe thường bị đặt sau những ưu tiên công việc, gia đình và các mối bận tâm thường nhật. Tuy nhiên, một trong những cách đơn giản và hiệu quả nhất để tái tạo năng lượng chính là tận dụng sức mạnh của thiên nhiên – đặc biệt là qua trà thảo mộc.</p>
             
-            <h3>Miền Trung</h3>
-            <p>Trà Huế với hương vị đậm đà, mang đậm phong cách hoàng gia, thường được dùng trong các dịp lễ tết.</p>
+            <h2><strong>Vì sao trà thảo mộc được ví như "thức uống vàng"?</strong></h2>
+            <p>Với chuyên môn trong lĩnh vực sức khỏe tự nhiên và thảo dược học, tôi nhận thấy rằng trà thảo mộc không chỉ là một món uống thông thường. Nó là sự kết hợp tinh tế giữa khoa học sức khỏe cổ truyền và lối sống hiện đại, mang lại nhiều lợi ích nổi bật:</p>
             
-            <h3>Miền Nam</h3>
-            <p>Trà đá, trà sữa... phong cách gần gũi, dễ uống, phù hợp với khí hậu nhiệt đới.</p>
+            <ul>
+                <li><strong>Thanh lọc cơ thể:</strong> Các loại thảo mộc như atiso, cam thảo, gừng hoặc bạc hà giúp hỗ trợ chức năng gan, thúc đẩy quá trình thải độc và giảm cảm giác nặng nề sau một ngày dài.</li>
+                <li><strong>Thư giãn tinh thần:</strong> Hoa cúc, oải hương và lá sen có tác dụng làm dịu hệ thần kinh, giảm căng thẳng và hỗ trợ giấc ngủ tự nhiên.</li>
+                <li><strong>Tăng sức đề kháng:</strong> Với đặc tính kháng khuẩn và chống oxy hóa, trà thảo mộc còn giúp cơ thể tăng cường miễn dịch, đặc biệt quan trọng trong giai đoạn thời tiết thay đổi thất thường.</li>
+            </ul>
             
-            <h2>Ý nghĩa văn hóa của trà</h2>
+            <h2><strong>Dành cho người bận rộn – nhưng vẫn muốn khỏe mạnh</strong></h2>
+            <p>Là một chuyên gia từng làm việc với hàng trăm khách hàng là nhân viên văn phòng, doanh nhân, hoặc phụ huynh bận rộn, tôi nhận thấy trà thảo mộc chính là lựa chọn lý tưởng vì:</p>
             
-            <h3>Gắn kết gia đình</h3>
-            <p>Tách trà là cầu nối giữa các thế hệ, nơi truyền đạt kinh nghiệm sống và chia sẻ tâm tư.</p>
+            <ul>
+                <li><strong>Dễ pha, dễ uống:</strong> Chỉ cần 5 phút mỗi ngày, bạn đã có một tách trà thơm ngon, đầy dưỡng chất.</li>
+                <li><strong>Không caffeine:</strong> Không gây nghiện, không làm bạn mất ngủ như cà phê.</li>
+                <li><strong>Mang tính cá nhân hóa:</strong> Có thể chọn loại trà phù hợp với cơ địa hoặc mục tiêu sức khỏe cá nhân.</li>
+            </ul>
             
-            <h3>Giao tiếp xã hội</h3>
-            <p>Mời trà là cách thể hiện lòng hiếu khách, tạo không gian thân mật cho các cuộc trò chuyện.</p>
+            <h2><strong>Gợi ý cách dùng hiệu quả</strong></h2>
+            <ul>
+                <li><strong>Sáng sớm:</strong> Dùng trà gừng hoặc trà atiso để khởi động tiêu hóa.</li>
+                <li><strong>Buổi chiều:</strong> Trà bạc hà giúp tỉnh táo mà không gây bồn chồn.</li>
+                <li><strong>Tối:</strong> Trà hoa cúc hoặc oải hương để dễ đi vào giấc ngủ sâu.</li>
+            </ul>
             
-            <h3>Tâm linh và triết học</h3>
-            <p>Uống trà giúp tĩnh tâm, suy ngẫm về cuộc sống, tìm lại sự cân bằng trong tâm hồn.</p>
-            
-            <p>Văn hóa trà Việt Nam là kho tàng vô giá cần được bảo tồn và phát huy, để các thế hệ mai sau có thể tiếp nối truyền thống tốt đẹp này.</p>
+            <h2><strong>Kết luận</strong></h2>
+            <p>Trà thảo mộc không chỉ là một món uống mà còn là một phương pháp chăm sóc sức khỏe chủ động – đặc biệt phù hợp với người bận rộn, mong muốn sống chậm lại mà không mất đi nhịp độ công việc. Hãy để mỗi tách trà là một khoảng lặng, nơi bạn kết nối với chính mình và hồi phục từ bên trong.</p>
         `,
     },
     featured: {
