@@ -9,6 +9,7 @@ const MainSider = () => {
             <SiderItem href="/product" title="Sản phẩm" />
             {/* <CategoryPopover /> */}
             <BrandPopover />
+            <SiderItem href="/blog-new" title="Blog" />
             <SiderItem href="/about" title="Về chúng tôi" />
             <SiderItem href="/contact" title="Liên hệ" />
         </div>
