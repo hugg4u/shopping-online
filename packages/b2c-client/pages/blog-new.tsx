@@ -96,7 +96,7 @@ const BlogPage: NextPageWithLayout = () => {
                             <img
                                 alt="Blog 1"
                                 className="h-48 w-full object-cover"
-                                src="/images/bg-tea.jpeg"
+                                src="/images/thalong.jpg"
                             />
                             <div className="p-6">
                                 <div className="mb-3 flex items-center">
@@ -140,7 +140,7 @@ const BlogPage: NextPageWithLayout = () => {
                             <img
                                 alt="Blog 2"
                                 className="h-48 w-full object-cover"
-                                src="/images/bg-tea.jpeg"
+                                src="/images/biquyet.jpg"
                             />
                             <div className="p-6">
                                 <div className="mb-3 flex items-center">
@@ -184,7 +184,7 @@ const BlogPage: NextPageWithLayout = () => {
                             <img
                                 alt="Blog 3"
                                 className="h-48 w-full object-cover"
-                                src="/images/bg-tea.jpeg"
+                                src="/images/trathaomoc.jpg"
                             />
                             <div className="p-6">
                                 <div className="mb-3 flex items-center">
@@ -192,7 +192,7 @@ const BlogPage: NextPageWithLayout = () => {
                                         Liệu pháp
                                     </span>
                                     <span className="ml-auto text-sm text-gray-500">
-                                        08/12/2024
+                                        20/06/2024
                                     </span>
                                 </div>
                                 <h3 className="mb-3 text-xl font-bold text-gray-800">
@@ -220,7 +220,7 @@ const BlogPage: NextPageWithLayout = () => {
                             <img
                                 alt="Blog 4"
                                 className="h-48 w-full object-cover"
-                                src="/images/bg-tea.jpeg"
+                                src="/images/thucuongvang.jpg"
                             />
                             <div className="p-6">
                                 <div className="mb-3 flex items-center">
